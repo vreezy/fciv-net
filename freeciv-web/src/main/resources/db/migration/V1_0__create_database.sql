@@ -49,7 +49,7 @@ CREATE TABLE `players` (
   `host` varchar(255) DEFAULT 'unknown',
   `flag` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`hostport`,`name`)
-) ENGINE=MEMORY DEFAULT CHARSET=latin1 MAX_ROWS=8192;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 MAX_ROWS=8192;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `servers` (
   `available` int(11) DEFAULT '0',
   `serverid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`host`,`port`)
-) ENGINE=MEMORY DEFAULT CHARSET=latin1 MAX_ROWS=256;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 MAX_ROWS=256;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
