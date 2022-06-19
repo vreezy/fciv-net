@@ -13,7 +13,7 @@
         e.printStackTrace();
     }
 %>
-<title>${empty title ? "Freeciv-web - open source turn-based strategy game" : title}</title>
+<title>FCIV.NET</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="author" content="The Freeciv project">
