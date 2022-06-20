@@ -76,7 +76,7 @@
 		font-size: 20px;
 		text-transform: uppercase;
 		margin: 20px auto 10px;
-		background: #be602d;
+		background: #be2d2d;
    text-shadow:
     -0.5px -0.5px 0 #000,
     0.5px -0.5px 0 #000,
@@ -172,12 +172,15 @@
 							</div>
 						</c:if>
 						<a href="/game/list?v=multiplayer" class="btn"><i class="fa fa-users"></i> <fmt:message key="index-game-launcher-multiplayer"/></a>
-						<c:if test="${default_lang}">
+
+						<%--<c:if test="${default_lang}">
 							<div class="features">
 								Start a play-by-email game where you get an e-mail <br> when it is your turn to play.
 							</div>
 						</c:if>
 						<a href="/webclient/?action=pbem&type=pbem" class="btn"><i class="fa fa-envelope"></i> <fmt:message key="index-game-launcher-play-by-email"/></a>
+						--%>
+
 						<c:if test="${default_lang}">
 							<div class="features">
 								Play multiple human players <br> on the same computer
@@ -212,7 +215,7 @@
 	    <div class="row">
 			<div class="col-md-6">
 				<div class="panel-freeciv">
-					<h3>Multiplayer and One Turn per Day games:</h3>
+					<h3>Multiplayer:</h3>
 					<c:if test="${not empty games and fn:length(games) > 0}">
 						<table class="table multiplayer-games">
 							<thead>
@@ -299,44 +302,19 @@
 							-->
 						</tbody>
 					</table>
+
 				</div>
 			</div>
 		</div> <!-- end multiplayer/best play by email -->
 
 
-                <div class="row">
-                        <div class="col-md-12">
-                                <h2><fmt:message key="index-youtube"/></h2>
-                        </div>
-                </div>
-                <div class="row">
-                        <div class="col-md-6">
-                                <div class="videoWrapper">
-                                        <iframe class="embed-responsive-item" width="542" height="343" src="https://www.youtube.com/embed/eNuercg7Jko" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                        </div>
-                       <div class="col-md-6">
-                                <div class="videoWrapper">
-                                        <iframe class="embed-responsive-item" width="542" height="343" src="https://www.youtube.com/embed/jZsq9SADdQk" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                        </div>
-
-
-</div> <!-- end youtube -->
-
-
-		<div class="row">
-			<div class="col-md-12">
-				<h2><fmt:message key="index-press"/></h2>
-				<div class="well">
-					<h4><i><fmt:message key="index-press-pc-gamer-title"/></i></h4>
-					<i><fmt:message key="index-press-pc-gamer-content"/></i>
-					<br>
-					<a href="http://www.pcgamer.com/freeciv-available-in-html5-browsers-worldwide-productivity-plummets/" target="new"><img style="display: block; float: right;" src="images/pcgamer.gif" alt="PC Gamer"></a>
-					<br>
+	    <div class="row">
+				<div class="col-md-12">
+                    <br><br>
+					<iframe src="https://discord.com/widget?id=960605237775855676&theme=dark" width="350" height="300" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 				</div>
-			</div>
-		</div> <!-- end press -->
+		</div>
+
 		
 		<c:if test="${default_lang}">
 			<div class="row">
@@ -363,25 +341,12 @@
 						<img class="small" src="/static/images/blender-stack.png">Blender
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="panel-freeciv">
-						<h4><fmt:message key="index-credits"/></h4>
-						<ul>
-							<li>Andreas R&oslash;sdal <i class="fa fa-twitter"></i>  <a href="https://twitter.com/andreasrosdal/">@andreasrosdal</a></li>
-							<li>Sveinung Kvilhaugsvik <i class="fa fa-github"></i>  <a href="https://github.com/kvilhaugsvik">@kvilhaugsvik</a></li>
-							<li>Marko Lindqvist <i class="fa fa-github"></i>  <a href="https://github.com/cazfi">@cazfi</a></li>
-							<li><a href="http://www.freeciv.org/wiki/People">Full list</a></li>
-						</ul>
-						
-					</div>
-				</div>
+
 			</div> <!-- end developers -->
 		</c:if>
 
 
 		<%@include file="/WEB-INF/jsp/fragments/footer.jsp"%>
 	</div>
-
-  <script src="//cdn.webglstats.com/stat.js" defer async></script>
 </body>
 </html>	

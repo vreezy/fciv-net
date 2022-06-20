@@ -160,7 +160,7 @@ exec > >(tee "${basedir}/install.log")
 exec 2>&1
 
 echo "================================="
-echo "Running Freeciv-web setup script."
+echo "Running FCIV.NET setup script."
 echo "================================="
 echo
 
@@ -323,7 +323,7 @@ if [ "${FCW_INSTALL_MODE}" = TEST ] && [ ! -f /etc/nginx/ssl/freeciv-web.crt ]; 
 fi
 
 echo
-echo Freeciv-web installed!
+echo FCIV.NET installed!
 if [ ${#ext_installed[*]} -ne 0 ]; then
   echo "Some components have been installed outside the package managers:"
   for m in "${ext_installed[@]}"; do

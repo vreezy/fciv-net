@@ -27,7 +27,7 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-<title>Freeciv-web</title>
+<title>FCIV.NET</title>
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/webclient.min.css?ts=${initParam.buildTimeStamp}" />
 <meta name="description" content="Freeciv-Web is a Free and Open Source empire-building strategy game inspired by the history of human civilization.">
@@ -63,22 +63,23 @@ var fcwDebug=<%= fcwDebug %>;
           async defer>
   </script>
 <% } %>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-35GD0T4L9J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-35GD0T4L9J');
+</script>
+
 </head>
 
 <body>
     <jsp:include page="pregame.jsp" flush="false"/>
     <jsp:include page="game.jsp" flush="false"/>
 
-<% if (gaTrackingId != null) { %>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', '<%= gaTrackingId %>', 'auto');
-  ga('send', 'pageview');
-</script>
-<% } %>
 </body>
 
 <script id="terrain_fragment_shh" type="x-shader/x-fragment">

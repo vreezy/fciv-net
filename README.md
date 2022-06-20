@@ -1,20 +1,20 @@
-THE FREECIV-WEB PROJECT
------------------------
+FCIV.NET
+--------
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Build Status](https://github.com/fciv-net/fciv-net/workflows/continuous%20integration/badge.svg)](https://github.com/fciv-net/fciv-net/actions?query=workflow%3A%22continuous+integration%22)
 [![Code Quality: Javascript](https://img.shields.io/lgtm/grade/javascript/g/freeciv/freeciv-web.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/freeciv/freeciv-web/context:javascript)
 [![Total Alerts](https://img.shields.io/lgtm/alerts/g/freeciv/freeciv-web.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/freeciv/freeciv-web/alerts)
 
-Freeciv-web is an open-source turn-based strategy game. It can be played in any HTML5 capable web-browser and features in-depth game-play and a wide variety of game modes and options. Your goal is to build cities, collect resources, organize your government, and build an army, with the ultimate goal of creating the best civilization. You can play online against other players (multiplayer) or play by yourself against the computer. There is both a HTML5 2D version with isometric graphics and a 3D WebGL version of Freeciv-web. 
+FCIV.NET is an open-source turn-based strategy game. It can be played in any HTML5 capable web-browser and features in-depth game-play and a wide variety of game modes and options. Your goal is to build cities, collect resources, organize your government, and build an army, with the ultimate goal of creating the best civilization. You can play online against other players (multiplayer) or play by yourself against the computer. There is both a HTML5 2D version with isometric graphics and a 3D WebGL version of Freeciv-web. 
 
-Freeciv-web is free and open source software. The Freeciv C server is released under the GNU General Public License, while the Freeciv-web client is released
+FCIV.NET is free and open source software. The Freeciv C server is released under the GNU General Public License, while the Freeciv-web client is released
 under the GNU Affero General Public License. See [License](LICENSE.txt) for the full license document.
 
 
 Live servers
 ------------
-Currently known servers based on Freeciv-web, which are open source in compliance with [the AGPL license](https://github.com/freeciv/freeciv-web/blob/develop/LICENSE.txt):
+Currently known servers based on FCIV.NET / Freeciv-web, which are open source in compliance with [the AGPL license](https://github.com/freeciv/freeciv-web/blob/develop/LICENSE.txt):
 - [fciv.net](https://www.fciv.net) [https://github.com/fciv-net/fciv-net]
 
 Freeciv-web screenshots:
@@ -64,7 +64,7 @@ Whatever the method you choose, you'll have to check out Freeciv-web to a
 directory on your computer, by installing [Git](http://git-scm.com/) and
 running this command:
  ```bash
-  git clone https://github.com/freeciv/freeciv-web.git --depth=10
+  git clone https://github.com/fciv-net/fciv-net.git --depth=10
  ```
 
 You may also want to change some parameters before installing, although
@@ -83,7 +83,7 @@ but not afterwards. If you touch shared files after installation, please use
 an editor that respect Unix line endings or transform them with a utility
 like dos2unix after saving them.
 
-### Running Freeciv-web with Vagrant on VirtualBox
+### Running FCIV.NET with Vagrant on VirtualBox
 
 Freeciv-web can be setup using Vagrant on VirtualBox to quickly create a 
 local developer image running Freeciv-web on latest Ubuntu on your host

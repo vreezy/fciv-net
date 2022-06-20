@@ -1363,7 +1363,7 @@ function init_game_unit_panel()
 			resizable: false,
 			closeOnEscape: false,
 			dialogClass: 'unit_dialog  no-close',
-			position: {my: 'right bottom', at: 'right bottom', of: window, within: $("#tabs-map")},
+			position: {my: 'right bottom', at: 'right bottom', of: window},
 			appendTo: '#tabs-map',
 			close: function(event, ui) { unitpanel_active = false;}
 

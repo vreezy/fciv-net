@@ -156,7 +156,6 @@
 						<table id="singleplayer-table" class="table">
 							<tr>
 								<th>Flag</th>
-								<th class="hidden-xs">Map</th>
 								<th>Player</th>
 								<th class="hidden-xs">Game details</th>
 								<th class="hidden-xs">Players</th>
@@ -169,11 +168,6 @@
 										<c:if test="${game.flag ne 'none'}">
 											<img src="/images/flags/${game.flag}-web.png" alt="${game.flag}" width="80" height="50" title="${game.turn}">
 										</c:if>
-									</td>
-									<td class="hidden-xs">
-									    <a href="/data/savegames/map-${game.port}.map.gif">
-									        <img src="/data/savegames/map-${game.port}.map.gif" width="80" height="50">
-									    </a>
 									</td>
 									<td><b>${game.player}</b></td>
 									<td class="hidden-xs">${game.message}</td>

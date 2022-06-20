@@ -34,13 +34,7 @@ var fc_seedrandom = null;
 // singleplayer, multiplayer, longturn, pbem
 var game_type = "";
 
-var music_list = [ "battle-epic",
-                   "andrewbeck-ancient",
-                   "into_the_shadows",
-                   "andrewbeck-stings",
-                   "trap_a_space_odyssey_battle_for_the_planet",
-                   "elvish-theme",
-                   "cullambruce-lockhart-dawning_fanfare"];
+var music_list = [ ];
 var audio = null;
 var audio_enabled = false;
 
@@ -57,7 +51,7 @@ var renderer = RENDERER_2DCANVAS;  // This variable specifies which map renderer
 
 
 /**************************************************************************
- Main starting point for Freeciv-web
+ Main starting point for FCIV.NET
 **************************************************************************/
 $(document).ready(function() {
   civclient_init();
