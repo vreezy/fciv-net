@@ -69,7 +69,6 @@ class metachecker():
       self.single = 0;
       self.multi = 0;
       self.pbem = 0;
-      self.longturn = set()
       self.html_doc = "-";
       self.last_http_status = -1;
       s = PubStatus(self)
@@ -98,20 +97,6 @@ class metachecker():
                 print("Error: Have tried to start more than " + str(self.server_limit)
                       + " servers (the server limit) but according to the"
                       + " metaserver it has found none.");
-
-              # start LongTurn games, one per pass
-              lt_scripts = glob.glob('pubscript_longturn_*.serv')
-              self.longturn.intersection_update(lt_scripts)
-              for script in lt_scripts:
-                if script not in self.longturn:
-                   # script[10:-5] is the magic needed for now because
-                   # init-freeciv-web adds its own 'pubscript_' and '.serv'
-                   new_server = Civlauncher("longturn", script[10:-5], port, metahost + ":" + str(metaport) + metapath, self.savesdir)
-                   self.server_list.append(new_server)
-                   new_server.start()
-                   port += 1
-                   self.longturn.add(script)
-                   break
 
               while (self.single < self.server_capacity_single
                      and self.total <= self.server_limit

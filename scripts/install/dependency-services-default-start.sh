@@ -36,7 +36,7 @@ else
 fi
 
 # waiting for Tomcat to start, since it will take some time.
-until `curl --output /dev/null --silent --head --fail "http://localhost:8080/"`; do
+until `curl --output /dev/null --silent --head --fail "http://localhost:8080/freeciv-web"`; do
     printf ".."
     sleep 3
 done
