@@ -26,13 +26,12 @@
 					<li><a href="/game/list?v=singleplayer">Single-player</a></li>
 					<li role="separator" class="divider"></li>
 					<li><a href="/game/list?v=multiplayer">Multiplayer</a></li>
-					<li role="separator" class="divider"></li>
-					<li><a href="/game/list?v=multiplayer">One Turn per Day</a></li>
+					
 					<li role="separator" class="divider"></li>
 					<li><a href="/game/list?v=play-by-email">Play by Email</a></li>
 				</ul>
 			</li>
-			<li><a href="https://github.com/fciv-net/fciv-net">Contribute</a></li>
+			<li><a href="https://github.com/fciv-net/fciv-net">Development</a></li>
 		</ul>
 		<form class="navbar-form navbar-right hidden-sm hidden-md" action="https://duckduckgo.com/" style="width: 220px;">
 			<input type="hidden" name="sites" value="www.freeciv.org,forum.freeciv.org,freeciv.wikia.com,www.fciv.net">
