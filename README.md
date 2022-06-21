@@ -17,13 +17,10 @@ Live servers
 Currently known servers based on FCIV.NET / Freeciv-web, which are open source in compliance with [the AGPL license](https://github.com/freeciv/freeciv-web/blob/develop/LICENSE.txt):
 - [fciv.net](https://www.fciv.net) [https://github.com/fciv-net/fciv-net]
 
-Freeciv-web screenshots:
+FCIV-NET screenshots:
 ------------------------
-Freeciv WebGL 3D:
-![Freeciv-web](https://raw.githubusercontent.com/freeciv/freeciv-web/develop/freeciv-web/src/main/webapp/javascript/webgl/freeciv-webgl.png "Freeciv-web WebGL screenshot")
-
-Freeciv-web HTML5 version:
-![Freeciv-web](https://raw.githubusercontent.com/freeciv/freeciv-web/develop/scripts/freeciv-web-screenshot.png "Freeciv-web screenshot")
+WebGL 3D:
+![Freeciv-web](https://raw.githubusercontent.com/fciv-net/fciv-net/main/freeciv-web/src/main/webapp/static/images/freeciv-webgl-splash-48.png "Freeciv-web WebGL screenshot")
 
 
 Overview
