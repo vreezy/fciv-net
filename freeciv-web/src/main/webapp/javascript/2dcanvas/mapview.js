@@ -291,7 +291,7 @@ function mapview_put_city_bar(pcanvas, city, canvas_x, canvas_y) {
 
   var city_flag = get_city_flag_sprite(city);
   pcanvas.drawImage(sprites[city_flag['key']],
-              canvas_x - Math.floor(txt_measure.width / 2) - 45, canvas_y - 17);
+              canvas_x - Math.floor(txt_measure.width / 2) - 45, canvas_y - 17, 30, 20);
 
   pcanvas.drawImage(sprites[get_city_occupied_sprite(city)],
               canvas_x - Math.floor(txt_measure.width / 2) - 12, canvas_y - 16);

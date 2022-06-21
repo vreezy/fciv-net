@@ -43,7 +43,7 @@ function update_nation_screen()
     if (is_longturn() && pplayer['name'].indexOf("New Available Player") != -1) continue;
     total_players++;
 
-    var flag_html = "<canvas id='nation_dlg_flags_" + player_id + "' width='29' height='20' class='nation_flags'></canvas>";
+    var flag_html = "<canvas id='nation_dlg_flags_" + player_id + "' width='44' height='30' class='nation_flags'></canvas>";
 
     var plr_class = "";
     if (!client_is_observer() && client.conn.playing != null && player_id == client.conn.playing['playerno']) plr_class = "nation_row_self";
