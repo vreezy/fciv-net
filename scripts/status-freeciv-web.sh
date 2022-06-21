@@ -128,4 +128,4 @@ checkWebURL "webclient.min.js generation" "http://localhost/javascript/webclient
 checkWebURL "tileset generation" "http://localhost/tileset/freeciv-web-tileset-amplio2-0.png" --head
 
 printf "\n--------------------------------\n";
-echo "Check of Freeciv-web is done!"
+echo "Check of FCIV.NET completed!"

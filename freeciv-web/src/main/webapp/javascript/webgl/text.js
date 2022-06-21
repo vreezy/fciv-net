@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 var texture_cache = {};
-var webgl_mapview_font = "29px Candara, sans serif"; // with canvas text support
+var webgl_mapview_font = "29px arial, sans serif"; // with canvas text support
 
 /****************************************************************************
  Convert a canvas to a mesh that will always face the user. The height of

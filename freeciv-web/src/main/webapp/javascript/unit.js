@@ -24,7 +24,7 @@ var units = {};
  * Set in handle_ruleset_terrain_control(). */
 var SINGLE_MOVE;
 
-var ANIM_STEPS = 8;
+var ANIM_STEPS = 6;
 
 var anim_units_max = 30;
 var anim_units_count = 0;

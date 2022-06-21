@@ -42,7 +42,7 @@ misc_files = [
   "colors.tilespec",
   "buildings-large.spec",
   "overlays.spec",
-  "shields.spec",
+  "shields-large.spec",
   "small.spec",
   "governments.spec",
   "specialists.spec",

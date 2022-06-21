@@ -139,17 +139,18 @@
 
 						<c:if test="${default_lang}">
 							<div class="features">
-								Play against the Freeciv AI with 2D HTML5 graphics
-							</div>
-						</c:if>
-						<a id="single-button" href="/webclient/?action=new&type=singleplayer" class="btn"><i class="fa fa-flag"></i> <fmt:message key="index-game-launcher-2d"/></a>
-
-						<c:if test="${default_lang}">
-							<div class="features">
 								Play against the Freeciv AI with 3D WebGL<br>graphics using the Three.js 3D engine
 							</div>
 						</c:if>
 						<a href="/webclient/?action=new&renderer=webgl&type=singleplayer" class="btn" id="webgl_button"><i class="fa fa-cube"></i> <fmt:message key="index-game-launcher-3d"/></a>
+
+
+						<c:if test="${default_lang}">
+							<div class="features">
+								Play against the Freeciv AI with 2D HTML5 graphics
+							</div>
+						</c:if>
+						<a id="single-button" href="/webclient/?action=new&type=singleplayer" class="btn"><i class="fa fa-flag"></i> <fmt:message key="index-game-launcher-2d"/></a>
 
 
 						<c:if test="${default_lang}">
@@ -282,6 +283,11 @@
 				</div>
 			</div>
 
+            <div class="col-md-6">
+                <br><br>
+                <iframe src="https://discord.com/widget?id=960605237775855676&theme=dark" width="450" height="300" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            </div>
+
 			<div class="col-md-6 container" id="best-of-play-by-email">
 				<div class="panel-freeciv">
 				    <a href="/hall_of_fame"><h2>Hall Of Fame</h2></a>
@@ -308,12 +314,6 @@
 		</div> <!-- end multiplayer/best play by email -->
 
 
-	    <div class="row">
-				<div class="col-md-12">
-                    <br><br>
-					<iframe src="https://discord.com/widget?id=960605237775855676&theme=dark" width="350" height="300" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-				</div>
-		</div>
 
 		
 		<c:if test="${default_lang}">
@@ -327,7 +327,7 @@
 					<div class="panel-freeciv">
 						<h4><fmt:message key="index-contributing"/></h4>
 						Freeciv is open source software released under the GNU General Public License.
-						<a href="https://github.com/freeciv/freeciv-web"><fmt:message key="index-developers"/></a> and <a href="https://github.com/freeciv/freeciv-web/wiki/Contributing-Blender-models-for-Freeciv-WebGL"><fmt:message key="index-3d-artists"/></a> are welcome to join development.
+						<a href="https://github.com/fciv-net/fciv-net"><fmt:message key="index-developers"/></a> are welcome to join development.
 					</div>
 				</div>
 				<div class="col-md-4">

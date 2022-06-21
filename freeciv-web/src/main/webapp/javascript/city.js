@@ -202,7 +202,7 @@ function show_city_dialog(pcity)
         });
    }
 
-   dialog_buttons = $.extend(dialog_buttons, {"Close": close_city_dialog});
+   dialog_buttons = $.extend(dialog_buttons, {"Close (W)": close_city_dialog});
 
   $("#city_dialog").attr("title", decodeURIComponent(pcity['name'])
                          + " (" + pcity['size'] + ")");
@@ -720,6 +720,17 @@ function send_city_change(city_id, kind, value)
                 "production_kind": kind, "production_value" : value};
   send_request(JSON.stringify(packet));
 }
+
+/**************************************************************************
+ Does a simple close of the city dialog, which will trigger the
+  event-based close_city_dialog() further below
+**************************************************************************/
+function close_city_dialog_trigger()
+{
+  closed_dialog_already = true;
+  $("#city_dialog").dialog('close');
+}
+
 
 /**************************************************************************
  Close dialog.
@@ -1963,8 +1974,17 @@ function city_keyboard_listener(ev)
 
   if (!ev) ev = window.event;
   var keyboard_key = String.fromCharCode(ev.keyCode);
+  var key_code = ev.keyCode;
 
   if (active_city != null) {
+
+    switch (key_code) {
+        case 27:
+              ev.stopPropagation();
+              close_city_dialog();
+              break;
+    }
+
      switch (keyboard_key) {
        case 'N':
          next_city();
@@ -1975,6 +1995,13 @@ function city_keyboard_listener(ev)
          request_city_buy();
          ev.stopPropagation();
          break;
+
+       case 'W': // same command as ESC above (code 27)
+         ev.stopPropagation();
+         close_city_dialog_trigger();
+         break;
+
+
       }
   }
 }
