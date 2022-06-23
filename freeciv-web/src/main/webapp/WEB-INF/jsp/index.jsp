@@ -285,7 +285,7 @@
 
             <div class="col-md-6">
                 <br><br>
-                <iframe src="https://discord.com/widget?id=960605237775855676&theme=dark" width="450" height="300" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                <iframe src="https://discord.com/widget?id=960605237775855676&theme=dark" width="350" height="300" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
 
 			<div class="col-md-6 container" id="best-of-play-by-email">
