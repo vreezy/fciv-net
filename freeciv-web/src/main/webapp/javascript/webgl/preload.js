@@ -70,21 +70,6 @@ function webgl_preload()
 
   var textureLoader = new THREE.ImageLoader( loadingManager );
 
-  /* Preload tree sprite. */
-  var tree_sprite = new THREE.Texture();
-  webgl_textures["tree_1"] = tree_sprite;
-  textureLoader.load( '/textures/tree_1.png', function ( image ) {
-      tree_sprite.image = image;
-      tree_sprite.needsUpdate = true;
-  } );
-
-  var jungle_sprite = new THREE.Texture();
-  webgl_textures["jungle_1"] = jungle_sprite;
-  textureLoader.load( '/textures/jungle_1.png', function ( image ) {
-      jungle_sprite.image = image;
-      jungle_sprite.needsUpdate = true;
-  } );
-
   var city_disorder = new THREE.Texture();
   textureLoader.load( '/textures/city_civil_disorder.png', function ( image ) {
     city_disorder.image = image;
@@ -187,9 +172,9 @@ function load_model(filename)
 {
   var url = "/gltf/" + filename + ".glb";
 
-  var glTFLoader = new THREE.GLTFLoader();
+  const loader = new THREE.GLTFLoader();
 
-  glTFLoader.load( url, function(data) {
+  loader.load( url, function(data) {
     var model = data.scene;
     $("#download_progress").html(" 3D models " + Math.floor(30 + (0.7 * 100 * load_count / total_model_count)) + "%");
 
@@ -261,8 +246,8 @@ function get_extra_mesh(key)
   ecanvas.width = 64;
   ecanvas.height = 32;
   var econtext = ecanvas.getContext("2d");
-  econtext.drawImage(sprites[key], 18, 8,
-                sprites[key].width - 36, sprites[key].height - 12,
+  econtext.drawImage(sprites[key], 0, 0,
+                sprites[key].width - 16, sprites[key].height - 6,
                 0,0,64,32);
 
   meshes[key] = canvas_to_user_facing_mesh(ecanvas, 64, 28, 18, true);

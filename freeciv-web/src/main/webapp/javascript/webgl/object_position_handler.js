@@ -318,7 +318,7 @@ function update_city_position(ptile) {
     var city_label = create_city_label(pcity);
     city_label_positions[ptile['index']] = city_label;
     city_label.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 5);
-    city_label.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 39);
+    city_label.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 30);
     city_label.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 15);
     city_label.rotation.y = Math.PI / 4;
     pcity['webgl_label_hash'] = pcity['name'] + pcity['size'] + pcity['production_value'] + "." + pcity['production_kind'] + punits.length;
@@ -413,6 +413,52 @@ function update_tile_extras(ptile) {
   update_tile_extra_update_model(EXTRA_AIRBASE, "Airbase", ptile);
   update_tile_extra_update_model(EXTRA_FORTRESS, "Fortress", ptile);
 
+  var terrain_name = tile_terrain(ptile).name;
+  if (scene != null && tile_extra_positions[terrain_name + "." + ptile['index']] == null) {
+
+    if (terrain_name == "Forest") {
+      var tterrain_near = tile_terrain_near(ptile);
+      var pterrain = tile_terrain(ptile);
+      var key = fill_terrain_sprite_layer(1, ptile, pterrain, tterrain_near);
+      var extra_mesh = get_extra_mesh(key[0]['key']);
+      var pos = map_to_scene_coords(ptile['x'], ptile['y']);
+      if (tile_has_extra(ptile, EXTRA_RIVER)) {
+        height += 20;
+      }
+      extra_mesh.matrixAutoUpdate = false;
+      extra_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
+      extra_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
+      extra_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
+      extra_mesh.rotation.y = Math.PI / 4;
+      extra_mesh.updateMatrix();
+
+      tile_extra_positions[terrain_name + "." + ptile['index']] = extra_mesh;
+      if (scene != null && extra_mesh != null) scene.add(extra_mesh);
+    }
+
+    if (terrain_name == "Jungle") {
+      var tterrain_near = tile_terrain_near(ptile);
+      var pterrain = tile_terrain(ptile);
+      var key = fill_terrain_sprite_layer(1, ptile, pterrain, tterrain_near);
+      var extra_mesh = get_extra_mesh(key[0]['key']);
+      var pos = map_to_scene_coords(ptile['x'], ptile['y']);
+      if (tile_has_extra(ptile, EXTRA_RIVER)) {
+        height += 18;
+      }
+      extra_mesh.matrixAutoUpdate = false;
+      extra_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
+      extra_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
+      extra_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
+      extra_mesh.rotation.y = Math.PI / 4;
+      extra_mesh.updateMatrix();
+
+      tile_extra_positions[terrain_name + "." + ptile['index']] = extra_mesh;
+      if (scene != null && extra_mesh != null) scene.add(extra_mesh);
+    }
+    // TODO: handle removal of forest and jungle.
+  }
+
+
   // Render tile specials (extras). Fish and whales are 3D models, the rest are 2D sprites from the 2D version.
   const extra_id = tile_resource(ptile);
   var extra_resource = (extra_id === null) ? null : extras[extra_id];
@@ -422,7 +468,7 @@ function update_tile_extras(ptile) {
       var extra_mesh = get_extra_mesh(key);
 
       if (tile_has_extra(ptile, EXTRA_RIVER)) {
-        height += 24;
+        height += 18;
       }
       if (extra_resource['name'] == "Gold" || extra_resource['name'] == "Iron") {
         height -= 5;
@@ -440,76 +486,7 @@ function update_tile_extras(ptile) {
       if (scene != null && extra_mesh != null) scene.add(extra_mesh);
     } else {
       update_tile_extra_update_model(extra_resource['id'], extra_resource['name'], ptile);
-
     }
-  }
-
-  // show forest (set height of a hidden forest.)
-  var terrain_name = tile_terrain(ptile).name;
-  if (scene != null && forest_geometry != null
-      && tile_get_known(ptile) == TILE_KNOWN_SEEN
-      && forest_positions[ptile['index']] == null
-      && terrain_name == "Forest") {
-    for (var s = 0; s < forest_geometry.vertices.length; s++) {
-      if (forest_geometry.vertices[s]['tile'] == ptile['index']) {
-        forest_geometry.vertices[s].y = forest_geometry.vertices[s]['height'];
-        forest_positions[ptile['index']] = true;
-      }
-    }
-    forest_geometry.verticesNeedUpdate = true;
-  }
-
-  // hide forest
-  if (scene != null && forest_geometry != null
-      && tile_get_known(ptile) == TILE_KNOWN_SEEN
-      && forest_positions[ptile['index']] != null
-      && terrain_name != "Forest") {
-    for (var s = 0; s < forest_geometry.vertices.length; s++) {
-      if (forest_geometry.vertices[s]['tile'] == ptile['index']) {
-        forest_geometry.vertices[s].y = 35;
-        forest_positions[ptile['index']] = null;
-      }
-    }
-    forest_geometry.verticesNeedUpdate = true;
-  }
-
-  // add jungle
-  if (scene != null && jungle_geometry != null
-      && tile_get_known(ptile) == TILE_KNOWN_SEEN
-      && jungle_positions[ptile['index']] == null
-      && terrain_name == "Jungle") {
-    for (var s = 0; s < jungle_geometry.vertices.length; s++) {
-      if (jungle_geometry.vertices[s]['tile'] == ptile['index']) {
-        jungle_geometry.vertices[s].y = jungle_geometry.vertices[s]['height'];
-        jungle_positions[ptile['index']] = true;
-      }
-    }
-    jungle_geometry.verticesNeedUpdate = true;
-  }
-
-  // hide jungle
-  if (scene != null && jungle_geometry != null
-      && tile_get_known(ptile) == TILE_KNOWN_SEEN
-      && jungle_positions[ptile['index']] != null
-      && terrain_name != "Jungle") {
-    for (var s = 0; s < jungle_geometry.vertices.length; s++) {
-      if (jungle_geometry.vertices[s]['tile'] == ptile['index']) {
-        jungle_geometry.vertices[s].y = 35;
-        jungle_positions[ptile['index']] = null;
-      }
-    }
-    jungle_geometry.verticesNeedUpdate = true;
-  }
-
-  if (scene != null && ptile['label'] != null && ptile['label'].length > 0 && map_tile_label_positions[ptile['index']] == null) {
-    map_tile_label_positions[ptile['index']] = ptile;
-    var label = create_map_tile_label(ptile);
-    var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-    label.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 5);
-    label.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 29);
-    label.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 15);
-    label.rotation.y = Math.PI / 4;
-    scene.add(label);
   }
 
 }

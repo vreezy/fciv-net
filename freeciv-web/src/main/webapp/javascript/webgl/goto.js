@@ -28,7 +28,7 @@ function webgl_render_goto_line(start_tile, goto_packet_dir)
   var ptile = start_tile;
 
   var material = new THREE.MeshBasicMaterial( { color: 0x051dbb, side:THREE.DoubleSide} );
-  var goto_width = 3;
+  var goto_width = 4;
 
   for (var i = 0; i < goto_packet_dir.length; i++) {
     if (ptile == null) break;
@@ -46,27 +46,20 @@ function webgl_render_goto_line(start_tile, goto_packet_dir)
       var height = 5 + ptile['height'] * 70;
       if (ptile['x'] == 0 || ptile['x'] >= map['xsize'] - 1 || nexttile['x'] == 0 || nexttile['x'] >= map['xsize'] - 1) continue;
 
-      var gotoLineGemetry = new THREE.PlaneGeometry(60, 5);
-      gotoLineGemetry.dynamic = true;
+      var gotoLineGeometry = new THREE.BufferGeometry();
+      const vertices = [];
       var delta = 0;
       if (dir == 1 || dir == 6) delta = 3;
-      gotoLineGemetry.vertices[0].x = 0.0;
-      gotoLineGemetry.vertices[0].y = 0.0;
-      gotoLineGemetry.vertices[0].z = 0.0;
-      gotoLineGemetry.vertices[1].x = nextpos['x'] - currpos['x'];
-      gotoLineGemetry.vertices[1].y = (nexttile['height'] - ptile['height']) * 100 - delta;
-      gotoLineGemetry.vertices[1].z = nextpos['y'] - currpos['y'];
-      gotoLineGemetry.vertices[2].x = 0.0;
-      gotoLineGemetry.vertices[2].y = delta;
-      gotoLineGemetry.vertices[2].z = goto_width;
-      gotoLineGemetry.vertices[3].x = nextpos['x'] - currpos['x'];
-      gotoLineGemetry.vertices[3].y = (nexttile['height'] - ptile['height']) * 100 + delta;
-      gotoLineGemetry.vertices[3].z = nextpos['y'] - currpos['y'] + goto_width;
-      gotoLineGemetry.verticesNeedUpdate = true;
-      var gotoline = new THREE.Mesh(gotoLineGemetry, material);
+
+      vertices.push(0, 0, 0);
+      vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 100 - delta, nextpos['y'] - currpos['y']);
+      vertices.push(0, delta, goto_width);
+      vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 100 + delta, nextpos['y'] - currpos['y'] + goto_width);
+      gotoLineGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+      var gotoline = new THREE.Mesh(gotoLineGeometry, material);
 
       gotoline.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), currpos['x']);
-      gotoline.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 25);
+      gotoline.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 30);
       gotoline.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), currpos['y']);
       scene.add(gotoline);
       goto_lines.push(gotoline);

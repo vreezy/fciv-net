@@ -46,20 +46,38 @@ function webgl_update_farmland_irrigation_vertex_colors(ptile)
 function update_tiles_known_vertex_colors()
 {
   if (!vertex_colors_dirty) return;
-  for ( var i = 0; i < landGeometry.faces.length; i ++ ) {
-    var v = ['a', 'b', 'c'];
-    for (var r = 0; r < v.length; r++) {
-      var vertex = landGeometry.vertices[landGeometry.faces[i][v[r]]];
-      var vPos = landMesh.localToWorld(vertex);
-      var mapPos = scene_to_map_coords(vPos.x, vPos.z);
-      if (mapPos['x'] >= 0 && mapPos['y'] >= 0) {
-        var ptile = map_pos_to_tile(mapPos['x'], mapPos['y']);
-        if (ptile != null && tile_get_known(ptile) != TILE_UNKNOWN) {
-          if (landGeometry.faces[i].vertexColors[r] != null) landGeometry.faces[i].vertexColors[r].copy(get_vertex_color_from_tile(ptile));
+
+  const colors = [];
+  const width_half = mapview_model_width / 2;
+  const height_half = mapview_model_height / 2;
+
+  const gridX = Math.floor(xquality);
+  const gridY = Math.floor(yquality);
+
+  const gridX1 = gridX + 1;
+  const gridY1 = gridY + 1;
+
+  const segment_width = mapview_model_width / gridX;
+  const segment_height = mapview_model_height / gridY;
+  for ( let iy = 0; iy < gridY1; iy ++ ) {
+    const y = iy * segment_height - height_half;
+    for ( let ix = 0; ix < gridX1; ix ++ ) {
+      const x = ix * segment_width - width_half;
+      var sx = ix % xquality, sy = iy % yquality;
+      var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
+      var ptile = map_pos_to_tile(mx, my);
+        if (ptile != null) {
+          var c = get_vertex_color_from_tile(ptile);
+          colors.push(c[0], c[1], c[2]);
+        } else {
+          colors.push(0,0,0);
         }
-      }
+
     }
   }
+
+  landGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3) );
+
   landGeometry.colorsNeedUpdate = true;
   vertex_colors_dirty = false;
 
@@ -90,6 +108,6 @@ function get_vertex_color_from_tile(ptile)
       farmland_irrigation_color = 0;
     }
 
-    return new THREE.Color(known_status_color, farmland_irrigation_color,0);
+    return [known_status_color, farmland_irrigation_color,0];
 
 }

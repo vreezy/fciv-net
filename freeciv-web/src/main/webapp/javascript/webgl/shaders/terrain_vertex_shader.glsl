@@ -27,14 +27,9 @@ void main()
 {
   vUv = uv;
 
-  if (color.r == 0.0 &&  position.y < 54.0) {
-    // hidden water tile, move the black terrain landscape above the water plane.
-    vec4 mvPosition = modelViewMatrix * vec4( position.x, 54.0, position.z , 1.0 );
-    gl_Position = projectionMatrix * mvPosition;
-  } else {
-    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-    gl_Position = projectionMatrix * mvPosition;
-  }
+  vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+  gl_Position = projectionMatrix * mvPosition;
+
   vPosition_camera = gl_Position.xyz;
   vNormal = normal;
   vPosition = position;

@@ -83,7 +83,7 @@ function webgl_start_renderer()
     enable_antialiasing = false;
   }
 
-  maprenderer = new THREE.WebGLRenderer( { antialias: enable_antialiasing } );
+  maprenderer = new THREE.WebGLRenderer( { antialias: enable_antialiasing} );
 
   if (is_small_screen() || $(window).width() <= 1366) {
     camera_dy = 390;
@@ -177,55 +177,100 @@ function init_webgl_mapview() {
   yquality = map.ysize * 4 + 1;
 
   /* LandGeometry is a plane representing the landscape of the map. */
-  landGeometry = new THREE.PlaneGeometry(mapview_model_width, mapview_model_height, xquality - 1, yquality - 1);
+  landGeometry = new THREE.BufferGeometry();
+
+  const width_half = mapview_model_width / 2;
+  const height_half = mapview_model_height / 2;
+
+  const gridX = Math.floor(xquality);
+  const gridY = Math.floor(yquality);
+
+  const gridX1 = gridX + 1;
+  const gridY1 = gridY + 1;
+
+  const segment_width = mapview_model_width / gridX;
+  const segment_height = mapview_model_height / gridY;
+
+  const indices = [];
+  const vertices = [];
+  const normals = [];
+  const uvs = [];
+  const colors = [];
+
+  for ( let iy = 0; iy < gridY1; iy ++ ) {
+    const y = iy * segment_height - height_half;
+    for ( let ix = 0; ix < gridX1; ix ++ ) {
+      const x = ix * segment_width - width_half;
+      var sx = ix % xquality, sy = iy % yquality;
+
+      vertices.push( x, -y, heightmap[sx][sy] * 100 );
+
+      normals.push( 0, 0, 1 );
+
+      uvs.push( ix / gridX );
+      uvs.push( 1 - ( iy / gridY ) );
+
+
+    }
+
+  }
+
+  for ( let iy = 0; iy < gridY; iy ++ ) {
+    for ( let ix = 0; ix < gridX; ix ++ ) {
+      const a = ix + gridX1 * iy;
+      const b = ix + gridX1 * ( iy + 1 );
+      const c = ( ix + 1 ) + gridX1 * ( iy + 1 );
+      const d = ( ix + 1 ) + gridX1 * iy;
+
+      indices.push( a, b, d );
+      indices.push( b, c, d );
+
+    }
+
+  }
+
+  landGeometry.setIndex( indices );
+  landGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+  landGeometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
+  landGeometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
+
+
   landGeometry.rotateX( - Math.PI / 2 );
   landGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
-  for ( var i = 0, l = landGeometry.vertices.length; i < l; i ++ ) {
-    var x = i % xquality, y = Math.floor( i / xquality );
-    if (heightmap[x] != null && heightmap[x][y] != null) {
-      landGeometry.vertices[ i ].y = heightmap[x][y] * 100;
+
+  for ( let iy = 0; iy < gridY1; iy ++ ) {
+    const y = iy * segment_height - height_half;
+    for ( let ix = 0; ix < gridX1; ix ++ ) {
+      const x = ix * segment_width - width_half;
+      var sx = ix % xquality, sy = iy % yquality;
+      var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
+      var ptile = map_pos_to_tile(mx, my);
+        if (ptile == null) {
+          colors.push(0,0,0);
+        } else if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
+          colors.push(1,0,0);
+        } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {
+          colors.push(0.40,0,0);
+        } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
+          colors.push(0,0,0);
+        } else {
+          colors.push(0,0,0);
+        }
+
     }
-    if (x == xquality - 1 && landGeometry.vertices[ i ].y >= 54) landGeometry.vertices[ i ].y = 54;
-    if (y == yquality - 1 && landGeometry.vertices[ i ].y >= 54) landGeometry.vertices[ i ].y = 54;
   }
+
+  landGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3) );
+
   landGeometry.computeVertexNormals();
   landMesh = new THREE.Mesh( landGeometry, terrain_material );
   scene.add( landMesh );
 
-  for ( var i = 0; i < landGeometry.faces.length; i ++ ) {
-    var v = ['a', 'b', 'c'];
-    var vertex_colors = [];
-    for (var r = 0; r < v.length; r++) {
-      var vertex = landGeometry.vertices[landGeometry.faces[i][v[r]]];
-      var vPos = landMesh.localToWorld(vertex);
-      var mapPos = scene_to_map_coords(vPos.x, vPos.z);
-      if (mapPos['x'] >= 0 && mapPos['y'] >= 0) {
-        var ptile = map_pos_to_tile(mapPos['x'], mapPos['y']);
-        if (ptile == null) {
-          vertex_colors.push(new THREE.Color(0,0,0));
-        } else if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
-          vertex_colors.push(new THREE.Color(1,0,0));
-        } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {
-          vertex_colors.push(new THREE.Color(0.40,0,0));
-        } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
-          vertex_colors.push(new THREE.Color(0,0,0));
-        } else {
-          vertex_colors.push(new THREE.Color(0,0,0));
-        }
-      } else {
-        vertex_colors.push(new THREE.Color(0,0,0));
-      }
-    }
-    landGeometry.faces[i].vertexColors = vertex_colors;
-  }
   if (graphics_quality == QUALITY_HIGH) {
     setInterval(update_tiles_known_vertex_colors, 250);
   } else {
     setInterval(update_tiles_known_vertex_colors, 1200);
   }
-
-
-  add_trees_to_landgeometry(landGeometry, xquality);
 
   add_all_objects_to_scene();
 
