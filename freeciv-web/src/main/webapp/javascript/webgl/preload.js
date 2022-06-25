@@ -24,6 +24,8 @@ var total_model_count = 0;
 var load_count = 0;
 var webgl_materials = {};
 
+var meshes = {};
+
 var model_filenames = ["AEGIS Cruiser",     "Helicopter",    "Pikemen",
                        "Alpine Troops",     "Horsemen",
                        "Archers",           "citywalls",        "Howitzer",      "Riflemen",
