@@ -21,6 +21,10 @@ button {
   padding:0px;
 }
 
+#canvas_div {
+  background: black;
+}
+
 #freeciv_logo {
   float:left; 
   background: #444444 url(/images/freeciv-web-logo.png);
