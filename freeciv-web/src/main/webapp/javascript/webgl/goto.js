@@ -28,7 +28,7 @@ function webgl_render_goto_line(start_tile, goto_packet_dir)
   var ptile = start_tile;
 
   var material = new THREE.MeshBasicMaterial( { color: 0x051dbb, side:THREE.DoubleSide} );
-  var goto_width = 4;
+  var goto_width = 3;
 
   for (var i = 0; i < goto_packet_dir.length; i++) {
     if (ptile == null) break;
@@ -55,6 +55,8 @@ function webgl_render_goto_line(start_tile, goto_packet_dir)
       vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 100 - delta, nextpos['y'] - currpos['y']);
       vertices.push(0, delta, goto_width);
       vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 100 + delta, nextpos['y'] - currpos['y'] + goto_width);
+      vertices.push(0, 0, 0);
+      vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 100 - delta, nextpos['y'] - currpos['y']);
       gotoLineGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
       var gotoline = new THREE.Mesh(gotoLineGeometry, material);
 
