@@ -91,7 +91,7 @@ class MailSender():
     msg = msg.replace("{players}", plrs_txt);
     msg = msg.replace("{host}", self.host);
 
-    self.send_mailgun_message(email_address, "Freeciv-Web: It's your turn to play! Turn: " \
+    self.send_mailgun_message(email_address, "Fciv.net: It's your turn to play! Turn: " \
         + str(turn), msg);
 
   def send_invitation(self, invitation_from, invitation_to):
@@ -100,7 +100,7 @@ class MailSender():
     msg = msg.replace("{sender}", sender);
     msg = msg.replace("{host}", self.host);
 
-    self.send_mailgun_message(invitation_to, "Freeciv-Web: Join my game!" , msg);
+    self.send_mailgun_message(invitation_to, "Fciv.net: Join my game!" , msg);
 
 
   # send email with ranking after game is over.
