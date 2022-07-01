@@ -16,8 +16,6 @@ Required configuration:
  1. Put your Google ReCaptcha (https://www.google.com/recaptcha) 
   secret key in captcha-secret field here:
     freeciv-web\src\main\webapp\WEB-INF\web.xml 
-   and Google ReCaptcha client sitekey here:
-    freeciv-web/src/main/webapp/javascript/pbem.js
 
  2. Update settings.ini.dist with
      - SMTP username, password, host,port. The SMTP authentication can be gotten by creating an account at http://www.mailgun.com
