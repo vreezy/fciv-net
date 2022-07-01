@@ -174,13 +174,13 @@
 						</c:if>
 						<a href="/game/list?v=multiplayer" class="btn"><i class="fa fa-users"></i> <fmt:message key="index-game-launcher-multiplayer"/></a>
 
-						<%--<c:if test="${default_lang}">
+						<c:if test="${default_lang}">
 							<div class="features">
 								Start a play-by-email game where you get an e-mail <br> when it is your turn to play.
 							</div>
 						</c:if>
 						<a href="/webclient/?action=pbem&type=pbem" class="btn"><i class="fa fa-envelope"></i> <fmt:message key="index-game-launcher-play-by-email"/></a>
-						--%>
+						
 
 						<c:if test="${default_lang}">
 							<div class="features">
@@ -191,7 +191,7 @@
 
 						<c:if test="${default_lang}">
 							<div class="features">
-								Play a <b>Freeciv-web One Turn per Day</b>, where up to 300 human <br>players play one turn every day:
+							
 							</div>
 						</c:if>
 
