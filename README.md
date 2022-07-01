@@ -17,7 +17,7 @@ under the GNU Affero General Public License. See [License](LICENSE.txt) for the 
 Live servers
 ------------
 Currently known servers based on FCIV.NET / Freeciv-web, which are open source in compliance with [the AGPL license](https://github.com/freeciv/freeciv-web/blob/develop/LICENSE.txt):
-- [fciv.net](https://www.fciv.net) https://github.com/fciv-net/fciv-net
+- [fciv.net](https://www.fciv.net) - https://github.com/fciv-net/fciv-net
 
 FCIV-NET screenshots:
 ------------------------
