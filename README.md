@@ -135,8 +135,6 @@ Install this software if you are not running Freeciv-web with Vagrant:
 
 - Maven 3 - http://maven.apache.org/download.html
 
-- Firebug for debugging - http://getfirebug.com/
-
 - curl-7.19.7 - http://curl.haxx.se/
 
 - OpenSSL - http://www.openssl.org/
