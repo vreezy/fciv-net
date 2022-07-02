@@ -29,7 +29,6 @@ import configparser
 from pubstatus import *
 from civlauncher import Civlauncher
 import os.path
-import glob
 
 metahost = "localhost"
 metaport = 8080
