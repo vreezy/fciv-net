@@ -22,9 +22,7 @@
 #     Giving one of the longer removed city names to a new city still causes problems.
 # webperimental_install make "make install" install webperimental.
 # webgl_vision_cheat_temporary is a temporary solution to reveal terrain types to the WebGL client.
-# longturn implements a very basic longturn mode for Freeciv-web.
 # load_command_confirmation adds a log message which confirms that loading is complete, so that Freeciv-web can issue additional commands.
-# cityname_length reduces MAX_LEN_CITYNAME to 50 for large longturn games.
 # endgame-mapimg is used to generate a mapimg at endgame for hall of fame.
 
 declare -a PATCHLIST=(
@@ -50,9 +48,7 @@ declare -a PATCHLIST=(
   "win_chance"
   "navajo-remove-long-city-names"
   "webperimental_install"
-  "longturn"
   "load_command_confirmation"
-  "cityname_length"
   "webgl_vision_cheat_temporary"
   "endgame-mapimg"
 )
