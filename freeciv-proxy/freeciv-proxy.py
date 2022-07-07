@@ -147,7 +147,7 @@ class WSHandler(websocket.WebSocketHandler):
 
         for secure_shashed_password, active in result:
             if (active == 0): return False
-            if secure_shashed_password == hashlib.sha512(password.encode('utf-8')).hexdigest(): return True
+            if secure_shashed_password == hashlib.sha256(password.encode('utf-8')).hexdigest(): return True
 
         return False
 
