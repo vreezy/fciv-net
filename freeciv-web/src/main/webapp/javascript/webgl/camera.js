@@ -20,9 +20,9 @@
 var camera;
 
 var camera_dy_div_dx = 340/300;
-var camera_dx = 300;
-var camera_dy = 340;
-var camera_dz = 300;
+var camera_dx = 280;
+var camera_dy = 310;
+var camera_dz = 280;
 var camera_current_x = 0;
 var camera_current_y = 0;
 var camera_current_z = 0;

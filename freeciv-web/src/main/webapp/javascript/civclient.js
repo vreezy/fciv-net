@@ -279,8 +279,7 @@ function init_common_intro_dialog() {
       "You are about to join this game server, where you can " +
       "play a singleplayer game against the Freeciv AI. You can " +
       "start the game directly by entering any name, or customize the game settings. " +
-      "Creating a user account is optional, but savegame support requires that you create a user account. (<a class='pwd_reset' href='#' style='color: #555555;'>Forgot password?</a>) Have fun! <br>" +
-      "Please enter your name: ");
+      "Creating a user account is optional, but savegame support requires that you create a user account.");
       $(".pwd_reset").click(forgot_pbem_password);
   }
 }

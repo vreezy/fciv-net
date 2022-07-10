@@ -1022,12 +1022,6 @@ function show_intro_dialog(title, message) {
     } catch (err) {
       console.error(err);
     }
-    intro_html += "<span style='color: #800000;'><small>The 3D WebGL version of Freeciv-web requires WebGL 3D hardware. Graphics level: ";
-    if (graphics_quality == QUALITY_MEDIUM) {
-      intro_html += "Medium quality.";
-    } else {
-      intro_html += "High quality.";
-    }
     intro_html += "</small></span>";
   }
 
@@ -1279,8 +1273,7 @@ function validate_username_callback()
                  }
                  logged_in_with_password = true;
                } else {
-                 $("#username_validation_result").html("Incorrect username or password. Please try again!");
-                 $("#username_validation_result").show();
+                 swal("Incorrect username or password. Please try again!");
                }
 
              },
@@ -1289,8 +1282,7 @@ function validate_username_callback()
            }
           });
         } else {
-          $("#username_validation_result").html("Player name already in use. Try a different player name, or enter the username and password of your account,<br> or create a new user account. <a class='pwd_reset' href='#' style='color: #bbbbbb;'>Forgot password?</a>");
-          $("#username_validation_result").show();
+          swal("Player name already in use. Try a different player name, or enter the username and password of your account, or create a new user account.");
         }
 
         $("#password_row").show();
