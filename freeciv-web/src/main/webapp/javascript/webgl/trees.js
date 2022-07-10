@@ -19,6 +19,7 @@
 
 var trees_init = false;
 var forest_geometry;
+var jungle_geometry;
 
 /****************************************************************************
   Prerender trees and jungle on known tiles.
@@ -38,11 +39,8 @@ function add_trees_to_landgeometry() {
   var tree_points = null;
   var jungle_points = null;
 
-
-  var jungle_geometry = null;
-
-  const vertices = [];
-
+  const forest_vertices = [];
+  const jungle_vertices = [];
 
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     const y = iy * segment_height - height_half;
@@ -56,8 +54,13 @@ function add_trees_to_landgeometry() {
         var terrain_name = tile_terrain(ptile).name;
 
         if (terrain_name == "Forest" && tile_get_known(ptile) != TILE_UNKNOWN) {
-          var theight = Math.floor((100 * heightmap[sx][sy]) + 2 + (-1.2 + 3 * (1 + ((ix + iy) % 4))));
-          vertices.push(  x + 5, -y - 5, theight);
+          var theight = Math.floor((100 * heightmap[sx][sy]) + 2 + (-5 + 3 * (1 + ((ix * iy) % 3))));
+          forest_vertices.push(  x + 5, -y - 10, theight);
+        }
+
+        if (terrain_name == "Jungle" && tile_get_known(ptile) != TILE_UNKNOWN) {
+          var theight = Math.floor((100 * heightmap[sx][sy]) + 2 + (-5 + 3 * (1 + ((ix * iy) % 3))));
+          jungle_vertices.push(  x + 5, -y - 10, theight);
         }
       }
     }
@@ -65,19 +68,30 @@ function add_trees_to_landgeometry() {
 
   if (!trees_init) {
     forest_geometry = new THREE.BufferGeometry();
-    forest_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-
-
-    var forest_material = new THREE.PointsMaterial( { size: 32, sizeAttenuation: true, map: webgl_textures["tree_1"],  alphaTest: 0.5, transparent: true } );
+    forest_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( forest_vertices, 3 ) );
+    var forest_material = new THREE.PointsMaterial( { size: 30, sizeAttenuation: true, map: webgl_textures["tree_1"],  alphaTest: 0.5, transparent: true, opacity: 0.8 } );
     tree_points = new THREE.Points( forest_geometry, forest_material );
     scene.add(tree_points);
+
+    jungle_geometry = new THREE.BufferGeometry();
+    jungle_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( jungle_vertices, 3 ) );
+    var jungle_material = new THREE.PointsMaterial( { size: 30, sizeAttenuation: true, map: webgl_textures["jungle_1"],  alphaTest: 0.5, transparent: true , opacity: 0.8} );
+    jungle_points = new THREE.Points( jungle_geometry, jungle_material );
+    scene.add(jungle_points);
+
   } else {
-    forest_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+    forest_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( forest_vertices, 3 ) );
     forest_geometry.computeBoundingSphere();
+
+    jungle_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( jungle_vertices, 3 ) );
+    jungle_geometry.computeBoundingSphere();
   }
 
   forest_geometry.rotateX( - Math.PI / 2 );
   forest_geometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+
+  jungle_geometry.rotateX( - Math.PI / 2 );
+  jungle_geometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
 
   trees_init = true;
 
