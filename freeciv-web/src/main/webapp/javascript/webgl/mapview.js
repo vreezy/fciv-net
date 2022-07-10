@@ -91,7 +91,7 @@ function webgl_start_renderer()
     camera_dz = 180;
   }
 
-  maprenderer.setClearColor(0x000000);
+  //maprenderer.setClearColor(0x000000);
   maprenderer.setPixelRatio(window.devicePixelRatio);
   maprenderer.setSize(new_mapview_width, new_mapview_height);
   container.appendChild(maprenderer.domElement);
@@ -128,7 +128,7 @@ function init_webgl_mapview() {
       flowDirection: new THREE.Vector2( 0.1, -0.1),
       textureWidth: 1024,
       textureHeight: 1024,
-      reflectivity : 0.08,
+      reflectivity : 0.8,
       clipBias : 0.1,
       normalMap0 : textureLoader.load( '/textures/Water_1_M_Normal.jpg' ),
       normalMap1 : textureLoader.load( '/textures/Water_2_M_Normal.jpg' )
@@ -140,12 +140,6 @@ function init_webgl_mapview() {
     water.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), Math.floor(mapview_model_width / 2) - 500);
     water.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), -mapview_model_height / 2);
     scene.add( water );
-
-  var sunGeometry = new THREE.PlaneGeometry( 1000, 1000, 2, 2);
-  sunGeometry.rotateX( Math.PI / 2 );
-  sunGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 800, Math.floor(mapview_model_height / 3));
-  var sunMesh = new THREE.Mesh( sunGeometry, webgl_materials['sun'] );
-  scene.add(sunMesh);
 
   /* heightmap image */
   create_heightmap();
@@ -170,7 +164,7 @@ function init_webgl_mapview() {
     uniforms: freeciv_uniforms,
     vertexShader: document.getElementById('terrain_vertex_shh').innerHTML,
     fragmentShader: document.getElementById('terrain_fragment_shh').innerHTML,
-    vertexColors: THREE.VertexColors
+    vertexColors: true
   });
 
   xquality = map.xsize * 4 + 1;
@@ -260,7 +254,7 @@ function init_webgl_mapview() {
     }
   }
 
-  landGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3) );
+  landGeometry.setAttribute( 'vertColor', new THREE.Float32BufferAttribute( colors, 3) );
 
   landGeometry.computeVertexNormals();
   landMesh = new THREE.Mesh( landGeometry, terrain_material );
@@ -273,13 +267,8 @@ function init_webgl_mapview() {
   }
 
   add_all_objects_to_scene();
+  setInterval(add_trees_to_landgeometry, 250);
 
-  // cleanup
-  heightmap = {};
-  for (var i = 0; i < tiletype_terrains.length; i++) {
-    webgl_textures[tiletype_terrains[i]] = null;
-  }
-  webgl_textures = {};
   $.unblockUI();
   console.log("init_webgl_mapview took: " + (new Date().getTime() - start_webgl) + " ms.");
 
@@ -308,9 +297,9 @@ function animate() {
   }
 
   if (anaglyph_3d_enabled) {
-    anaglyph_effect.render(scene,camera );
+    anaglyph_effect.render(scene,camera);
   } else {
-    maprenderer.render(scene,camera );
+    maprenderer.render(scene, camera);
   }
 
   if (goto_active) check_request_goto_path();

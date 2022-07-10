@@ -1,0 +1,85 @@
+/**********************************************************************
+    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
+    Copyright (C) 2009-2016  The Freeciv-web project
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+***********************************************************************/
+
+var trees_init = false;
+var forest_geometry;
+
+/****************************************************************************
+  Prerender trees and jungle on known tiles.
+****************************************************************************/
+function add_trees_to_landgeometry() {
+  const width_half = mapview_model_width / 2;
+  const height_half = mapview_model_height / 2;
+
+  const gridX = Math.floor(xquality);
+  const gridY = Math.floor(yquality);
+
+  const gridX1 = gridX + 1;
+  const gridY1 = gridY + 1;
+  const segment_width = mapview_model_width / gridX;
+  const segment_height = mapview_model_height / gridY;
+
+  var tree_points = null;
+  var jungle_points = null;
+
+
+  var jungle_geometry = null;
+
+  const vertices = [];
+
+
+  for ( let iy = 0; iy < gridY1; iy ++ ) {
+    const y = iy * segment_height - height_half;
+    for ( let ix = 0; ix < gridX1; ix ++ ) {
+      const x = ix * segment_width - width_half;
+      var sx = ix % xquality, sy = iy % yquality;
+      var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
+      var ptile = map_pos_to_tile(mx, my);
+
+      if (ptile != null) {
+        var terrain_name = tile_terrain(ptile).name;
+
+        if (terrain_name == "Forest" && tile_get_known(ptile) != TILE_UNKNOWN) {
+          var theight = Math.floor((100 * heightmap[sx][sy]) + 2 + (-1.2 + 3 * (1 + ((ix + iy) % 4))));
+          vertices.push(  x + 5, -y - 5, theight);
+        }
+      }
+    }
+  }
+
+  if (!trees_init) {
+    forest_geometry = new THREE.BufferGeometry();
+    forest_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+
+
+    var forest_material = new THREE.PointsMaterial( { size: 32, sizeAttenuation: true, map: webgl_textures["tree_1"],  alphaTest: 0.5, transparent: true } );
+    tree_points = new THREE.Points( forest_geometry, forest_material );
+    scene.add(tree_points);
+  } else {
+    forest_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+    forest_geometry.computeBoundingSphere();
+  }
+
+  forest_geometry.rotateX( - Math.PI / 2 );
+  forest_geometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+
+  trees_init = true;
+
+}
+

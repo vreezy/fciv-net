@@ -76,7 +76,7 @@ function update_tiles_known_vertex_colors()
     }
   }
 
-  landGeometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3) );
+  landGeometry.setAttribute( 'vertColor', new THREE.Float32BufferAttribute( colors, 3) );
 
   landGeometry.colorsNeedUpdate = true;
   vertex_colors_dirty = false;

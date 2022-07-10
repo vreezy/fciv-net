@@ -38,9 +38,6 @@ var map_tile_label_positions = {};
 var unit_health_positions = {};
 var unit_healthpercentage_positions = {};
 
-var forest_positions = {}; // tile index is key, mesh is value.
-var jungle_positions = {}; // tile index is key, mesh is value.
-
 // stores tile extras (eg specials), key is extra + "." + tile_index.
 var tile_extra_positions = {};
 
@@ -413,56 +410,6 @@ function update_tile_extras(ptile) {
   update_tile_extra_update_model(EXTRA_AIRBASE, "Airbase", ptile);
   update_tile_extra_update_model(EXTRA_FORTRESS, "Fortress", ptile);
 
-  var terrain_name = tile_terrain(ptile).name;
-  if (scene != null && forest_positions[ptile['index']] == null && terrain_name == "Forest") {
-    var tterrain_near = tile_terrain_near(ptile);
-    var pterrain = tile_terrain(ptile);
-    var key = fill_terrain_sprite_layer(1, ptile, pterrain, tterrain_near);
-    var extra_mesh = get_extra_mesh(key[0]['key']);
-    var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-
-    extra_mesh.matrixAutoUpdate = false;
-    extra_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
-    extra_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
-    extra_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
-    extra_mesh.rotation.y = Math.PI / 4;
-    extra_mesh.updateMatrix();
-
-    forest_positions[ptile['index']] = extra_mesh;
-    if (extra_mesh != null) scene.add(extra_mesh);
-  }
-
-  if (scene != null && jungle_positions[ptile['index']] == null && terrain_name == "Jungle") {
-    var tterrain_near = tile_terrain_near(ptile);
-    var pterrain = tile_terrain(ptile);
-    var key = fill_terrain_sprite_layer(1, ptile, pterrain, tterrain_near);
-    var extra_mesh = get_extra_mesh(key[0]['key']);
-    var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-
-    extra_mesh.matrixAutoUpdate = false;
-    extra_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
-    extra_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
-    extra_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
-    extra_mesh.rotation.y = Math.PI / 4;
-    extra_mesh.updateMatrix();
-
-    jungle_positions[ptile['index']] = extra_mesh;
-    if (extra_mesh != null) scene.add(extra_mesh);
-  }
-
- if (scene != null && tile_get_known(ptile) == TILE_KNOWN_SEEN
-      && forest_positions[ptile['index']] != null
-      && terrain_name != "Forest") {
-      scene.remove(forest_positions[ptile['index']] );
-      forest_positions[ptile['index']] = null;
-  }
-  if (scene != null && tile_get_known(ptile) == TILE_KNOWN_SEEN
-      && jungle_positions[ptile['index']] != null
-      && terrain_name != "Jungle") {
-      scene.remove(jungle_positions[ptile['index']] );
-      jungle_positions[ptile['index']] = null;
-  }
-
   // Render tile specials (extras). Fish and whales are 3D models, the rest are 2D sprites from the 2D version.
   const extra_id = tile_resource(ptile);
   var extra_resource = (extra_id === null) ? null : extras[extra_id];
@@ -546,8 +493,6 @@ function add_all_objects_to_scene()
   unit_activities_positions = {};
   unit_health_positions = {};
   unit_healthpercentage_positions = {};
-  forest_positions = {};
-  jungle_positions = {};
   tile_extra_positions = {};
   road_positions = {};
   rail_positions = {};

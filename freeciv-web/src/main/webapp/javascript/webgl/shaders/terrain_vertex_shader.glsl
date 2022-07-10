@@ -23,6 +23,8 @@ varying vec3 vPosition;
 varying vec3 vPosition_camera;
 varying vec3 vColor;
 
+attribute vec3 vertColor;
+
 void main()
 {
   vUv = uv;
@@ -33,5 +35,5 @@ void main()
   vPosition_camera = gl_Position.xyz;
   vNormal = normal;
   vPosition = position;
-  vColor = color;
+  vColor = vertColor;
 }
