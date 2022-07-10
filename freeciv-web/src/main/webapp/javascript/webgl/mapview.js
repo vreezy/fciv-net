@@ -204,7 +204,6 @@ function init_webgl_mapview() {
       uvs.push( ix / gridX );
       uvs.push( 1 - ( iy / gridY ) );
 
-
     }
 
   }
@@ -220,14 +219,12 @@ function init_webgl_mapview() {
       indices.push( b, c, d );
 
     }
-
   }
 
   landGeometry.setIndex( indices );
   landGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
   landGeometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
   landGeometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
-
 
   landGeometry.rotateX( - Math.PI / 2 );
   landGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
@@ -261,13 +258,13 @@ function init_webgl_mapview() {
   scene.add( landMesh );
 
   if (graphics_quality == QUALITY_HIGH) {
-    setInterval(update_tiles_known_vertex_colors, 250);
+    setInterval(update_tiles_known_vertex_colors, 200);
   } else {
     setInterval(update_tiles_known_vertex_colors, 1200);
   }
 
   add_all_objects_to_scene();
-  setInterval(add_trees_to_landgeometry, 250);
+  setInterval(add_trees_to_landgeometry, 200);
 
   $.unblockUI();
   console.log("init_webgl_mapview took: " + (new Date().getTime() - start_webgl) + " ms.");
