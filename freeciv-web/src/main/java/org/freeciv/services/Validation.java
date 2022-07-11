@@ -32,11 +32,8 @@ public class Validation {
 		if (!usernamePattern.matcher(name).matches()) {
 			return false;
 		}
-		if (name.equals("pbem")) {
-			return false;
-		}
-		return true;
-	}
+        return !name.equals("pbem");
+    }
 
 }
 

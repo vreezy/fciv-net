@@ -103,7 +103,7 @@ public class ResetPassword extends HttpServlet {
 
             HttpResponse captchaResponse = client.execute(post);
             InputStream in = captchaResponse.getEntity().getContent();
-            String body = IOUtils.toString(in, "UTF-8");
+            String body = IOUtils.toString(in, java.nio.charset.StandardCharsets.UTF_8);
             if (!(body.contains("success") && body.contains("true"))) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Captcha failed!");
                 return;
