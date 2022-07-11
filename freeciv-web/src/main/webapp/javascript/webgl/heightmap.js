@@ -162,7 +162,18 @@ function map_tile_height(ptile)
       if (tile_has_extra(ptile, EXTRA_RIVER)) return -0.01;
       if (is_ocean_tile(ptile)) return -0.13 + ((Math.random() - 0.5) / 80);
       if (tile_terrain(ptile)['name'] == "Hills") return 0.21;
-      if (tile_terrain(ptile)['name'] == "Mountains") return 0.43 + ((Math.random() - 0.5) / 10);
+      if (tile_terrain(ptile)['name'] == "Mountains") return 0.45 + ((Math.random() - 0.5) / 10);
+
+      // Increase height of tiles near rivers, to prevent them from getting beach.
+      for (var dir = 0; dir < 8; dir++) {
+        var tile1 = mapstep(ptile, dir);
+        if (tile1 != null) {
+          if (tile_has_extra(tile1, EXTRA_RIVER)) {
+            return 0.15;
+          }
+        }
+      }
+
   }
 
   return 0.01 + ((Math.random() - 0.5) / 60);

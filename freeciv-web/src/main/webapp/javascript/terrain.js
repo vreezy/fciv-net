@@ -54,12 +54,10 @@ function tile_terrain_near(ptile)
         tterrain_near[dir] = terrain1;
         continue;
       }
-      freelog(LOG_ERROR, `build_tile_data() tile (${ptile['x']},${ptile['y']}) has no terrain!`);
     }
     /* At the edges of the (known) map, pretend the same terrain continued
      * past the edge of the map. */
     tterrain_near[dir] = tile_terrain(ptile);
-    // FIXME: BV_CLR_ALL(tspecial_near[dir]);
   }
 
   return tterrain_near;
