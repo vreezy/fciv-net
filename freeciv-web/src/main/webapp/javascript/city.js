@@ -205,7 +205,7 @@ function show_city_dialog(pcity)
    dialog_buttons = $.extend(dialog_buttons, {"Close (W)": close_city_dialog});
 
   $("#city_dialog").attr("title", decodeURIComponent(pcity['name'])
-                         + " (" + pcity['size'] + ") founded turn " + pcity['turn_founded']);
+                         + " (" + pcity['size'] + ")");
   $("#city_dialog").dialog({
 			bgiframe: true,
 			modal: false,
@@ -256,6 +256,7 @@ function show_city_dialog(pcity)
 
   $("#city_size").html("Population: " + numberWithCommas(city_population(pcity)*1000) + "<br>"
                        + "Size: " + pcity['size'] + "<br>"
+                       + "Founded turn: " + pcity['turn_founded'] + "<br>"
                        + "Granary: " + pcity['food_stock'] + "/" + pcity['granary_size'] + "<br>"
                        + "Change in: " + city_turns_to_growth_text(pcity));
 
