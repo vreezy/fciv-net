@@ -1,7 +1,10 @@
 <div id="civ_dialog">
 
 <h3 id="nation_title"></h3>
-<div id="civ_dialog_text"></div>
+<center>
+  <div id="civ_dialog_text"></div>
+  <div id="civ_dialog_flag"></div>
+</center>
 
 <button id="revolution_button" class="button govbutton" type="button" onclick="show_revolution_dialog();">Revolution</button><br>
 <button id="taxrates_button" class="button govbutton" type="button" onclick="show_tax_rates_dialog();">Tax Rates</button><br>

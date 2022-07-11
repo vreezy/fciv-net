@@ -155,7 +155,7 @@ function webglOnWheel(e) {
 
   var wd = e.originalEvent.deltaY;
 
-  const dx_adj = 3;
+  const dx_adj = 6;
   var dy_adj = dx_adj * camera_dy_div_dx;
   const dz_adj = dx_adj;
 

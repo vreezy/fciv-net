@@ -1064,3 +1064,14 @@ li.tech-both::before {
   margin-left: 0;
   right: .2em;
 }
+
+#civ_dialog_text {
+  max-width: 70%;
+  padding: 5px;
+  background-color: rgba(0,0,0,0.1);
+  font-size: 90%;
+}
+
+#civ_dialog_flag {
+  padding: 5px;
+}

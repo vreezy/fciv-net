@@ -134,8 +134,7 @@ function setup_window_size ()
 
 
     $(".ui-tabs-anchor").css("padding", "7px");
-    $(".overview_dialog").hide();
-    $(".ui-dialog-titlebar").hide();
+
     $("#freeciv_logo").hide();
 
     overview_active = false;
