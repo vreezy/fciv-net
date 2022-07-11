@@ -205,7 +205,7 @@ function show_city_dialog(pcity)
    dialog_buttons = $.extend(dialog_buttons, {"Close (W)": close_city_dialog});
 
   $("#city_dialog").attr("title", decodeURIComponent(pcity['name'])
-                         + " (" + pcity['size'] + ")");
+                         + " (" + pcity['size'] + ") founded turn " + pcity['turn_founded']);
   $("#city_dialog").dialog({
 			bgiframe: true,
 			modal: false,

@@ -33,8 +33,6 @@ import uuid
 import gc
 import mysql.connector
 import configparser
-import urllib.request
-import urllib.parse
 import hashlib
 
 PROXY_PORT = 8002

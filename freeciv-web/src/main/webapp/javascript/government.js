@@ -77,18 +77,18 @@ function init_civ_dialog()
     var tag = pnation['graphic_str'];
 
     var civ_description = "";
-    if (!pnation['customized']) {
-	    civ_description += "<img src='/images/flags/" + tag + "-web" + get_tileset_file_extention() + "' width='180'>";
-	}
 
-    civ_description += "<br><div>" + pplayer['name'] + " rules the " + nations[pplayer['nation']]['adjective']
-	    + " with the form of government: " + governments[client.conn.playing['government']]['name']
-	    + "</div><br>";
-    $("#nation_title").html("The " + nations[pplayer['nation']]['adjective'] + " nation");
+
+    civ_description += "<div>" + nations[pplayer['nation']]['legend']  +"</div><br>";
+    if (!pnation['customized']) {
+        civ_description += "<img src='/images/flags/" + tag + "-web" + get_tileset_file_extention() + "' width='180'>";
+    }
+    $("#nation_title").html(pplayer['name'] + " rules the " + nations[pplayer['nation']]['adjective']
+                            	    + " with government form " + governments[client.conn.playing['government']]['name']);
     $("#civ_dialog_text").html(civ_description);
 
   } else {
-    $("#civ_dialog_text").html("This dialog isn't available as observer.");
+    $("#civ_dialog_text").html("Observing.");
 
   }
 

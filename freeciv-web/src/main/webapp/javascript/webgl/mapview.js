@@ -230,9 +230,7 @@ function init_webgl_mapview() {
   landGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
 
   for ( let iy = 0; iy < gridY1; iy ++ ) {
-    const y = iy * segment_height - height_half;
     for ( let ix = 0; ix < gridX1; ix ++ ) {
-      const x = ix * segment_width - width_half;
       var sx = ix % xquality, sy = iy % yquality;
       var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
       var ptile = map_pos_to_tile(mx, my);

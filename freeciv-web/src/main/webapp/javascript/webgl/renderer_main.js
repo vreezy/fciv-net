@@ -75,15 +75,6 @@ function init_webgl_renderer()
 
   init_sprites();
 
-  var renderer_name = "-";
-  var gl = document.createElement('canvas').getContext('webgl');
-  if (gl != null) {
-    var extension = gl.getExtension('WEBGL_debug_renderer_info');
-    if (extension != undefined) {
-      renderer_name = gl.getParameter(extension.UNMASKED_RENDERER_WEBGL);
-    }
-  }
-
   var stored_graphics_quality_setting = simpleStorage.get("graphics_quality", "");
   if (stored_graphics_quality_setting != null && stored_graphics_quality_setting > 0) {
     graphics_quality = stored_graphics_quality_setting;
