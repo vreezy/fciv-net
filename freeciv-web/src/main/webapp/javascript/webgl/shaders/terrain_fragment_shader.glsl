@@ -456,7 +456,7 @@ void main(void)
 
   // Borders
   if (!(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
-    c = mix(c, border_color.rbg, 0.53);
+    c = mix(c, border_color.rbg, 0.55);
   }
 
   // specular component, ambient occlusion and fade out underwater terrain
@@ -464,7 +464,7 @@ void main(void)
   vec4 Cb = texture2D(terrains, vec2(mod(map_x_size * (vUv.x / 4.0), 0.25) + sprite_pos1_x , mod((vUv.y * map_y_size / 4.0), 0.25) + sprite_pos1_y));
   c = mix(c, Cb.rgb, x);
 
-  float shade_factor = 0.22 + 1.3 * max(0., dot(vNormal, normalize(light)));
+  float shade_factor = 0.22 + 1.4 * max(0., dot(vNormal, normalize(light)));
 
   // Fog of war, and unknown tiles, are stored as a vertex color in vColor.r.
   c = c * vColor.r;

@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 var texture_cache = {};
-var webgl_mapview_font = "29px arial, sans serif"; // with canvas text support
+var webgl_mapview_font = "27px arial, sans serif"; // with canvas text support
 
 /****************************************************************************
  Convert a canvas to a mesh that will always face the user. The height of
@@ -103,7 +103,7 @@ function create_city_label(pcity)
   var background_color = nations[owner.nation].color;
   if (background_color != null) {
      if (graphics_quality >= QUALITY_HIGH) {
-       background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.52)");
+       background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.49)");
      }
      ctx.fillStyle = background_color;
   }
@@ -135,7 +135,7 @@ function create_city_label(pcity)
   }
 
   if (width > 512) width = 512;
-  return canvas_to_user_facing_mesh(canvas, width, Math.floor(width * 0.5), 19, true, "city_" + pcity['id']);
+  return canvas_to_user_facing_mesh(canvas, width, Math.floor(width * 0.5), 17, true, "city_" + pcity['id']);
 }
 
 /****************************************************************************
