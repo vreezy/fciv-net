@@ -1,6 +1,6 @@
-<h1>The Freeciv Online Manual</h1>
+<h1>The Fciv.net Online Manual</h1>
 
-Freeciv is a Free and Open Source empire-building strategy game inspired by the 
+Fciv.net is a Free and Open Source empire-building strategy game inspired by the
 history of human civilization.
-
+<br>
 <img src="/static/images/freeciv-webgl-splash-48.png" style="width:50%;">
