@@ -116,8 +116,8 @@ float railtype_all = 43.0/255.0;
 
 float beach_high = 51.0;
 float beach_blend_high = 50.5;
-float beach_blend_low = 49.5;
-float beach_low = 49.0;
+float beach_blend_low = 49.8;
+float beach_low = 49.2;
 float blend_amount = 0.0;
 
 float mountains_low_begin = 74.0;
