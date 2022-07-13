@@ -458,7 +458,7 @@ function map_tile_height_adjust(ptile)
 {
   if (ptile != null && tile_terrain(ptile) != null) {
     // Convert tile height to web client scale.
-    ptile['height'] = (800 + ptile['height']) * 0.00038;
+    ptile['height'] = (820 + ptile['height']) * 0.00038;
 
     if (tile_has_extra(ptile, EXTRA_RIVER)) ptile['height'] = 0.493;
     if (tile_terrain(ptile)['name'] == "Hills") ptile['height'] =  ptile['height'] * 1.05;
