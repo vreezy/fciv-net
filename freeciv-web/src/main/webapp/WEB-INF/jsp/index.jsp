@@ -108,6 +108,21 @@
 	.jumbotron {
 	padding-bottom: 0px;
 	}
+		
+  .vcontainer {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; 
+  }
+  .video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+		
 </style>
 </head>
 <body>
@@ -283,9 +298,13 @@
 				</div>
 			</div>
 
-            <div class="col-md-6">
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/hTE5qF1bqTU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>		    
-		             </div>
+                    <div class="col-md-6">
+		                  <div class="vcontainer">
+                                        <iframe  src="https://www.youtube.com/embed/hTE5qF1bqTU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video"></iframe>
+                                        </div>
+                                  </div>
+			
+		    </div>
 
 			<div class="col-md-6 container" id="best-of-play-by-email">
 				<div class="panel-freeciv">
