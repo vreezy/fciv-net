@@ -38,7 +38,7 @@ var model_filenames = ["AEGIS Cruiser",     "Helicopter",    "Pikemen",
                        "Engineers",         "Marines",          "Transport",
                        "Cannon",            "Explorer",         "Mech. Inf.",    "Trireme",
                        "Caravan",           "Fighter",          "Mine",          "Warriors",
-                       "Caravel",           "Fish",             "Musketeers",    "Whales",
+                       "Caravel",           "Musketeers",
                        "Carrier",           "Freight",          "Nuclear",
                        "Catapult",          "Frigate",          "Migrants",
                        "Cavalry",           "Paratroopers",     "Workers",
@@ -249,26 +249,32 @@ function get_flag_shield_mesh(key)
 }
 
 /****************************************************************************
- Returns a extra mesh
+ Returns a extra texture
 ****************************************************************************/
-function get_extra_mesh(key)
+function get_extra_texture(key)
 {
-  if (meshes[key] != null) return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1);
+  if (key != null && texture_cache[key] != null) {
+      return texture_cache[key];
+  }
   if (sprites[key] == null ) {
     console.log("Invalid extra key: " + key);
     return null;
   }
 
   var ecanvas = document.createElement("canvas");
-  ecanvas.width = 64;
-  ecanvas.height = 32;
+  ecanvas.width = 40;
+  ecanvas.height = 40;
   var econtext = ecanvas.getContext("2d");
-  econtext.drawImage(sprites[key], 18, 8,
-                sprites[key].width - 36, sprites[key].height - 12,
-                0,0,64,32);
+  econtext.drawImage(sprites[key], 14, 6,
+                sprites[key].width - 33, sprites[key].height,
+                0,0,40,40);
 
-  meshes[key] = canvas_to_user_facing_mesh(ecanvas, 64, 28, 18, true);
-  return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1);
+  // Create a new texture out of the canvas
+  var texture = new THREE.Texture(ecanvas);
+  texture.needsUpdate = true;
+  texture_cache[key] = texture;
+
+  return texture;
 }
 
 /****************************************************************************

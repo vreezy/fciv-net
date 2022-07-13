@@ -410,34 +410,31 @@ function update_tile_extras(ptile) {
   update_tile_extra_update_model(EXTRA_AIRBASE, "Airbase", ptile);
   update_tile_extra_update_model(EXTRA_FORTRESS, "Fortress", ptile);
 
-  // Render tile specials (extras). Fish and whales are 3D models, the rest are 2D sprites from the 2D version.
+  // Render tile specials (extras), as 2D sprites from the 2D version.
   const extra_id = tile_resource(ptile);
   var extra_resource = (extra_id === null) ? null : extras[extra_id];
   if (extra_resource != null && scene != null && tile_extra_positions[extra_resource['id'] + "." + ptile['index']] == null) {
-    if (extra_resource['name'] != "Fish" && extra_resource['name'] != "Whales") {
       var key = extra_resource['graphic_str'];
-      var extra_mesh = get_extra_mesh(key);
+      var extra_texture = get_extra_texture(key);
 
       if (tile_has_extra(ptile, EXTRA_RIVER)) {
-        height += 18;
+        height += 10;
       }
       if (extra_resource['name'] == "Gold" || extra_resource['name'] == "Iron") {
         height -= 5;
       }
-
+      if (extra_resource['name'] == "Fish" || extra_resource['name'] == "Whales") {
+        height = 52;
+      }
       var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-      extra_mesh.matrixAutoUpdate = false;
-      extra_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
-      extra_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
-      extra_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
-      extra_mesh.rotation.y = Math.PI / 4;
-      extra_mesh.updateMatrix();
+      const extra_vertices = [];
+      extra_vertices.push(pos['x'] - 10, height, pos['y'] - 10);
 
-      tile_extra_positions[extra_resource['id'] + "." + ptile['index']] = extra_mesh;
-      if (scene != null && extra_mesh != null) scene.add(extra_mesh);
-    } else {
-      update_tile_extra_update_model(extra_resource['id'], extra_resource['name'], ptile);
-    }
+      var extra_geometry = new THREE.BufferGeometry();
+      extra_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( extra_vertices, 3 ));
+      var extra_material = new THREE.PointsMaterial( { size: 38, sizeAttenuation: true, map: extra_texture,  alphaTest: 0.5, transparent: true, opacity: 1.0 } );
+      var extra_points = new THREE.Points( extra_geometry, extra_material );
+      scene.add(extra_points);
   }
 
 }
@@ -450,9 +447,6 @@ function update_tile_extra_update_model(extra_type, extra_name, ptile)
 {
   if (tile_extra_positions[extra_type + "." + ptile['index']] == null && tile_has_extra(ptile, extra_type)) {
     var height = 5 + ptile['height'] * 100;
-    if ( extra_name == "Fish" || extra_name == "Whales") {
-      height -= 5;
-    }
 
     var model = webgl_get_model(extra_name);
     if (model == null) return;

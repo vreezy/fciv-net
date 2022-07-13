@@ -120,9 +120,9 @@ float beach_blend_low = 49.8;
 float beach_low = 49.2;
 float blend_amount = 0.0;
 
-float mountains_low_begin = 74.0;
-float mountains_low_end = 75.0;
-float mountains_high = 77.2;
+float mountains_low_begin = 73.0;
+float mountains_low_end = 74.0;
+float mountains_high = 76.2;
 
 vec3 ambiant = vec3(0.27, 0.55, 1.);
 vec3 light = vec3(0.8, 0.6, 0.7);
