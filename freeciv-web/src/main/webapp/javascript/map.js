@@ -76,22 +76,14 @@ function topo_has_flag(flag)
 **************************************************************************/
 function map_allocate()
 {
-  /*freelog(LOG_DEBUG, "map_allocate (was %p) (%d,%d)",
-	  (void *)map.tiles, map.xsize, map.ysize);*/
-
-  /*assert(map.tiles == NULL);*/
   tiles = {};
 
-  /* Note this use of whole_map_iterate may be a bit sketchy, since the
-   * tile values (ptile->index, etc.) haven't been set yet.  It might be
-   * better to do a manual loop here. */
   for (var x = 0; x < map['xsize']; x++) {
     for (var y = 0; y < map['ysize']; y++) {
       var tile = {};
       tile['index'] = x + y * map['xsize'];
       tile['x'] = x;
       tile['y'] = y;
-      tile['height'] = 0;
       //tile['nat_x'] = tile['index'] % map['xsize'];
       //tile['nat_y'] = Math.floor(tile['index'] / map['xsize']);
       tile = tile_init(tile);
@@ -99,10 +91,6 @@ function map_allocate()
       tiles[tile['index']] = tile;
     }
   }
-
-
-  /* TODO: generate_city_map_indices(); */
-  /* TODO: generate_map_indices(); */
 
   map['startpos_table'] = {};
 
@@ -460,5 +448,34 @@ function clear_goto_tiles()
       }
       goto_lines = [];
     }
+  }
+}
+
+/****************************************************************************
+  Adjust tile height
+****************************************************************************/
+function map_tile_height_adjust(ptile)
+{
+  if (ptile != null && tile_terrain(ptile) != null) {
+    // Convert tile height to web client scale.
+    ptile['height'] = (760 + ptile['height']) * 0.000405;
+
+    if (tile_has_extra(ptile, EXTRA_RIVER)) ptile['height'] = 0.493;
+    if (tile_terrain(ptile)['name'] == "Hills") ptile['height'] =  ptile['height'] * 1.1;
+    if (tile_terrain(ptile)['name'] == "Mountains") ptile['height'] =  ptile['height'] * 1.2;
+
+    if (tile_terrain(ptile)['name'] == "Glacier") {
+      ptile['height'] = 0.52;
+    }
+
+    // Increase height of tiles near rivers, to prevent them from getting beach.
+    /*for (var dir = 0; dir < 8; dir++) {
+      var tile1 = mapstep(ptile, dir);
+      if (tile1 != null) {
+        if (tile_has_extra(tile1, EXTRA_RIVER)) {
+          ptile['height'] = 0.15;
+        }
+      }
+    }*/
   }
 }

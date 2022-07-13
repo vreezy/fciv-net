@@ -193,6 +193,8 @@ function handle_tile_info(packet)
   if (tiles != null) {
     packet['extras'] = new BitVector(packet['extras']);
 
+    map_tile_height_adjust(packet);
+
     if (renderer == RENDERER_WEBGL) {
       var old_tile = $.extend({}, tiles[packet['tile']]);
       webgl_update_tile_known(tiles[packet['tile']], packet);

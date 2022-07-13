@@ -24,6 +24,7 @@
 # webgl_vision_cheat_temporary is a temporary solution to reveal terrain types to the WebGL client.
 # load_command_confirmation adds a log message which confirms that loading is complete, so that Freeciv-web can issue additional commands.
 # endgame-mapimg is used to generate a mapimg at endgame for hall of fame.
+# add_packet_tile_height adds 'height' to tile in packets.def to include heightmap info for 3D web client.
 
 declare -a PATCHLIST=(
   "meson_project_replacement"
@@ -51,6 +52,7 @@ declare -a PATCHLIST=(
   "load_command_confirmation"
   "webgl_vision_cheat_temporary"
   "endgame-mapimg"
+  "add_packet_tile_height"
 )
 
 apply_patch() {
