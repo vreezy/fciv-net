@@ -284,9 +284,8 @@
 			</div>
 
             <div class="col-md-6">
-                <br><br>
-                <iframe src="https://discord.com/widget?id=960605237775855676&theme=dark" width="350" height="300" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-            </div>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/hTE5qF1bqTU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>		    
+		             </div>
 
 			<div class="col-md-6 container" id="best-of-play-by-email">
 				<div class="panel-freeciv">
@@ -341,7 +340,9 @@
 						<img class="small" src="/static/images/blender-stack.png">Blender
 					</div>
 				</div>
-
+				<div class="col-md-4">			
+  			              <iframe src="https://discord.com/widget?id=960605237775855676&theme=dark" width="350" height="300" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+				</div>
 			</div> <!-- end developers -->
 		</c:if>
 
