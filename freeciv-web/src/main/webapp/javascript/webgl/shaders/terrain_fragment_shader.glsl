@@ -114,15 +114,15 @@ float roadtype_18 = 18.0/255.0;
 float roadtype_19 = 19.0/255.0;
 float railtype_all = 43.0/255.0;
 
-float beach_high = 53.0;
-float beach_blend_high = 49.5;
-float beach_blend_low = 48.5;
+float beach_high = 51.0;
+float beach_blend_high = 50.5;
+float beach_blend_low = 49.0;
 float beach_low = 48.0;
 float blend_amount = 0.0;
 
-float mountains_low_begin = 78.0;
-float mountains_low_end = 79.0;
-float mountains_high = 80.2;
+float mountains_low_begin = 76.0;
+float mountains_low_end = 77.0;
+float mountains_high = 78.2;
 
 vec3 ambiant = vec3(0.27, 0.55, 1.);
 vec3 light = vec3(0.8, 0.6, 0.7);

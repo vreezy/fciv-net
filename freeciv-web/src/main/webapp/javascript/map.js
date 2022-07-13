@@ -458,24 +458,14 @@ function map_tile_height_adjust(ptile)
 {
   if (ptile != null && tile_terrain(ptile) != null) {
     // Convert tile height to web client scale.
-    ptile['height'] = (760 + ptile['height']) * 0.000405;
+    ptile['height'] = (800 + ptile['height']) * 0.00038;
 
     if (tile_has_extra(ptile, EXTRA_RIVER)) ptile['height'] = 0.493;
-    if (tile_terrain(ptile)['name'] == "Hills") ptile['height'] =  ptile['height'] * 1.1;
-    if (tile_terrain(ptile)['name'] == "Mountains") ptile['height'] =  ptile['height'] * 1.2;
+    if (tile_terrain(ptile)['name'] == "Hills") ptile['height'] =  ptile['height'] * 1.05;
+    if (tile_terrain(ptile)['name'] == "Mountains") ptile['height'] =  ptile['height'] * 1.15;
 
     if (tile_terrain(ptile)['name'] == "Glacier") {
       ptile['height'] = 0.52;
     }
-
-    // Increase height of tiles near rivers, to prevent them from getting beach.
-    /*for (var dir = 0; dir < 8; dir++) {
-      var tile1 = mapstep(ptile, dir);
-      if (tile1 != null) {
-        if (tile_has_extra(tile1, EXTRA_RIVER)) {
-          ptile['height'] = 0.15;
-        }
-      }
-    }*/
   }
 }
