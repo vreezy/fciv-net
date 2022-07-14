@@ -460,12 +460,15 @@ function map_tile_height_adjust(ptile)
     // Convert tile height to web client scale.
     ptile['height'] = (840 + ptile['height']) * 0.00038;
 
-    if (tile_has_extra(ptile, EXTRA_RIVER)) ptile['height'] = 0.493;
-    if (tile_terrain(ptile)['name'] == "Hills") ptile['height'] =  ptile['height'] * 1.05;
-    if (tile_terrain(ptile)['name'] == "Mountains") ptile['height'] =  ptile['height'] * 1.15;
-
-    if (tile_terrain(ptile)['name'] == "Glacier") {
+    if (tile_has_extra(ptile, EXTRA_RIVER)) {
+      ptile['height'] = 0.493;
+    } else if (tile_terrain(ptile)['name'] == "Hills") {
+      ptile['height'] =  ptile['height'] * 1.05;
+    } else if (tile_terrain(ptile)['name'] == "Mountains") {
+      ptile['height'] =  ptile['height'] * 1.15;
+    } else if (tile_terrain(ptile)['name'] == "Glacier" || tile_terrain(ptile)['name'] == "Tundra") {
       ptile['height'] = 0.52;
     }
+
   }
 }

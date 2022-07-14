@@ -68,6 +68,18 @@ function create_heightmap()
     heightmap[hx] = new Array(heightmap_resolution_y);
   }
 
+  // Make coastline more distinct, to make it easier to distinguish ocean from land.
+  for (var x = 0; x < map.xsize ; x++) {
+    for (var y = 0; y < map.ysize; y++) {
+      var ptile = map_pos_to_tile(x, y);
+      if (is_ocean_tile(ptile) && !is_ocean_tile_near(ptile)) {
+        ptile['height'] = 0.30;
+      }
+      if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile)) {
+        ptile['height'] = 0.58;
+      }
+    }
+  }
 
   for (var x = 0; x < heightmap_resolution_x; x++) {
     for (var y = 0; y < heightmap_resolution_y; y++) {
