@@ -72,11 +72,11 @@ function create_heightmap()
   for (var x = 0; x < map.xsize ; x++) {
     for (var y = 0; y < map.ysize; y++) {
       var ptile = map_pos_to_tile(x, y);
-      if (is_ocean_tile(ptile) && !is_ocean_tile_near(ptile)) {
-        ptile['height'] = 0.30;
+      if (is_ocean_tile(ptile) && is_land_tile_near(ptile)) {
+        ptile['height'] = 0.45;
       }
-      if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile)) {
-        ptile['height'] = 0.58;
+      if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && !tile_has_extra(ptile, EXTRA_RIVER)) {
+        ptile['height'] = 0.55;
       }
     }
   }

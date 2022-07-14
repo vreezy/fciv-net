@@ -86,3 +86,17 @@ function is_ocean_tile_near(ptile)
   }
   return false;
 }
+
+/**************************************************************************
+ ...
+**************************************************************************/
+function is_land_tile_near(ptile)
+{
+  for (var dir = 0; dir < 8; dir++) {
+    var tile1 = mapstep(ptile, dir);
+    if (!is_ocean_tile(tile1)) {
+      return true;
+    }
+  }
+  return false;
+}
