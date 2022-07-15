@@ -469,6 +469,10 @@ function map_tile_height_adjust(ptile)
     } else if (tile_terrain(ptile)['name'] == "Glacier" || tile_terrain(ptile)['name'] == "Tundra") {
       ptile['height'] = 0.52;
     }
+    if (ptile['height'] < 0.4) {
+      ptile['height'] = 0.4;
+    }
+
 
   }
 }

@@ -327,7 +327,7 @@
 						</tbody>
 					</table>
 
-				</div>
+
 			</div>
 		</div> <!-- end multiplayer/best play by email -->
 
