@@ -457,8 +457,18 @@ function clear_goto_tiles()
 function map_tile_height_adjust(ptile)
 {
   if (ptile != null && tile_terrain(ptile) != null) {
-    // Convert tile height to web client scale.
-    ptile['height'] = (840 + ptile['height']) * 0.00038;
+
+    if (ptile['height'] == 0) {
+      if (is_ocean_tile(ptile)) {
+        ptile['height'] = 0.45;
+      } else {
+        ptile['height'] = 0.55;
+      }
+
+    } else {
+      // Convert tile height to web client scale.
+      ptile['height'] = (840 + ptile['height']) * 0.00038;
+    }
 
     if (tile_has_extra(ptile, EXTRA_RIVER)) {
       ptile['height'] = 0.493;

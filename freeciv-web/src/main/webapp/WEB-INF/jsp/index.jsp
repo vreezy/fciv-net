@@ -173,7 +173,7 @@
 								Start on a scenario map, such as <br> World map, America, Italy or Japan.
 							</div>
 						</c:if>
-						<a href="/webclient/?action=load&amp;scenario=true&type=singleplayer" class="btn"><i class="fa fa-map-o"></i> <fmt:message key="index-game-launcher-scenario"/></a>
+						<a href="/webclient/?action=load&amp;scenario=true&type=singleplayer&renderer=webgl" class="btn"><i class="fa fa-map-o"></i> <fmt:message key="index-game-launcher-scenario"/></a>
 
 					</div>
 				</div>

@@ -39,7 +39,7 @@ index 42efd92..a5330a5 100644
                           ? game.info.turn + ptile->infra_turns
                           : 0;
 -
-+      info.height = hmap(ptile);
++      info.height = (height_map != NULL) ? hmap(ptile) : 0;
        if (pplayer != NULL) {
  	info.extras = map_get_player_tile(ptile, pplayer)->extras;
        } else {
@@ -47,7 +47,7 @@ index 42efd92..a5330a5 100644
        info.place_turn = 0;
  
        info.extras = plrtile->extras;
-+      info.height = hmap(ptile);
++      info.height = (height_map != NULL) ? hmap(ptile) : 0;
  
        /* Labels never change, so they are not subject to fog of war */
        if (ptile->label != NULL) {
@@ -55,7 +55,7 @@ index 42efd92..a5330a5 100644
        info.place_turn = 0;
  
        info.extras = ptile->extras; // WebGL client needs to know which tiles are rivers on game start.
-+      info.height = hmap(ptile);
++      info.height = (height_map != NULL) ? hmap(ptile) : 0;
  
        info.label[0] = '\0';
  
