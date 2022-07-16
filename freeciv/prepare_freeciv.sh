@@ -50,7 +50,8 @@ fi
   ( cd build
     meson ../freeciv -Dack_experimental=true -Dfreeciv-web=true -Dclients=[] -Dfcmp=[] \
           -Djson-protocol=true -Dnls=false -Daudio=false -Druledit=false \
-          -Ddefault_library=static -Dprefix=${HOME}/freeciv
+          -Ddefault_library=static -Dprefix=${HOME}/freeciv \
+          -Doptimization=3
     ninja
   )
 
