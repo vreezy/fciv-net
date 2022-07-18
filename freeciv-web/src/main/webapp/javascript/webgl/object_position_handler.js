@@ -41,6 +41,9 @@ var unit_healthpercentage_positions = {};
 // stores tile extras (eg specials), key is extra + "." + tile_index.
 var tile_extra_positions = {};
 
+// key is tile id, value is three.js point object.
+var extra_visibilities = {};
+
 var selected_unit_indicator = null;
 var selected_unit_material = null;
 var selected_unit_material_counter = 0;
@@ -398,7 +401,7 @@ function update_city_position(ptile) {
 ****************************************************************************/
 function update_tile_extras(ptile) {
 
-  if (ptile == null || tile_get_known(ptile) != TILE_KNOWN_SEEN) return;
+  if (ptile == null || tile_get_known(ptile) == TILE_UNKNOWN) return;
 
   var height = 5 + ptile['height'] * 100;
 
@@ -413,7 +416,7 @@ function update_tile_extras(ptile) {
   // Render tile specials (extras), as 2D sprites from the 2D version.
   const extra_id = tile_resource(ptile);
   var extra_resource = (extra_id === null) ? null : extras[extra_id];
-  if (extra_resource != null && scene != null && tile_extra_positions[extra_resource['id'] + "." + ptile['index']] == null) {
+  if (extra_resource != null && scene != null && tile_extra_positions[extra_resource['id'] + "." + ptile['index']] == null && extra_visibilities[ptile['index']] == null) {
       var key = extra_resource['graphic_str'];
       var extra_texture = get_extra_texture(key);
 
@@ -434,8 +437,17 @@ function update_tile_extras(ptile) {
       extra_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( extra_vertices, 3 ));
       var extra_material = new THREE.PointsMaterial( { size: 38, sizeAttenuation: true, map: extra_texture,  alphaTest: 0.5, transparent: true, opacity: 1.0 } );
       var extra_points = new THREE.Points( extra_geometry, extra_material );
+      extra_material.transparent = true;
       scene.add(extra_points);
+      extra_visibilities[ptile['index']] = extra_points;
   }
+
+  if (tile_get_known(ptile) == TILE_KNOWN_SEEN && extra_visibilities[ptile['index']] != null) {
+    extra_visibilities[ptile['index']].material.opacity = 1;
+  } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN && extra_visibilities[ptile['index']] != null) {
+    extra_visibilities[ptile['index']].material.opacity = 0.6;
+  }
+
 
 }
 
