@@ -27,6 +27,7 @@
 # add_packet_tile_height adds 'height' to tile in packets.def to include heightmap info for 3D web client.
 
 declare -a PATCHLIST=(
+  "0023-Meson-Detect-MagickWand"
   "meson_project_replacement"
   "meson_webperimental"
   "city_impr_fix2"
