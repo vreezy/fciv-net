@@ -104,21 +104,9 @@ function webgl_preload()
     webgl_materials['city_disorder'] = material;
   });
 
-  if (graphics_quality >= QUALITY_MEDIUM) {
-    var sun_texture = new THREE.Texture();
-    webgl_textures["sun"] = sun_texture;
-    textureLoader.load( '/textures/sun.png', function ( image ) {
-      sun_texture.image = image;
-      sun_texture.needsUpdate = true;
-      var sunMaterial = new THREE.MeshBasicMaterial( { map: sun_texture} );
-      webgl_materials['sun'] = sunMaterial;
-    } );
-  }
 
   /* Preload terrain tile textures.  */
-  var imgurl;
-  if (graphics_quality == QUALITY_MEDIUM) imgurl = "/textures/medium/terrains.png";
-  if (graphics_quality == QUALITY_HIGH) imgurl = "/textures/large/terrains.png";
+  var imgurl = "/textures/large/terrains.png";
 
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
@@ -135,8 +123,7 @@ function webgl_preload()
   );
 
   /* Preload road textures. */
-  if (graphics_quality == QUALITY_MEDIUM) imgurl = "/textures/medium/roads.png";
-  if (graphics_quality == QUALITY_HIGH) imgurl = "/textures/large/roads.png";
+  imgurl = "/textures/large/roads.png";
 
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
@@ -153,8 +140,7 @@ function webgl_preload()
   );
 
   /* Preload railroads textures. */
-  if (graphics_quality == QUALITY_MEDIUM) imgurl = "/textures/medium/railroads.png";
-  if (graphics_quality == QUALITY_HIGH) imgurl = "/textures/large/railroads.png";
+  imgurl = "/textures/large/railroads.png";
 
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
