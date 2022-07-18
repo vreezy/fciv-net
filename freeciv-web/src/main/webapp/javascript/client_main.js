@@ -210,42 +210,10 @@ function show_new_game_message()
       "Click the end turn button to end your turn and let the next opponent play.";
     setTimeout(check_queued_tech_gained_dialog, 2500);
 
-  } else if (is_longturn()) {
-    message = "Welcome " + username + "! This is a One Turn per Day game, where you play one " +
-    "turn every day. Click the Turn Done button when you are done with your turn. To play your next " +
-    "turn in this One Turn per Day game, you can bookmark this page and use that link to play your next turn. "+
-    "You can also find this game by going to " + window.location.host + " and clicking on the One Turn per Day button. "+
-    "Good luck, have fun and see you again tomorrow!";
-
-  } else if (is_small_screen()) {
-    message = "Welcome " + username + "! You lead a great civilization. Your task is to conquer the world!\n" +
-      "Click on units for giving them orders, and drag units on the map to move them.\n" +
-      "Good luck, and have a lot of fun!";
-
   } else if (client.conn.playing != null && !game_loaded) {
     var pplayer = client.conn.playing;
     var player_nation_text = "Welcome, " + username + " ruler of the " + nations[pplayer['nation']]['adjective'] + " empire.";
 
-    if (is_touch_device()) {
-      message = player_nation_text + " Your\n" +
-      "task is to create a great empire! You should start by\n" +
-      "exploring the land around you with your explorer,\n" +
-      "and using your settlers to find a good place to build\n" +
-      "a city. Click on units to get a list of available orders. \n" +
-      "To move your units around, carefully drag the units to the \n" +
-      "place you want it to go.\n" +
-      "Good luck, and have a lot of fun!";
-
-    } else {
-      message = player_nation_text + " Your\n" +
-      "task is to create a great empire! You should start by\n" +
-      "exploring the land around you with your explorer,\n" +
-      "and using your settlers to find a good place to build\n" +
-      "a city. Right-click with the mouse on your units for a list of available \n" +
-      "orders such as move, explore, build cities and attack. \n" +
-      "Good luck, and have a lot of fun!";
-
-    }
   } else if (game_loaded) {
     message = "Welcome back, " + username;
     if (client.conn.playing != null) {
