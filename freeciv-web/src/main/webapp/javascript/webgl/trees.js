@@ -25,6 +25,8 @@ var jungle_geometry;
   Prerender trees and jungle on known tiles.
 ****************************************************************************/
 function add_trees_to_landgeometry() {
+  if (!vertex_colors_dirty) return;
+
   const width_half = mapview_model_width / 2;
   const height_half = mapview_model_height / 2;
 

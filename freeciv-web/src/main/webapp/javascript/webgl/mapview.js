@@ -255,14 +255,12 @@ function init_webgl_mapview() {
   landMesh = new THREE.Mesh( landGeometry, terrain_material );
   scene.add( landMesh );
 
-  if (graphics_quality == QUALITY_HIGH) {
-    setInterval(update_tiles_known_vertex_colors, 200);
-  } else {
-    setInterval(update_tiles_known_vertex_colors, 1200);
-  }
+  update_tiles_known_vertex_colors();
+  setInterval(update_tiles_known_vertex_colors, 100);
 
   add_all_objects_to_scene();
-  setInterval(add_trees_to_landgeometry, 200);
+  add_trees_to_landgeometry();
+  setInterval(add_trees_to_landgeometry, 100);
 
   $.unblockUI();
   console.log("init_webgl_mapview took: " + (new Date().getTime() - start_webgl) + " ms.");
