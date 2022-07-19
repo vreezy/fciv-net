@@ -32,17 +32,16 @@ uniform sampler2D railroadsprites;
 
 uniform sampler2D arctic;
 uniform sampler2D grassland;
-uniform sampler2D beach;
 uniform sampler2D coast;
 uniform sampler2D desert;
 uniform sampler2D ocean; //floor
 uniform sampler2D plains;
-uniform sampler2D irrigation;
 uniform sampler2D farmland;
 uniform sampler2D hills;
 uniform sampler2D mountains;
 uniform sampler2D swamp;
 uniform sampler2D tundra;
+// Some systems only support 16 textures.
 
 uniform float map_x_size;
 uniform float map_y_size;
@@ -329,16 +328,16 @@ void main(void)
         texture_coord = vec2(dx , dy);
         if (vPosition.y > beach_blend_high) {
             blend_amount = ((beach_high - beach_blend_high) - (beach_high - vPosition.y)) / (beach_high - beach_blend_high);
-            vec4 Cbeach = texture2D(beach, texture_coord);
+            vec4 Cbeach = texture2D(desert, texture_coord);
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
 
         } else if (vPosition.y < beach_blend_low) {
             blend_amount = (beach_blend_low - vPosition.y) / 6.0;
-            vec4 Cbeach = texture2D(beach, texture_coord) * 2.0;
+            vec4 Cbeach = texture2D(desert, texture_coord) * 2.0;
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
 
         } else {
-            vec4 Cbeach = texture2D(beach, texture_coord);
+            vec4 Cbeach = texture2D(desert, texture_coord);
             c = Cbeach.rgb;
         }
     }
@@ -346,7 +345,7 @@ void main(void)
     if (vColor.g > 0.4 && vColor.g < 0.6) {
         // render Irrigation.
         texture_coord = vec2(dx , dy);
-        vec4 t1 = texture2D(irrigation, texture_coord);
+        vec4 t1 = texture2D(farmland, texture_coord);
         c = mix(c, vec3(t1), t1.a);
     }
 
