@@ -171,8 +171,8 @@ void main(void)
         beach_blend_high = 50.25;
     }
 
-    dx = (map_x_size * vUv.x ) * floor((map_x_size * vUv.x ));
-    dy = (map_y_size * vUv.y ) * floor((map_y_size * vUv.y ));
+    dx = mod(map_x_size * vUv.x, 1.0);
+    dy = mod(map_y_size * vUv.y, 1.0);
     mdx = (map_x_size * vUv.x / 4.0) - 0.25 * floor((map_x_size * vUv.x / (0.25 * 4.0)));
     mdy = (map_y_size * vUv.y / 4.0) - 0.25 * floor((map_y_size * vUv.y / (0.25 * 4.0)));
 

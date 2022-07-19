@@ -20,7 +20,7 @@
 var map_tiletype_resolution;
 var tiletype_palette = [];
 var tiletype_hash = -1;
-var map_texture;
+var maptiletypes;
 
 /****************************************************************************
   Returns a texture containing each map tile, where the color of each pixel
@@ -35,20 +35,18 @@ function init_map_tiletype_image()
   bmp_lib.render('map_tiletype_grid',
                     generate_map_tiletype_grid(),
                     tiletype_palette);
-  map_texture = new THREE.Texture();
-  map_texture.magFilter = THREE.NearestFilter;
-  map_texture.minFilter = THREE.NearestFilter;
-  map_texture.image = document.getElementById("map_tiletype_grid");
-  map_texture.image.onload = function () {
-     map_texture.needsUpdate = true;
+  maptiletypes = new THREE.Texture();
+  maptiletypes.magFilter = THREE.NearestFilter;
+  maptiletypes.minFilter = THREE.NearestFilter;
+  maptiletypes.image = document.getElementById("map_tiletype_grid");
+  maptiletypes.image.onload = function () {
+     maptiletypes.needsUpdate = true;
   };
 
-  if (graphics_quality == QUALITY_MEDIUM) setInterval(update_tiletypes_image, 80000);
-  if (graphics_quality == QUALITY_HIGH) setInterval(update_tiletypes_image, 60000);
+  setInterval(update_tiletypes_image, 60000);
 
   tiletype_hash = generate_tiletype_hash();
 
-  return map_texture;
  }
 
 /****************************************************************************
@@ -124,14 +122,13 @@ function update_tiletypes_image()
      bmp_lib.render('map_tiletype_grid',
                     generate_map_tiletype_grid(),
                     tiletype_palette);
-     map_texture.image = document.getElementById("map_tiletype_grid");
-     map_texture.image.onload = function () {
-       map_texture.needsUpdate = true;
+     maptiletypes.image = document.getElementById("map_tiletype_grid");
+     maptiletypes.image.onload = function () {
+       maptiletypes.needsUpdate = true;
      };
      tiletype_hash = hash;
   }
 
-   return roads_texture;
 }
 
 /****************************************************************************

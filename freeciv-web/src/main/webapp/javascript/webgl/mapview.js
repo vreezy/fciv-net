@@ -145,10 +145,11 @@ function init_webgl_mapview() {
   create_heightmap();
   init_borders_image();
   init_roads_image();
+  init_map_tiletype_image();
 
   /* uniforms are variables which are used in the fragment shader fragment.js */
   var freeciv_uniforms = {
-    maptiles: { type: "t", value: init_map_tiletype_image() },
+    maptiles: { type: "t", value: maptiletypes },
     borders: { type: "t", value: update_borders_image() },
     map_x_size: { type: "f", value: map['xsize'] },
     map_y_size: { type: "f", value: map['ysize'] },
