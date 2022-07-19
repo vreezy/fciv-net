@@ -259,8 +259,6 @@ function init_webgl_mapview() {
   setInterval(update_tiles_known_vertex_colors, 100);
 
   add_all_objects_to_scene();
-  add_trees_to_landgeometry();
-  setInterval(add_trees_to_landgeometry, 100);
 
   $.unblockUI();
   console.log("init_webgl_mapview took: " + (new Date().getTime() - start_webgl) + " ms.");

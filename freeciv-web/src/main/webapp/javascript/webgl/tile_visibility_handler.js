@@ -79,6 +79,8 @@ function update_tiles_known_vertex_colors()
   landGeometry.colorsNeedUpdate = true;
   vertex_colors_dirty = false;
 
+  add_trees_to_landgeometry();
+
 }
 
 
