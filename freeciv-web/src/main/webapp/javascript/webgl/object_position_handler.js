@@ -445,7 +445,7 @@ function update_tile_extras(ptile) {
   if (tile_get_known(ptile) == TILE_KNOWN_SEEN && extra_visibilities[ptile['index']] != null) {
     extra_visibilities[ptile['index']].material.opacity = 1;
   } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN && extra_visibilities[ptile['index']] != null) {
-    extra_visibilities[ptile['index']].material.opacity = 0.7;
+    extra_visibilities[ptile['index']].material.opacity = 0.8;
   }
 
 

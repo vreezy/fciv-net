@@ -42,7 +42,6 @@ function init_map_tiletype_image()
   maptiletypes.image.onload = function () {
      maptiletypes.needsUpdate = true;
   };
-  maptiletypes.needsUpdate = true;
 
   setInterval(update_tiletypes_image, 60000);
 
@@ -55,8 +54,7 @@ function init_map_tiletype_image()
 ****************************************************************************/
 function generate_map_tiletype_grid() {
 
-  if (graphics_quality == QUALITY_MEDIUM) map_tiletype_resolution = 4096;
-  if (graphics_quality == QUALITY_HIGH) map_tiletype_resolution = 4096;
+  map_tiletype_resolution = 4096;
 
   var row;
   // The grid of points that make up the image.
@@ -74,14 +72,9 @@ function generate_map_tiletype_grid() {
   }
 
   // randomize tile edges
-  var num_iterations;
+  var num_iterations = 2;
   var change_probability = 0.6;
-  if (graphics_quality == QUALITY_MEDIUM) {
-    num_iterations = 2;
-  }
-  if (graphics_quality == QUALITY_HIGH) {
-    num_iterations = 4;
-  }
+
   for (var i = 0; i < num_iterations; i++) {
     for (var x = 0; x < map_tiletype_resolution - 2; x++) {
       for (var y = 0; y < map_tiletype_resolution - 2; y++) {
@@ -127,7 +120,6 @@ function update_tiletypes_image()
      maptiletypes.image.onload = function () {
        maptiletypes.needsUpdate = true;
      };
-     maptiletypes.needsUpdate = true;
      tiletype_hash = hash;
   }
 
