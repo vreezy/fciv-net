@@ -104,9 +104,9 @@ function setup_window_size ()
     buffer_canvas_ctx.font = canvas_text_font;
   }
 
-  $("#pregame_message_area").height( new_mapview_height - 80
+  $("#pregame_message_area").height( new_mapview_height - 100
                                         - $("#pregame_game_info").outerHeight());
-  $("#pregame_player_list").height( new_mapview_height - 80);
+  $("#pregame_player_list").height( new_mapview_height - 100);
 
   $("#nations").height( new_mapview_height - 100);
   $("#nations").width( new_mapview_width);

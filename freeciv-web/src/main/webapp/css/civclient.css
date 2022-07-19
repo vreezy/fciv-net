@@ -392,8 +392,8 @@ button {
 
 #unit_info_image {
   cursor:pointer; 
-  float: left; 
-  margin-right: 5px;  
+  float: left;
+  margin-left: -2px;
 }
 
 #city_production_overview {
@@ -853,7 +853,6 @@ button {
 
 #active_unit_info {
   float: left;
-  width: 100%;
   color: white;
   background-color: rgba(0,0,0,0.6);
   font-size: 86%;

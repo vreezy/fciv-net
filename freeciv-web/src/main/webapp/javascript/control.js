@@ -3413,7 +3413,7 @@ function update_active_units_dialog()
     if (current_focus[0]['owner'] == client.conn.playing.playerno) {
       unit_info_html += "<span>" + get_unit_moves_left(aunit) + "</span> ";
     }
-    unit_info_html += "<br><span title='Attack strength'>A:" + ptype['attack_strength']
+    unit_info_html += "<span title='Attack strength'>A:" + ptype['attack_strength']
     + "</span> <span title='Defense strength'>D:" + ptype['defense_strength']
     + "</span> <span title='Firepower'>F:" + ptype['firepower']
     + "</span> <span title='Health points'>H:"
@@ -3438,15 +3438,15 @@ function update_active_units_dialog()
 
   if (current_focus.length > 0) {
     /* reposition and resize unit dialog. */
-    var newwidth = 32 + punits.length * (width + 10);
-    if (newwidth < 140) newwidth = 140;
-    var newheight = 75 + normal_tile_height;
+    var newwidth = 32 + punits.length * (width - 5);
+    if (newwidth < 100) newwidth = 100;
+    var newheight = 65 + normal_tile_height;
     $("#game_unit_panel").parent().show();
     $("#game_unit_panel").parent().width(newwidth);
     $("#game_unit_panel").parent().height(newheight);
     $("#game_unit_panel").parent().css("left", ($( window ).width() - newwidth) + "px");
-    $("#game_unit_panel").parent().css("top", ($( window ).height() - newheight - 30) + "px");
-    $("#game_unit_panel").parent().css("background", "rgba(50,50,40,0.5)");
+    $("#game_unit_panel").parent().css("top", ($( window ).height() - newheight + 20) + "px");
+    $("#game_unit_panel").parent().css("background", "rgba(50,50,40,0.9)");
     if (game_unit_panel_state == "minimized") $("#game_unit_panel").dialogExtend("minimize");
   } else {
     $("#game_unit_panel").parent().hide();

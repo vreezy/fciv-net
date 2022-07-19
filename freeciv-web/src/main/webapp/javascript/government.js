@@ -79,7 +79,9 @@ function init_civ_dialog()
     var civ_description = "<div>" + nations[pplayer['nation']]['legend']  +"</div><br>";
     $("#nation_title").html(pplayer['name'] + " rules the " + nations[pplayer['nation']]['adjective']
                             	    + " with government form " + governments[client.conn.playing['government']]['name']);
-    $("#civ_dialog_text").html(civ_description);
+    if (!is_small_screen()) {
+      $("#civ_dialog_text").html(civ_description);
+    }
     if (!pnation['customized']) {
         $("#civ_dialog_flag").html("<img src='/images/flags/" + tag + "-web" + get_tileset_file_extention() + "' width='180'>");
     }
