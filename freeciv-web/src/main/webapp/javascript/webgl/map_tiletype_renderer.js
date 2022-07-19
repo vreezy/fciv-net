@@ -42,6 +42,7 @@ function init_map_tiletype_image()
   maptiletypes.image.onload = function () {
      maptiletypes.needsUpdate = true;
   };
+  maptiletypes.needsUpdate = true;
 
   setInterval(update_tiletypes_image, 60000);
 
@@ -126,6 +127,7 @@ function update_tiletypes_image()
      maptiletypes.image.onload = function () {
        maptiletypes.needsUpdate = true;
      };
+     maptiletypes.needsUpdate = true;
      tiletype_hash = hash;
   }
 
