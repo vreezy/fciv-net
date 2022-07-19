@@ -119,7 +119,5 @@ function create_heightmap()
     }
   }
 
-  console.log("create_heightmap took: " + (new Date().getTime() - start_heightmap) + " ms.");
-
 }
 

@@ -24,12 +24,28 @@ precision highp float;
 varying vec3 vNormal;
 varying vec3 vColor;
 
-uniform sampler2D terrains;
 uniform sampler2D maptiles;
 uniform sampler2D borders;
 uniform sampler2D roadsmap;
 uniform sampler2D roadsprites;
 uniform sampler2D railroadsprites;
+
+uniform sampler2D arctic;
+uniform sampler2D grassland;
+uniform sampler2D beach;
+uniform sampler2D coast;
+uniform sampler2D lake;
+uniform sampler2D desert;
+uniform sampler2D ocean; //floor
+uniform sampler2D plains;
+uniform sampler2D irrigation;
+uniform sampler2D farmland;
+uniform sampler2D hills;
+uniform sampler2D mountains;
+uniform sampler2D swamp;
+uniform sampler2D tundra;
+uniform sampler2D forest;
+uniform sampler2D jungle;
 
 uniform float map_x_size;
 uniform float map_y_size;
@@ -132,12 +148,15 @@ vec2 texture_coord;
 float dx = 0.0;
 float dy = 0.0;
 
+float mdx = 0.0;
+float mdy = 0.0;
+
 void main(void)
 {
 
     if (vColor.r == 0.0) {
-      gl_FragColor.rgb = vec3(0, 0, 0);
-      return;
+        gl_FragColor.rgb = vec3(0, 0, 0);
+        return;
     }
 
     vec4 terrain_type = texture2D(maptiles, vec2(vUv.x, vUv.y));
@@ -148,332 +167,334 @@ void main(void)
     vec4 terrain_color;
 
     if (terrain_type.g == is_river_modifier) {
-      beach_high = 50.5;
-      beach_blend_high = 50.25;
+        beach_high = 50.5;
+        beach_blend_high = 50.25;
     }
-    
-    dx = (map_x_size * vUv.x / 4.0) - 0.25 * floor((map_x_size * vUv.x / (0.25 * 4.0)));
-    dy = (map_y_size * vUv.y / 4.0) - 0.25 * floor((map_y_size * vUv.y / (0.25 * 4.0)));
+
+    dx = (map_x_size * vUv.x ) * floor((map_x_size * vUv.x ));
+    dy = (map_y_size * vUv.y ) * floor((map_y_size * vUv.y ));
+    mdx = (map_x_size * vUv.x / 4.0) - 0.25 * floor((map_x_size * vUv.x / (0.25 * 4.0)));
+    mdy = (map_y_size * vUv.y / 4.0) - 0.25 * floor((map_y_size * vUv.y / (0.25 * 4.0)));
 
     // Set pixel color based on tile type.
     if (terrain_type.r == terrain_grassland) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos6_x , dy + sprite_pos6_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(grassland, texture_coord);
+        } else {
+            texture_coord = vec2(dx  , dy);
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_plains) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos11_x , dy + sprite_pos11_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(plains, texture_coord);
+        } else {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_lake) {
-      if (vPosition.y < beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos9_x , dy + sprite_pos9_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos6_x , dy + sprite_pos6_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y < beach_blend_high ) {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(lake, texture_coord);
+        } else {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(plains, texture_coord);
+        }
     } else if (terrain_type.r == terrain_coast) {
-      if (vPosition.y < beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-        if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
-          terrain_color.rgb = terrain_color.rgb * 1.45;  // render tile grid.
-        }
+        if (vPosition.y < beach_blend_high ) {
+            texture_coord = vec2(dx , dy );
+            terrain_color = texture2D(coast, texture_coord);
+            if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
+                terrain_color.rgb = terrain_color.rgb * 1.45;  // render tile grid.
+            }
 
-      } else {
-        texture_coord = vec2(dx + sprite_pos6_x , dy + sprite_pos6_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        } else {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(plains, texture_coord);
+        }
     } else if (terrain_type.r == terrain_floor) {
-      if (vPosition.y < beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos4_x , dy + sprite_pos4_y);
-        terrain_color = texture2D(terrains, texture_coord);
-        if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
-          terrain_color.rgb = terrain_color.rgb * 1.7;  // render tile grid.
+        if (vPosition.y < beach_blend_high ) {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(ocean, texture_coord);
+            if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
+                terrain_color.rgb = terrain_color.rgb * 1.7;  // render tile grid.
+            }
+        } else {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(plains, texture_coord);
         }
-      } else {
-        texture_coord = vec2(dx + sprite_pos6_x , dy + sprite_pos6_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
     } else if (terrain_type.r == terrain_arctic) {
-      texture_coord = vec2(dx + sprite_pos0_x , dy + sprite_pos0_y);
-      terrain_color = texture2D(terrains, texture_coord);
+        texture_coord = vec2(dx  , dy );
+        terrain_color = texture2D(arctic, texture_coord);
     } else if (terrain_type.r == terrain_desert) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos3_x , dy + sprite_pos3_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(desert, texture_coord);
+        } else {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_forest) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos5_x , dy + sprite_pos5_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(forest, texture_coord);
+        } else {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_hills) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos7_x , dy + sprite_pos7_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(hills, texture_coord);
+        } else {
+            texture_coord = vec2(dx , dy);
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_jungle) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos8_x , dy + sprite_pos8_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(jungle, texture_coord);
+        } else {
+            texture_coord = vec2(dx , dy );
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_mountains) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos10_x , dy + sprite_pos10_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(mountains, texture_coord);
+        } else {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_swamp) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos12_x , dy + sprite_pos12_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(swamp, texture_coord);
+        } else {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else if (terrain_type.r == terrain_tundra) {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos13_x , dy + sprite_pos13_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(tundra, texture_coord);
+        } else {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(coast, texture_coord);
+        }
     } else {
-      if (vPosition.y > beach_blend_high ) {
-        texture_coord = vec2(dx + sprite_pos11_x , dy + sprite_pos11_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      } else {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        terrain_color = texture2D(terrains, texture_coord);
-      }
+        if (vPosition.y > beach_blend_high ) {
+            texture_coord = vec2(dx  , dy );
+            terrain_color = texture2D(plains, texture_coord);
+        } else {
+            texture_coord = vec2(dx , dy );
+            terrain_color = texture2D(coast, texture_coord);
+        }
     }
 
-  c = terrain_color.rgb;
+    c = terrain_color.rgb;
 
-  if (vPosition.y > mountains_high) {
-      // snow in mountains texture over a certain height threshold.
-      blend_amount = ((3.0 - (mountains_high - vPosition.y)) / 3.0) - 1.0;
+    if (vPosition.y > mountains_high) {
+        // snow in mountains texture over a certain height threshold.
+        blend_amount = ((3.0 - (mountains_high - vPosition.y)) / 3.0) - 1.0;
 
-      vec4 Ca = texture2D(terrains, vec2(dx + sprite_pos0_x , dy + sprite_pos0_y));
-      vec4 Cb = texture2D(terrains, vec2(dx + sprite_pos10_x , dy + sprite_pos10_y));
-      c = mix(Ca.rgb, Cb.rgb, (1.0 - blend_amount));
-  } else if (vPosition.y > mountains_low_begin) {
-      if (vPosition.y < mountains_low_end) {
-        vec4 Cmountain = texture2D(terrains, vec2(dx + sprite_pos10_x , dy + sprite_pos10_y));
-        c = mix(terrain_color.rgb, Cmountain.rgb, smoothstep(mountains_low_begin, mountains_low_end, vPosition.y));
-      } else {
-        // mountain texture over a certain height threshold.
-        vec4 Cb = texture2D(terrains, vec2(dx + sprite_pos10_x , dy + sprite_pos10_y));
-        c = Cb.rgb;
-      }
-  }
-
-
-  if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
-    c = c - 0.085;  // render tile grid.
-  }
-
-
-  // render the beach.
-  if (vPosition.y < beach_high && vPosition.y > beach_low) {
-    texture_coord = vec2(dx + sprite_pos1_x , dy + sprite_pos1_y);
-    if (vPosition.y > beach_blend_high) {
-      blend_amount = ((beach_high - beach_blend_high) - (beach_high - vPosition.y)) / (beach_high - beach_blend_high);
-      vec4 Cbeach = texture2D(terrains, texture_coord);
-      c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
-
-    } else if (vPosition.y < beach_blend_low) {
-      blend_amount = (beach_blend_low - vPosition.y) / 6.0;
-      vec4 Cbeach = texture2D(terrains, texture_coord) * 2.0;
-      c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
-
-    } else {
-      vec4 Cbeach = texture2D(terrains, texture_coord);
-      c = Cbeach.rgb;
+        vec4 Ca = texture2D(arctic, vec2(dx, dy));
+        vec4 Cb = texture2D(mountains, vec2(dx , dy));
+        c = mix(Ca.rgb, Cb.rgb, (1.0 - blend_amount));
+    } else if (vPosition.y > mountains_low_begin) {
+        if (vPosition.y < mountains_low_end) {
+            vec4 Cmountain = texture2D(mountains, vec2(dx , dy));
+            c = mix(terrain_color.rgb, Cmountain.rgb, smoothstep(mountains_low_begin, mountains_low_end, vPosition.y));
+        } else {
+            // mountain texture over a certain height threshold.
+            vec4 Cb = texture2D(mountains, vec2(dx , dy));
+            c = Cb.rgb;
+        }
     }
-  }
 
-  if (vColor.g > 0.4 && vColor.g < 0.6) {
-    // render Irrigation.
-    texture_coord = vec2(dx + sprite_pos15_x , dy + sprite_pos15_y);
-    vec4 t1 = texture2D(terrains, texture_coord);
-    c = mix(c, vec3(t1), t1.a);
-  }
 
-  if (vColor.g > 0.9) {
-    // render farmland.
-    texture_coord = vec2(dx + sprite_pos14_x , dy + sprite_pos14_y);
-    vec4 t1 = texture2D(terrains, texture_coord);
-    c = mix(c, vec3(t1), t1.a);
-  }
+    if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
+        c = c - 0.085;  // render tile grid.
+    }
 
-  // Roads
-  if (road_type.r == 0.0) {
-      // no roads
-  } else if (road_type.r == roadtype_1 && road_type.g == 0.0 &&  road_type.b == 0.0) {
-      // a single road tile.
-      texture_coord = vec2(dx + sprite_pos0_x , dy + sprite_pos0_y);
-      vec4 t1 = texture2D(roadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-  } else if (road_type.r == roadtype_all) {
-      // a road tile with 4 connecting roads.
-      texture_coord = vec2(dx + sprite_pos1_x , dy + sprite_pos1_y);
-      vec4 t1 = texture2D(roadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-      texture_coord = vec2(dx + sprite_pos3_x , dy + sprite_pos3_y);
-      t1 = texture2D(roadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-      texture_coord = vec2(dx + sprite_pos5_x , dy + sprite_pos5_y);
-      t1 = texture2D(roadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-      texture_coord = vec2(dx + sprite_pos7_x , dy + sprite_pos7_y);
-      t1 = texture2D(roadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-  } else if (road_type.r == railtype_all) {
-      // a rail tile with 4 connecting rails.
-      texture_coord = vec2(dx + sprite_pos1_x , dy + sprite_pos1_y);
-      vec4 t1 = texture2D(railroadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-      texture_coord = vec2(dx + sprite_pos3_x , dy + sprite_pos3_y);
-      t1 = texture2D(railroadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-      texture_coord = vec2(dx + sprite_pos5_x , dy + sprite_pos5_y);
-      t1 = texture2D(railroadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-      texture_coord = vec2(dx + sprite_pos7_x , dy + sprite_pos7_y);
-      t1 = texture2D(railroadsprites, texture_coord);
-      c = mix(c, vec3(t1), t1.a);
-  } else if (road_type.r > 0.0 && road_type.r < roadtype_10) {
-      // Roads
-      if (road_type.r == roadtype_2 || road_type.g == roadtype_2 || road_type.b == roadtype_2) {
-        texture_coord = vec2(dx + sprite_pos1_x , dy + sprite_pos1_y);
+
+    // render the beach.
+    if (vPosition.y < beach_high && vPosition.y > beach_low) {
+        texture_coord = vec2(dx , dy);
+        if (vPosition.y > beach_blend_high) {
+            blend_amount = ((beach_high - beach_blend_high) - (beach_high - vPosition.y)) / (beach_high - beach_blend_high);
+            vec4 Cbeach = texture2D(beach, texture_coord);
+            c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
+
+        } else if (vPosition.y < beach_blend_low) {
+            blend_amount = (beach_blend_low - vPosition.y) / 6.0;
+            vec4 Cbeach = texture2D(beach, texture_coord) * 2.0;
+            c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
+
+        } else {
+            vec4 Cbeach = texture2D(beach, texture_coord);
+            c = Cbeach.rgb;
+        }
+    }
+
+    if (vColor.g > 0.4 && vColor.g < 0.6) {
+        // render Irrigation.
+        texture_coord = vec2(dx , dy);
+        vec4 t1 = texture2D(irrigation, texture_coord);
+        c = mix(c, vec3(t1), t1.a);
+    }
+
+    if (vColor.g > 0.9) {
+        // render farmland.
+        texture_coord = vec2(dx , dy );
+        vec4 t1 = texture2D(farmland, texture_coord);
+        c = mix(c, vec3(t1), t1.a);
+    }
+
+    // Roads
+    if (road_type.r == 0.0) {
+        // no roads
+    } else if (road_type.r == roadtype_1 && road_type.g == 0.0 &&  road_type.b == 0.0) {
+        // a single road tile.
+        texture_coord = vec2(mdx + sprite_pos0_x , mdy + sprite_pos0_y);
         vec4 t1 = texture2D(roadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_3 || road_type.g == roadtype_3 || road_type.b == roadtype_3) {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
+    } else if (road_type.r == roadtype_all) {
+        // a road tile with 4 connecting roads.
+        texture_coord = vec2(mdx + sprite_pos1_x , mdy + sprite_pos1_y);
         vec4 t1 = texture2D(roadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_4 || road_type.g == roadtype_4 || road_type.b == roadtype_4) {
-        texture_coord = vec2(dx + sprite_pos3_x , dy + sprite_pos3_y);
-        vec4 t1 = texture2D(roadsprites, texture_coord);
+        texture_coord = vec2(mdx + sprite_pos3_x , mdy + sprite_pos3_y);
+        t1 = texture2D(roadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_5 || road_type.g == roadtype_5 || road_type.b == roadtype_5) {
-        texture_coord = vec2(dx + sprite_pos4_x , dy + sprite_pos4_y);
-        vec4 t1 = texture2D(roadsprites, texture_coord);
+        texture_coord = vec2(mdx + sprite_pos5_x , mdy + sprite_pos5_y);
+        t1 = texture2D(roadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_6 || road_type.g == roadtype_6 || road_type.b == roadtype_6) {
-        texture_coord = vec2(dx + sprite_pos5_x , dy + sprite_pos5_y);
-        vec4 t1 = texture2D(roadsprites, texture_coord);
+        texture_coord = vec2(mdx + sprite_pos7_x , mdy + sprite_pos7_y);
+        t1 = texture2D(roadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_7 || road_type.g == roadtype_7 || road_type.b == roadtype_7) {
-        texture_coord = vec2(dx + sprite_pos6_x , dy + sprite_pos6_y);
-        vec4 t1 = texture2D(roadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_8 || road_type.g == roadtype_8 || road_type.b == roadtype_8) {
-        texture_coord = vec2(dx + sprite_pos7_x , dy + sprite_pos7_y);
-        vec4 t1 = texture2D(roadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_9 || road_type.g == roadtype_9 || road_type.b == roadtype_9) {
-        texture_coord = vec2(dx + sprite_pos8_x , dy + sprite_pos8_y);
-        vec4 t1 = texture2D(roadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-  } else if (road_type.r >= roadtype_10 && road_type.r < roadtype_all) {
-      // Railroads
-      if (road_type.r == roadtype_10 && road_type.g == 0.0 &&  road_type.b == 0.0) {
-        texture_coord = vec2(dx + sprite_pos0_x , dy + sprite_pos0_y);
+    } else if (road_type.r == railtype_all) {
+        // a rail tile with 4 connecting rails.
+        texture_coord = vec2(mdx + sprite_pos1_x , mdy + sprite_pos1_y);
         vec4 t1 = texture2D(railroadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_12 || road_type.g == roadtype_12 || road_type.b == roadtype_12) {
-        texture_coord = vec2(dx + sprite_pos1_x , dy + sprite_pos1_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
+        texture_coord = vec2(mdx + sprite_pos3_x , mdy + sprite_pos3_y);
+        t1 = texture2D(railroadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_13 || road_type.g == roadtype_13 || road_type.b == roadtype_13) {
-        texture_coord = vec2(dx + sprite_pos2_x , dy + sprite_pos2_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
+        texture_coord = vec2(mdx + sprite_pos5_x , mdy + sprite_pos5_y);
+        t1 = texture2D(railroadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_14 || road_type.g == roadtype_14 || road_type.b == roadtype_14) {
-        texture_coord = vec2(dx + sprite_pos3_x , dy + sprite_pos3_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
+        texture_coord = vec2(mdx + sprite_pos7_x , mdy + sprite_pos7_y);
+        t1 = texture2D(railroadsprites, texture_coord);
         c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_15 || road_type.g == roadtype_15 || road_type.b == roadtype_15) {
-        texture_coord = vec2(dx + sprite_pos4_x , dy + sprite_pos4_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_16 || road_type.g == roadtype_16 || road_type.b == roadtype_16) {
-        texture_coord = vec2(dx + sprite_pos5_x , dy + sprite_pos5_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_17 || road_type.g == roadtype_17 || road_type.b == roadtype_17) {
-        texture_coord = vec2(dx + sprite_pos6_x , dy + sprite_pos6_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_18 || road_type.g == roadtype_18 || road_type.b == roadtype_18) {
-        texture_coord = vec2(dx + sprite_pos7_x , dy + sprite_pos7_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-      if (road_type.r == roadtype_19 || road_type.g == roadtype_19 || road_type.b == roadtype_19) {
-        texture_coord = vec2(dx + sprite_pos8_x , dy + sprite_pos8_y);
-        vec4 t1 = texture2D(railroadsprites, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
-      }
-  }
+    } else if (road_type.r > 0.0 && road_type.r < roadtype_10) {
+        // Roads
+        if (road_type.r == roadtype_2 || road_type.g == roadtype_2 || road_type.b == roadtype_2) {
+            texture_coord = vec2(mdx + sprite_pos1_x , mdy + sprite_pos1_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_3 || road_type.g == roadtype_3 || road_type.b == roadtype_3) {
+            texture_coord = vec2(mdx + sprite_pos2_x , mdy + sprite_pos2_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_4 || road_type.g == roadtype_4 || road_type.b == roadtype_4) {
+            texture_coord = vec2(mdx + sprite_pos3_x , mdy + sprite_pos3_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_5 || road_type.g == roadtype_5 || road_type.b == roadtype_5) {
+            texture_coord = vec2(mdx + sprite_pos4_x , mdy + sprite_pos4_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_6 || road_type.g == roadtype_6 || road_type.b == roadtype_6) {
+            texture_coord = vec2(mdx + sprite_pos5_x , mdy + sprite_pos5_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_7 || road_type.g == roadtype_7 || road_type.b == roadtype_7) {
+            texture_coord = vec2(mdx + sprite_pos6_x , mdy + sprite_pos6_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_8 || road_type.g == roadtype_8 || road_type.b == roadtype_8) {
+            texture_coord = vec2(mdx + sprite_pos7_x , mdy + sprite_pos7_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_9 || road_type.g == roadtype_9 || road_type.b == roadtype_9) {
+            texture_coord = vec2(mdx + sprite_pos8_x , mdy + sprite_pos8_y);
+            vec4 t1 = texture2D(roadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+    } else if (road_type.r >= roadtype_10 && road_type.r < roadtype_all) {
+        // Railroads
+        if (road_type.r == roadtype_10 && road_type.g == 0.0 &&  road_type.b == 0.0) {
+            texture_coord = vec2(mdx + sprite_pos0_x , mdy + sprite_pos0_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_12 || road_type.g == roadtype_12 || road_type.b == roadtype_12) {
+            texture_coord = vec2(mdx + sprite_pos1_x , mdy + sprite_pos1_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_13 || road_type.g == roadtype_13 || road_type.b == roadtype_13) {
+            texture_coord = vec2(mdx + sprite_pos2_x , mdy + sprite_pos2_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_14 || road_type.g == roadtype_14 || road_type.b == roadtype_14) {
+            texture_coord = vec2(mdx + sprite_pos3_x , mdy + sprite_pos3_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_15 || road_type.g == roadtype_15 || road_type.b == roadtype_15) {
+            texture_coord = vec2(mdx + sprite_pos4_x , mdy + sprite_pos4_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_16 || road_type.g == roadtype_16 || road_type.b == roadtype_16) {
+            texture_coord = vec2(mdx + sprite_pos5_x , mdy + sprite_pos5_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_17 || road_type.g == roadtype_17 || road_type.b == roadtype_17) {
+            texture_coord = vec2(mdx + sprite_pos6_x , mdy + sprite_pos6_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_18 || road_type.g == roadtype_18 || road_type.b == roadtype_18) {
+            texture_coord = vec2(mdx + sprite_pos7_x , mdy + sprite_pos7_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+        if (road_type.r == roadtype_19 || road_type.g == roadtype_19 || road_type.b == roadtype_19) {
+            texture_coord = vec2(mdx + sprite_pos8_x , mdy + sprite_pos8_y);
+            vec4 t1 = texture2D(railroadsprites, texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
+    }
 
 
-  // Borders
-  if (!(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
-    c = mix(c, border_color.rbg, 0.55);
-  }
+    // Borders
+    if (!(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
+        c = mix(c, border_color.rbg, 0.55);
+    }
 
-  // specular component, ambient occlusion and fade out underwater terrain
-  float x = 1.0 - clamp((vPosition.y - 30.) / 15., 0., 1.);
-  vec4 Cb = texture2D(terrains, vec2(dx + sprite_pos1_x , dy + sprite_pos1_y));
-  c = mix(c, Cb.rgb, x);
+    // specular component, ambient occlusion and fade out underwater terrain
+    float x = 1.0 - clamp((vPosition.y - 30.) / 15., 0., 1.);
+    vec4 Cb = texture2D(coast, vec2(dx  , dy));
+    c = mix(c, Cb.rgb, x);
 
-  float shade_factor = 0.22 + 1.4 * max(0., dot(vNormal, normalize(light)));
+    float shade_factor = 0.22 + 1.4 * max(0., dot(vNormal, normalize(light)));
 
-  // Fog of war, and unknown tiles, are stored as a vertex color in vColor.r.
-  c = c * vColor.r;
+    // Fog of war, and unknown tiles, are stored as a vertex color in vColor.r.
+    c = c * vColor.r;
 
-  gl_FragColor.rgb = mix(c * shade_factor, ambiant, (vPosition_camera.z - 550.) * 0.0001875);
+    gl_FragColor.rgb = mix(c * shade_factor, ambiant, (vPosition_camera.z - 550.) * 0.0001875);
 
 }

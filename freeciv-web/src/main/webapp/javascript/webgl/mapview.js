@@ -27,7 +27,7 @@ var directionalLight;
 var clock;
 var webgl_controls;
 
-var tiletype_terrains = ["lake","coast","floor","arctic","desert","forest","grassland","hills","jungle","mountains","plains","swamp","tundra", "beach"];
+var tiletype_terrains = ["lake","coast","ocean","arctic","desert","forest","grassland","hills","jungle","mountains","plains","swamp","tundra", "beach", "farmland", "irrigation"];
 
 var landGeometry;
 var landMesh;
@@ -152,12 +152,15 @@ function init_webgl_mapview() {
     borders: { type: "t", value: update_borders_image() },
     map_x_size: { type: "f", value: map['xsize'] },
     map_y_size: { type: "f", value: map['ysize'] },
-    terrains: {type: "t", value: webgl_textures["terrains"]},
     roadsmap: { type: "t", value: update_roads_image()},
     roadsprites: {type: "t", value: webgl_textures["roads"]},
     railroadsprites: {type: "t", value: webgl_textures["railroads"]}
-
   };
+
+  for (var i = 0; i < tiletype_terrains.length ; i++) {
+    var terrain_name = tiletype_terrains[i];
+    freeciv_uniforms[terrain_name] = {type: "t", value: webgl_textures[terrain_name]};
+  }
 
   /* create a WebGL shader for terrain. */
   var terrain_material = new THREE.ShaderMaterial({

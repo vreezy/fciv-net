@@ -107,24 +107,28 @@ function webgl_preload()
 
   /* Preload terrain tile textures.  */
   var imgurl = "/textures/large/terrains.png";
-
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
-                $("#download_progress").html(" terrain textures 10%");
-                webgl_textures["terrains"] = new THREE.Texture();
-                webgl_textures["terrains"].image = image;
-                webgl_textures["terrains"].wrapS = THREE.RepeatWrapping;
-                webgl_textures["terrains"].wrapT = THREE.RepeatWrapping;
-                webgl_textures["terrains"].magFilter = THREE.LinearFilter;
-                webgl_textures["terrains"].minFilter = THREE.LinearFilter;
-                webgl_textures["terrains"].needsUpdate = true;
+                var texture = new THREE.Texture();
+                texture.image = image;
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.magFilter = THREE.LinearFilter;
+                texture.minFilter = THREE.LinearFilter;
+                texture.needsUpdate = true;
+                webgl_textures["terrains"] = texture;
             }
     })(imgurl)
   );
 
+  for (var i = 0; i < tiletype_terrains.length ; i++) {
+    var terrain_name = tiletype_terrains[i];
+    textureLoader.load("/textures/large/" + terrain_name + ".png", handle_new_texture("/textures/large/" + terrain_name + ".png", terrain_name));
+  }
+
+
   /* Preload road textures. */
   imgurl = "/textures/large/roads.png";
-
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
                 $("#download_progress").html(" road textures 15%");
@@ -155,6 +159,23 @@ function webgl_preload()
             }
     })(imgurl)
   );
+}
+
+/****************************************************************************
+  ...
+****************************************************************************/
+function handle_new_texture(url, terrain_name)
+{
+  return function (image) {
+                var texture = new THREE.Texture();
+                texture.image = image;
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                texture.magFilter = THREE.LinearFilter;
+                texture.minFilter = THREE.LinearFilter;
+                texture.needsUpdate = true;
+                webgl_textures[terrain_name] = texture;
+  }
 }
 
 /****************************************************************************
