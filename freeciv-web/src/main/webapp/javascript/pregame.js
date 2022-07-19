@@ -114,14 +114,7 @@ function update_game_info_pregame()
     }
   }
 
-  if (is_longturn()) {
-    $("#load_game_button").hide();
-    $("#pregame_settings_button").hide();
-    game_info_html += "<p>";
-    game_info_html += "<h2>Freeciv-web: One Turn per Day game</h2>-Each player plays one turn every day, each turn lasts 23 hours.<br>";
-
-
-  } else if ($.getUrlVar('action') == "multi") {
+  if ($.getUrlVar('action') == "multi") {
     game_info_html += "<p>";
     game_info_html += "<h2>Freeciv-Web Multiplayer game</h2>-You are now about to play a multiplayer game.<br>-Please wait until at least 2 players have joined the game, then click the start game button.";
     game_info_html += "</p>";
@@ -217,7 +210,7 @@ function update_player_info_pregame_real()
             "pick_nation": {name: "Pick nation"}};
     }
 
-    if (!is_longturn()) {
+
       $("#pregame_player_list").contextMenu({
         selector: '.pregame_player_name',
         callback: function(key, options) {
@@ -244,7 +237,6 @@ function update_player_info_pregame_real()
         },
         items: pregame_context_items
       });
-    }
 
     /* set state of Start game button depending on if user is ready. */
     if (client.conn['player_num'] != null  && client.conn['player_num'] in players
@@ -462,9 +454,6 @@ function submit_nation_choice()
   send_request(JSON.stringify(test_packet));
   clearInterval(nation_select_id);
 
-  if (is_longturn()) {
-    pregame_start_game();
-  }
 }
 
 /***************************************************************************
@@ -1008,7 +997,7 @@ function show_intro_dialog(title, message) {
   $("#dialog").remove();
   $("<div id='dialog'></div>").appendTo("div#game_page");
 
-  var intro_html = message + "<br><br><table><tr><td>Player name:</td><td><input id='username_req' type='text' size='25' maxlength='31'></td></tr>"
+  var intro_html = message + "<br><br><table><tr><td>Player name:</td><td><input id='username_req' type='text' size='18' maxlength='31'></td></tr>"
       +  "<tr id='password_row' style='display:none;'><td>Password:</td><td id='password_td'></td></tr></table>"
 	  + " <br><br><span id='username_validation_result' style='display:none;'></span><br><br>";
 
@@ -1034,7 +1023,7 @@ function show_intro_dialog(title, message) {
   var stored_password = simpleStorage.get("password", "");
   if (stored_password != null && stored_password != false) {
     $("#password_row").show();
-    $("#password_td").html("<input id='password_req' type='password' size='25' maxlength='200'>  &nbsp; <a class='pwd_reset_2' href='#' style='color: #666666;'>Forgot password?</a>");
+    $("#password_td").html("<input id='password_req' type='password' size='18' maxlength='200'>  &nbsp; <a class='pwd_reset_2' href='#' style='color: #666666;'>Forgot password?</a>");
     $("#password_req").val(stored_password);
     $(".pwd_reset_2").click(forgot_pbem_password);
   }
@@ -1138,89 +1127,6 @@ function show_intro_dialog(title, message) {
 }
 
 /**************************************************************************
- Shows the Freeciv LongTurn intro dialog.
-**************************************************************************/
-function show_longturn_intro_dialog() {
-
-  var title = "Welcome to Freeciv-web: One Turn per Day!";
-
-  var message = "<br>This is a Freeciv-web: One Turn per Day game, which is a Freeciv multiplayer game "+
-        "where the turns are 23 hours each, so players logs in once every day to do their turn. This format allows for more players to "+
-        "play at once, more time to strategize, more time to coordinate with other players, and less rushing to get things done, which can "+
-        "occur in a standard multi-player Freeciv game. It takes a lot longer to play a game, about 2 to 6 months, but you can play it just a "+
-        "little bit every day. <br><br> "+
-        "Please be polite to the other players and don't cheat. "+
-        "Contact a moderator at <a style='color: black;' href='mailto:freeciv-web-moderation@tutanota.com'>freeciv-web-moderation@tutanota.com</a> "+
-        "to report players who behave badly or cheat.<br><br>" +
-        "You will get to play for turn immediately after signing up, and your next turn tomorrow. Please join the game only if you are interested in playing one turn every day. " +
-        "Players who are idle for more than 12 turns can be replaced by new players. This means that idle players will continually be replaced by new players.<br><br>" +
-        "Joining this game requires signing in with a player name and validated Google Account."+
-        "<br><br><br><table><tr><td>Player name:</td><td><input id='username_req' type='text' size='25' maxlength='31'></td></tr></table>" +
-        " <br><br><span id='username_validation_result' style='display:none;'></span><br>" +
-        "<div id='fc-signin2'></div><br><br><br><small>(Please disable adblockers, then reload the page, for Google login button to work)</small>";
-
-  if (is_small_screen()) {
-    message = "Welcome to this Freeciv-web: One Turn per Day game! Enter your player name:"+
-      "<br><br><table><tr><td>Player name:</td><td><input id='username_req' type='text' size='25' maxlength='31'></td></tr></table>" +
-      " <br><br><span id='username_validation_result' style='display:none;'></span><br><br>" +
-      "<div id='fc-signin2'></div><br>";
-  }
-
-  // reset dialog page.
-  $("#dialog").remove();
-  $("<div id='dialog'></div>").appendTo("div#game_page");
-
-  $("#dialog").html(message);
-  var stored_username = simpleStorage.get("username", "");
-  if (stored_username != null && stored_username != false) {
-    $("#username_req").val(stored_username);
-  }
-
-
-  $("#dialog").attr("title", title);
-  $("#dialog").dialog({
-			bgiframe: true,
-			modal: true,
-			width: is_small_screen() ? "80%" : "60%",
-			beforeClose: function( event, ui ) {
-			  // if intro dialog is closed, then check the username and connect to the server.
-			  if (dialog_close_trigger != "button") {
-			    if (validate_username()) {
-			      network_init();
-			      if (!is_touch_device()) $("#pregame_text_input").focus();
-			      return true;
-			    } else {
-			      return false;
-			    }
-			  }
-			},
-			buttons: []
-
-		});
-
-  if (is_small_screen()) {
-    /* some fixes for pregame screen on small devices.*/
-    $("#freeciv_logo").remove();
-    $("#pregame_message_area").css("width", "73%");
-    $("#observe_button").remove();
-  }
-
-  $("#dialog").dialog('open');
-
-  blur_input_on_touchdevice();
-
-  google_user_token = null;
- gapi.signin2.render('fc-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'onsuccess': google_signin_on_success,
-        'onfailure': google_signin_on_failure
-      });
-
-}
-
-/**************************************************************************
   Validate username callback
 **************************************************************************/
 function validate_username_callback()
@@ -1231,10 +1137,6 @@ function validate_username_callback()
    url: "/validate_user?userstring=" + check_username,
    success: function(data, textStatus, request){
       if (data == "user_does_not_exist") {
-        if (is_longturn()) {
-          show_new_user_account_dialog();
-          return;
-        }
 
         if (validate_username()) {
           network_init();

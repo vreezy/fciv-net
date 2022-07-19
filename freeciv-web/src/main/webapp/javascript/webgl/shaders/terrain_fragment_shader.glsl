@@ -328,17 +328,17 @@ void main(void)
         texture_coord = vec2(dx , dy);
         if (vPosition.y > beach_blend_high) {
             blend_amount = ((beach_high - beach_blend_high) - (beach_high - vPosition.y)) / (beach_high - beach_blend_high);
-            vec4 Cbeach = texture2D(desert, texture_coord);
+            vec4 Cbeach = texture2D(desert, texture_coord) * 1.4;
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
 
         } else if (vPosition.y < beach_blend_low) {
             blend_amount = (beach_blend_low - vPosition.y) / 6.0;
-            vec4 Cbeach = texture2D(desert, texture_coord) * 2.0;
+            vec4 Cbeach = texture2D(desert, texture_coord) * 2.5;
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
 
         } else {
             vec4 Cbeach = texture2D(desert, texture_coord);
-            c = Cbeach.rgb;
+            c = Cbeach.rgb * 1.4;
         }
     }
 

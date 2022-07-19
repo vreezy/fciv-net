@@ -214,12 +214,8 @@ function init_common_intro_dialog() {
     show_hotseat_dialog();
 
   } else if (is_small_screen()) {
-    if (is_longturn()) {
-        setTimeout(show_longturn_intro_dialog, 300);
-    } else {
       show_intro_dialog("Welcome to Freeciv-web",
         "You are about to join the game. Please enter your name:");
-    }
   } else if ($.getUrlVar('action') == "earthload") {
     show_intro_dialog("Welcome to Freeciv-web",
       "You can now play Freeciv-web on the earth map you have chosen. " +
@@ -233,15 +229,11 @@ function init_common_intro_dialog() {
 
   } else if ($.getUrlVar('action') == "multi") {
 
-    if (is_longturn()) {
-        setTimeout(show_longturn_intro_dialog, 300);
-    } else {
       var msg = "You are about to join this game server, where you can "  +
                   "participate in a multiplayer game. You can customize the game " +
                   "settings, and wait for the minimum number of players before " +
                   "the game can start. ";
       show_intro_dialog("Welcome to Freeciv-web", msg);
-    }
 
   } else if ($.getUrlVar('action') == "hack") {
     var hack_port;
