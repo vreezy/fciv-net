@@ -631,7 +631,6 @@ function set_chat_direction(player_id) {
 
   icon.attr("title", "Sending messages to " + player_name);
   chat_send_to = player_id;
-  $("#game_text_input").focus();
 }
 
 /****************************************************************************
