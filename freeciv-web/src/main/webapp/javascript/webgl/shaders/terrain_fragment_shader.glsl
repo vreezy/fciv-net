@@ -184,7 +184,7 @@ void main(void)
     mdy = (map_y_size * vUv.y / 4.0) - 0.25 * floor((map_y_size * vUv.y / (0.25 * 4.0)));
 
     // Set pixel color based on tile type.
-    terrain_here = floor(terrain_type.r  * 255.0);
+    terrain_here = floor(terrain_type.r  * 256.0);
     if (terrain_here == terrain_grassland) {
         if (vPosition.y > beach_blend_high ) {
             texture_coord = vec2(dx , dy);
@@ -361,9 +361,9 @@ void main(void)
     }
 
     // Roads
-    road_here_r = floor(road_type.r * 255.0);
-    road_here_g = floor(road_type.g * 255.0);
-    road_here_b = floor(road_type.b * 255.0);
+    road_here_r = floor(road_type.r * 256.0);
+    road_here_g = floor(road_type.g * 256.0);
+    road_here_b = floor(road_type.b * 256.0);
     if (road_here_r == 0.0) {
         // no roads
     } else if (road_here_r == roadtype_1 && road_here_g == 0.0 &&  road_here_b == 0.0) {
