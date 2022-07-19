@@ -473,9 +473,9 @@ function map_tile_height_adjust(ptile)
     if (tile_has_extra(ptile, EXTRA_RIVER)) {
       ptile['height'] = 0.493;
     } else if (tile_terrain(ptile)['name'] == "Hills") {
-      ptile['height'] =  ptile['height'] * 1.08;
+      ptile['height'] =  ptile['height'] * 1.07;
     } else if (tile_terrain(ptile)['name'] == "Mountains") {
-      ptile['height'] =  ptile['height'] * 1.15;
+      ptile['height'] =  ptile['height'] * 1.12;
     } else if (tile_terrain(ptile)['name'] == "Glacier" || tile_terrain(ptile)['name'] == "Tundra") {
       ptile['height'] = 0.52;
     }
