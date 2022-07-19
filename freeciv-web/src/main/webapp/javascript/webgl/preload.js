@@ -104,23 +104,6 @@ function webgl_preload()
     webgl_materials['city_disorder'] = material;
   });
 
-
-  /* Preload terrain tile textures.  */
-  var imgurl = "/textures/large/terrains.png";
-  textureLoader.load(imgurl, (function (url) {
-          return function (image) {
-                var texture = new THREE.Texture();
-                texture.image = image;
-                texture.wrapS = THREE.RepeatWrapping;
-                texture.wrapT = THREE.RepeatWrapping;
-                texture.magFilter = THREE.LinearFilter;
-                texture.minFilter = THREE.LinearFilter;
-                texture.needsUpdate = true;
-                webgl_textures["terrains"] = texture;
-            }
-    })(imgurl)
-  );
-
   for (var i = 0; i < tiletype_terrains.length ; i++) {
     var terrain_name = tiletype_terrains[i];
     textureLoader.load("/textures/large/" + terrain_name + ".png", handle_new_texture("/textures/large/" + terrain_name + ".png", terrain_name));
