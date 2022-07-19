@@ -27,7 +27,7 @@ var directionalLight;
 var clock;
 var webgl_controls;
 
-var tiletype_terrains = ["lake","coast","ocean","arctic","desert","forest","grassland","hills","jungle","mountains","plains","swamp","tundra", "beach", "farmland", "irrigation"];
+var tiletype_terrains = ["coast","ocean","arctic","desert","grassland","hills","mountains","plains","swamp","tundra", "beach", "farmland", "irrigation"];
 
 var landGeometry;
 var landMesh;
