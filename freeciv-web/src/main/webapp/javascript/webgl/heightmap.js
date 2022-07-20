@@ -110,7 +110,13 @@ function create_heightmap()
           var dy = gy - coords.y;
           var distance = Math.sqrt(dx*dx + dy*dy);
           var ptile = map_pos_to_tile(coords.x, coords.y);
-          sum += ptile['height'] / distance / distance;
+          var height = 0;
+          if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
+            height = ptile['height'] + ((Math.random() - 0.5) / 50) - 0.05;
+          } else {
+            height = ptile['height'];
+          }
+          sum += height / distance / distance;
           norm += 1. / distance / distance;
         }
 

@@ -97,12 +97,12 @@ float railtype_all = 43.0;
 float beach_high = 51.0;
 float beach_blend_high = 50.5;
 float beach_blend_low = 49.4;
-float beach_low = 48.8;
+float beach_low = 48.5;
 float blend_amount = 0.0;
 
-float mountains_low_begin = 73.0;
-float mountains_low_end = 74.0;
-float mountains_high = 76.2;
+float mountains_low_begin = 74.0;
+float mountains_low_end = 74.5;
+float mountains_high = 75.10;
 
 vec3 ambiant = vec3(0.27, 0.55, 1.);
 vec3 light = vec3(0.8, 0.6, 0.7);
@@ -170,8 +170,8 @@ void main(void)
     vec4 terrain_color;
 
     if (terrain_type.g == is_river_modifier) {
-        beach_high = 50.5;
-        beach_blend_high = 50.25;
+        beach_high = 50.4;
+        beach_blend_high = 50.15;
     }
 
     dx = mod(map_x_size * vUv.x, 1.0);
@@ -497,7 +497,7 @@ void main(void)
     vec4 Cb = texture2D(coast, vec2(dx  , dy));
     c = mix(c, Cb.rgb, x);
 
-    float shade_factor = 0.22 + 1.4 * max(0., dot(vNormal, normalize(light)));
+    float shade_factor = 0.25 + 1.4 * max(0., dot(vNormal, normalize(light)));
 
     // Fog of war, and unknown tiles, are stored as a vertex color in vColor.r.
     c = c * vColor.r;
