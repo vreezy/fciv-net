@@ -3445,7 +3445,7 @@ function update_active_units_dialog()
     $("#game_unit_panel").parent().width(newwidth);
     $("#game_unit_panel").parent().height(newheight);
     $("#game_unit_panel").parent().css("left", ($( window ).width() - newwidth) + "px");
-    $("#game_unit_panel").parent().css("top", ($( window ).height() - newheight + 10) + "px");
+    $("#game_unit_panel").parent().css("top", ($( window ).height() - newheight - 4) + "px");
     $("#game_unit_panel").parent().css("background", "rgba(0,0,0,0.9)");
     if (game_unit_panel_state == "minimized") $("#game_unit_panel").dialogExtend("minimize");
   } else {
