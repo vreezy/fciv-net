@@ -7,20 +7,9 @@
 <h2>Game Options</h2>
 
 <div class="main_menu_buttons">
-<%--<b>Music:</b><br>
-  <audio preload="none"></audio>
-</div>--%>
 
 <div class="main_menu_buttons">
 <table>
-<tr>
-  <td>
-    <button id="switch_renderer_button" type="button" class="button setting_button" onClick="switch_renderer();"></button>
-  </td>
-  <td>
-    <div id="renderer_help" style="font-size: 85%; max-width: 450px;"></div>
-  </td>
-</tr>
 <tr>
   <td>
     <button id="replay_button" type="button" class="button setting_button" onClick="show_replay();">Show game replay</button>

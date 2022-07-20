@@ -223,12 +223,18 @@
 											<c:when test="${game.state != 'Running'}">
 												<a class="label label-success label-lg"
 													href="/webclient/?action=multi&amp;civserverport=${game.port}&amp;civserverhost=${game.host}&amp;multi=true&amp;type=${game.type}">
-													Play</a>
+													Play 2D</a>
+                                                <a class="label label-success label-lg"
+                                                    href="/webclient/?action=multi&amp;renderer=webgl&amp;civserverport=${game.port}&amp;civserverhost=${game.host}&amp;multi=true&amp;type=${game.type}">
+                                                    Play 3D</a>
 											</c:when>
 											<c:otherwise>
                                                 <a class="label label-success label-lg"
 													href="/webclient/?action=multi&amp;civserverport=${game.port}&amp;civserverhost=${game.host}&amp;multi=true&amp;type=${game.type}">
 													Play 2D</a>
+                                                <a class="label label-success label-lg"
+                                                    href="/webclient/?action=multi&amp;renderer=webgl&amp;civserverport=${game.port}&amp;civserverhost=${game.host}&amp;multi=true&amp;type=${game.type}">
+                                                    Play 3D</a>
 											<c:if test="${game.type} ne 'longturn'}">
 												<a class="label label-success label-lg"
 													href="/webclient/?action=observe&amp;civserverport=${game.port}&amp;civserverhost=${game.host}&amp;multi=true&amp;type=${game.type}">

@@ -273,7 +273,7 @@
 										<td>
 											<c:choose>
 												<c:when test="${game.state == 'Running' or game.state == 'Pregame'}">
-													<a  class="label label-success" href="/webclient/?action=multi&civserverport=${game.port}&amp;civserverhost=${game.host}&amp;multi=true&amp;type=${game.type}">
+													<a  class="label label-success" href="/webclient/?action=multi&renderer=webgl&civserverport=${game.port}&amp;civserverhost=${game.host}&amp;multi=true&amp;type=${game.type}">
 														Play
 													</a>
 												</c:when>
