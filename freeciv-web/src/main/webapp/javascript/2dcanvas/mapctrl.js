@@ -78,7 +78,6 @@ function mapview_mouse_click(e)
   } else if (!middleclick) {
     /* Left mouse button*/
     action_button_pressed(mouse_x, mouse_y, SELECT_POPUP);
-    mapview_mouse_movement = false;
     update_mouse_cursor();
   }
   keyboard_input = true;
@@ -107,7 +106,6 @@ function mapview_mouse_down(e)
     if (goto_active) return;
     set_mouse_touch_started_on_unit(canvas_pos_to_tile(mouse_x, mouse_y));
     check_mouse_drag_unit(canvas_pos_to_tile(mouse_x, mouse_y));
-    if (!mouse_touch_started_on_unit) mapview_mouse_movement = true;
     touch_start_x = mouse_x;
     touch_start_y = mouse_y;
 

@@ -91,12 +91,10 @@ function webglOnDocumentMouseUp( e ) {
     }
     map_select_active = false;
     map_select_check = false;
-    mapview_mouse_movement = false;
 
   } else if (!rightclick && !middleclick) {
     /* Left mouse button*/
     do_map_click(ptile, SELECT_POPUP, true);
-    mapview_mouse_movement = false;
     update_mouse_cursor();
   }
   e.preventDefault();
@@ -126,8 +124,6 @@ function webglOnDocumentMouseDown(e) {
     var ptile = webgl_canvas_pos_to_tile(e.clientX, e.clientY - $("#canvas_div").offset().top);
     set_mouse_touch_started_on_unit(ptile);
     check_mouse_drag_unit(ptile);
-    if (!mouse_touch_started_on_unit) mapview_mouse_movement = true;
-    mapview_mouse_movement = true;
     touch_start_x = mouse_x;
     touch_start_y = mouse_y;
 
@@ -138,7 +134,6 @@ function webglOnDocumentMouseDown(e) {
     /* The context menu blocks the right click mouse up event on some
      * browsers. */
     context_menu_active = false;
-    mapview_mouse_movement = false;
   }
 }
 
