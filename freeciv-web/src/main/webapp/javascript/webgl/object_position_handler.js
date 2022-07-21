@@ -130,7 +130,7 @@ function update_unit_position(ptile) {
         selected_unit_indicator = null;
       }
       if (visible_unit['anim_list'].length == 0) {
-        selected_mesh = new THREE.Mesh( new THREE.RingBufferGeometry( 13, 25, 24), selected_unit_material );
+        selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 7, 20, 24), selected_unit_material );
         selected_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 2);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 2);
@@ -209,7 +209,7 @@ function update_unit_position(ptile) {
         selected_unit_indicator = null;
       }
       if (visible_unit['anim_list'].length == 0) {
-        selected_mesh = new THREE.Mesh( new THREE.RingBufferGeometry( 13, 24, 20), selected_unit_material );
+        selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 7, 20, 20), selected_unit_material );
         selected_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 2);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 2);

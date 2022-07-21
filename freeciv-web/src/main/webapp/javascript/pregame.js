@@ -1040,7 +1040,7 @@ function show_intro_dialog(title, message) {
   $("#dialog").dialog({
 			bgiframe: true,
 			modal: true,
-			width: is_small_screen() ? "80%" : "60%",
+			width: is_small_screen() ? "80%" : "50%",
 			beforeClose: function( event, ui ) {
 			  // if intro dialog is closed, then check the username and connect to the server.
 			  if (dialog_close_trigger != "button") {
