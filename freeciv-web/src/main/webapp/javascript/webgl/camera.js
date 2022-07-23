@@ -20,9 +20,9 @@
 var camera;
 
 var camera_dy_div_dx = 340/300;
-var camera_dx = 190;
+var camera_dx = 220;
 var camera_dy = 310;
-var camera_dz = 190;
+var camera_dz = 220;
 var camera_current_x = 0;
 var camera_current_y = 0;
 var camera_current_z = 0;
@@ -53,7 +53,7 @@ function center_tile_mapcanvas_3d(ptile)
 {
   if (ptile != null) {
     var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-    camera_look_at(pos['x'], 0, pos['y']);
+    camera_look_at(pos['x'] - 50, 0, pos['y'] - 50);
   }
 
 }
