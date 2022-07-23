@@ -85,12 +85,6 @@ function webgl_start_renderer()
 
   maprenderer = new THREE.WebGLRenderer( { antialias: enable_antialiasing} );
 
-  if (is_small_screen() || $(window).width() <= 1366) {
-    camera_dx = 200;
-    camera_dy = 390;
-    camera_dz = 200;
-  }
-
   //maprenderer.setClearColor(0x000000);
   maprenderer.setPixelRatio(window.devicePixelRatio);
   maprenderer.setSize(new_mapview_width, new_mapview_height);

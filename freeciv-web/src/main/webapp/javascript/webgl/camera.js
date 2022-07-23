@@ -53,7 +53,7 @@ function center_tile_mapcanvas_3d(ptile)
 {
   if (ptile != null) {
     var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-    camera_look_at(pos['x'] - 50, 0, pos['y'] - 50);
+    camera_look_at(pos['x'] - 50, 0, pos['y'] - 50);       // -50 to get the center tile more in the center of the screen.
   }
 
 }
