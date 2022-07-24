@@ -96,8 +96,8 @@ float railtype_all = 43.0;
 
 float beach_high = 50.9;
 float beach_blend_high = 50.4;
-float beach_blend_low = 49.4;
-float beach_low = 48.4;
+float beach_blend_low = 49.8;
+float beach_low = 48.0;
 float blend_amount = 0.0;
 
 float mountains_low_begin = 74.0;
@@ -335,7 +335,7 @@ void main(void)
             c = Cbeach.rgb * 1.4;
         } else if (vPosition.y < beach_blend_low) {
             blend_amount = (beach_blend_low - vPosition.y) / 2.0;
-            vec4 Cbeach = texture2D(desert, texture_coord) * 1.5;
+            vec4 Cbeach = texture2D(coast, texture_coord) * 3.5;
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
 
         } else {
