@@ -67,7 +67,7 @@ float terrain_plains = 110.0;
 float terrain_swamp = 120.0;
 float terrain_tundra = 130.0;
 
-float is_river_modifier = 10.0;
+float is_river_modifier = 10.0 / 255.0;
 
 // roads
 float roadtype_1 = 1.0;
@@ -94,10 +94,10 @@ float roadtype_18 = 18.0;
 float roadtype_19 = 19.0;
 float railtype_all = 43.0;
 
-float beach_high = 51.0;
-float beach_blend_high = 50.5;
+float beach_high = 50.9;
+float beach_blend_high = 50.4;
 float beach_blend_low = 49.4;
-float beach_low = 48.5;
+float beach_low = 48.4;
 float blend_amount = 0.0;
 
 float mountains_low_begin = 74.0;
@@ -330,10 +330,12 @@ void main(void)
             blend_amount = ((beach_high - beach_blend_high) - (beach_high - vPosition.y)) / (beach_high - beach_blend_high);
             vec4 Cbeach = texture2D(desert, texture_coord) * 1.4;
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
-
+        } else if (terrain_type.g == is_river_modifier) {
+            vec4 Cbeach = texture2D(coast, texture_coord);
+            c = Cbeach.rgb * 1.4;
         } else if (vPosition.y < beach_blend_low) {
-            blend_amount = (beach_blend_low - vPosition.y) / 6.0;
-            vec4 Cbeach = texture2D(desert, texture_coord) * 2.5;
+            blend_amount = (beach_blend_low - vPosition.y) / 2.0;
+            vec4 Cbeach = texture2D(desert, texture_coord) * 1.5;
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
 
         } else {

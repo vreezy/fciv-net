@@ -17,8 +17,8 @@
 
 ***********************************************************************/
 var flag_dy = 0;
-var flag_dx = 13;
-var flag_dz = 15;
+var flag_dx = 16;
+var flag_dz = 18;
 
 // stores unit positions on the map. tile index is key, unit 3d model is value.
 var unit_positions = {};
@@ -130,7 +130,7 @@ function update_unit_position(ptile) {
         selected_unit_indicator = null;
       }
       if (visible_unit['anim_list'].length == 0) {
-        selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 7, 20, 24), selected_unit_material );
+        selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 18, 20, 30), selected_unit_material );
         selected_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 2);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 2);
@@ -209,7 +209,7 @@ function update_unit_position(ptile) {
         selected_unit_indicator = null;
       }
       if (visible_unit['anim_list'].length == 0) {
-        selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 7, 20, 20), selected_unit_material );
+        selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 18, 20, 30), selected_unit_material );
         selected_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 2);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 2);

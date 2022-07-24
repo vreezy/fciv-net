@@ -1,6 +1,6 @@
 /**********************************************************************
-    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
-    Copyright (C) 2009-2017  The Freeciv-web project
+    Fciv.net - the web version of Freeciv. http://www.fciv.net/
+    Copyright (C) 2009-2022  The Freeciv-web project
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -85,7 +85,6 @@ function webgl_start_renderer()
 
   maprenderer = new THREE.WebGLRenderer( { antialias: enable_antialiasing} );
 
-  //maprenderer.setClearColor(0x000000);
   maprenderer.setPixelRatio(window.devicePixelRatio);
   maprenderer.setSize(new_mapview_width, new_mapview_height);
   container.appendChild(maprenderer.domElement);
@@ -122,8 +121,8 @@ function init_webgl_mapview() {
       flowDirection: new THREE.Vector2( 0.1, -0.1),
       textureWidth: 1024,
       textureHeight: 1024,
-      reflectivity : 0.8,
-      clipBias : 0.1,
+      reflectivity : 0.7,
+      clipBias : 0.05,
       normalMap0 : textureLoader.load( '/textures/Water_1_M_Normal.jpg' ),
       normalMap1 : textureLoader.load( '/textures/Water_2_M_Normal.jpg' )
 
@@ -165,8 +164,8 @@ function init_webgl_mapview() {
     vertexColors: true
   });
 
-  xquality = map.xsize * 4 + 1;
-  yquality = map.ysize * 4 + 1;
+  xquality = map.xsize * 6 + 1;
+  yquality = map.ysize * 6 + 1;
 
   /* LandGeometry is a plane representing the landscape of the map. */
   landGeometry = new THREE.BufferGeometry();
@@ -230,7 +229,7 @@ function init_webgl_mapview() {
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
       var sx = ix % xquality, sy = iy % yquality;
-      var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
+      var mx = Math.floor(sx / 6), my = Math.floor(sy / 6);
       var ptile = map_pos_to_tile(mx, my);
         if (ptile == null) {
           colors.push(0,0,0);

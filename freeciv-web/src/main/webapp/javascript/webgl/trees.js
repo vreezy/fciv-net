@@ -43,12 +43,12 @@ function add_trees_to_landgeometry() {
   const forest_vertices = [];
   const jungle_vertices = [];
 
-  for ( let iy = 0; iy < gridY1; iy ++ ) {
+  for ( let iy = 0; iy < gridY1; iy += 2 ) {
     const y = iy * segment_height - height_half;
-    for ( let ix = 0; ix < gridX1; ix ++ ) {
+    for ( let ix = 0; ix < gridX1; ix += 2 ) {
       const x = ix * segment_width - width_half;
       var sx = ix % xquality, sy = iy % yquality;
-      var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
+      var mx = Math.floor(sx / 6), my = Math.floor(sy / 6);
       var ptile = map_pos_to_tile(mx, my);
 
       if (ptile != null) {
@@ -76,7 +76,7 @@ function add_trees_to_landgeometry() {
 
     jungle_geometry = new THREE.BufferGeometry();
     jungle_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( jungle_vertices, 3 ) );
-    var jungle_material = new THREE.PointsMaterial( { size: 25, sizeAttenuation: true, map: webgl_textures["jungle_1"],  alphaTest: 0.5, transparent: true , opacity: 0.8} );
+    var jungle_material = new THREE.PointsMaterial( { size: 25, sizeAttenuation: true, map: webgl_textures["jungle_1"],  alphaTest: 0.5, transparent: true , opacity: 1.0} );
     jungle_points = new THREE.Points( jungle_geometry, jungle_material );
     scene.add(jungle_points);
 
