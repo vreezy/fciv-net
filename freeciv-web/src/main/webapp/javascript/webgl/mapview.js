@@ -253,7 +253,7 @@ function init_webgl_mapview() {
   scene.add( landMesh );
 
   update_tiles_known_vertex_colors();
-  setInterval(update_tiles_known_vertex_colors, 80);
+  setInterval(update_tiles_known_vertex_colors, 100);
 
   add_all_objects_to_scene();
 

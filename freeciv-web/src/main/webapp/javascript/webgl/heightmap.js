@@ -28,8 +28,12 @@ function get_unit_height_offset(punit)
   if (punit == null) return 0;
   var ptile = index_to_tile(punit['tile']);
   if (ptile == null) return 0;
-  var pcity = tile_city(ptile);
 
+  if (tile_has_extra(ptile, EXTRA_RIVER)) {
+    return 10;
+  }
+
+  var pcity = tile_city(ptile);
   if (pcity != null) return 10;
 
   return 0;
