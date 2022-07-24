@@ -30,7 +30,7 @@ function get_unit_height_offset(punit)
   if (ptile == null) return 0;
 
   if (tile_has_extra(ptile, EXTRA_RIVER)) {
-    return 10;
+    return 6;
   }
 
   var pcity = tile_city(ptile);

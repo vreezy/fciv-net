@@ -258,7 +258,7 @@ void main(void)
     } else if (terrain_here == terrain_jungle) {
         if (vPosition.y > beach_blend_high ) {
             texture_coord = vec2(dx  , dy );
-            terrain_color = texture2D(grassland, texture_coord);
+            terrain_color = texture2D(plains, texture_coord);
         } else {
             texture_coord = vec2(dx , dy );
             terrain_color = texture2D(coast, texture_coord);

@@ -432,6 +432,10 @@ button {
   font-size: 18px;
 }
 
+.blockUI h2 {
+  font-size: 16px;
+}
+
 .tablesorter-dark {
   font: 115% sans-serif;
   background: url("/images/bg-dark.jpg") repeat scroll 0 0 ; 

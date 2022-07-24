@@ -132,7 +132,7 @@ function update_unit_position(ptile) {
       if (visible_unit['anim_list'].length == 0) {
         selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 18, 20, 30), selected_unit_material );
         selected_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 2);
-        selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
+        selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 2);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 2);
         selected_mesh.rotation.x = -1 * Math.PI / 2;
         scene.add(selected_mesh);
@@ -211,7 +211,7 @@ function update_unit_position(ptile) {
       if (visible_unit['anim_list'].length == 0) {
         selected_mesh = new THREE.Mesh( new THREE.RingGeometry( 18, 20, 30), selected_unit_material );
         selected_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 2);
-        selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
+        selected_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 2);
         selected_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 2);
         selected_mesh.rotation.x = -1 * Math.PI / 2;
         scene.add(selected_mesh);
