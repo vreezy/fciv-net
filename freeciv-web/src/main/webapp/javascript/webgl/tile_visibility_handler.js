@@ -65,7 +65,7 @@ function update_tiles_known_vertex_colors()
       var mx = Math.floor(sx / 6), my = Math.floor(sy / 6);
       var ptile = map_pos_to_tile(mx, my);
         if (ptile != null) {
-          var c = get_vertex_color_from_tile(ptile);
+          var c = get_vertex_color_from_tile(ptile, ix, iy);
           colors.push(c[0], c[1], c[2]);
         } else {
           colors.push(0,0,0);
@@ -88,7 +88,7 @@ function update_tiles_known_vertex_colors()
  Returns the vertex colors (THREE.Color) of a tile. The color is used to
  set terrain type in the terrain fragment shader.
 **************************************************************************/
-function get_vertex_color_from_tile(ptile)
+function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
 {
     var known_status_color = 0;
     if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
@@ -97,6 +97,18 @@ function get_vertex_color_from_tile(ptile)
       known_status_color = 0.54;
     } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
       known_status_color = 0;
+    }
+
+    // Unit shadow
+    var units = tile_units(ptile);
+    if (units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % 6)> 3 && (vertex_y % 6) > 3) {
+      known_status_color = 0.35;
+    }
+
+    // City shadow
+    var pcity = tile_city(ptile);
+    if (pcity != null && (vertex_x % 6) > 1 && (vertex_y % 6) > 1) {
+      known_status_color = 0.40;
     }
 
     var farmland_irrigation_color = 0;
