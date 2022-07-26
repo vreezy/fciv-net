@@ -95,18 +95,6 @@ function handle_server_join_reply(packet)
       change_ruleset($.getUrlVar('ruleset'));
     }
 
-    if (renderer == RENDERER_WEBGL && !observing) {
-       // Reduce the amount of rivers, it's kind of ugly at the moment.
-       send_message("/set wetness 25");
-
-       // Freeciv WebGL doesn't support map wrapping yet.
-       send_message("/set topology=");
-
-       // Less hills will be more user-friendly in 3D mode.
-       send_message("/set steepness 12");
-
-     }
-
     if (autostart) {
       if (renderer == RENDERER_WEBGL) {
         $.blockUI({ message: '<h2>Generating terrain map model...</h2>' });

@@ -23,6 +23,11 @@ set sciencebox 50
 set startunits=ccccccwwwwwx
 set contactturns=0
 set phasemode player
+
+set wetness 25
+set topology=
+set steepness 12
+
 set ec_chat=enabled
 set ec_info=enabled 
 set ec_max_size=20000

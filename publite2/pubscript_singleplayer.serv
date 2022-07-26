@@ -16,5 +16,10 @@ set scorelog enabled
 set size 5
 set landm 50
 set aifill 8
+
+set wetness 25
+set topology=
+set steepness 12
+
 metaconnection persistent
 metamessage New Freeciv-web Singleplayer Game
