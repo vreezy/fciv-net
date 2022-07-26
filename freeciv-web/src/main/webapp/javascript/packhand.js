@@ -161,10 +161,6 @@ function handle_conn_info(packet)
     }
   }
 
-  /* FIXME: not implemented yet.
-  update_players_dialog();
-  update_conn_list_dialog();*/
-
 }
 
 /* 100% done */
