@@ -212,7 +212,7 @@ function show_new_game_message()
 
   } else if (client.conn.playing != null && !game_loaded) {
     var pplayer = client.conn.playing;
-    var player_nation_text = "Welcome, " + username + " ruler of the " + nations[pplayer['nation']]['adjective'] + " empire.";
+    message = "Welcome, " + username + " ruler of the " + nations[pplayer['nation']]['adjective'] + " empire.";
 
   } else if (game_loaded) {
     message = "Welcome back, " + username;

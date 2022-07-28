@@ -8,40 +8,13 @@
 
 <div class="main_menu_buttons">
 
-<div class="main_menu_buttons">
-<table>
-<tr>
-  <td>
-    <button id="replay_button" type="button" class="button setting_button" onClick="show_replay();">Show game replay</button>
-  </td>
-  <td>
-    Show game replay
-  </td>
-</tr>
-</table>
-
-</div>
 
 
-<div class="main_menu_buttons" id="timeout_setting_div">
-  <b>Timeout (seconds per turn):</b> <input type='number' name='timeout_setting' id='timeout_setting' size='6' length='3' max='3600' step='1'>
-  <span id="timeout_info"></span>
-</div>
+
 
 
 <table>
-<tr>
-<td>
-  <div class="main_menu_buttons">
-    <b>Play sounds:</b> <input type='checkbox' name='play_sounds_setting' id='play_sounds_setting' checked>
-  </div>
-</td>
-<td>
-  <div class="main_menu_buttons">
-    <b>Speech messages:</b> <input type='checkbox' name='speech_enabled_setting' id='speech_enabled_setting'>
-  </div>
-</td>
-</tr>
+
 
 <tr>
 <td>
@@ -67,11 +40,44 @@
 </div>
 </td>
 </tr>
+
+<tr>
+<td>
+  <div class="main_menu_buttons">
+    <b>Play sounds:</b> <input type='checkbox' name='play_sounds_setting' id='play_sounds_setting' checked>
+  </div>
+</td>
+<td>
+  <div class="main_menu_buttons">
+    <b>Speech messages:</b> <input type='checkbox' name='speech_enabled_setting' id='speech_enabled_setting'>
+  </div>
+</td>
+</tr>
 </table>
 
 
+
+<div class="main_menu_buttons" id="timeout_setting_div">
+  <b>Timeout (seconds per turn):</b> <input type='number' name='timeout_setting' id='timeout_setting' size='6' length='3' max='3600' step='1'>
+  <span id="timeout_info"></span>
+</div>
+
 <div class="main_menu_buttons" id="title_setting_div">
   <b>Game title:</b> <input type='text' name='metamessage_setting' id='metamessage_setting' size='28' maxlength='42'>
+</div>
+
+<div class="main_menu_buttons">
+<table>
+<tr>
+  <td>
+    <button id="replay_button" type="button" class="button setting_button" onClick="show_replay();">Show game replay</button>
+  </td>
+  <td>
+    Show game replay
+  </td>
+</tr>
+</table>
+
 </div>
 
 
