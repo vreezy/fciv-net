@@ -139,7 +139,6 @@ body {
   height: 590px;
   overflow: auto;
   float: left;
-  background-color: rgba(100,100,100,0.3);
 }
 
 .nation_choice {
@@ -224,7 +223,7 @@ body {
 }
 
 .pick_nation_flags {
-  width: 30px;
+  width: 44px;
   float: left;
   padding-right: 3px;
 }

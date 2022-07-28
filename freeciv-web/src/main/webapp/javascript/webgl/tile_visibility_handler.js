@@ -93,22 +93,23 @@ function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
     var known_status_color = 0;
     if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
       known_status_color = 1.06;
+
+      // Unit shadow
+      var units = tile_units(ptile);
+      if (units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % 6)> 3 && (vertex_y % 6) > 3) {
+        known_status_color = 0.35;
+      }
+
+      // City shadow
+      var pcity = tile_city(ptile);
+      if (pcity != null && (vertex_x % 6) > 1 && (vertex_y % 6) > 1) {
+        known_status_color = 0.40;
+      }
+
     } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {
       known_status_color = 0.54;
     } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
       known_status_color = 0;
-    }
-
-    // Unit shadow
-    var units = tile_units(ptile);
-    if (units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % 6)> 3 && (vertex_y % 6) > 3) {
-      known_status_color = 0.35;
-    }
-
-    // City shadow
-    var pcity = tile_city(ptile);
-    if (pcity != null && (vertex_x % 6) > 1 && (vertex_y % 6) > 1) {
-      known_status_color = 0.40;
     }
 
     var farmland_irrigation_color = 0;
