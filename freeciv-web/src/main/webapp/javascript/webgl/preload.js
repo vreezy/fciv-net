@@ -252,12 +252,12 @@ function get_extra_texture(key)
   }
 
   var ecanvas = document.createElement("canvas");
-  ecanvas.width = 40;
-  ecanvas.height = 40;
+  ecanvas.width = 42;
+  ecanvas.height = 42;
   var econtext = ecanvas.getContext("2d");
   econtext.drawImage(sprites[key], 14, 6,
                 sprites[key].width - 33, sprites[key].height,
-                0,0,40,40);
+                0,0,42,42);
 
   // Create a new texture out of the canvas
   var texture = new THREE.Texture(ecanvas);

@@ -51,7 +51,7 @@ function webgl_canvas_pos_to_tile(x, y) {
 
   raycaster.setFromCamera( mouse, camera );
 
-  var intersects = raycaster.intersectObject(landMesh);
+  var intersects = raycaster.intersectObject(landMesh, false);
 
   for (var i = 0; i < intersects.length; i++) {
     var intersect = intersects[i];

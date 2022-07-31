@@ -366,6 +366,15 @@
 		</c:if>
 
 
+			<div class="row">
+				<div class="col-md-12">
+				<br><br>
+						<center>
+                           <a class="twitter-timeline" data-width="600" data-height="600" href="https://twitter.com/fcivnet?ref_src=twsrc%5Etfw">Tweets by fcivnet</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </center>
+				</div>
+			</div>
+
 		<%@include file="/WEB-INF/jsp/fragments/footer.jsp"%>
 	</div>
 </body>

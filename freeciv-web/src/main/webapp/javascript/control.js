@@ -334,7 +334,7 @@ function mouse_moved_cb(e)
 
   if (client.conn.playing == null) return;
 
-  if (C_S_RUNNING == client_state()) {
+  if (renderer == RENDERER_2DCANVAS && C_S_RUNNING == client_state()) {
     update_mouse_cursor();
   }
 
@@ -353,6 +353,8 @@ function mouse_moved_cb(e)
 ****************************************************************************/
 function update_mouse_cursor()
 {
+  if (C_S_RUNNING != client_state()) return;
+
   if (tech_dialog_active && !is_touch_device()) {
     update_tech_dialog_cursor();
     return;
@@ -3251,7 +3253,6 @@ function update_goto_path(goto_packet)
   if (current_goto_turns != undefined) {
     $("#active_unit_info").html("Turns for goto: " + current_goto_turns);
   }
-  update_mouse_cursor();
 }
 
 

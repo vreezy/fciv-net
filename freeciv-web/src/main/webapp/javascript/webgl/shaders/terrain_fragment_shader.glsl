@@ -340,7 +340,7 @@ void main(void)
 
         } else {
             vec4 Cbeach = texture2D(desert, texture_coord);
-            c = Cbeach.rgb * 1.4;
+            c = Cbeach.rgb * 1.38;
         }
     }
 
@@ -362,7 +362,7 @@ void main(void)
     road_here_r = floor(road_type.r * 256.0);
     road_here_g = floor(road_type.g * 256.0);
     road_here_b = floor(road_type.b * 256.0);
-    if (road_here_r == 0.0) {
+    if (road_here_r == 0.0 || vPosition.y < beach_blend_low) {
         // no roads
     } else if (road_here_r == roadtype_1 && road_here_g == 0.0 &&  road_here_b == 0.0) {
         // a single road tile.

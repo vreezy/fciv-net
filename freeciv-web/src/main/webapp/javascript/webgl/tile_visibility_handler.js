@@ -18,6 +18,7 @@
 ***********************************************************************/
 
 var vertex_colors_dirty = false;
+var trees_need_update = false;
 
 /**************************************************************************
  Updates the terrain vertex colors to set tile to known, unknown or fogged.
@@ -26,6 +27,10 @@ function webgl_update_tile_known(old_tile, new_tile)
 {
   if (new_tile == null || old_tile == null || tile_get_known(new_tile) == tile_get_known(old_tile) || landGeometry == null) return;
   vertex_colors_dirty = true;
+
+  if (tile_terrain(new_tile).name != tile_terrain(old_tile).name && tile_terrain(old_tile).name == "Forest" || tile_terrain(old_tile).name == "Jungle" || tile_terrain(new_tile).name == "Forest" || tile_terrain(new_tile).name == "Jungle") {
+    trees_need_update = true;
+  }
 }
 
 
@@ -48,17 +53,7 @@ function update_tiles_known_vertex_colors()
   if (!vertex_colors_dirty) return;
 
   const colors = [];
-  const width_half = mapview_model_width / 2;
-  const height_half = mapview_model_height / 2;
 
-  const gridX = Math.floor(xquality);
-  const gridY = Math.floor(yquality);
-
-  const gridX1 = gridX + 1;
-  const gridY1 = gridY + 1;
-
-  const segment_width = mapview_model_width / gridX;
-  const segment_height = mapview_model_height / gridY;
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
       var sx = ix % xquality, sy = iy % yquality;

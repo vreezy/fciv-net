@@ -39,6 +39,15 @@ var mapview_model_width;
 var mapview_model_height;
 var xquality;
 var yquality;
+
+var width_half;
+var height_half;
+var gridX;
+var gridY;
+var gridX1;
+var gridY1;
+var segment_width;
+var segment_height;
 var MAPVIEW_ASPECT_FACTOR = 35.71;
 
 
@@ -170,17 +179,17 @@ function init_webgl_mapview() {
   /* LandGeometry is a plane representing the landscape of the map. */
   landGeometry = new THREE.BufferGeometry();
 
-  const width_half = mapview_model_width / 2;
-  const height_half = mapview_model_height / 2;
+  width_half = mapview_model_width / 2;
+  height_half = mapview_model_height / 2;
 
-  const gridX = Math.floor(xquality);
-  const gridY = Math.floor(yquality);
+  gridX = Math.floor(xquality);
+  gridY = Math.floor(yquality);
 
-  const gridX1 = gridX + 1;
-  const gridY1 = gridY + 1;
+  gridX1 = gridX + 1;
+  gridY1 = gridY + 1;
 
-  const segment_width = mapview_model_width / gridX;
-  const segment_height = mapview_model_height / gridY;
+  segment_width = mapview_model_width / gridX;
+  segment_height = mapview_model_height / gridY;
 
   const indices = [];
   const vertices = [];
@@ -254,6 +263,8 @@ function init_webgl_mapview() {
 
   update_tiles_known_vertex_colors();
   setInterval(update_tiles_known_vertex_colors, 100);
+
+  setInterval(update_mouse_cursor, 350);
 
   add_all_objects_to_scene();
 

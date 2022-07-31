@@ -26,16 +26,7 @@ var jungle_geometry;
 ****************************************************************************/
 function add_trees_to_landgeometry() {
 
-  const width_half = mapview_model_width / 2;
-  const height_half = mapview_model_height / 2;
-
-  const gridX = Math.floor(xquality);
-  const gridY = Math.floor(yquality);
-
-  const gridX1 = gridX + 1;
-  const gridY1 = gridY + 1;
-  const segment_width = mapview_model_width / gridX;
-  const segment_height = mapview_model_height / gridY;
+  if (!trees_need_update) return;
 
   var tree_points = null;
   var jungle_points = null;
@@ -107,6 +98,7 @@ function add_trees_to_landgeometry() {
   jungle_geometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
 
   trees_init = true;
+  trees_need_update = false;
 
 }
 
