@@ -27,7 +27,7 @@ var directionalLight;
 var clock;
 var webgl_controls;
 
-var tiletype_terrains = ["coast","ocean","arctic","desert","grassland","hills","mountains","plains","swamp","tundra", "farmland"];
+var tiletype_terrains = ["coast","ocean","arctic","desert","grassland","hills","mountains","plains","swamp","tundra", "farmland", "irrigation"];
 
 var landGeometry;
 var landMesh;
@@ -103,12 +103,6 @@ function webgl_start_renderer()
     anaglyph_effect.setSize( new_mapview_width, new_mapview_height );
   }
 
-  if (fcwDebug && Detector.webgl) {
-    stats = new Stats();
-    container.appendChild( stats.dom );
-    console.log("MAX_FRAGMENT_UNIFORM_VECTORS:" + maprenderer.context.getParameter(maprenderer.context.MAX_FRAGMENT_UNIFORM_VECTORS));
-  }
-
   animate();
 }
 
@@ -149,12 +143,18 @@ function init_webgl_mapview() {
   init_roads_image();
   init_map_tiletype_image();
 
+  if (maprenderer.capabilities.maxTextures <= 16) {
+    delete tiletype_terrains["irrigation"];
+    console.log("max textures: " + maprenderer.capabilities.maxTextures);
+  }
+
   /* uniforms are variables which are used in the fragment shader fragment.js */
   var freeciv_uniforms = {
     maptiles: { type: "t", value: maptiletypes },
     borders: { type: "t", value: update_borders_image() },
     map_x_size: { type: "f", value: map['xsize'] },
     map_y_size: { type: "f", value: map['ysize'] },
+    is_low_res : maprenderer.capabilities.maxTextures <= 16,
     roadsmap: { type: "t", value: update_roads_image()},
     roadsprites: {type: "t", value: webgl_textures["roads"]},
     railroadsprites: {type: "t", value: webgl_textures["railroads"]}
@@ -264,7 +264,7 @@ function init_webgl_mapview() {
   update_tiles_known_vertex_colors();
   setInterval(update_tiles_known_vertex_colors, 100);
 
-  setInterval(update_mouse_cursor, 350);
+  setInterval(update_mouse_cursor, 300);
 
   add_all_objects_to_scene();
 

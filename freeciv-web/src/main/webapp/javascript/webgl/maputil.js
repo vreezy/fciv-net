@@ -67,7 +67,7 @@ function webgl_canvas_pos_to_tile(x, y) {
   Converts from canvas coordinates to Three.js coordinates.
 ****************************************************************************/
 function webgl_canvas_pos_to_map_pos(x, y) {
-  if (mouse == null || landMesh == null) return null;
+  if (mouse == null || landMesh == null || mapview_slide['active']) return null;
 
   mouse.set( ( x / $('#canvas_div').width() ) * 2 - 1, - ( y / $('#canvas_div').height() ) * 2 + 1);
 

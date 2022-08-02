@@ -41,10 +41,12 @@ uniform sampler2D hills;
 uniform sampler2D mountains;
 uniform sampler2D swamp;
 uniform sampler2D tundra;
+uniform sampler2D irrigation;
 // Some systems only support 16 textures.
 
 uniform float map_x_size;
 uniform float map_y_size;
+uniform bool is_low_res;
 
 varying vec2 vUv;
 varying vec3 vPosition;
@@ -344,11 +346,16 @@ void main(void)
         }
     }
 
-    if (vColor.g > 0.4 && vColor.g < 0.6) {
+    if (vColor.g > 0.3 && vColor.g < 0.7) {
         // render Irrigation.
         texture_coord = vec2(dx , dy);
-        vec4 t1 = texture2D(farmland, texture_coord);
-        c = mix(c, vec3(t1), t1.a);
+        if (is_low_res) {
+            vec4 t1 = texture2D(farmland , texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        } else {
+            vec4 t1 = texture2D(irrigation , texture_coord);
+            c = mix(c, vec3(t1), t1.a);
+        }
     }
 
     if (vColor.g > 0.9) {
