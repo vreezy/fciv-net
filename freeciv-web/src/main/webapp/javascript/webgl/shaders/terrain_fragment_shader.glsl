@@ -349,13 +349,8 @@ void main(void)
     if (vColor.g > 0.3 && vColor.g < 0.7) {
         // render Irrigation.
         texture_coord = vec2(dx , dy);
-        if (is_low_res) {
-            vec4 t1 = texture2D(farmland , texture_coord);
-            c = mix(c, vec3(t1), t1.a);
-        } else {
-            vec4 t1 = texture2D(irrigation , texture_coord);
-            c = mix(c, vec3(t1), t1.a);
-        }
+        vec4 t1 = texture2D(irrigation , texture_coord);
+        c = mix(c, vec3(t1), t1.a);
     }
 
     if (vColor.g > 0.9) {
