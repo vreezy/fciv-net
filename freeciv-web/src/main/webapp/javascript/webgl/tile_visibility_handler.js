@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 var vertex_colors_dirty = false;
-var trees_need_update = false;
+var trees_need_update = true;
 
 /**************************************************************************
  Updates the terrain vertex colors to set tile to known, unknown or fogged.
