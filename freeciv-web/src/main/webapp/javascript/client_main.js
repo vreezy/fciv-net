@@ -89,20 +89,6 @@ function setup_window_size ()
   var new_mapview_width = winWidth - width_offset;
   var new_mapview_height = winHeight - height_offset;
 
-  if (renderer == RENDERER_2DCANVAS) {
-    mapview_canvas.width = new_mapview_width;
-    mapview_canvas.height = new_mapview_height;
-    buffer_canvas.width = Math.floor(new_mapview_width * 1.5);
-    buffer_canvas.height = Math.floor(new_mapview_height * 1.5);
-
-    mapview['width'] = new_mapview_width;
-    mapview['height'] = new_mapview_height;
-    mapview['store_width'] = new_mapview_width;
-    mapview['store_height'] = new_mapview_height;
-
-    mapview_canvas_ctx.font = canvas_text_font;
-    buffer_canvas_ctx.font = canvas_text_font;
-  }
 
   $("#pregame_message_area").height( new_mapview_height - 100
                                         - $("#pregame_game_info").outerHeight());
@@ -303,11 +289,7 @@ function update_metamessage_on_gamestart()
 
   if ($.getUrlVar('action') == "new" || $.getUrlVar('action') == "earthload" 
       || $.getUrlVar('scenario') == "true") {
-    if (renderer == RENDERER_2DCANVAS) {
-      $.post("/freeciv_time_played_stats?type=single2d").fail(function() {});
-    } else {
       $.post("/freeciv_time_played_stats?type=single3d").fail(function() {});
-    }
   }
   if ($.getUrlVar('action') == "multi" && client.conn.playing != null
       && client.conn.playing['pid'] == players[0]['pid'] && !is_longturn()) {
@@ -340,10 +322,6 @@ function update_metamessage_game_running_status()
 **************************************************************************/
 function set_default_mapview_active()
 {
-  if (renderer == RENDERER_2DCANVAS) {
-    mapview_canvas_ctx = mapview_canvas.getContext("2d");
-    mapview_canvas_ctx.font = canvas_text_font;
-  }
 
   var active_tab = $('#tabs').tabs('option', 'active');
   if (active_tab == 4) { // cities dialog is active

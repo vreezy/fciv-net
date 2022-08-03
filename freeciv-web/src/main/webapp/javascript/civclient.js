@@ -47,7 +47,7 @@ var dialog_message_close_task;
 
 var RENDERER_2DCANVAS = 1;      // default HTML5 Canvas
 var RENDERER_WEBGL = 2;         // WebGL + Three.js
-var renderer = RENDERER_2DCANVAS;  // This variable specifies which map renderer to use, 2d Canvas or WebGL.
+var renderer = RENDERER_WEBGL;  // This variable specifies which map renderer to use, 2d Canvas or WebGL.
 
 
 /**************************************************************************
@@ -114,8 +114,8 @@ function civclient_init()
   if ($.getUrlVar('renderer') == "webgl") {
     renderer = RENDERER_WEBGL;
   }
-  if (renderer == RENDERER_2DCANVAS) init_mapview();
-  if (renderer == RENDERER_WEBGL) init_webgl_renderer();
+
+  init_webgl_renderer();
 
   game_init();
   $('#tabs').tabs({ heightStyle: "fill" });

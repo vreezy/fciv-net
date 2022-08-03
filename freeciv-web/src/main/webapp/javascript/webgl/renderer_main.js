@@ -34,22 +34,10 @@ function init_webgl_renderer()
     return;
   }
 
-  // load Three.js dynamically.
-  $.ajax({
-      async: false,
-      url: "/javascript/webgl/libs/three.min.js?" + ts ,
-      dataType: "script"
-  });
   console.log("Three.js " + THREE.REVISION);
 
-  $.ajax({
-    async: false,
-    url: "/javascript/webgl/libs/webgl-client.min.js?" + ts,
-    dataType: "script"
-  });
-
   /* Loads the two tileset definition files */
-  $.ajax({
+  /*$.ajax({
     url: "/javascript/2dcanvas/tileset_config_amplio2.js",
     dataType: "script",
     async: false
@@ -63,7 +51,7 @@ function init_webgl_renderer()
     async: false
   }).fail(function() {
     console.error("Unable to load tileset spec. Run Freeciv-img-extract.");
-  });
+  });*/
 
   if (is_touch_device()) {
     $.ajax({

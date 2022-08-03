@@ -22,8 +22,6 @@ var mapview_canvas_ctx = null;
 var mapview_canvas = null;
 var buffer_canvas_ctx = null;
 var buffer_canvas = null;
-var city_canvas_ctx = null;
-var city_canvas = null;
 
 var tileset_images = [];
 var sprites = {};
@@ -38,77 +36,6 @@ var fullfog = [];
 var GOTO_DIR_DX = [0, 1, 2, -1, 1, -2, -1, 0];
 var GOTO_DIR_DY = [-2, -1, 0, -1, 1, 0, 1, 2];
 var dashedSupport = false;
-
-/**************************************************************************
-  ...
-**************************************************************************/
-function init_mapview()
-{
-
-  $("#canvas_div").append($('<canvas/>', { id: 'canvas'}));
-
-  /* Loads the two tileset definition files */
-  $.ajax({
-    url: "/javascript/2dcanvas/tileset_config_amplio2.js",
-    dataType: "script",
-    async: false
-  }).fail(function() {
-    console.error("Unable to load tileset config.");
-  });
-
-  $.ajax({
-    url: "/javascript/2dcanvas/tileset_spec_amplio2.js",
-    dataType: "script",
-    async: false
-  }).fail(function() {
-    console.error("Unable to load tileset spec. Run Freeciv-img-extract.");
-  });
-
-  mapview_canvas = document.getElementById('canvas');
-  mapview_canvas_ctx = mapview_canvas.getContext("2d");
-  buffer_canvas = document.createElement('canvas');
-  buffer_canvas_ctx = buffer_canvas.getContext('2d');
-
-  if ("imageSmoothingEnabled" in mapview_canvas_ctx) {
-    // if this Boolean value is false, images won't be smoothed when scaled. This property is true by default.
-    mapview_canvas_ctx.imageSmoothingEnabled = false;
-  }
-  dashedSupport = ("setLineDash" in mapview_canvas_ctx);
-
-  setup_window_size();
-
-  mapview['gui_x0'] = 0;
-  mapview['gui_y0'] = 0;
-
-
-
-  /* Initialize fog array. */
-  var i;
-  for (i = 0; i < 81; i++) {
-    /* Unknown, fog, known. */
-    var ids = ['u', 'f', 'k'];
-    var buf = "t.fog";
-    var values = [];
-    var j, k = i;
-
-    for (j = 0; j < 4; j++) {
-	  values[j] = k % 3;
-	  k = Math.floor(k / 3);
-
-      buf += "_" + ids[values[j]];
-
-    }
-
-    fullfog[i] = buf;
-  }
-
-  if (is_small_screen()) MAPVIEW_REFRESH_INTERVAL = 12;
-
-  orientation_changed();
-  init_sprites();
-  requestAnimationFrame(update_map_canvas_check, mapview_canvas);
-
-}
 
 
 /**************************************************************************
@@ -217,7 +144,7 @@ function mapview_window_resized ()
 {
   if (active_city != null || !resize_enabled) return;
   setup_window_size();
-  if (renderer == RENDERER_2DCANVAS) update_map_canvas_full();
+
 }
 
 /**************************************************************************
@@ -388,26 +315,6 @@ function mapview_put_goto_line(pcanvas, dir, canvas_x, canvas_y) {
   pcanvas.lineTo(x1, y1);
   pcanvas.stroke();
 
-}
-
-/**************************************************************************
-  ...
-**************************************************************************/
-function set_city_mapview_active()
-{
-  city_canvas = document.getElementById('city_canvas');
-  if (city_canvas == null) return;
-  city_canvas_ctx = city_canvas.getContext('2d');
-  city_canvas_ctx.font = canvas_text_font;
-
-  mapview_canvas_ctx = city_canvas.getContext("2d");
-
-  mapview['width'] = citydlg_map_width;
-  mapview['height'] = citydlg_map_height;
-  mapview['store_width'] = citydlg_map_width;
-  mapview['store_height'] = citydlg_map_height;
-
-  set_default_mapview_inactive();
 }
 
 /**************************************************************************

@@ -43,6 +43,8 @@ var fcwDebug=<%= fcwDebug %>;
 
 <script src="https://apis.google.com/js/platform.js"></script>
 
+<script type="text/javascript" src="/javascript/webgl/libs/three.min.js?ts=${initParam.buildTimeStamp}"></script>
+
 <script type="text/javascript" src="/javascript/webclient.min.js?ts=${initParam.buildTimeStamp}"></script>
 
 <script type="text/javascript" src="/music/audio.min.js"></script>

@@ -157,15 +157,7 @@
 								Play against the Freeciv AI with 3D WebGL<br>graphics using the Three.js 3D engine
 							</div>
 						</c:if>
-						<a href="/webclient/?action=new&renderer=webgl&type=singleplayer" class="btn" id="webgl_button"><i class="fa fa-cube"></i> <fmt:message key="index-game-launcher-3d"/></a>
-
-
-						<c:if test="${default_lang}">
-							<div class="features">
-								Play against the Freeciv AI with 2D HTML5 graphics
-							</div>
-						</c:if>
-						<a id="single-button" href="/webclient/?action=new&type=singleplayer" class="btn"><i class="fa fa-flag"></i> <fmt:message key="index-game-launcher-2d"/></a>
+						<a href="/webclient/?action=new&type=singleplayer" class="btn" id="webgl_button"><i class="fa fa-cube"></i> New Game</a>
 
 
 						<c:if test="${default_lang}">
@@ -174,7 +166,7 @@
 							</div>
 						</c:if>
 						<a href="/webclient/?action=load&amp;scenario=true&type=singleplayer&renderer=webgl" class="btn"><i class="fa fa-map-o"></i> <fmt:message key="index-game-launcher-scenario"/></a>
-
+                        <br>
 					</div>
 				</div>
 				<div class="col-md-6">

@@ -18,12 +18,6 @@
 ***********************************************************************/
 
 
-var citydlg_map_width = 384;      // default values for most rulesets
-var citydlg_map_height = 192;     // default value for most rulesets
-
-const tileset_width = 96;         // amplio2 based tileset
-const tileset_height = 48;
-
 var cities = {};
 var city_rules = {};
 var city_trade_routes = {};
@@ -104,7 +98,7 @@ function remove_city(pcity_id)
                city_owner(pcity).playerno == client.conn.playing.playerno;
   var ptile = city_tile(cities[pcity_id]);
   delete cities[pcity_id];
-  if (renderer == RENDERER_WEBGL) update_city_position(ptile);
+  update_city_position(ptile);
   if (update) {
     city_screen_updater.update();
     bulbs_output_updater.update();
@@ -169,7 +163,6 @@ function show_city_dialog(pcity)
 
   $("#city_dialog").html(Handlebars.templates['city'](city_data));
 
-  $("#city_canvas").click(city_mapview_mouse_click);
 
   show_city_traderoutes();
 
@@ -209,9 +202,10 @@ function show_city_dialog(pcity)
   $("#city_dialog").dialog({
 			bgiframe: true,
 			modal: false,
-			width: is_small_screen() ? "98%" : "80%",
-                        height: is_small_screen() ? $(window).height() + 10 : $(window).height() - 80,
+			width:  "100%" ,
+                        height: is_small_screen() ? 200 : 380,
                         close : city_dialog_close_handler,
+            position: {my: 'left bottom', at: 'left bottom', of: window},
             buttons: dialog_buttons
                    }).dialogExtend({
                      "minimizable" : true,
@@ -242,17 +236,13 @@ function show_city_dialog(pcity)
 
   $("#city_tabs").tabs({ active: city_tab_index});
 
-  $(".citydlg_tabs").height(is_small_screen() ? $(window).height() - 110 : $(window).height() - 225);
+  $(".citydlg_tabs").height(is_small_screen() ? 180 : 270);
 
   city_worklist_dialog(pcity);
 
-  var orig_renderer = renderer;
-  renderer = RENDERER_2DCANVAS;
   set_citydlg_dimensions(pcity);
-  set_city_mapview_active();
+  set_default_mapview_inactive();
   center_tile_mapcanvas(city_tile(pcity));
-  update_map_canvas(0, 0, mapview['store_width'], mapview['store_height']);
-  renderer = orig_renderer;
 
   $("#city_size").html("Population: " + numberWithCommas(city_population(pcity)*1000) + "<br>"
                        + "Size: " + pcity['size'] + "<br>"
@@ -751,19 +741,6 @@ function city_dialog_close_handler()
     setup_window_size ();
     center_tile_mapcanvas(city_tile(active_city));
     active_city = null;
-     /*
-      * TODO: this is just a hack to recover the background map.
-      *       setup_window_size will resize (and thus clean) the map canvas,
-      *       and this is now called when we show a city dialog while another
-      *       one is open, which is unexpectedly common, tracing the functions
-      *       shows two or three calls to show_city_dialog. Maybe one internal
-      *       from the client UI, the rest from info packets from the server.
-      *       Both those duplicate calls and the stopping of map updates due
-      *       to the 2D rendered being used to draw the minimap should go.
-      */
-    if (renderer == RENDERER_2DCANVAS) {
-      update_map_canvas_full();
-    }
 
   }
   keyboard_input=true;
@@ -2064,10 +2041,5 @@ function set_citydlg_dimensions(pcity)
 
   var radius_tiles = Math.ceil(Math.sqrt(city_radius));
 
-  citydlg_map_width = tileset_width + radius_tiles * tileset_width;
-  citydlg_map_height = tileset_height + radius_tiles * tileset_height;
 
-  $("#city_canvas_div").css({"width":citydlg_map_width, "height":citydlg_map_height});
-  $("#city_canvas").attr('width', citydlg_map_width);
-  $("#city_canvas").attr('height', citydlg_map_height);
 }

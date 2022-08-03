@@ -244,8 +244,6 @@ function update_unit_anim_list(old_unit, new_unit)
 
   if (anim_units_count > anim_units_max) return;
 
-  if (renderer == RENDERER_2DCANVAS && !is_unit_visible(new_unit)) return;
-
   if (old_unit['anim_list'] == null) old_unit['anim_list'] = [];
 
   if (new_unit['transported'] == true) {

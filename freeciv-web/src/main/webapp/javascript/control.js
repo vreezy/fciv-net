@@ -78,11 +78,7 @@ function control_init()
 {
   urgent_focus_queue = [];
 
-  if (renderer == RENDERER_2DCANVAS) {
-    mapctrl_init_2d();
-  } else {
-    init_webgl_mapctrl();
-  }
+  init_webgl_mapctrl();
 
   $(document).keydown(global_keyboard_listener);
   $(window).resize(mapview_window_resized);
@@ -160,7 +156,7 @@ function control_init()
   }, false);
 
   var context_options = {
-        selector: (renderer == RENDERER_2DCANVAS) ? '#canvas' : '#canvas_div' ,
+        selector: '#canvas_div' ,
 	    zIndex: 5000,
         autoHide: true,
         callback: function(key, options) {
@@ -185,7 +181,6 @@ function control_init()
     context_options['position'] = function(opt, x, y){
                                                 if (is_touch_device()) return;
                                                 var new_top = mouse_y + $("#canvas_div").offset().top;
-                                                if (renderer == RENDERER_2DCANVAS) new_top = mouse_y + $("#canvas").offset().top;
                                                 opt.$menu.css({top: new_top , left: mouse_x});
                                               };
   }
@@ -317,26 +312,13 @@ function mouse_moved_cb(e)
       mouse_y = e.clientY;
     }
   }
-  if (renderer == RENDERER_2DCANVAS && active_city == null && mapview_canvas != null
-      && $("#canvas").length) {
-    mouse_x = mouse_x - $("#canvas").offset().left;
-    mouse_y = mouse_y - $("#canvas").offset().top;
-
-  } else if (renderer == RENDERER_WEBGL && active_city == null && $("#canvas_div").length) {
+  if (active_city == null && $("#canvas_div").length) {
     mouse_x = mouse_x - $("#canvas_div").offset().left;
     mouse_y = mouse_y - $("#canvas_div").offset().top;
 
-  } else if (active_city != null && city_canvas != null
-             && $("#city_canvas").length) {
-    mouse_x = mouse_x - $("#city_canvas").offset().left;
-    mouse_y = mouse_y - $("#city_canvas").offset().top;
   }
 
   if (client.conn.playing == null) return;
-
-  if (renderer == RENDERER_2DCANVAS && C_S_RUNNING == client_state()) {
-    update_mouse_cursor();
-  }
 
   /* determine if Right-click-and-drag to select multiple units should be activated,
      only if more than an area of 45 pixels has been selected and more than 200ms has past.
@@ -360,12 +342,8 @@ function update_mouse_cursor()
     return;
   }
 
-  var ptile;
-  if (renderer == RENDERER_2DCANVAS) {
-    ptile = canvas_pos_to_tile(mouse_x, mouse_y);
-  } else {
-    ptile = webgl_canvas_pos_to_tile(mouse_x, mouse_y);
-  }
+  var ptile = webgl_canvas_pos_to_tile(mouse_x, mouse_y);
+
 
   if (ptile == null) return;
 
@@ -1680,11 +1658,9 @@ function do_map_click(ptile, qtype, first_time_called)
     if (goto_active && !is_touch_device()) {
       deactivate_goto(false);
     }
-    if (renderer == RENDERER_2DCANVAS) {
-      $("#canvas").contextMenu();
-    } else {
-      $("#canvas_div").contextMenu();
-    }
+
+    $("#canvas_div").contextMenu();
+
     return;
   }
   var sunits = tile_units(ptile);
@@ -1858,11 +1834,9 @@ function do_map_click(ptile, qtype, first_time_called)
         if (sunits != null && sunits.length > 0
             && sunits[0]['activity'] == ACTIVITY_IDLE) {
           set_unit_focus_and_redraw(sunits[0]);
-          if (renderer == RENDERER_2DCANVAS) {
-            $("#canvas").contextMenu();
-          } else {
-            $("#canvas_div").contextMenu();
-          }
+
+          $("#canvas_div").contextMenu();
+
         } else if (!goto_active) {
           show_city_dialog(pcity);
 	    }
@@ -1887,11 +1861,8 @@ function do_map_click(ptile, qtype, first_time_called)
         }
 
         if (is_touch_device()) {
-          if (renderer == RENDERER_2DCANVAS) {
-            $("#canvas").contextMenu();
-          } else {
-            $("#canvas_div").contextMenu();
-          }
+          $("#canvas_div").contextMenu();
+
 	    }
       } else if (pcity == null) {
         // clicked on a tile with units owned by other players.
@@ -1950,7 +1921,6 @@ function global_keyboard_listener(ev)
   }
   civclient_handle_key(keyboard_key, ev.keyCode, ev['ctrlKey'],  ev['altKey'], ev['shiftKey'], ev);
 
-  if (renderer == RENDERER_2DCANVAS) $("#canvas").contextMenu('hide');
 }
 
 /**************************************************************************
@@ -2171,11 +2141,7 @@ map_handle_key(keyboard_key, key_code, ctrl, alt, shift, the_event)
 
       /* Abort any context menu blocking. */
       context_menu_active = true;
-      if (renderer == RENDERER_2DCANVAS) {
-        $("#canvas").contextMenu(true);
-      } else {
-        $("#canvas_div").contextMenu(true);
-      }
+      $("#canvas_div").contextMenu(true);
 
       /* Abort target tile selection. */
       paradrop_active = false;
@@ -3198,13 +3164,10 @@ function check_request_goto_path()
 {
   if (goto_active && current_focus.length > 0
       && prev_mouse_x == mouse_x && prev_mouse_y == mouse_y) {
-    var ptile;
     clear_goto_tiles();
-    if (renderer == RENDERER_2DCANVAS) {
-      ptile = canvas_pos_to_tile(mouse_x, mouse_y);
-    } else {
-      ptile = webgl_canvas_pos_to_tile(mouse_x, mouse_y);
-    }
+
+    var ptile = webgl_canvas_pos_to_tile(mouse_x, mouse_y);
+
     if (ptile != null) {
       /* Send request for goto_path to server. */
       for (var i = 0; i < current_focus.length; i++) {
@@ -3227,22 +3190,7 @@ function update_goto_path(goto_packet)
   var ptile = t0;
   var goaltile = index_to_tile(goto_packet['dest']);
 
-  if (renderer == RENDERER_2DCANVAS) {
-    for (var i = 0; i < goto_packet['dir'].length; i++) {
-      if (ptile == null) break;
-      var dir = goto_packet['dir'][i];
-
-      if (dir == -1) {
-        /* Assume that this means refuel. */
-        continue;
-      }
-
-      ptile['goto_dir'] = dir;
-      ptile = mapstep(ptile, dir);
-    }
-  } else {
-    webgl_render_goto_line(ptile, goto_packet['dir']);
-  }
+  webgl_render_goto_line(ptile, goto_packet['dir']);
 
   current_goto_turns = goto_packet['turns'];
 
@@ -3262,11 +3210,7 @@ function update_goto_path(goto_packet)
 **************************************************************************/
 function center_tile_mapcanvas(ptile)
 {
-  if (renderer == RENDERER_2DCANVAS) {
-    center_tile_mapcanvas_2d(ptile);
-  } else {
-    center_tile_mapcanvas_3d(ptile);
-  }
+  center_tile_mapcanvas_3d(ptile);
 }
 
 /**************************************************************************
@@ -3274,13 +3218,7 @@ function center_tile_mapcanvas(ptile)
 **************************************************************************/
 function popit()
 {
-  var ptile;
-
-  if (renderer == RENDERER_2DCANVAS) {
-    ptile = canvas_pos_to_tile(mouse_x, mouse_y);
-  } else {
-    ptile = webgl_canvas_pos_to_tile(mouse_x, mouse_y);
-  }
+  var ptile = webgl_canvas_pos_to_tile(mouse_x, mouse_y);
 
   if (ptile == null) return;
 
