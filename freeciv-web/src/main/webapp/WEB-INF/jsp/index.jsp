@@ -213,6 +213,7 @@
 					<div class="panel-freeciv statistics">
 						<h4><span id="statistics-singleplayer"><b>0</b></span> <fmt:message key="index-stats-singleplayer"/> <span id="statistics-multiplayer"><b>0</b></span> <fmt:message key="index-stats-multiplayer"/><br>
 						<fmt:message key="index-stats-since"/></h4>
+						<h4>For feedback, suggestions and bugreports, please use the <a href="https://github.com/fciv-net/fciv-net/discussions">GitHub Discussion forum</a>.</h4>
 
 					</div>
 				</div>

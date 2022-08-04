@@ -202,8 +202,8 @@ function show_city_dialog(pcity)
   $("#city_dialog").dialog({
 			bgiframe: true,
 			modal: false,
-			width:  "100%" ,
-                        height: is_small_screen() ? 200 : 380,
+			width:  "99%" ,
+                        height: is_small_screen() ? 200 : 390,
                         close : city_dialog_close_handler,
             position: {my: 'left bottom', at: 'left bottom', of: window},
             buttons: dialog_buttons
