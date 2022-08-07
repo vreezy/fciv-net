@@ -17,7 +17,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="author" content="The FCIV.NET project">
-<meta name="description" content="Play Fciv.net online with 2d HTML5 or 3D WebGL in the browser.">
+<meta name="description" content="Play Fciv.net online with 3D WebGL in the browser.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:image" content="/static/images/brand.png" />
 

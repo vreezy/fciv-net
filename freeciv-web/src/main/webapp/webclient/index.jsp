@@ -30,7 +30,7 @@ try {
 <title>Fciv.net</title>
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/webclient.min.css?ts=${initParam.buildTimeStamp}" />
-<meta name="description" content="Freeciv-Web is a Free and Open Source empire-building strategy game inspired by the history of human civilization.">
+<meta name="description" content="Fciv.net 3D strategy game for free with open source ">
 <% if (trackJsToken != null) { %>
 <script type="text/javascript">window._trackJs = { token: '<%= trackJsToken %>' };</script>
 <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>
