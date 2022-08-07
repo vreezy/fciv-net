@@ -49,7 +49,18 @@
 		<servlet-name>Index</servlet-name>
 		<url-pattern></url-pattern>
 	</servlet-mapping>
-	
+
+	<!-- / -->
+	<servlet>
+		<servlet-name>About</servlet-name>
+		<servlet-class>org.freeciv.servlet.About</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>About</servlet-name>
+		<url-pattern>/about</url-pattern>
+	</servlet-mapping>
+
 	<!-- /game/details -->
 	<servlet>
 		<servlet-name>GameDetails</servlet-name>

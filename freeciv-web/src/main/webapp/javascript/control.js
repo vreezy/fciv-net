@@ -1654,6 +1654,11 @@ function do_map_click(ptile, qtype, first_time_called)
   var pcity;
   if (ptile == null || client_is_observer()) return;
 
+  if (active_city != null) {
+    do_city_map_click(ptile)
+    return;
+  }
+
   if (current_focus.length > 0 && current_focus[0]['tile'] == ptile['index']) {
     /* clicked on unit at the same tile, then deactivate goto and show context menu. */
     if (goto_active && !is_touch_device()) {
@@ -1872,10 +1877,6 @@ function do_map_click(ptile, qtype, first_time_called)
         update_active_units_dialog();
       }
     }
-  }
-
-  if (active_city != null) {
-    do_city_map_click(ptile)
   }
 
   paradrop_active = false;

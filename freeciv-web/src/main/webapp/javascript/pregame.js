@@ -1000,19 +1000,6 @@ function show_intro_dialog(title, message) {
   var intro_html = message + "<br><br><table><tr><td>Player name:</td><td><input id='username_req' type='text' size='18' maxlength='31'></td></tr>"
       +  "<tr id='password_row' style='display:none;'><td>Password:</td><td id='password_td'></td></tr></table>";
 
-  if (renderer == RENDERER_WEBGL) {
-    try {
-      var gl = document.createElement('canvas').getContext('webgl',{ failIfMajorPerformanceCaveat: true });
-      if (!(platform.name == "Microsoft Edge") && !gl) {
-        show_dialog_message("WebGL not supported", "WebGL 3D with hardware acceleration is not supported. The 3D version will not work. Please try the 2D version.");
-        return;
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    intro_html += "</small></span>";
-  }
-
   $("#dialog").html(intro_html);
 
   var stored_username = simpleStorage.get("username", "");
@@ -1084,6 +1071,20 @@ function show_intro_dialog(title, message) {
                     show_new_user_account_dialog();
                 },
                 icons : { primary: "ui-icon-person" }
+              },
+              {
+                text : "Multiplayer",
+                click : function() {
+                   window.location="/game/list?v=multiplayer";
+              },
+              icons : { primary: "ui-icon-flag" }
+              },
+              {
+                  text : "About",
+                  click : function() {
+                     window.location="/about";
+                },
+                icons : { primary: "ui-icon-info" }
               }
 			]
 

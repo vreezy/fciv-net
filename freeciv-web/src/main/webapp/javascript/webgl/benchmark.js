@@ -109,16 +109,7 @@ function show_slow_game_warning_message(title, message) {
 			width: is_small_screen() ? "90%" : "50%",
 			close: closing_dialog_message,
 			buttons: {
-			    "Play 2D version - Restart!" : function() {
-                  window.location.href = '/';
-                 },
-			    "Configure graphics settings" : function() {
-			      $("#generic_dialog").remove();
-                  $("<div id='pregame_page'></div>").appendTo("div#game_page");
-			      $("<div id='pregame_settings'></div>").appendTo("div#pregame_page");
-                  pregame_settings();
-                  $("#pregame_settings_tabs").tabs({ active: 1 });
-                 },
+
 				"Play anyway": close_dialog_message
 
 			}

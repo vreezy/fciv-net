@@ -108,6 +108,8 @@ function webglOnDocumentMouseDown(e) {
   var rightclick = false;
   var middleclick = false;
 
+  if (active_city != null) return;
+
   if (!e) var e = window.event;
   if (e.which) {
     rightclick = (e.which == 3);

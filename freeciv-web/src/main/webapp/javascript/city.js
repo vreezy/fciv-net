@@ -237,7 +237,7 @@ function show_city_dialog(pcity)
 
   $("#city_tabs").tabs({ active: city_tab_index});
 
-  $(".citydlg_tabs").height(is_small_screen() ? 260 : 270);
+  $(".citydlg_tabs").height(is_small_screen() ? 260 : 250);
 
   city_worklist_dialog(pcity);
 
@@ -424,17 +424,16 @@ function show_city_dialog(pcity)
   });
 
   $(".ui-dialog-titlebar").css("padding", "0px");
-  $(".ui-dialog-titlebar").css("font-size", "11px");
 
   if (is_small_screen()) {
+   $(".ui-dialog-titlebar").css("font-size", "11px");
    $(".ui-tabs-anchor").css("padding", "1px");
    $(".ui-dialog-titlebar").css("padding", "0px");
-   $(".ui-dialog").css("padding", "0px");
-   $(".ui-dialog-titlebar").css("font-size", "10px");
-   $(".ui-dialog-buttonpane").css("font-size", "10px");
    $(".ui-dialog").height(260);
    $(".citydlg_tabs").height(225);
    $("#city_dialog").height(260);
+   $(".ui-dialog-buttonpane").css("font-size", "10px");
+   $(".ui-dialog").css("padding", "0px");
   }
 
 }
