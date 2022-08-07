@@ -96,9 +96,8 @@ function handle_server_join_reply(packet)
     }
 
     if (autostart) {
-      if (renderer == RENDERER_WEBGL) {
-        $.blockUI({ message: '<h2>Generating 3D model of terrain...</h2>' });
-      }
+
+      $.blockUI({ message: '<h2>Generating 3D model of terrain...</h2>' });
       if (loadTimerId == -1) {
         wait_for_text("You are logged in as", pregame_start_game);
       } else {

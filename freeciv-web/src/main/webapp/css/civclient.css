@@ -131,12 +131,8 @@ button {
   padding:10px
 }
 
-#city_canvas_div {
-  width: 350px; 
-  height: 175px; 
-  margin: 5px;
-  border: 1px solid #888888;
-  float: left;
+#city_dialog_info {
+  font-size: 85%;
 }
 
 #city_dialog_info {
@@ -159,6 +155,7 @@ button {
 
 #city_improvements_panel {
   padding-left: 80px;
+  max-width: 70%;
 }
 
 #city_right_panel {
