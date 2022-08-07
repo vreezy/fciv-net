@@ -204,7 +204,7 @@ function show_city_dialog(pcity)
 			bgiframe: true,
 			modal: false,
 			width:  "99.5%" ,
-                        height: is_small_screen() ? 260 : 390,
+                        height: is_small_screen() ? 260 : 350,
                         close : city_dialog_close_handler,
             position: {my: 'left bottom', at: 'left bottom', of: window},
             buttons: dialog_buttons
@@ -237,7 +237,7 @@ function show_city_dialog(pcity)
 
   $("#city_tabs").tabs({ active: city_tab_index});
 
-  $(".citydlg_tabs").height(is_small_screen() ? 260 : 250);
+  $(".citydlg_tabs").height(is_small_screen() ? 260 : 230);
 
   city_worklist_dialog(pcity);
 
@@ -1390,8 +1390,8 @@ function city_worklist_dialog(pcity)
   $(".button").button();
 
   var tab_h = $("#city_production_tab").height();
-  $("#city_current_worklist").height(tab_h - 150);
-  $("#worklist_production_choices").height(tab_h - 121);
+  $("#city_current_worklist").height(tab_h - 130);
+  $("#worklist_production_choices").height(tab_h - 81);
   /* TODO: remove all hacky sizing and positioning */
   /* It would have been nice to use $("#city_current_worklist").position().top
      for worklist_control padding-top, but that's 0 on first run.
