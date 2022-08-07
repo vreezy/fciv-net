@@ -53,9 +53,9 @@ function show_city_worked_tiles()
         var mesh = get_city_worked_mesh(food_output, shield_output, trade_output)
         mesh.matrixAutoUpdate = false;
         city_worked_positions[ptile['index']] = mesh;
-        mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 10);
-        mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 20);
-        mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 5);
+        mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 4);
+        mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 18);
+        mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] + 10);
         mesh.rotation.y = Math.PI / 4;
         mesh.updateMatrix();
         if (scene != null) {

@@ -252,19 +252,19 @@ function get_city_worked_mesh(food, shields, trade)
   var fcontext = fcanvas.getContext("2d");
 
   var fkey = "city.t_food_" + food;
-  fcontext.drawImage(sprites[fkey], 0, 0,
-                sprites[fkey].width, sprites[fkey].height,
+  fcontext.drawImage(sprites[fkey], 0, sprites[fkey].height / 2,
+                sprites[fkey].width, sprites[fkey].height / 2,
                 0,0,64,32);
   var skey = "city.t_shields_" + shields;
-  fcontext.drawImage(sprites[skey], 0, 0,
-                sprites[skey].width, sprites[skey].height,
+  fcontext.drawImage(sprites[skey], 0, sprites[fkey].height / 2,
+                sprites[skey].width, sprites[skey].height / 2,
                 0,0,64,32);
   var tkey = "city.t_trade_" + food;
-  fcontext.drawImage(sprites[tkey], 0, 0,
-                sprites[tkey].width, sprites[tkey].height,
+  fcontext.drawImage(sprites[tkey], 0, sprites[fkey].height / 2,
+                sprites[tkey].width, sprites[tkey].height / 2,
                 0,0,64,32);
 
-  meshes[key] = canvas_to_user_facing_mesh(fcanvas, 64, 64, 30, true);
+  meshes[key] = canvas_to_user_facing_mesh(fcanvas, 32, 32, 16, true);
   return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1)
 }
 
