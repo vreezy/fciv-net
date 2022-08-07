@@ -59,6 +59,19 @@ function center_tile_mapcanvas_3d(ptile)
 }
 
 /**************************************************************************
+...
+**************************************************************************/
+function center_tile_city(city)
+{
+  var ptile = city_tile(city);
+  if (ptile != null) {
+    var pos = map_to_scene_coords(ptile['x'], ptile['y']);
+    camera_look_at(pos['x'] - 20, 0, pos['y'] - 20);
+  }
+
+}
+
+/**************************************************************************
   Enabled silding of the mapview to the given tile.
 **************************************************************************/
 function enable_mapview_slide_3d(ptile)

@@ -154,6 +154,7 @@ function show_city_dialog(pcity)
   if (active_city != null) close_city_dialog();
   active_city = pcity;
   if (pcity == null) return;
+  vertex_colors_dirty = true;
 
   // reset dialog page.
   $("#city_dialog").remove();
@@ -202,8 +203,8 @@ function show_city_dialog(pcity)
   $("#city_dialog").dialog({
 			bgiframe: true,
 			modal: false,
-			width:  "99%" ,
-                        height: is_small_screen() ? 200 : 390,
+			width:  "99.5%" ,
+                        height: is_small_screen() ? 260 : 390,
                         close : city_dialog_close_handler,
             position: {my: 'left bottom', at: 'left bottom', of: window},
             buttons: dialog_buttons
@@ -236,13 +237,14 @@ function show_city_dialog(pcity)
 
   $("#city_tabs").tabs({ active: city_tab_index});
 
-  $(".citydlg_tabs").height(is_small_screen() ? 180 : 270);
+  $(".citydlg_tabs").height(is_small_screen() ? 260 : 270);
 
   city_worklist_dialog(pcity);
 
   set_citydlg_dimensions(pcity);
   set_default_mapview_inactive();
-  center_tile_mapcanvas(city_tile(pcity));
+  center_tile_city(pcity);
+  show_city_worked_tiles();
 
   $("#city_size").html("Population: " + numberWithCommas(city_population(pcity)*1000) + "<br>"
                        + "Size: " + pcity['size'] + "<br>"
@@ -421,9 +423,20 @@ function show_city_dialog(pcity)
 
   });
 
+  $(".ui-dialog-titlebar").css("padding", "0px");
+  $(".ui-dialog-titlebar").css("font-size", "11px");
+
   if (is_small_screen()) {
-   $(".ui-tabs-anchor").css("padding", "2px");
+   $(".ui-tabs-anchor").css("padding", "1px");
+   $(".ui-dialog-titlebar").css("padding", "0px");
+   $(".ui-dialog").css("padding", "0px");
+   $(".ui-dialog-titlebar").css("font-size", "10px");
+   $(".ui-dialog-buttonpane").css("font-size", "10px");
+   $(".ui-dialog").height(260);
+   $(".citydlg_tabs").height(225);
+   $("#city_dialog").height(260);
   }
+
 }
 
 
@@ -740,11 +753,13 @@ function city_dialog_close_handler()
   if (active_city != null) {
     setup_window_size ();
     center_tile_mapcanvas(city_tile(active_city));
+    remove_city_worked_tiles();
     active_city = null;
 
   }
   keyboard_input=true;
   worklist_dialog_active = false;
+  vertex_colors_dirty = true;
 }
 
 /**************************************************************************

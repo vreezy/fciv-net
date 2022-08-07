@@ -312,11 +312,10 @@ function mouse_moved_cb(e)
       mouse_y = e.clientY;
     }
   }
-  if (active_city == null && $("#canvas_div").length) {
-    mouse_x = mouse_x - $("#canvas_div").offset().left;
-    mouse_y = mouse_y - $("#canvas_div").offset().top;
 
-  }
+  mouse_x = mouse_x - $("#canvas_div").offset().left;
+  mouse_y = mouse_y - $("#canvas_div").offset().top;
+
 
   if (client.conn.playing == null) return;
 
@@ -361,6 +360,8 @@ function update_mouse_cursor()
     $("#canvas_div").css("cursor", "pointer");
   } else if (punit != null && client.conn.playing != null && punit['owner'] == client.conn.playing.playerno) {
     /* move unit cursor */
+    $("#canvas_div").css("cursor", "pointer");
+  } else if (active_city != null && ptile != null) {
     $("#canvas_div").css("cursor", "pointer");
   } else {
     $("#canvas_div").css("cursor", "default");
@@ -1871,6 +1872,10 @@ function do_map_click(ptile, qtype, first_time_called)
         update_active_units_dialog();
       }
     }
+  }
+
+  if (active_city != null) {
+    do_city_map_click(ptile)
   }
 
   paradrop_active = false;

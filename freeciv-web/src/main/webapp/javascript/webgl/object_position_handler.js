@@ -52,7 +52,6 @@ var selected_unit_material_counter = 0;
   Handles unit positions
 ****************************************************************************/
 function update_unit_position(ptile) {
-  if (renderer != RENDERER_WEBGL) return;
 
   var visible_unit = find_visible_unit(ptile);
   var height = 5 + ptile['height'] * 100 + get_unit_height_offset(visible_unit);
@@ -252,7 +251,7 @@ function update_unit_position(ptile) {
       new_flag.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - flag_dy);
       new_flag.rotation.y = Math.PI / 4;
       new_flag.updateMatrix();
-      if (scene != null && new_flag != null) {
+      if (scene != null && new_flag) {
         scene.add(new_flag);
       }
     }
@@ -266,7 +265,6 @@ function update_unit_position(ptile) {
   Handles city positions
 ****************************************************************************/
 function update_city_position(ptile) {
-  if (renderer != RENDERER_WEBGL) return;
 
   var pcity = tile_city(ptile);
   var punits = tile_units(ptile);

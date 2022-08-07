@@ -69,19 +69,8 @@ function civclient_init()
   var action = $.getUrlVar('action');
   game_type = $.getUrlVar('type');
   if (game_type == null) {
-    if (action == null || action == 'multi') {
-      swal({
-             title: "Unknown game type",
-             text: "For some reason the client can't determine what kind of game this is. Please <a href='https://github.com/freeciv/freeciv-web/issues'>open an issue</a> detailing how you got here",
-             html: true,
-             type: "error"
-           },
-           // Requires a parameter to also be called on cancel
-           function (unused) {
-             window.location.href ='/';
-           }
-      );
-      return;
+    if (action == null) {
+      game_type = 'singleplayer';
     } else if (action == 'pbem') {
       game_type = 'pbem';
     } else {
@@ -106,10 +95,6 @@ function civclient_init()
     return;
   }
 
-  if (is_longturn() && observing) {
-    swal("LongTurn games can't be observed.");
-    return;
-  }
 
   if ($.getUrlVar('renderer') == "webgl") {
     renderer = RENDERER_WEBGL;
@@ -203,7 +188,7 @@ function civclient_init()
 **************************************************************************/
 function init_common_intro_dialog() {
   if (observing) {
-    show_intro_dialog("Welcome to Freeciv-web",
+    show_intro_dialog("Welcome to Fciv.net",
       "You have joined the game as an observer. Please enter your name:");
     $("#turn_done_button").button( "option", "disabled", true);
 
@@ -214,7 +199,7 @@ function init_common_intro_dialog() {
     show_hotseat_dialog();
 
   } else if (is_small_screen()) {
-      show_intro_dialog("Welcome to Freeciv-web",
+      show_intro_dialog("Welcome to Fciv.net",
         "You are about to join the game. Please enter your name:");
   } else if ($.getUrlVar('action') == "earthload") {
     show_intro_dialog("Welcome to Freeciv-web",
@@ -222,7 +207,7 @@ function init_common_intro_dialog() {
       "Please enter your name: ");
 
   } else if ($.getUrlVar('action') == "load") {
-    show_intro_dialog("Welcome to Freeciv-web",
+    show_intro_dialog("Welcome to Fciv.net",
       "You are about to join this game server, where you can " +
       "load a savegame, tutorial, custom map generated from an image or a historical scenario map. " +
       "Please enter your name: ");
@@ -233,41 +218,10 @@ function init_common_intro_dialog() {
                   "participate in a multiplayer game. You can customize the game " +
                   "settings, and wait for the minimum number of players before " +
                   "the game can start. ";
-      show_intro_dialog("Welcome to Freeciv-web", msg);
+      show_intro_dialog("Welcome to Fciv.net", msg);
 
-  } else if ($.getUrlVar('action') == "hack") {
-    var hack_port;
-    var hack_username;
-
-    if ($.getUrlVar('civserverport') != null) {
-      hack_port = $.getUrlVar('civserverport');
-    } else {
-      show_intro_dialog("Welcome to Freeciv-web",
-        "Hack mode disabled because civserverport wasn't specified. "
-        + "Falling back to regular mode.");
-      return;
-    }
-
-    if ($.getUrlVar("username") != null) {
-      hack_username = $.getUrlVar("username");
-    } else if (simpleStorage.hasKey("username")) {
-      hack_username = simpleStorage.get("username");
-    } else {
-      show_intro_dialog("Welcome to Freeciv-web",
-        "Hack mode disabled because \"username\" wasn't specified and no "
-        + "stored user name was found. " +
-        "Falling back to regular mode.");
-      return;
-    }
-
-    if ($.getUrlVar('autostart') == "true") {
-      autostart = true;
-    }
-
-    network_init_manual_hack(hack_port, hack_username,
-                             $.getUrlVar("savegame"));
   } else {
-    show_intro_dialog("Welcome to Freeciv-web",
+    show_intro_dialog("Welcome to Fciv.net",
       "You are about to join this game server, where you can " +
       "play a singleplayer game against the Freeciv AI. You can " +
       "start the game directly by entering any name, or customize the game settings. " +

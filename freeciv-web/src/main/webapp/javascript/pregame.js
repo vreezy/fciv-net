@@ -998,8 +998,7 @@ function show_intro_dialog(title, message) {
   $("<div id='dialog'></div>").appendTo("div#game_page");
 
   var intro_html = message + "<br><br><table><tr><td>Player name:</td><td><input id='username_req' type='text' size='18' maxlength='31'></td></tr>"
-      +  "<tr id='password_row' style='display:none;'><td>Password:</td><td id='password_td'></td></tr></table>"
-	  + " <br><br><span id='username_validation_result' style='display:none;'></span><br><br>";
+      +  "<tr id='password_row' style='display:none;'><td>Password:</td><td id='password_td'></td></tr></table>";
 
   if (renderer == RENDERER_WEBGL) {
     try {
@@ -1035,12 +1034,13 @@ function show_intro_dialog(title, message) {
   } else {
     join_game_customize_text = "Customize Game";
   }
+  var y = window.pageYOffset;
 
   $("#dialog").attr("title", title);
   $("#dialog").dialog({
 			bgiframe: true,
 			modal: true,
-			width: is_small_screen() ? "80%" : "50%",
+			width: is_small_screen() ? "80%" : "40%",
 			beforeClose: function( event, ui ) {
 			  // if intro dialog is closed, then check the username and connect to the server.
 			  if (dialog_close_trigger != "button") {
@@ -1124,6 +1124,13 @@ function show_intro_dialog(title, message) {
   }
 
   blur_input_on_touchdevice();
+
+  $(".ui-widget-overlay").css("background-image", "url('/images/backgrounds/5.jpg')");
+  $(".ui-widget-overlay").css("background-position", "center");
+  $(".ui-widget-overlay").css("background-repeat", "no-repeat");
+  $(".ui-widget-overlay").css("background-size", "cover");
+  $(".ui-widget-overlay").css("opacity", "1.0");
+
 }
 
 /**************************************************************************

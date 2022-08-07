@@ -97,7 +97,7 @@ function handle_server_join_reply(packet)
 
     if (autostart) {
       if (renderer == RENDERER_WEBGL) {
-        $.blockUI({ message: '<h2>Generating terrain map model...</h2>' });
+        $.blockUI({ message: '<h2>Generating 3D model of terrain...</h2>' });
       }
       if (loadTimerId == -1) {
         wait_for_text("You are logged in as", pregame_start_game);
@@ -179,10 +179,13 @@ function handle_tile_info(packet)
 
     map_tile_height_adjust(packet);
 
-    if (renderer == RENDERER_WEBGL) {
-      var old_tile = $.extend({}, tiles[packet['tile']]);
-      webgl_update_tile_known(tiles[packet['tile']], packet);
-      update_tile_extras($.extend(old_tile, packet));
+    var old_tile = $.extend({}, tiles[packet['tile']]);
+    webgl_update_tile_known(tiles[packet['tile']], packet);
+    update_tile_extras($.extend(old_tile, packet));
+
+    if (active_city != null) {
+      remove_city_worked_tiles();
+      show_city_worked_tiles();
     }
 
     tiles[packet['tile']] = $.extend(tiles[packet['tile']], packet);

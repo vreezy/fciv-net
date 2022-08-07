@@ -239,6 +239,36 @@ function get_flag_shield_mesh(key)
 }
 
 /****************************************************************************
+ Returns a city worked mesh
+****************************************************************************/
+function get_city_worked_mesh(food, shields, trade)
+{
+  var key = food.toString() + shields.toString() + trade.toString();
+  if (meshes[key] != null) return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1);
+
+  var fcanvas = document.createElement("canvas");
+  fcanvas.width = 64;
+  fcanvas.height = 32;
+  var fcontext = fcanvas.getContext("2d");
+
+  var fkey = "city.t_food_" + food;
+  fcontext.drawImage(sprites[fkey], 0, 0,
+                sprites[fkey].width, sprites[fkey].height,
+                0,0,64,32);
+  var skey = "city.t_shields_" + shields;
+  fcontext.drawImage(sprites[skey], 0, 0,
+                sprites[skey].width, sprites[skey].height,
+                0,0,64,32);
+  var tkey = "city.t_trade_" + food;
+  fcontext.drawImage(sprites[tkey], 0, 0,
+                sprites[tkey].width, sprites[tkey].height,
+                0,0,64,32);
+
+  meshes[key] = canvas_to_user_facing_mesh(fcanvas, 64, 64, 30, true);
+  return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1)
+}
+
+/****************************************************************************
  Returns a extra texture
 ****************************************************************************/
 function get_extra_texture(key)
