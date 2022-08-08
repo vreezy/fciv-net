@@ -27,10 +27,11 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-<title>Fciv.net</title>
+<title>Fciv.net - play Freeciv in 3D online for free; open source strategy game!</title>
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/webclient.min.css?ts=${initParam.buildTimeStamp}" />
-<meta name="description" content="Fciv.net 3D strategy game for free with open source ">
+<meta name="description" content="Fciv.net - play Freeciv in 3D online for free; open source strategy game">
+<meta property="og:image" content="/static/images/brand.png" />
 <% if (trackJsToken != null) { %>
 <script type="text/javascript">window._trackJs = { token: '<%= trackJsToken %>' };</script>
 <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>

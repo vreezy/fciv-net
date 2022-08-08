@@ -1027,7 +1027,7 @@ function show_intro_dialog(title, message) {
   $("#dialog").dialog({
 			bgiframe: true,
 			modal: true,
-			width: is_small_screen() ? "80%" : "45%",
+			width: is_small_screen() ? "80%" : "48%",
 			beforeClose: function( event, ui ) {
 			  // if intro dialog is closed, then check the username and connect to the server.
 			  if (dialog_close_trigger != "button") {
@@ -1148,6 +1148,7 @@ function validate_username_callback()
           $("#dialog").dialog('close');
           $("#password_req").val("");
           simpleStorage.set("password", "");
+          $("#fciv-intro").hide();
         }
       } else {
         username = $("#username_req").val().trim();
@@ -1560,44 +1561,3 @@ function forgot_pbem_password()
 
 }
 
-/**************************************************************************
- User signed in with Google account.
-**************************************************************************/
-function google_signin_on_success(googleUser)
-{
-  var id_token = googleUser.getAuthResponse().id_token;
-  username = $("#username_req").val().trim().toLowerCase();
-  if (!validate_username()) {
-    return;
-  }
-  //validate user token.
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/token_signin');
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.onload = function() {
-    if (xhr.responseText == "OK") {
-      google_user_token = id_token;
-      simpleStorage.set("username", username);
-      $("#dialog").dialog('close');
-    } else if (xhr.responseText == "Email not verified") {
-      swal("Login failed. E-mail not verified.");
-    } else {
-      swal("Login failed.");
-    }
-  };
-  xhr.send('idtoken=' + id_token + "&username=" + username);
-
-}
-
-
-/**************************************************************************
- Handle Google signin problems.
-**************************************************************************/
-function google_signin_on_failure(error)
-{
-  if (error['error'] == "popup_closed_by_user") return;
-
-  swal("Unable to sign in with Google: " + JSON.stringify(error));
-  console.error("Unable to sign in with Google: " + JSON.stringify(error));
-
-}

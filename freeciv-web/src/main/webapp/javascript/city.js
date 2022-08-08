@@ -204,7 +204,7 @@ function show_city_dialog(pcity)
 			bgiframe: true,
 			modal: false,
 			width:  "99.5%" ,
-                        height: is_small_screen() ? 260 : 350,
+                        height: is_small_screen() ? 260 : 342,
                         close : city_dialog_close_handler,
             position: {my: 'left bottom', at: 'left bottom', of: window},
             buttons: dialog_buttons
@@ -237,7 +237,7 @@ function show_city_dialog(pcity)
 
   $("#city_tabs").tabs({ active: city_tab_index});
 
-  $(".citydlg_tabs").height(is_small_screen() ? 260 : 230);
+  $(".citydlg_tabs").height(is_small_screen() ? 260 : 222);
 
   city_worklist_dialog(pcity);
 

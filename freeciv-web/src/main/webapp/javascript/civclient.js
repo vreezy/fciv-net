@@ -123,21 +123,6 @@ function civclient_init()
 
   motd_init();
 
-  /*
-   * Interner Explorer doesn't support Array.indexOf
-   * http://soledadpenades.com/2007/05/17/arrayindexof-in-internet-explorer/
-   */
-  if(!Array.indexOf){
-	    Array.prototype.indexOf = function(obj){
-	        for(var i=0; i<this.length; i++){
-	            if(this[i]==obj){
-	                return i;
-	            }
-	        }
-	        return -1;
-	    };
-  }
-
 
   $('#tabs').css("height", $(window).height());
   $("#tabs-map").height("auto");
@@ -160,25 +145,10 @@ function civclient_init()
     }
   }
 
-  /* Initialze audio.js music player */
-  audiojs.events.ready(function() {
-    var as = audiojs.createAll({
-          trackEnded: function() {
-            if (!supports_mp3()) {
-              audio.load("/music/" + music_list[Math.floor(Math.random() * music_list.length)] + ".ogg");
-            } else {
-              audio.load("/music/" + music_list[Math.floor(Math.random() * music_list.length)] + ".mp3");
-            }
-            audio.play();
-          }
-        });
-    audio = as[0];
 
- });
 
  init_common_intro_dialog();
  setup_window_size();
-
 
 
 }
@@ -275,9 +245,6 @@ function show_dialog_message(title, message) {
 
   $("#generic_dialog").dialog('open');
   $("#game_text_input").blur();
-
-  // automatically close dialog after 24 seconds, because sometimes the dialog can't be closed manually.
-  dialog_message_close_task = setTimeout(close_dialog_message, 24000);
 
   $('#generic_dialog').css("max-height", "450px");
 

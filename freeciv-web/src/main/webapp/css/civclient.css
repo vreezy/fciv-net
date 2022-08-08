@@ -132,7 +132,7 @@ button {
 }
 
 #city_dialog {
-  font-size: 85%;
+  font-size: 80%;
 }
 
 #city_dialog_info {
@@ -148,7 +148,6 @@ button {
 
 
 .city_panel {
-  background: url("/images/bg.jpg") repeat scroll 0 0 #222222;
   float: left; 
   padding-right: 30px;
 }
@@ -1074,4 +1073,15 @@ li.tech-both::before {
 
 #civ_dialog_flag {
   padding: 5px;
+}
+
+#fciv-intro {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    min-width: 300px;
+    z-index: 1000;
+    max-width: 80%;
+    color: black;
+    font-size: 15px;
 }
