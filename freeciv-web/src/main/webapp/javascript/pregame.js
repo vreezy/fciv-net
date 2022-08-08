@@ -1027,8 +1027,9 @@ function show_intro_dialog(title, message) {
   $("#dialog").dialog({
 			bgiframe: true,
 			modal: true,
-			width: is_small_screen() ? "80%" : "48%",
+			width: is_small_screen() ? "80%" : "50%",
 			beforeClose: function( event, ui ) {
+			  $("#fciv-intro").hide();
 			  // if intro dialog is closed, then check the username and connect to the server.
 			  if (dialog_close_trigger != "button") {
 			    if (validate_username()) {
@@ -1051,6 +1052,7 @@ function show_intro_dialog(title, message) {
 					dialog_close_trigger = "button";
 					autostart = true;
 					validate_username_callback();
+                    $("#fciv-intro").hide();
 				  },
 				  icons: { primary: "ui-icon-play" }
 			  },
@@ -1103,6 +1105,7 @@ function show_intro_dialog(title, message) {
     $("#freeciv_logo").remove();
     $("#pregame_message_area").css("width", "73%");
     $("#observe_button").remove();
+    $("#fciv-intro-txt").text("Fciv.net is a Free and Open Source empire-building strategy game inspired by the history of human civilization.");
   }
 
   $("#dialog").dialog('open');
@@ -1136,6 +1139,7 @@ function show_intro_dialog(title, message) {
 function validate_username_callback()
 {
   var check_username = $("#username_req").val();
+  $("#fciv-intro").hide();
   $.ajax({
    type: 'POST',
    url: "/validate_user?userstring=" + check_username,
