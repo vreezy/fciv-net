@@ -287,7 +287,7 @@ function update_metamessage_on_gamestart()
     setInterval(update_metamessage_game_running_status, 200000);
   }
 
-  if ($.getUrlVar('action') == "new" || $.getUrlVar('action') == "earthload" 
+  if ($.getUrlVar('action') == null || $.getUrlVar('action') == "new" || $.getUrlVar('action') == "earthload" 
       || $.getUrlVar('scenario') == "true") {
       $.post("/freeciv_time_played_stats?type=single3d").fail(function() {});
   }
