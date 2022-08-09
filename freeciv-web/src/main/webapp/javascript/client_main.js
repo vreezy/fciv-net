@@ -123,6 +123,7 @@ function setup_window_size ()
     $(".ui-tabs-anchor").css("padding", "3px");
 
     $("#freeciv_logo").hide();
+    overview_active = false;
 
     if ($("#game_unit_orders_default").length > 0) $("#game_unit_orders_default").remove();
     if ($("#game_unit_orders_settlers").length > 0) $("#game_unit_orders_settlers").remove();
