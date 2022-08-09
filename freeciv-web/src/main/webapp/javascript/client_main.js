@@ -129,7 +129,6 @@ function setup_window_size ()
     if ($("#game_unit_orders_settlers").length > 0) $("#game_unit_orders_settlers").remove();
     $("#game_status_panel_bottom").css("font-size", "0.8em");
 
-    overview_current_state = "minimized";
     game_unit_panel_state = "minimized";
 
   }
