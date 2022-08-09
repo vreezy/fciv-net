@@ -1,2 +1,2 @@
-tornado >= 6.1
+tornado >= 6.2
 mysql-connector-python ~= 8.0, >= 8.0.12
