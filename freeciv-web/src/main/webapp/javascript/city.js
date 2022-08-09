@@ -221,28 +221,12 @@ function show_city_dialog(pcity)
   $("#city_dialog").dialog('open');
   $("#game_text_input").blur();
 
-  /* prepare city dialog for small screens. */
-  if (!is_small_screen()) {
-    $("#city_tabs-5").remove();
-    $("#city_tabs-6").remove();
-    $(".extra_tabs_small").remove();
-    $("#mobile_cma_checkbox").remove();
-  } else {
-    $("#city_tabs-4").remove();
-    $(".extra_tabs_big").remove();
-    $("#city_stats").hide();
-    var units_element = $("#city_improvements_panel").detach();
-    $('#city_units_tab').append(units_element);
-   }
-
   $("#city_tabs").tabs({ active: city_tab_index});
 
   $(".citydlg_tabs").height(is_small_screen() ? 260 : 222);
 
   city_worklist_dialog(pcity);
 
-  set_citydlg_dimensions(pcity);
-  set_default_mapview_inactive();
   center_tile_city(pcity);
   show_city_worked_tiles();
 
@@ -429,7 +413,7 @@ function show_city_dialog(pcity)
    $(".ui-dialog-titlebar").css("font-size", "11px");
    $(".ui-tabs-anchor").css("padding", "1px");
    $(".ui-dialog-titlebar").css("padding", "0px");
-   $(".ui-dialog").height(260);
+   //$(".ui-dialog").height(260);
    $(".citydlg_tabs").height(225);
    $("#city_dialog").height(260);
    $(".ui-dialog-buttonpane").css("font-size", "10px");
@@ -2046,14 +2030,3 @@ function get_citywalls_scale(pcity)
   return scale;
 }
 
-/**************************************************************************
- Set the city canvas size for a city based on its radius
-**************************************************************************/
-function set_citydlg_dimensions(pcity)
-{
-  var city_radius = pcity.city_radius_sq;
-
-  var radius_tiles = Math.ceil(Math.sqrt(city_radius));
-
-
-}

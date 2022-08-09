@@ -1027,7 +1027,7 @@ function show_intro_dialog(title, message) {
   $("#dialog").dialog({
 			bgiframe: true,
 			modal: true,
-			width: is_small_screen() ? "80%" : "50%",
+			width: is_small_screen() ? "85%" : "44%",
 			beforeClose: function( event, ui ) {
 			  $("#fciv-intro").hide();
 			  // if intro dialog is closed, then check the username and connect to the server.
@@ -1068,7 +1068,7 @@ function show_intro_dialog(title, message) {
 				icons : { primary: "ui-icon-gear" }
 			  },
               {
-                  text : "New user account",
+                  text : "New user",
                   click : function() {
                     show_new_user_account_dialog();
                 },
@@ -1105,7 +1105,7 @@ function show_intro_dialog(title, message) {
     $("#freeciv_logo").remove();
     $("#pregame_message_area").css("width", "73%");
     $("#observe_button").remove();
-    $("#fciv-intro-txt").text("Fciv.net is a Free and Open Source empire-building strategy game inspired by the history of human civilization.");
+    $("#fciv-intro-txt").text("Fciv.net is a open source empire-building strategy game inspired by the history of human civilization.");
   }
 
   $("#dialog").dialog('open');

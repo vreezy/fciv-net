@@ -120,14 +120,17 @@ function setup_window_size ()
     $("#hel_tab").children().html("<i class='fa fa-question-circle-o' aria-hidden='true'></i>");
 
 
-    $(".ui-tabs-anchor").css("padding", "7px");
+    $(".ui-tabs-anchor").css("padding", "3px");
 
     $("#freeciv_logo").hide();
 
-    overview_active = false;
     if ($("#game_unit_orders_default").length > 0) $("#game_unit_orders_default").remove();
     if ($("#game_unit_orders_settlers").length > 0) $("#game_unit_orders_settlers").remove();
     $("#game_status_panel_bottom").css("font-size", "0.8em");
+
+    overview_current_state = "minimized";
+    game_unit_panel_state = "minimized";
+
   }
 
   if (overview_active) init_overview();
@@ -347,11 +350,11 @@ function set_default_mapview_active()
 
   $("#freeciv_custom_scrollbar_div").mCustomScrollbar("scrollTo", "bottom",{scrollInertia:0});
 
-  if (!is_small_screen()) {
-    $("#game_overview_panel").parent().show();
-    $(".overview_dialog").position({my: 'left bottom', at: 'left bottom', of: window});
-    if (overview_current_state == "minimized") $("#game_overview_panel").dialogExtend("minimize");
-  }
+
+  $("#game_overview_panel").parent().show();
+  $(".overview_dialog").position({my: 'left bottom', at: 'left bottom', of: window});
+  if (overview_current_state == "minimized") $("#game_overview_panel").dialogExtend("minimize");
+
 
 }
 
