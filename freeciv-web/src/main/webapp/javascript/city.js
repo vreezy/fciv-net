@@ -226,6 +226,7 @@ function show_city_dialog(pcity)
   $(".citydlg_tabs").height(is_small_screen() ? 260 : 222);
 
   city_worklist_dialog(pcity);
+  set_default_mapview_inactive();
 
   center_tile_city(pcity);
   show_city_worked_tiles();
