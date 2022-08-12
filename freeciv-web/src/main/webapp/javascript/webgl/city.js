@@ -81,3 +81,22 @@ function remove_city_worked_tiles() {
       city_label_positions[city_tile(active_city)['index']].visible = true;
   }
 }
+
+/****************************************************************************
+Is the given tile a city tile in the active city?
+****************************************************************************/
+function is_city_tile(ptile, active_city)
+{
+  var ctile = city_tile(active_city);
+  var d = map_distance_vector(ptile, ctile);
+
+  if ((d[0] == 2 && d[1] == 2) || (d[0] == -2 && d[1] == -2) || (d[0] == -2 && d[1] == 2) || (d[0] == 2 && d[1] == -2) ) {
+    return false;
+  }
+
+  if (d[0] <= 2 && d[1] <= 2 && d[0] >= -2 && d[1] >= -2) {
+    return true;
+  }
+  return false;
+
+}

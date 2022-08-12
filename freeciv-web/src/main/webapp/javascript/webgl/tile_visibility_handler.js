@@ -110,10 +110,9 @@ function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
     if (active_city != null && ptile != null && (tile_get_known(ptile) == TILE_KNOWN_SEEN || tile_get_known(ptile) == TILE_KNOWN_UNSEEN)) {
       // Hightlight active city
       var ctile = city_tile(active_city);
-      var d = map_distance_vector(ptile, ctile);
       if (ptile['index'] == ctile['index']) {
         known_status_color = 1.06;
-      } else if (d[0] <= 2 && d[1] <= 2 && d[0] >= -2 && d[1] >= -2) {
+      } else if (is_city_tile(ptile, active_city)) {
         known_status_color = 1.06;
       } else {
         known_status_color = 0.20;
