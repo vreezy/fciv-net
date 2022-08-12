@@ -326,7 +326,7 @@ void main(void)
 
 
     // render the beach.
-    if (vPosition.y < beach_high && vPosition.y > beach_low) {
+    if (vPosition.y < beach_high && vPosition.y > beach_low && terrain_here != terrain_arctic) {
         texture_coord = vec2(dx , dy);
         if (vPosition.y > beach_blend_high) {
             blend_amount = ((beach_high - beach_blend_high) - (beach_high - vPosition.y)) / (beach_high - beach_blend_high);

@@ -76,6 +76,14 @@
     Show game replay
   </td>
 </tr>
+<tr>
+  <td>
+    <button id="fps_button" type="button" class="button setting_button" onClick="show_fps();">Show fps</button>
+  </td>
+  <td>
+    Show game replay
+  </td>
+</tr>
 </table>
 
 </div>

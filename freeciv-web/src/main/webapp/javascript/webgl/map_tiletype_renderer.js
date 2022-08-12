@@ -72,7 +72,7 @@ function generate_map_tiletype_grid() {
   }
 
   // randomize tile edges
-  var num_iterations = 2;
+  var num_iterations = 3;
   var change_probability = 0.6;
 
   for (var i = 0; i < num_iterations; i++) {
