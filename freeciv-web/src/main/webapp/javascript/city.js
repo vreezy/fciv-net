@@ -220,6 +220,7 @@ function show_city_dialog(pcity)
   $("#city_dialog").dialog('widget').keydown(city_keyboard_listener);
   $("#city_dialog").dialog('open');
   $("#game_text_input").blur();
+  $("#city_dialog").parent().css("overflow", "hidden");
 
   $("#city_tabs").tabs({ active: city_tab_index});
 
