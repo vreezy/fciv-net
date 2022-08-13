@@ -228,20 +228,43 @@ function update_city_label(pcity)
 /****************************************************************************
  Create a unit label
 ****************************************************************************/
-function create_unit_label(punit)
+function create_unit_label(punit, ptile)
 {
   var canvas1 = document.createElement('canvas');
-  canvas1.width = 28;
-  canvas1.height = 28;
-  var context1 = canvas1.getContext('2d');
+  canvas1.width = 48;
+  canvas1.height = 32;
+  var ctx = canvas1.getContext('2d');
+  ctx.font = 'bold 18px serif';
 
   var activities = get_unit_activity_sprite(punit);
-  context1.drawImage(sprites[activities.key],
+  if (activities != null) {
+    ctx.drawImage(sprites[activities.key],
                   0, 0,
                   28, 28,
                   0, 0, 28, 28);
+  }
 
-  return canvas_to_user_facing_mesh(canvas1, 28, 15, 15, true, activities.key);
+  if (tile_units(ptile).length > 1) {
+    var txt = "" + tile_units(ptile).length;
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 3;
+    ctx.strokeText(txt, 23, 20);
+    ctx.fillStyle = '#ffe800';
+    ctx.fillText(txt, 23, 20);
+  }
+
+  var activity_txt = get_unit_activity_text(punit);
+  if (activity_txt == "A") {
+    var txt = activity_txt;
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 3;
+    ctx.strokeText(txt, 0, 20);
+    ctx.fillStyle = '#ffe800';
+    ctx.fillText(txt, 0, 20);
+  }
+
+  var key = (activities != null ? activities.key : "") + tile_units(ptile).length;
+  return canvas_to_user_facing_mesh(canvas1, 48, 24, 15, true, key);
 }
 
 /****************************************************************************
@@ -250,42 +273,6 @@ function create_unit_label(punit)
 function create_city_disorder_label()
 {
   return new THREE.Mesh(new THREE.PlaneBufferGeometry(80, 80), webgl_materials['city_disorder']);
-}
-
-/****************************************************************************
- Create a map tile label
-****************************************************************************/
-function create_map_tile_label(ptile)
-{
-  if (ptile['label'] == null || ptile['label'].length == 0) return null;
-
-  var canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 40;
-  var ctx = canvas.getContext('2d');
-
-
-  // We draw from left to right, updating `width' after each call.
-  var width = 0; // Total width of the bar
-
-
-  // Name and size
-  var label = ptile['label'];
-  ctx.font = 'Bold 36px Arial';
-  var txt_measure = ctx.measureText(label);
-  // Background
-  var background_color = "rgba(0,0,0,0.5)";
-  ctx.fillStyle = background_color;
-  ctx.fillRect(width, 0, txt_measure.width + 11 /* padding */, 32);
-
-  // Text
-  ctx.fillStyle = '#EFEFEF';
-  ctx.fillText(label, width + 4 /* padding */, 13*2);
-
-  width += txt_measure.width + 11 /* padding */;
-
-  if (width > 512) width = 512;
-  return canvas_to_user_facing_mesh(canvas, width, Math.floor(width * 0.5), 20, true, "ptile_" + ptile['label']);
 }
 
 /**********************************************************************

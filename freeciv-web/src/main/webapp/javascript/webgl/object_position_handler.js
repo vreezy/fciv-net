@@ -161,17 +161,17 @@ function update_unit_position(ptile) {
     if (scene != null && unit_flag_positions[ptile['index']] != null) scene.remove(unit_flag_positions[ptile['index']]);
     delete unit_flag_positions[ptile['index']];
 
-
     var activity;
-    if (unit_activities_positions[ptile['index']] != get_unit_activity_text(visible_unit) && visible_unit['anim_list'].length == 0) {
+    if (unit_activities_positions[ptile['index']] != get_unit_activity_text(visible_unit) + tile_units(ptile).length
+        && visible_unit['anim_list'].length == 0) {
       // add unit activity label
       if (scene != null && unit_label_positions[ptile['index']] != null) scene.remove(unit_label_positions[ptile['index']]);
-      if (get_unit_activity_text(visible_unit) != null) {
-        activity = create_unit_label(visible_unit);
+      if (get_unit_activity_text(visible_unit) != null || tile_units(ptile).length > 1) {
+        activity = create_unit_label(visible_unit, ptile);
         if (activity != null) {
           activity.matrixAutoUpdate = false;
           activity.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 8);
-          activity.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 24);
+          activity.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 26);
           activity.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 5);
           activity.rotation.y = Math.PI / 4;
           activity.updateMatrix();
@@ -179,7 +179,7 @@ function update_unit_position(ptile) {
           unit_label_positions[ptile['index']] = activity;
         }
       }
-      unit_activities_positions[ptile['index']] = get_unit_activity_text(visible_unit);
+      unit_activities_positions[ptile['index']] = get_unit_activity_text(visible_unit) + tile_units(ptile).length;
     }
 
     var new_unit_health_bar;
