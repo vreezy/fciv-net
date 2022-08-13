@@ -316,6 +316,7 @@ function mouse_moved_cb(e)
   mouse_x = mouse_x - $("#canvas_div").offset().left;
   mouse_y = mouse_y - $("#canvas_div").offset().top;
 
+  update_mouse_cursor();
 
   if (client.conn.playing == null) return;
 
@@ -3207,6 +3208,7 @@ function update_goto_path(goto_packet)
   if (current_goto_turns != undefined) {
     $("#active_unit_info").html("Turns for goto: " + current_goto_turns);
   }
+  update_mouse_cursor();
 }
 
 

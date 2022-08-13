@@ -45,13 +45,13 @@ function scene_to_map_coords(x, y)
   Converts from canvas coordinates to a tile.
 ****************************************************************************/
 function webgl_canvas_pos_to_tile(x, y) {
-  if (mouse == null || landMesh == null) return null;
+  if (mouse == null || lofiMesh == null) return null;
 
   mouse.set( ( x / $('#canvas_div').width() ) * 2 - 1, - ( y / $('#canvas_div').height() ) * 2 + 1);
 
   raycaster.setFromCamera( mouse, camera );
 
-  var intersects = raycaster.intersectObject(landMesh, false);
+  var intersects = raycaster.intersectObject(lofiMesh, false);
 
   for (var i = 0; i < intersects.length; i++) {
     var intersect = intersects[i];
@@ -67,13 +67,13 @@ function webgl_canvas_pos_to_tile(x, y) {
   Converts from canvas coordinates to Three.js coordinates.
 ****************************************************************************/
 function webgl_canvas_pos_to_map_pos(x, y) {
-  if (mouse == null || landMesh == null || mapview_slide['active']) return null;
+  if (mouse == null || lofiMesh == null || mapview_slide['active']) return null;
 
   mouse.set( ( x / $('#canvas_div').width() ) * 2 - 1, - ( y / $('#canvas_div').height() ) * 2 + 1);
 
   raycaster.setFromCamera( mouse, camera );
 
-  var intersects = raycaster.intersectObject(landMesh);
+  var intersects = raycaster.intersectObject(lofiMesh);
 
   if (intersects.length > 0) {
     var intersect = intersects[0];

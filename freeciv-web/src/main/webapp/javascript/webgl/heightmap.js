@@ -61,11 +61,11 @@ function get_city_height_offset(pcity)
 /****************************************************************************
   Create heightmap based on tile.height.
 ****************************************************************************/
-function create_heightmap()
+function create_heightmap(heightmap_quality)
 {
   var start_heightmap = new Date().getTime();
-  var heightmap_resolution_x = map.xsize * 6 + 1;
-  var heightmap_resolution_y = map.ysize * 6 + 1;
+  var heightmap_resolution_x = map.xsize * heightmap_quality + 1;
+  var heightmap_resolution_y = map.ysize * heightmap_quality + 1;
 
   heightmap = new Array(heightmap_resolution_x);
   for (var hx = 0; hx < heightmap_resolution_x; hx++) {
@@ -93,8 +93,8 @@ function create_heightmap()
 
   for (var x = 0; x < heightmap_resolution_x; x++) {
     for (var y = 0; y < heightmap_resolution_y; y++) {
-      var gx = x / 6 - 0.5;
-      var gy = y / 6 - 0.5;
+      var gx = x / heightmap_quality - 0.5;
+      var gy = y / heightmap_quality - 0.5;
 
       if (Math.round(gx) == gx && Math.round(gy) == gy) {
         var ptile = map_pos_to_tile(gx, gy);

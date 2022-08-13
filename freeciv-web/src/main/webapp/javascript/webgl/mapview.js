@@ -30,8 +30,11 @@ var webgl_controls;
 var tiletype_terrains = ["coast","ocean","arctic","desert","grassland","hills","mountains","plains","swamp","tundra", "farmland", "irrigation"];
 
 var landGeometry;
-var landMesh;
+var landMesh; // the terrain land geometry
 var water;
+
+var lofiGeometry;
+var lofiMesh;  // low resolution mesh used for raycasting.
 
 var start_webgl;
 
@@ -74,6 +77,8 @@ function webgl_start_renderer()
   scene = new THREE.Scene();
 
   raycaster = new THREE.Raycaster();
+  raycaster.layers.set(1);
+
   mouse = new THREE.Vector2();
 
   clock = new THREE.Clock();
@@ -138,7 +143,6 @@ function init_webgl_mapview() {
     scene.add( water );
 
   /* heightmap image */
-  create_heightmap();
   init_borders_image();
   init_roads_image();
   init_map_tiletype_image();
@@ -170,19 +174,49 @@ function init_webgl_mapview() {
     freeciv_uniforms[terrain_name] = {type: "t", value: webgl_textures[terrain_name]};
   }
 
-  /* create a WebGL shader for terrain. */
+  // Low-resolution terrain mesh used for raycasting to find mouse postition.
+  create_heightmap(2);
+  var lofiMaterial = new THREE.MeshStandardMaterial({"color" : 0xff0000});
+  lofiGeometry = create_land_geometry(2);
+  lofiMesh = new THREE.Mesh( lofiGeometry, lofiMaterial );
+  lofiMesh.layers.set(1);
+  scene.add(lofiMesh);
+
+  // High-resolution terrain-mesh shown in mapview.
+  create_heightmap(6);
   var terrain_material = new THREE.ShaderMaterial({
     uniforms: freeciv_uniforms,
     vertexShader: vertex_shader,
     fragmentShader: fragment_shader,
     vertexColors: true
   });
+  landGeometry = create_land_geometry(6);
+  landMesh = new THREE.Mesh( landGeometry, terrain_material );
+  scene.add(landMesh);
 
-  xquality = map.xsize * 6 + 1;
-  yquality = map.ysize * 6 + 1;
+  update_tiles_known_vertex_colors();
+  setInterval(update_tiles_known_vertex_colors, 100);
+
+  add_all_objects_to_scene();
+
+  $.unblockUI();
+  console.log("init_webgl_mapview took: " + (new Date().getTime() - start_webgl) + " ms.");
+
+  benchmark_start = new Date().getTime();
+
+}
+
+/****************************************************************************
+  Create the land terrain geometry
+  (note that this changes global variables).
+****************************************************************************/
+function create_land_geometry(mesh_quality)
+{
+  xquality = map.xsize * mesh_quality + 1;
+  yquality = map.ysize * mesh_quality + 1;
 
   /* LandGeometry is a plane representing the landscape of the map. */
-  landGeometry = new THREE.BufferGeometry();
+  var geometry = new THREE.BufferGeometry();
 
   width_half = mapview_model_width / 2;
   height_half = mapview_model_height / 2;
@@ -209,9 +243,7 @@ function init_webgl_mapview() {
       var sx = ix % xquality, sy = iy % yquality;
 
       vertices.push( x, -y, heightmap[sx][sy] * 100 );
-
       normals.push( 0, 0, 1 );
-
       uvs.push( ix / gridX );
       uvs.push( 1 - ( iy / gridY ) );
 
@@ -228,58 +260,29 @@ function init_webgl_mapview() {
 
       indices.push( a, b, d );
       indices.push( b, c, d );
-
     }
   }
 
-  landGeometry.setIndex( indices );
-  landGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-  landGeometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
-  landGeometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
+  geometry.setIndex( indices );
+  geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+  geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
+  geometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
 
-  landGeometry.rotateX( - Math.PI / 2 );
-  landGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+  geometry.rotateX( - Math.PI / 2 );
+  geometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
 
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
-      var sx = ix % xquality, sy = iy % yquality;
-      var mx = Math.floor(sx / 6), my = Math.floor(sy / 6);
-      var ptile = map_pos_to_tile(mx, my);
-        if (ptile == null) {
           colors.push(0,0,0);
-        } else if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
-          colors.push(1,0,0);
-        } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {
-          colors.push(0.40,0,0);
-        } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
-          colors.push(0,0,0);
-        } else {
-          colors.push(0,0,0);
-        }
-
     }
   }
 
-  landGeometry.setAttribute( 'vertColor', new THREE.Float32BufferAttribute( colors, 3) );
+  geometry.setAttribute( 'vertColor', new THREE.Float32BufferAttribute( colors, 3) );
 
-  landGeometry.computeVertexNormals();
-  landMesh = new THREE.Mesh( landGeometry, terrain_material );
-  scene.add( landMesh );
+  geometry.computeVertexNormals();
 
-  update_tiles_known_vertex_colors();
-  setInterval(update_tiles_known_vertex_colors, 100);
-
-  setInterval(update_mouse_cursor, 300);
-
-  add_all_objects_to_scene();
-
-  $.unblockUI();
-  console.log("init_webgl_mapview took: " + (new Date().getTime() - start_webgl) + " ms.");
-
-  benchmark_start = new Date().getTime();
-
+  return geometry;
 }
-
 /****************************************************************************
   Main animation method
 ****************************************************************************/
