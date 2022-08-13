@@ -100,3 +100,17 @@ function is_land_tile_near(ptile)
   }
   return false;
 }
+
+/**************************************************************************
+ ...
+**************************************************************************/
+function is_river_tile_near(ptile)
+{
+  for (var dir = 0; dir < 8; dir++) {
+    var tile1 = mapstep(ptile, dir);
+    if (tile_has_extra(tile1, EXTRA_RIVER)) {
+      return true;
+    }
+  }
+  return false;
+}
