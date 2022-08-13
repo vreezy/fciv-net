@@ -264,7 +264,7 @@ function create_unit_label(punit, ptile)
   }
 
   var key = (activities != null ? activities.key : "") + tile_units(ptile).length;
-  return canvas_to_user_facing_mesh(canvas1, 48, 22, 14, true, key);
+  return canvas_to_user_facing_mesh(canvas1, 42, 20, 13, true, key);
 }
 
 /****************************************************************************
