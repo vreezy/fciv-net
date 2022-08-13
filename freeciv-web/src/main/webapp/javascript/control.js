@@ -362,7 +362,7 @@ function update_mouse_cursor()
   } else if (punit != null && client.conn.playing != null && punit['owner'] == client.conn.playing.playerno) {
     /* move unit cursor */
     $("#canvas_div").css("cursor", "pointer");
-  } else if (active_city != null && ptile != null) {
+  } else if (active_city != null && ptile != null && is_city_tile(ptile, active_city)) {
     $("#canvas_div").css("cursor", "pointer");
   } else {
     $("#canvas_div").css("cursor", "default");

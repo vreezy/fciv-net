@@ -64,7 +64,7 @@ function create_city_label(pcity)
 {
   var canvas = document.createElement('canvas');
   canvas.width = 512;
-  canvas.height = 42;
+  canvas.height = 36;
   var ctx = canvas.getContext('2d');
   pcity['label_canvas'] = canvas;
 
@@ -264,7 +264,7 @@ function create_unit_label(punit, ptile)
   }
 
   var key = (activities != null ? activities.key : "") + tile_units(ptile).length;
-  return canvas_to_user_facing_mesh(canvas1, 48, 24, 15, true, key);
+  return canvas_to_user_facing_mesh(canvas1, 48, 22, 14, true, key);
 }
 
 /****************************************************************************

@@ -83,7 +83,7 @@ function create_heightmap(heightmap_quality)
         ptile['height'] = 0.55;
       }
       if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && tile_has_extra(ptile, EXTRA_RIVER)) {
-        ptile['height'] = ptile['height'] * 1.01;
+        ptile['height'] = ptile['height'] * 1.008;
       }
       if (is_ocean_tile(ptile) && is_land_tile_near(ptile) && is_river_tile_near(ptile)) {
         ptile['height'] = ptile['height'] * 1.04;

@@ -171,7 +171,7 @@ function update_unit_position(ptile) {
         if (activity != null) {
           activity.matrixAutoUpdate = false;
           activity.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 8);
-          activity.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 26);
+          activity.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 28);
           activity.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 5);
           activity.rotation.y = Math.PI / 4;
           activity.updateMatrix();
@@ -423,6 +423,9 @@ function update_tile_extras(ptile) {
       }
       if (extra_resource['name'] == "Gold" || extra_resource['name'] == "Iron") {
         height -= 5;
+        if (tile_has_extra(ptile, EXTRA_RIVER) && tile_terrain(ptile)['name'] == "Mountains") {
+          height -= 15;
+        }
       }
       if (extra_resource['name'] == "Fish" || extra_resource['name'] == "Whales") {
         height = 52.4;
