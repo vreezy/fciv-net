@@ -57,7 +57,7 @@ function update_tiles_known_vertex_colors()
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
       var sx = ix % xquality, sy = iy % yquality;
-      var mx = Math.floor(sx / 6), my = Math.floor(sy / 6);
+      var mx = Math.floor((sx / 6) - 0.040), my = Math.floor((sy / 6) - 0.040);
       var ptile = map_pos_to_tile(mx, my);
         if (ptile != null) {
           var c = get_vertex_color_from_tile(ptile, ix, iy);
