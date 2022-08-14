@@ -115,7 +115,7 @@ function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
       } else if (is_city_tile(ptile, active_city)) {
         known_status_color = 1.06;
       } else {
-        known_status_color = 0.20;
+        known_status_color = 0.30;
       }
     }
 
