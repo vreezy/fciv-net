@@ -32,8 +32,10 @@
 				</ul>
 			</li>
 			<li><a href="https://github.com/fciv-net/fciv-net">Development</a></li>
-		
-                        <li><a href="https://www.twitter.com/fcivnet">@Fcivnet</a></li>
+
+		    <li><a href="https://fciv.net/wiki/">Wiki</a></li>
+
+            <li><a href="https://www.twitter.com/fcivnet">@Fcivnet</a></li>
 		
 </ul>
 		<form class="navbar-form navbar-right hidden-sm hidden-md" action="https://duckduckgo.com/" style="width: 220px;">

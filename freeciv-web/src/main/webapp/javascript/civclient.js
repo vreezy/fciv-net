@@ -191,7 +191,7 @@ function init_common_intro_dialog() {
       show_intro_dialog("Welcome to Fciv.net", msg);
 
   } else {
-    show_intro_dialog("Welcome to Fciv.net",
+    show_intro_dialog("Welcome to Fciv.net 3D",
       "You are about to join this game server, where you can " +
       "play a singleplayer game against the Freeciv AI. You can " +
       "start the game directly by entering any name, or customize the game settings. " +
