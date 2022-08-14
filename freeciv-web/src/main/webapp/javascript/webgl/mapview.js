@@ -25,7 +25,6 @@ var plane, cube;
 var mouse, raycaster;
 var directionalLight;
 var clock;
-var webgl_controls;
 
 var tiletype_terrains = ["coast","ocean","arctic","desert","grassland","hills","mountains","plains","swamp","tundra", "farmland", "irrigation"];
 
@@ -121,7 +120,7 @@ function init_webgl_mapview() {
   selected_unit_material = new THREE.MeshBasicMaterial( { color: 0xf6f7bf, transparent: true, opacity: 0.5} );
 
   var textureLoader = new THREE.TextureLoader();
-  var waterGeometry = new THREE.PlaneBufferGeometry( mapview_model_width - 10, mapview_model_height - 10 );
+  var waterGeometry = new THREE.PlaneGeometry( mapview_model_width - 10, mapview_model_height - 10 );
 
   water = new THREE.Water(waterGeometry, {
       color: '#55c0ff',
@@ -176,7 +175,7 @@ function init_webgl_mapview() {
 
   // Low-resolution terrain mesh used for raycasting to find mouse postition.
   create_heightmap(2);
-  var lofiMaterial = new THREE.MeshStandardMaterial({"color" : 0xff0000});
+  var lofiMaterial = new THREE.MeshStandardMaterial({"color" : 0x00ff00});
   lofiGeometry = create_land_geometry(2);
   lofiMesh = new THREE.Mesh( lofiGeometry, lofiMaterial );
   lofiMesh.layers.set(1);
@@ -313,7 +312,6 @@ function animate() {
   if (stats != null) stats.end();
   if (initial_benchmark_enabled || benchmark_enabled) benchmark_frames_count++;
 
-  if (webgl_controls != null && clock != null) webgl_controls.update(clock.getDelta());
 
   requestAnimationFrame(animate);
 }

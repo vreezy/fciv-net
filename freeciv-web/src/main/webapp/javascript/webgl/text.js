@@ -53,7 +53,7 @@ function canvas_to_user_facing_mesh(canvas, width_input, width_final, height, tr
   material.transparent = transparent;
 
   // Put it all together
-  return new THREE.Mesh(new THREE.PlaneBufferGeometry(width_final, height), material);
+  return new THREE.Mesh(new THREE.PlaneGeometry(width_final, height), material);
 }
 
 /****************************************************************************
@@ -272,7 +272,7 @@ function create_unit_label(punit, ptile)
 ****************************************************************************/
 function create_city_disorder_label()
 {
-  return new THREE.Mesh(new THREE.PlaneBufferGeometry(80, 80), webgl_materials['city_disorder']);
+  return new THREE.Mesh(new THREE.PlaneGeometry(80, 80), webgl_materials['city_disorder']);
 }
 
 /**********************************************************************
