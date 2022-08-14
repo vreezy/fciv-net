@@ -194,6 +194,7 @@ function are_reqs_active(target_player,
 function is_tech_in_range(target_player, range, tech)
 {
   switch (range) {
+  case REQ_RANGE_TEAM: // FIXME! This is a workaround to allow choosing Republic in Fciv.net.
   case REQ_RANGE_PLAYER:
     return ((target_player != null
             && player_invention_state(target_player, tech) == TECH_KNOWN) ?
