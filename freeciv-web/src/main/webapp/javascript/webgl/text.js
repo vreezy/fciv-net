@@ -268,11 +268,13 @@ function create_unit_label(punit, ptile)
 }
 
 /****************************************************************************
- Create a city civil disorder label
+ Create a city civil disorder sprite
 ****************************************************************************/
-function create_city_disorder_label()
+function create_city_disorder_sprite()
 {
-  return new THREE.Mesh(new THREE.PlaneGeometry(80, 80), webgl_materials['city_disorder']);
+  var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: webgl_textures['city_disorder']}));
+  sprite.scale.set(70,70,1);
+  return sprite;
 }
 
 /**********************************************************************

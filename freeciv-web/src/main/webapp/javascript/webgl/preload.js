@@ -87,22 +87,12 @@ function webgl_preload()
       jungle_sprite.needsUpdate = true;
   } );
 
-  var city_disorder = new THREE.Texture();
+  var disorder_sprite = new THREE.Texture();
+  webgl_textures["city_disorder"] = disorder_sprite;
   textureLoader.load( '/textures/city_civil_disorder.png', function ( image ) {
-    city_disorder.image = image;
-    city_disorder.needsUpdate = true;
-
-    var material = new THREE.ShaderMaterial({
-      vertexShader: document.getElementById('labels_vertex_shh').textContent,
-      fragmentShader: document.getElementById('tex_fragment_shh').textContent,
-      uniforms: {
-        texture: { value: city_disorder },
-        u_scale_factor: { value: 1 }
-      }
-    });
-    material.transparent = true;
-    webgl_materials['city_disorder'] = material;
-  });
+      disorder_sprite.image = image;
+      disorder_sprite.needsUpdate = true;
+  } );
 
   for (var i = 0; i < tiletype_terrains.length ; i++) {
     var terrain_name = tiletype_terrains[i];

@@ -292,9 +292,7 @@ function update_city_position(ptile) {
     city_positions[ptile['index']] = new_city;
 
     var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-    new_city.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
-    new_city.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
-    new_city.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
+    new_city.position.set(pos['x'] - 10, height, pos['y'] - 10);
     new_city.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (2 * Math.PI * Math.random()));
 
     if (scene != null) {
@@ -315,9 +313,7 @@ function update_city_position(ptile) {
 
     var city_label = create_city_label(pcity);
     city_label_positions[ptile['index']] = city_label;
-    city_label.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 5);
-    city_label.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 30);
-    city_label.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 15);
+    city_label.position.set(pos['x'] - 5, height + 30, pos['y'] - 15);
     city_label.rotation.y = Math.PI / 4;
     pcity['webgl_label_hash'] = pcity['name'] + pcity['size'] + pcity['production_value'] + "." + pcity['production_kind'] + punits.length;
     if (scene != null) scene.add(city_label);
@@ -336,9 +332,7 @@ function update_city_position(ptile) {
       city_positions[ptile['index']] = new_city;
 
       var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-      new_city.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
-      new_city.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
-      new_city.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
+      new_city.position.set(pos['x'] - 10, height, pos['y'] - 10);
       new_city.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (2 * Math.PI * Math.random()));
 
       if (scene != null) {
@@ -356,9 +350,7 @@ function update_city_position(ptile) {
     if (scene != null && pcity['walls'] && city_walls_positions[ptile['index']] == null) {
       var city_walls = webgl_get_model("citywalls");
       if (city_walls != null) {
-        city_walls.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
-        city_walls.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
-        city_walls.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
+        city_walls.position.set(pos['x'] - 10, height, pos['y'] - 10);
         city_walls.scale.x = city_walls.scale.y = city_walls.scale.z = get_citywalls_scale(pcity);
         scene.add(city_walls);
         city_walls_positions[ptile['index']] = city_walls;
@@ -374,17 +366,12 @@ function update_city_position(ptile) {
   // City civil disorder label
   if (scene != null && pcity != null) {
     if (city_disorder_positions[ptile['index']] == null && pcity['unhappy']) {
-        var city_disorder_label = create_city_disorder_label();
-        if (city_disorder_label != null) {
-          city_disorder_label.matrixAutoUpdate = false;
-          city_disorder_label.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 5);
-          city_disorder_label.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 25);
-          city_disorder_label.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
-          city_disorder_label.rotation.y = Math.PI / 4;
-          city_disorder_label.updateMatrix();
-          if (scene != null) scene.add(city_disorder_label);
-          city_disorder_positions[ptile['index']] = city_disorder_label;
-        }
+        // TODO: migrate all labels to use THREE.Sprite in this way:
+        var city_disorder_sprite = create_city_disorder_sprite();
+        city_disorder_sprite.position.set(pos['x'] - 5, height + 25, pos['y'] - 10);
+        if (scene != null) scene.add(city_disorder_sprite);
+        city_disorder_positions[ptile['index']] = city_disorder_sprite;
+
     } else if (city_disorder_positions[ptile['index']] != null && !pcity['unhappy']) {
       // Remove city civil disorder label
       scene.remove(city_disorder_positions[ptile['index']]);
