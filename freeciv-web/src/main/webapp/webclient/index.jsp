@@ -31,7 +31,7 @@ try {
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/webclient.min.css?ts=${initParam.buildTimeStamp}" />
 <meta name="description" content="Fciv.net - play Freeciv in 3D online for free; open source strategy game">
-<meta property="og:image" content="/static/images/brand.png" />
+<meta property="og:image" content="https://www.fciv.net/static/images/brand.png" />
 <% if (trackJsToken != null) { %>
 <script type="text/javascript">window._trackJs = { token: '<%= trackJsToken %>' };</script>
 <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>
