@@ -151,22 +151,12 @@ function check_websocket_ready()
       sha_password = encodeURIComponent(shaObj.getHash("HEX"));
     }
 
-    if (is_longturn() && google_user_token == null) {
-      swal("Login failed.");
-      return;
-    }
-
     var login_message = {"pid":4, "username" : username,
     "capability": freeciv_version, "version_label": "-dev",
     "major_version" : 3, "minor_version" : 1, "patch_version" : 90,
     "port": civserverport,
-    "password": google_user_token == null ? sha_password : google_user_token};
+    "password": sha_password};
     ws.send(JSON.stringify(login_message));
-
-    /* Leaving the page without saving can now be an issue. */
-    $(window).bind('beforeunload', function(){
-      return "Do you really want to leave your nation behind now?";
-    });
 
     /* The connection is now up. Verify that it remains alive. */
     ping_timer = setInterval(ping_check, pingtime_check);
