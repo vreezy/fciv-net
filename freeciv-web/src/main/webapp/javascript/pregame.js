@@ -278,7 +278,7 @@ function pick_nation(player_id)
     }
   }
 
-  nations_html += "</div><div id='nation_style_choices'></div>"
+  nations_html += "</div>"
                + "<div id='nation_legend'></div><div id='select_nation_flag'></div>";
 
   $("#pick_nation_dialog").html(nations_html);
@@ -287,7 +287,7 @@ function pick_nation(player_id)
 			bgiframe: true,
 			modal: true,
 			width: is_small_screen() ? "99%" : "70%",
-            height: $(window).height() - 100,
+            height: $(window).height() - 200,
 			buttons: {
 			    "Customize this nation": function() {
                    show_customize_nation_dialog(player_id);
@@ -317,12 +317,6 @@ function pick_nation(player_id)
 
   nation_select_id = setTimeout (update_nation_selection, 150);
   $("#pick_nation_dialog").dialog('open');
-
-  if (!is_small_screen()) {
-    render_city_style_list();
-  } else {
-    $("#nation_autocomplete_box").blur();
-  }
 
   for (var nation_id in nations) {
     var pnation = nations[nation_id];
@@ -359,44 +353,6 @@ function update_nation_selection()
       return;
     }
   }
-}
-
-/****************************************************************************
- Renders a list of city styles in the choose nation dialog.
-****************************************************************************/
-function render_city_style_list()
-{
-  /* prepare a list of city styles. */
-  var city_style_html = "<b>City Styles:</b><br>";
-  for (var style_id in city_rules) {
-    if (style_id > 5) continue;
-    var pstyle = city_rules[style_id];
-    city_style_html += "<canvas id='city_style_" + style_id 
-          + "' data-style-id='" + style_id + "' width='96' height='72' style='cursor: pointer;'></canvas><br>"
-          + pstyle['rule_name'] + "<br>";
-  }
-  $("#nation_style_choices").html(city_style_html);
-  for (var style_id in city_rules) {
-    if (style_id > 5) continue;
-    var pstyle = city_rules[style_id];
-    var pcitystyle_canvas = document.getElementById('city_style_' + style_id);
-    if (pcitystyle_canvas == null) continue;
-    var ctx = pcitystyle_canvas.getContext("2d");
-    var tag = pstyle['graphic'] + "_city_4";
-    if (style_id == chosen_style) {
-      ctx.fillStyle="#FFFFFF";
-      ctx.fillRect(0,0, 96, 72);
-    }
-    ctx.drawImage(sprites[tag], 0, 0);
-
-    $("#city_style_" + style_id).click(function() {
-      chosen_style = parseFloat($(this).attr("data-style-id"));
-      render_city_style_list();
-    });
-
-  }
-
-
 }
 
 /****************************************************************************
