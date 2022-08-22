@@ -47,7 +47,7 @@ function scene_to_map_coords(x, y)
 function webgl_canvas_pos_to_tile(x, y) {
   if (mouse == null || lofiMesh == null) return null;
 
-  mouse.set( ( x / $('#canvas_div').width() ) * 2 - 1, - ( y / $('#canvas_div').height() ) * 2 + 1);
+  mouse.set( ( x / $('#mapcanvas').width() ) * 2 - 1, - ( y / $('#mapcanvas').height() ) * 2 + 1);
 
   raycaster.setFromCamera( mouse, camera );
 
@@ -69,7 +69,7 @@ function webgl_canvas_pos_to_tile(x, y) {
 function webgl_canvas_pos_to_map_pos(x, y) {
   if (mouse == null || lofiMesh == null || mapview_slide['active']) return null;
 
-  mouse.set( ( x / $('#canvas_div').width() ) * 2 - 1, - ( y / $('#canvas_div').height() ) * 2 + 1);
+  mouse.set( ( x / $('#mapcanvas').width() ) * 2 - 1, - ( y / $('#mapcanvas').height() ) * 2 + 1);
 
   raycaster.setFromCamera( mouse, camera );
 

@@ -99,7 +99,7 @@ function setup_window_size ()
   $("#nations").width( new_mapview_width);
 
   $('#tabs').css("height", $(window).height());
-  $("#tabs-map").height("auto");
+  $("#tabs-map").height(new_mapview_height);
 
 
   $("#city_viewport").height( new_mapview_height - 20);
@@ -132,6 +132,8 @@ function setup_window_size ()
     game_unit_panel_state = "minimized";
 
   }
+
+  $("#tabs-map").css("overflow", "hidden");
 
   if (overview_active) init_overview();
   if (unitpanel_active) init_game_unit_panel();

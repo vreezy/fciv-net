@@ -71,12 +71,12 @@ function webgl_start_renderer()
     return;
   }
 
-  container = document.getElementById('canvas_div');
+  container = document.getElementById('mapcanvas');
   camera = new THREE.PerspectiveCamera( 45, new_mapview_width / new_mapview_height, 1, 5000 );
   scene = new THREE.Scene();
 
   raycaster = new THREE.Raycaster();
-  raycaster.layers.set(1);
+  raycaster.layers.set(6);
 
   mouse = new THREE.Vector2();
 
@@ -178,7 +178,7 @@ function init_webgl_mapview() {
   var lofiMaterial = new THREE.MeshStandardMaterial({"color" : 0x00ff00});
   lofiGeometry = create_land_geometry(2);
   lofiMesh = new THREE.Mesh( lofiGeometry, lofiMaterial );
-  lofiMesh.layers.set(1);
+  lofiMesh.layers.set(6);
   scene.add(lofiMesh);
 
   // High-resolution terrain-mesh shown in mapview.

@@ -156,7 +156,7 @@ function control_init()
   }, false);
 
   var context_options = {
-        selector: '#canvas_div' ,
+        selector: '#mapcanvas' ,
 	    zIndex: 5000,
         autoHide: true,
         callback: function(key, options) {
@@ -180,7 +180,7 @@ function control_init()
   if (!is_touch_device()) {
     context_options['position'] = function(opt, x, y){
                                                 if (is_touch_device()) return;
-                                                var new_top = mouse_y + $("#canvas_div").offset().top;
+                                                var new_top = mouse_y + $("#mapcanvas").offset().top;
                                                 opt.$menu.css({top: new_top , left: mouse_x});
                                               };
   }
@@ -313,8 +313,8 @@ function mouse_moved_cb(e)
     }
   }
 
-  mouse_x = mouse_x - $("#canvas_div").offset().left;
-  mouse_y = mouse_y - $("#canvas_div").offset().top;
+  mouse_x = mouse_x - $("#mapcanvas").offset().left;
+  mouse_y = mouse_y - $("#mapcanvas").offset().top;
 
   update_mouse_cursor();
 
@@ -352,20 +352,20 @@ function update_mouse_cursor()
 
   if (goto_active && current_goto_turns != null) {
     /* show goto cursor */
-    $("#canvas_div").css("cursor", "crosshair");
+    $("#mapcanvas").css("cursor", "crosshair");
   } else if (goto_active && current_goto_turns == null) {
     /* show invalid goto cursor*/
-    $("#canvas_div").css("cursor", "not-allowed");
+    $("#mapcanvas").css("cursor", "not-allowed");
   } else if (pcity != null && client.conn.playing != null && city_owner_player_id(pcity) == client.conn.playing.playerno) {
     /* select city cursor*/
-    $("#canvas_div").css("cursor", "pointer");
+    $("#mapcanvas").css("cursor", "pointer");
   } else if (punit != null && client.conn.playing != null && punit['owner'] == client.conn.playing.playerno) {
     /* move unit cursor */
-    $("#canvas_div").css("cursor", "pointer");
+    $("#mapcanvas").css("cursor", "pointer");
   } else if (active_city != null && ptile != null && is_city_tile(ptile, active_city)) {
-    $("#canvas_div").css("cursor", "pointer");
+    $("#mapcanvas").css("cursor", "pointer");
   } else {
-    $("#canvas_div").css("cursor", "default");
+    $("#mapcanvas").css("cursor", "default");
   }
 }
 
@@ -1666,7 +1666,7 @@ function do_map_click(ptile, qtype, first_time_called)
       deactivate_goto(false);
     }
 
-    $("#canvas_div").contextMenu();
+    $("#mapcanvas").contextMenu();
 
     return;
   }
@@ -1842,7 +1842,7 @@ function do_map_click(ptile, qtype, first_time_called)
             && sunits[0]['activity'] == ACTIVITY_IDLE) {
           set_unit_focus_and_redraw(sunits[0]);
 
-          $("#canvas_div").contextMenu();
+          $("#mapcanvas").contextMenu();
 
         } else if (!goto_active) {
           show_city_dialog(pcity);
@@ -1868,7 +1868,7 @@ function do_map_click(ptile, qtype, first_time_called)
         }
 
         if (is_touch_device()) {
-          $("#canvas_div").contextMenu();
+          $("#mapcanvas").contextMenu();
 
 	    }
       } else if (pcity == null) {
@@ -2148,7 +2148,7 @@ map_handle_key(keyboard_key, key_code, ctrl, alt, shift, the_event)
 
       /* Abort any context menu blocking. */
       context_menu_active = true;
-      $("#canvas_div").contextMenu(true);
+      $("#mapcanvas").contextMenu(true);
 
       /* Abort target tile selection. */
       paradrop_active = false;
@@ -2160,7 +2160,7 @@ map_handle_key(keyboard_key, key_code, ctrl, alt, shift, the_event)
       current_focus = [];
       if (renderer == RENDERER_WEBGL) webgl_clear_unit_focus();
       goto_active = false;
-      $("#canvas_div").css("cursor", "default");
+      $("#mapcanvas").css("cursor", "default");
       goto_request_map = {};
       goto_turns_request_map = {};
       clear_goto_tiles();
@@ -2368,7 +2368,7 @@ function activate_goto()
 function activate_goto_last(last_order, last_action)
 {
   goto_active = true;
-  $("#canvas_div").css("cursor", "crosshair");
+  $("#mapcanvas").css("cursor", "crosshair");
 
   /* Set what the unit should do on arrival. */
   goto_last_order = last_order;
@@ -2407,7 +2407,7 @@ function activate_goto_last(last_order, last_action)
 function deactivate_goto(will_advance_unit_focus)
 {
   goto_active = false;
-  $("#canvas_div").css("cursor", "default");
+  $("#mapcanvas").css("cursor", "default");
   goto_request_map = {};
   goto_turns_request_map = {};
   clear_goto_tiles();

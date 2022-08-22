@@ -24,22 +24,22 @@ var timeOfLastPinchZoom = new Date().getTime();
 ****************************************************************************/
 function init_webgl_mapctrl()
 {
-  $("#canvas_div").mousedown(webglOnDocumentMouseDown);
-  $("#canvas_div").mouseup(webglOnDocumentMouseUp);
+  $("#mapcanvas").mousedown(webglOnDocumentMouseDown);
+  $("#mapcanvas").mouseup(webglOnDocumentMouseUp);
   $(window).mousemove(mouse_moved_cb);
-  $('#canvas_div').bind('wheel', webglOnWheel);
+  $('#mapcanvas').bind('wheel', webglOnWheel);
 
   if (is_touch_device()) {
-    $('#canvas_div').bind('touchstart', webgl_mapview_touch_start);
-    $('#canvas_div').bind('touchend', webgl_mapview_touch_end);
-    $('#canvas_div').bind('touchmove', webgl_mapview_touch_move);
+    $('#mapcanvas').bind('touchstart', webgl_mapview_touch_start);
+    $('#mapcanvas').bind('touchend', webgl_mapview_touch_end);
+    $('#mapcanvas').bind('touchmove', webgl_mapview_touch_move);
   }
 
   window.addEventListener('resize', webglOnWindowResize, false );
 
   /* setup zoom in/zoom out*/
   if (is_touch_device()) {
-    var mc = new Hammer.Manager(document.getElementById('canvas_div'));
+    var mc = new Hammer.Manager(document.getElementById('mapcanvas'));
     mc.add(new Hammer.Pinch({ threshold: 0.1 }));
     mc.on("pinch", webgl_mapview_pinch_zoom);
   }
@@ -77,7 +77,7 @@ function webglOnDocumentMouseUp( e ) {
     middleclick = (e.button == 1 || e.button == 4);
   }
 
-  var ptile = webgl_canvas_pos_to_tile(e.clientX, e.clientY - $("#canvas_div").offset().top);
+  var ptile = webgl_canvas_pos_to_tile(e.clientX, e.clientY - $("#mapcanvas").offset().top);
   if (ptile == null) return;
 
   if (rightclick) {
@@ -123,7 +123,7 @@ function webglOnDocumentMouseDown(e) {
     /* Left mouse button is down */
     if (goto_active) return;
 
-    var ptile = webgl_canvas_pos_to_tile(e.clientX, e.clientY - $("#canvas_div").offset().top);
+    var ptile = webgl_canvas_pos_to_tile(e.clientX, e.clientY - $("#mapcanvas").offset().top);
     set_mouse_touch_started_on_unit(ptile);
     check_mouse_drag_unit(ptile);
     touch_start_x = mouse_x;
@@ -245,8 +245,8 @@ function webgl_mapview_touch_start(e)
 {
   e.preventDefault();
 
-  touch_start_x = e.originalEvent.touches[0].pageX - $('#canvas_div').position().left;
-  touch_start_y = e.originalEvent.touches[0].pageY - $('#canvas_div').position().top;
+  touch_start_x = e.originalEvent.touches[0].pageX - $('#mapcanvas').position().left;
+  touch_start_y = e.originalEvent.touches[0].pageY - $('#mapcanvas').position().top;
 
   var ptile = webgl_canvas_pos_to_tile(touch_start_x, touch_start_y);
   set_mouse_touch_started_on_unit(ptile);
@@ -269,8 +269,8 @@ function webgl_mapview_touch_end(e)
 ****************************************************************************/
 function webgl_mapview_touch_move(e)
 {
-  mouse_x = e.originalEvent.touches[0].pageX - $('#canvas_div').position().left;
-  mouse_y = e.originalEvent.touches[0].pageY - $('#canvas_div').position().top;
+  mouse_x = e.originalEvent.touches[0].pageX - $('#mapcanvas').position().left;
+  mouse_y = e.originalEvent.touches[0].pageY - $('#mapcanvas').position().top;
 
   var spos = webgl_canvas_pos_to_map_pos(touch_start_x, touch_start_y);
   var epos = webgl_canvas_pos_to_map_pos(mouse_x, mouse_y);
@@ -316,10 +316,10 @@ function webgl_recenter_button_pressed(ptile)
         && sunit['owner'] == client.conn.playing.playerno) {
       /* the user right-clicked on own unit, show context menu instead of recenter. */
       if (current_focus.length <= 1) set_unit_focus(sunit);
-      $("#canvas_div").contextMenu(true);
-      $("#canvas_div").contextmenu();
+      $("#mapcanvas").contextMenu(true);
+      $("#mapcanvas").contextmenu();
     } else {
-      $("#canvas_div").contextMenu(false);
+      $("#mapcanvas").contextMenu(false);
       enable_mapview_slide_3d(ptile);
     }
   }

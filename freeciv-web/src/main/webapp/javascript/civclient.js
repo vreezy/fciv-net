@@ -150,7 +150,10 @@ function civclient_init()
  init_common_intro_dialog();
  setup_window_size();
 
-
+  var intro = $.getUrlVar('intro');
+  if (intro == "false") {
+    $("#fciv-intro-txt").hide();
+  }
 }
 
 /**************************************************************************

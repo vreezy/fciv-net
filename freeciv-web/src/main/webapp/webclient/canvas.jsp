@@ -6,9 +6,7 @@
 
  <div id="mapview_canvas_div">
     <%-- The main mapview canvas --%>  
-    <div id="canvas_div">
-
-    </div>
+    <div id="mapcanvas"></div>
     
     <%-- Message chatbox --%>
     <div id="game_chatbox_panel">

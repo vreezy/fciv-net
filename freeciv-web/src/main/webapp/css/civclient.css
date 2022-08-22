@@ -21,7 +21,7 @@ button {
   padding:0px;
 }
 
-#canvas_div {
+#mapcanvas {
   background: black;
 }
 
@@ -579,6 +579,10 @@ button {
   min-width: 320px;
   background-image: url('/images/bg.jpg');
   color: black;
+}
+
+#tabs-map {
+  overflow: hidden;
 }
 
 #tabs-hel.manual_doc {
