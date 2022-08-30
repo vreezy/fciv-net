@@ -115,10 +115,9 @@ function animate_explosion_on_tile(tile_id, animation_frame)
   explosion_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 6);
   explosion_mesh.rotation.y = Math.PI / 4;
   explosion_mesh.updateMatrix();
-  if (scene != null && explosion_mesh != null) {
-     ptile['explosion_mesh'] = explosion_mesh;
-     scene.add(explosion_mesh);
-  }
+
+  ptile['explosion_mesh'] = explosion_mesh;
+  scene.add(explosion_mesh);
 
   if (animation_frame <= 4) setTimeout("animate_explosion_on_tile(" + tile_id + "," + (animation_frame + 1) + ")", 350);
 
@@ -141,7 +140,7 @@ function render_nuclear_explosion(ptile)
   explosion_mesh.rotation.y = Math.PI / 4;
   explosion_mesh.updateMatrix();
 
-  if (scene != null && explosion_mesh != null) {
+  if (scene != null) {
      scene.add(explosion_mesh);
      ptile['nuclear_mesh'] = explosion_mesh;
   }

@@ -115,7 +115,7 @@ function update_unit_position(ptile) {
       new_flag.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
       new_flag.rotation.y = Math.PI / 4;
       new_flag.updateMatrix();
-      if (scene != null && new_flag != null) {
+      if (scene != null) {
         scene.add(new_flag);
       }
     }
@@ -193,7 +193,7 @@ function update_unit_position(ptile) {
       new_unit_health_bar.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - flag_dy);
       new_unit_health_bar.rotation.y = Math.PI / 4;
       new_unit_health_bar.updateMatrix();
-      if (scene != null && new_unit_health_bar != null) {
+      if (scene != null) {
         scene.add(new_unit_health_bar);
       }
       unit_healthpercentage_positions[ptile['index']] = visible_unit['hp'];
@@ -251,7 +251,7 @@ function update_unit_position(ptile) {
       new_flag.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - flag_dy);
       new_flag.rotation.y = Math.PI / 4;
       new_flag.updateMatrix();
-      if (scene != null && new_flag) {
+      if (scene != null) {
         scene.add(new_flag);
       }
     }

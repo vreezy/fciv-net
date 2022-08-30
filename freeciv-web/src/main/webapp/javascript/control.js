@@ -1244,10 +1244,10 @@ function update_unit_order_commands()
       unit_actions["airlift"] = {name: "Airlift (Shift-L)"};
     }
 
-    if (pcity != null && ptype != null && unit_types[ptype['obsoleted_by']] != null && can_player_build_unit_direct(client.conn.playing, unit_types[ptype['obsoleted_by']])) {
+    if (pcity != null && unit_types[ptype['obsoleted_by']] != null && can_player_build_unit_direct(client.conn.playing, unit_types[ptype['obsoleted_by']])) {
       unit_actions["upgrade"] =  {name: "Upgrade unit (U)"};
     }
-    if (ptype != null && ptype['name'] != "Explorer") {
+    if (ptype['name'] != "Explorer") {
       unit_actions["explore"] = {name: "Auto explore (X)"};
     }
 

@@ -1174,11 +1174,7 @@ function handle_begin_turn(packet)
 {
   if (!observing) {
     $("#turn_done_button").button("option", "disabled", false);
-    if (is_small_screen()) {
-      $("#turn_done_button").button("option", "label", "Turn Done");
-    } else {
-      $("#turn_done_button").button("option", "label", "Turn Done");
-    }
+    $("#turn_done_button").button("option", "label", "Turn Done");
   }
   waiting_units_list = [];
   update_unit_focus();
