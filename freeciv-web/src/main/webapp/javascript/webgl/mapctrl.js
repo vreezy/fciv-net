@@ -92,7 +92,7 @@ function webglOnDocumentMouseUp( e ) {
     map_select_active = false;
     map_select_check = false;
 
-  } else if (!rightclick && !middleclick) {
+  } else if (!middleclick) {
     /* Left mouse button*/
     do_map_click(ptile, SELECT_POPUP, true);
     update_mouse_cursor();

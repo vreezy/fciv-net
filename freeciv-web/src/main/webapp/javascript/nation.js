@@ -77,7 +77,7 @@ function update_nation_screen()
       if (pplayer['gives_shared_vision'].isSet(client.conn.playing['playerno']) && client.conn.playing['gives_shared_vision'].isSet(player_id)) {
         nation_list_html += "Both ways";
       } else if (pplayer['gives_shared_vision'].isSet(client.conn.playing['playerno'])) {
-        nation_list_html += "To you"
+        nation_list_html += "To you";
       } else if (client.conn.playing['gives_shared_vision'].isSet(player_id)) {
         nation_list_html += "To them";
       } else {

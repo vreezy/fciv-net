@@ -50,7 +50,7 @@ function show_city_worked_tiles()
       trade_output = Math.floor(trade_output / game_info.granularity);
 
       if (city_worked_positions[ptile['index']] == null) {
-        var mesh = get_city_worked_mesh(food_output, shield_output, trade_output)
+        var mesh = get_city_worked_mesh(food_output, shield_output, trade_output);
         mesh.matrixAutoUpdate = false;
         city_worked_positions[ptile['index']] = mesh;
         mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 4);

@@ -101,7 +101,7 @@ function webgl_preload()
 
 
   /* Preload road textures. */
-  imgurl = "/textures/large/roads.png";
+  var imgurl = "/textures/large/roads.png";
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
                 $("#download_progress").html(" road textures 15%");
@@ -118,7 +118,6 @@ function webgl_preload()
 
   /* Preload railroads textures. */
   imgurl = "/textures/large/railroads.png";
-
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
                 $("#download_progress").html(" railroad textures 25%");
@@ -209,7 +208,7 @@ function webgl_get_model(filename)
 ****************************************************************************/
 function get_flag_shield_mesh(key)
 {
-  if (meshes[key] != null) return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1)
+  if (meshes[key] != null) return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1);
   if (sprites[key] == null || key.substring(0,8) != "f.shield") {
     console.log("Invalid flag shield key: " + key);
     return null;
@@ -225,7 +224,7 @@ function get_flag_shield_mesh(key)
                 0,0,32,16);
 
   meshes[key] = canvas_to_user_facing_mesh(fcanvas, 32, 12, 13, true);
-  return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1)
+  return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1);
 }
 
 /****************************************************************************
@@ -255,7 +254,7 @@ function get_city_worked_mesh(food, shields, trade)
                 0,0,64,32);
 
   meshes[key] = canvas_to_user_facing_mesh(fcanvas, 32, 32, 16, true);
-  return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1)
+  return new THREE.InstancedMesh(meshes[key].geometry, meshes[key].material, 1);
 }
 
 /****************************************************************************

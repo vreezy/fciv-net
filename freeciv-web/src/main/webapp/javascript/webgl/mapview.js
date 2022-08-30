@@ -35,8 +35,6 @@ var water;
 var lofiGeometry;
 var lofiMesh;  // low resolution mesh used for raycasting.
 
-var start_webgl;
-
 var mapview_model_width;
 var mapview_model_height;
 var xquality;
@@ -115,7 +113,6 @@ function webgl_start_renderer()
  This will render the map terrain mesh.
 ****************************************************************************/
 function init_webgl_mapview() {
-  start_webgl = new Date().getTime();
 
   selected_unit_material = new THREE.MeshBasicMaterial( { color: 0xf6f7bf, transparent: true, opacity: 0.5} );
 
@@ -199,7 +196,6 @@ function init_webgl_mapview() {
   add_all_objects_to_scene();
 
   $.unblockUI();
-  console.log("init_webgl_mapview took: " + (new Date().getTime() - start_webgl) + " ms.");
 
   benchmark_start = new Date().getTime();
 

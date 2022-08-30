@@ -200,7 +200,6 @@ function is_tech_in_range(target_player, range, tech)
             && player_invention_state(target_player, tech) == TECH_KNOWN) ?
               TRI_YES :
               TRI_NO);
-  case REQ_RANGE_TEAM:
   case REQ_RANGE_ALLIANCE:
   case REQ_RANGE_WORLD:
     /* FIXME: Add support for the above ranges. Freeciv's implementation

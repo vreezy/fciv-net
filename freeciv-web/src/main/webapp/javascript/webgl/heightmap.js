@@ -63,7 +63,6 @@ function get_city_height_offset(pcity)
 ****************************************************************************/
 function create_heightmap(heightmap_quality)
 {
-  var start_heightmap = new Date().getTime();
   var heightmap_resolution_x = map.xsize * heightmap_quality + 1;
   var heightmap_resolution_y = map.ysize * heightmap_quality + 1;
 

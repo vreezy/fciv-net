@@ -344,7 +344,6 @@ function update_mouse_cursor()
 
   var ptile = webgl_canvas_pos_to_tile(mouse_x, mouse_y);
 
-
   if (ptile == null) return;
 
   var punit = find_visible_unit(ptile);
@@ -362,7 +361,7 @@ function update_mouse_cursor()
   } else if (punit != null && client.conn.playing != null && punit['owner'] == client.conn.playing.playerno) {
     /* move unit cursor */
     $("#mapcanvas").css("cursor", "pointer");
-  } else if (active_city != null && ptile != null && is_city_tile(ptile, active_city)) {
+  } else if (active_city != null && is_city_tile(ptile, active_city)) {
     $("#mapcanvas").css("cursor", "pointer");
   } else {
     $("#mapcanvas").css("cursor", "default");
@@ -1236,7 +1235,7 @@ function update_unit_order_commands()
 
     if (pcity == null || punit['homecity'] === 0 || punit['homecity'] === pcity['id']) {
       $("#order_change_homecity").hide();
-    } else if (pcity != null && punit['homecity'] != pcity['id']) {
+    } else if (punit['homecity'] != pcity['id']) {
       $("#order_change_homecity").show();
       unit_actions["homecity"] = {name: "Change homecity of unit (H)"};
     }
@@ -1656,7 +1655,7 @@ function do_map_click(ptile, qtype, first_time_called)
   if (ptile == null || client_is_observer()) return;
 
   if (active_city != null) {
-    do_city_map_click(ptile)
+    do_city_map_click(ptile);
     return;
   }
 
@@ -1768,7 +1767,7 @@ function do_map_click(ptile, qtype, first_time_called)
 
           /* Perform the final action. */
           order['action'] = goto_last_action;
-          order['target'] = ptile['index']
+          order['target'] = ptile['index'];
 
           packet['orders'][pos] = Object.assign({}, order);
         }

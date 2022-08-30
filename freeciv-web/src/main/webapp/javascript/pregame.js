@@ -977,7 +977,6 @@ function show_intro_dialog(title, message) {
   } else {
     join_game_customize_text = "Customize";
   }
-  var y = window.pageYOffset;
 
   $("#dialog").attr("title", title);
   $("#dialog").dialog({
@@ -1052,9 +1051,6 @@ function show_intro_dialog(title, message) {
          && $.getUrlVar('load') != "tutorial") {
     $(".ui-dialog-buttonset button").first().hide();
   }
-
-  var stored_username = simpleStorage.get("username", "");
-  var stored_password = simpleStorage.get("password", "");
 
   if (is_small_screen()) {
     /* some fixes for pregame screen on small devices.*/

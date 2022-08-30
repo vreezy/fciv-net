@@ -15,7 +15,7 @@ set threaded_save enabled
 set scorelog enabled
 set size 5
 set landm 50
-set aifill 8
+set aifill 10
 
 set wetness 25
 set topology=

@@ -174,7 +174,7 @@ function init_options_dialog()
 
   if (!Detector.webgl) {
     $("#switch_renderer_button").hide();
-    $("#renderer_help").html("3D WebGL not supported.")
+    $("#renderer_help").html("3D WebGL not supported.");
   }
 
 }
