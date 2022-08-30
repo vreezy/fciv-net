@@ -203,5 +203,5 @@ Lmoureaux [@lmoureaux](https://github.com/lmoureaux)
 Máximo Castañeda [@lonemadmax](https://github.com/lonemadmax)  
 and the [Freeciv.org project](https://www.freeciv.org/wiki/People)!
 
-[discord]: https://img.shields.io/discord/685241246557667386
+[discord]: https://img.shields.io/discord/960605237775855676
 [discord-url]: https://discord.gg/baFdjpNpTR
