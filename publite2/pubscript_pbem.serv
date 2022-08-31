@@ -26,6 +26,7 @@ set phasemode player
 
 set wetness 25
 set topology=
+set wrap=
 set steepness 12
 
 set ec_chat=enabled

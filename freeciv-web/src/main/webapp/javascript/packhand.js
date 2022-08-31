@@ -1643,7 +1643,7 @@ function handle_ruleset_extra(packet)
   extras[packet['id']] = packet;
   extras[packet['name']] = packet;
 
-  window["EXTRA_" + packet['name'].toUpperCase()] = packet['id'];
+  window["EXTRA_" + packet['rule_name'].toUpperCase()] = packet['id'];
 
   if (packet['name'] == "Railroad") window["EXTRA_RAIL"] = packet['id'];
   if (packet['name'] == "Oil Well") window["EXTRA_OIL_WELL"] = packet['id'];

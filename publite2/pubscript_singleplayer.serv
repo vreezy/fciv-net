@@ -19,6 +19,7 @@ set aifill 10
 
 set wetness 25
 set topology=
+set wrap=
 set steepness 12
 
 metaconnection persistent

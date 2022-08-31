@@ -159,10 +159,10 @@ function normalize_gui_pos(gui_x, gui_y)
   nat_x = t['nat_x'];
   nat_y = t['nat_y'];
 
-  if (topo_has_flag(TF_WRAPX)) {
+  if (wrap_has_flag(WRAP_X)) {
     nat_x = FC_WRAP(nat_x, map['xsize']);
   }
-  if (topo_has_flag(TF_WRAPY)) {
+  if (wrap_has_flag(WRAP_Y)) {
     nat_y = FC_WRAP(nat_y, map['ysize']);
   }
 
