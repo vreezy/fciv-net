@@ -23,6 +23,7 @@
 # add_packet_tile_height adds 'height' to tile in packets.def to include heightmap info for 3D web client.
 
 declare -a PATCHLIST=(
+  "0050-fc_strrep_resize-Fix-on-NDEBUG-builds"
   "city_impr_fix2"
   "city-naming-change"
   "metachange"

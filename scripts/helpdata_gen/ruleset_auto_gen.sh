@@ -34,5 +34,4 @@ cd "${MAN_DIR}" && \
 "$freeciv_manual" -r civ2civ3 && \
 "$freeciv_manual" -r classic && \
 "$freeciv_manual" -r multiplayer && \
-"$freeciv_manual" -r webperimental && \
 echo "Generated Ruleset manual files in ${MAN_DIR}"
