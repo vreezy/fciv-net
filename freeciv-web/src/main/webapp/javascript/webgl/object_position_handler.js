@@ -106,18 +106,11 @@ function update_unit_position(ptile) {
     /* add flag. */
     var pflag = get_unit_nation_flag_sprite(visible_unit);
     var new_flag;
-    if (unit_flag_positions[ptile['index']] == null) {
-      new_flag = get_flag_shield_mesh(pflag['key']);
-      new_flag.matrixAutoUpdate = false;
+    if (unit_flag_positions[ptile['index']] == null && scene != null) {
+      var new_flag = create_flag_sprite(pflag['key']);
+      new_flag.position.set(pos['x'] - 10, height + 20, pos['y'] - 10);
+      scene.add(new_flag);
       unit_flag_positions[ptile['index']] = new_flag;
-      new_flag.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
-      new_flag.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 20);
-      new_flag.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10);
-      new_flag.rotation.y = Math.PI / 4;
-      new_flag.updateMatrix();
-      if (scene != null) {
-        scene.add(new_flag);
-      }
     }
 
     /* indicate focus unit*/
@@ -166,18 +159,11 @@ function update_unit_position(ptile) {
         && visible_unit['anim_list'].length == 0) {
       // add unit activity label
       if (scene != null && unit_label_positions[ptile['index']] != null) scene.remove(unit_label_positions[ptile['index']]);
-      if (get_unit_activity_text(visible_unit) != null || tile_units(ptile).length > 1) {
-        activity = create_unit_label(visible_unit, ptile);
-        if (activity != null) {
-          activity.matrixAutoUpdate = false;
-          activity.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 8);
-          activity.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 28);
-          activity.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 5);
-          activity.rotation.y = Math.PI / 4;
-          activity.updateMatrix();
-          if (scene != null) scene.add(activity);
-          unit_label_positions[ptile['index']] = activity;
-        }
+      if (scene != null && (get_unit_activity_text(visible_unit) != null || tile_units(ptile).length > 1)) {
+        activity = create_unit_label_sprite(visible_unit, ptile);
+        activity.position.set(pos['x'] + 8, height + 28, pos['y'] - 5);
+        scene.add(activity);
+        unit_label_positions[ptile['index']] = activity;
       }
       unit_activities_positions[ptile['index']] = get_unit_activity_text(visible_unit) + tile_units(ptile).length;
     }
@@ -185,14 +171,9 @@ function update_unit_position(ptile) {
     var new_unit_health_bar;
     if (unit_healthpercentage_positions[ptile['index']] != visible_unit['hp'] && visible_unit['anim_list'].length == 0) {
       if (scene != null && unit_health_positions[ptile['index']] != null) scene.remove(unit_health_positions[ptile['index']]);
-      new_unit_health_bar = get_unit_health_mesh(visible_unit);
-      new_unit_health_bar.matrixAutoUpdate = false;
+      new_unit_health_bar = create_unit_health_sprite(visible_unit);
+      new_unit_health_bar.position.set(pos['x'] - flag_dx, height + flag_dz + 6, pos['y'] - flag_dy);
       unit_health_positions[ptile['index']] = new_unit_health_bar;
-      new_unit_health_bar.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - flag_dx);
-      new_unit_health_bar.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + flag_dz+6);
-      new_unit_health_bar.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - flag_dy);
-      new_unit_health_bar.rotation.y = Math.PI / 4;
-      new_unit_health_bar.updateMatrix();
       if (scene != null) {
         scene.add(new_unit_health_bar);
       }
@@ -242,18 +223,11 @@ function update_unit_position(ptile) {
     /* add flag. */
     var pflag = get_unit_nation_flag_sprite(visible_unit);
     var new_flag;
-    if (unit_flag_positions[ptile['index']] == null) {
-      new_flag = get_flag_shield_mesh(pflag['key']);
-      new_flag.matrixAutoUpdate = false;
+    if (unit_flag_positions[ptile['index']] == null && scene != null) {
+      var new_flag = create_flag_sprite(pflag['key']);
+      new_flag.position.set(pos['x'] - flag_dx, height + flag_dz, pos['y'] - flag_dy);
+      scene.add(new_flag);
       unit_flag_positions[ptile['index']] = new_flag;
-      new_flag.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - flag_dx);
-      new_flag.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + flag_dz);
-      new_flag.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - flag_dy);
-      new_flag.rotation.y = Math.PI / 4;
-      new_flag.updateMatrix();
-      if (scene != null) {
-        scene.add(new_flag);
-      }
     }
 
     anim_objs[visible_unit['id']] = {'unit' : visible_unit['id'], 'mesh' : new_unit, 'flag' : new_flag};
@@ -311,10 +285,10 @@ function update_city_position(ptile) {
       }
     }
 
-    var city_label = create_city_label(pcity);
+    var city_label = create_city_label_sprite(pcity);
     city_label_positions[ptile['index']] = city_label;
-    city_label.position.set(pos['x'] - 5, height + 30, pos['y'] - 15);
-    city_label.rotation.y = Math.PI / 4;
+    city_label.position.set(pos['x'] - 8 , height + 25, pos['y'] - 25);
+
     pcity['webgl_label_hash'] = pcity['name'] + pcity['size'] + pcity['production_value'] + "." + pcity['production_kind'] + punits.length;
     if (scene != null) scene.add(city_label);
     return;
@@ -366,10 +340,9 @@ function update_city_position(ptile) {
   // City civil disorder label
   if (scene != null && pcity != null) {
     if (city_disorder_positions[ptile['index']] == null && pcity['unhappy']) {
-        // TODO: migrate all labels to use THREE.Sprite in this way:
         var city_disorder_sprite = create_city_disorder_sprite();
         city_disorder_sprite.position.set(pos['x'] - 5, height + 25, pos['y'] - 10);
-        if (scene != null) scene.add(city_disorder_sprite);
+        scene.add(city_disorder_sprite);
         city_disorder_positions[ptile['index']] = city_disorder_sprite;
 
     } else if (city_disorder_positions[ptile['index']] != null && !pcity['unhappy']) {

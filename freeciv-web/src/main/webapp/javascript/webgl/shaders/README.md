@@ -12,11 +12,5 @@ on the game map.
 * terrain_fragment_shader.glsl 
 
 
-Labels
-======
-The labels shaders implement labels which always face in the direction of the user.
-* labels_vertex_shader.glsl
-* labels_fragment_shader.glsl
-
 
 

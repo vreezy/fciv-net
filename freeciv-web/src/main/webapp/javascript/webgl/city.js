@@ -50,14 +50,9 @@ function show_city_worked_tiles()
       trade_output = Math.floor(trade_output / game_info.granularity);
 
       if (city_worked_positions[ptile['index']] == null) {
-        var mesh = get_city_worked_mesh(food_output, shield_output, trade_output);
-        mesh.matrixAutoUpdate = false;
+        var mesh = create_city_worked_sprite(food_output, shield_output, trade_output);
         city_worked_positions[ptile['index']] = mesh;
-        mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 4);
-        mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 18);
-        mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] + 10);
-        mesh.rotation.y = Math.PI / 4;
-        mesh.updateMatrix();
+        mesh.position.set(pos['x'] + 20, height + 18, pos['y'] + 10);
         if (scene != null) {
           scene.add(mesh);
         }

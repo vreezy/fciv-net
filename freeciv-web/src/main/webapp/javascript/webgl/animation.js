@@ -57,11 +57,9 @@ function update_animated_objects()
     mesh.updateMatrix();
 
     if (flag != null) {
-      flag.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), -1 * Math.PI / 4);
       flag.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), delta_x);
       flag.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), delta_z);
       flag.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), delta_y);
-      flag.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), Math.PI / 4);
       flag.updateMatrix();
     }
 
@@ -107,15 +105,9 @@ function animate_explosion_on_tile(tile_id, animation_frame)
     return;
   }
 
-  var explosion_mesh = get_unit_explosion_mesh(animation_frame);
+  var explosion_mesh = create_unit_explosion_sprite(animation_frame);
   var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-  explosion_mesh.matrixAutoUpdate = false;
-  explosion_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 6);
-  explosion_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 2);
-  explosion_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 6);
-  explosion_mesh.rotation.y = Math.PI / 4;
-  explosion_mesh.updateMatrix();
-
+  explosion_mesh.position.set(pos['x'] - 6, height + 8, pos['y'] - 6);
   ptile['explosion_mesh'] = explosion_mesh;
   scene.add(explosion_mesh);
 
@@ -131,15 +123,9 @@ function render_nuclear_explosion(ptile)
   if (ptile == null) return;
   var height = 5 + ptile['height'] * 100;
 
-  var explosion_mesh = get_nuke_explosion_mesh();
+  var explosion_mesh = create_nuke_explosion_sprite();
   var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-  explosion_mesh.matrixAutoUpdate = false;
-  explosion_mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] + 30);
-  explosion_mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 50);
-  explosion_mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] + 30);
-  explosion_mesh.rotation.y = Math.PI / 4;
-  explosion_mesh.updateMatrix();
-
+  explosion_mesh.position.set(pos['x'] + 30, height + 50, pos['y'] + 30);
   if (scene != null) {
      scene.add(explosion_mesh);
      ptile['nuclear_mesh'] = explosion_mesh;

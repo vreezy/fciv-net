@@ -93,12 +93,4 @@ var fcwDebug=<%= fcwDebug %>;
   <jsp:include page="/javascript/webgl/shaders/terrain_vertex_shader.glsl" flush="false"/>
 </script>
 
-<script id="tex_fragment_shh" type="x-shader/x-fragment">
-  <jsp:include page="/javascript/webgl/shaders/labels_fragment_shader.glsl" flush="false"/>
-</script>
-
-<script id="labels_vertex_shh" type="x-shader/x-vertex">
-  <jsp:include page="/javascript/webgl/shaders/labels_vertex_shader.glsl" flush="false"/>
-</script>
-
 </html>
