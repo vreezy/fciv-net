@@ -268,7 +268,21 @@ function create_land_geometry(mesh_quality)
 
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
+      const x = ix * segment_width - width_half;
+      var sx = ix % xquality, sy = iy % yquality;
+      var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
+      var ptile = map_pos_to_tile(mx, my);
+        if (ptile == null) {
           colors.push(0,0,0);
+        } else if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
+          colors.push(1,0,0);
+        } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {
+          colors.push(0.40,0,0);
+        } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
+          colors.push(0,0,0);
+        } else {
+          colors.push(0,0,0);
+        }
     }
   }
 
