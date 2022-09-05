@@ -17,6 +17,10 @@
 
 ***********************************************************************/
 
+var stripChar = [];
+stripChar[0] = new RegExp(String.fromCharCode(3), "g");
+const STRIPCHAR_LAST = 1;
+
 /****************************************************************************
  ...
 ****************************************************************************/
@@ -186,4 +190,53 @@ function seconds_to_human_time(input_seconds) {
 function get_tileset_file_extention()
 {
   return ".png";
+}
+
+/**************************************************************************
+...
+**************************************************************************/
+function html_safe(text)
+{
+  text = text.replace(/'/g, "&#39;");
+  text = text.replace(/"/g, "&#34;");
+  text = text.replace(/[\x03]/g,"\n");
+  return text;
+}
+
+/**************************************************************************
+...
+**************************************************************************/
+function uncapitalize(s) {
+  if (typeof s !== 'string') return "";
+  return s.charAt(0).toLowerCase() + s.slice(1)
+}
+
+/**************************************************************************
+...
+**************************************************************************/
+function cleaned_text(str)
+{
+  // Remove each type of ugly spurious character or escape code.
+  for (i=0; i<STRIPCHAR_LAST; i++) {
+    str = str.replace(stripChar[i],"");
+  }
+  return str;
+}
+
+/**************************************************************************
+...
+**************************************************************************/
+function fractionalize(s) {
+
+  if (s.toString().endsWith(".5")) s = ""+Math.trunc(s) + "&#189;";
+  else if (s.toString().endsWith(".75")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#xBE;";
+  else if (s.toString().endsWith(".25")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#xBC;";
+  else if (s.toString().endsWith(".05")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#8203;1&#x2044;20";
+  else if (s.toString().endsWith(".1")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#x2152;";
+//  else if (s.toString().endsWith(".33")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#x2153;";
+//  else if (s.toString().endsWith(".34")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#x2153;";
+//  else if (s.toString().endsWith(".66")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#x2154;";
+//  else if (s.toString().endsWith(".67")) s = "" + (Math.trunc(s) ? Math.trunc(s) : "") + "&#x2154;";
+
+  return s;
 }

@@ -287,14 +287,25 @@ function update_tech_tree()
     }
 
     var tech_things = 0;
-    var prunits = get_units_from_tech(tech_id);
+    var prunits = get_utypes_from_tech(tech_id);
     for (var i = 0; i < prunits.length; i++) {
-      var punit = prunits[i];
-      var sprite = sprites[tileset_unit_type_graphic_tag(punit)];
+      var ptype = prunits[i];
+
+      // Suppress nuclear units if server settings don't allow them:
+      if (utype_has_flag(ptype, UTYF_NUCLEAR)) {
+        if (!server_settings['nukes_minor']['val']) continue; // Nukes totally turned off in this game, skip them
+        if (!server_settings['nukes_major']['val']) {
+          if (ptype['bombard_rate']>0) continue;   // if major nukes are OFF, suppress illegal prod choice.
+          if (ptype['bombard_rate']<-1) continue;  // if major nukes are OFF, suppress illegal prod choice.
+        }
+      }
+
+      var sprite = sprites[tileset_unit_type_graphic_tag(ptype)];
       if (sprite != null) {
         tech_canvas_ctx.drawImage(sprite, x + 50 + ((tech_things++) * 30), y + 23, 28, 24);
       }
     }
+
 
     var primprovements = get_improvements_from_tech(tech_id);
     for (var i = 0; i < primprovements.length; i++) {
@@ -428,18 +439,45 @@ function get_advances_text(tech_id)
     (list = list.filter(Boolean)).length ? (intro + ' ' + list.join(', ')) : '';
 
   const ptech = techs[tech_id];
+  var cost = Math.floor(ptech.cost);
+  var saved = 0;
 
-  return tech_span(ptech.name, null, null) + ' (' + Math.floor(ptech.cost) + ')'
-    + format_list_with_intro(' allows',
+  // Adjust tech cost for sciencebox
+  if (game_info["sciencebox"] != 100)   {
+    cost = ptech.cost * game_info["sciencebox"] / 100;
+    cost = Math.floor(cost);
+  }
+
+  // Shows what the server tells us the cost really is (e.g., tech_leak, other effects)
+  if (!client_is_observer()) {
+    if (client.conn.playing.advance_costs) {
+      if (client.conn.playing.advance_costs[tech_id]) {
+        cost = client.conn.playing.advance_costs[tech_id];
+        saved = client.conn.playing.advance_saved_bulbs[tech_id];
+      }
+    }
+  }
+  // Shows bulbs saved into the tech, if you have them
+  if (saved) cost = "" + saved + "/" + cost + "";
+
+  return tech_span(ptech.name, null, null) + ' (' + cost + ')'
+    + format_list_with_intro(' enables',
       [
-        format_list_with_intro('building unit', get_units_from_tech(tech_id)
-          .map(unit => tech_span(unit.name, unit.id, null, unit.helptext))),
-        format_list_with_intro('building', get_improvements_from_tech(tech_id)
-          .map(impr => tech_span(impr.name, null, impr.id, impr.helptext))),
-        format_list_with_intro('researching', Object.keys(techs)
+        format_list_with_intro('', get_utypes_from_tech(tech_id)
+          .map(unit => tech_span(unit.name, unit.id, null,
+            "A:"+fractionalize(utype_real_base_attack_strength(unit)) +" D:"+fractionalize(utype_real_base_defense_strength(unit)) +(unit.firepower>1?" F:"+unit.firepower:"") +" H:"+unit.hp
+            +" M:"+move_points_text(unit.move_rate+(unit.move_bonus[0]?unit.move_bonus[0]:0),true)+(unit.fuel?"("+unit.fuel+")":"")
+            +(unit.transport_capacity?" C:"+unit.transport_capacity:"") +" Cost:"+unit.build_cost +"\n\n"
+            + html_safe(cleaned_text(unit.helptext))))),
+        format_list_with_intro('', get_improvements_from_tech(tech_id)
+          .map(impr => tech_span(impr.name, null, impr.id,
+            "Cost:"+impr.build_cost+" Upkeep:"+impr.upkeep + "\n\n"
+            + html_safe(cleaned_text(impr.helptext))))),
+        format_list_with_intro('', Object.keys(techs)
           .filter(is_valid_and_required)
           .map(tid => techs[tid])
-          .map(tech => tech_span(tech.name, null, null)))
+          .map(tech => tech_span(tech.name, null, null, tech.rule_name+" ("+Math.trunc(tech.cost)+") "
+          + uncapitalize(html_safe(cleaned_text(tech.helptext))))))
       ]) + '.';
 }
 

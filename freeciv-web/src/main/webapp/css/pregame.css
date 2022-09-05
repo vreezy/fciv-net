@@ -247,3 +247,10 @@ body {
     width: 21%;
   }
 }
+
+
+#ruleset_description {
+  text-decoration: underline;
+  color: black;
+  cursor:pointer;
+}

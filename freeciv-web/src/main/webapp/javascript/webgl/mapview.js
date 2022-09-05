@@ -117,7 +117,7 @@ function init_webgl_mapview() {
   selected_unit_material = new THREE.MeshBasicMaterial( { color: 0xf6f7bf, transparent: true, opacity: 0.5} );
 
   var textureLoader = new THREE.TextureLoader();
-  var waterGeometry = new THREE.PlaneGeometry( mapview_model_width - 10, mapview_model_height - 10 );
+  var waterGeometry = new THREE.PlaneGeometry( mapview_model_width + 50, mapview_model_height + 50 );
 
   water = new THREE.Water(waterGeometry, {
       color: '#55c0ff',
