@@ -22,14 +22,14 @@ var pbem_phase_ended = false;
 
 var invited_players = [];
 
-var is_pbem = false;
+var pbem_game = false;
 
 /**************************************************************************
  Shows the Freeciv play-by-email dialog.
 **************************************************************************/
 function show_pbem_dialog() 
 {
-  is_pbem = true;
+  pbem_game = true;
   $("#fciv-intro").hide();
 
   var title = "Welcome to Play-by-Email on Fciv.net";
@@ -489,7 +489,7 @@ function set_human_pbem_players()
 **************************************************************************/
 function is_pbem() 
 {
-  return is_pbem;
+  return pbem_game;
 }
 
 /**************************************************************************
