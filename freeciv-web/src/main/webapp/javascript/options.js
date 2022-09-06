@@ -171,12 +171,6 @@ function init_options_dialog()
     $('#speech_enabled_setting').attr('disabled', true);
   }
 
-
-  if (!Detector.webgl) {
-    $("#switch_renderer_button").hide();
-    $("#renderer_help").html("3D WebGL not supported.");
-  }
-
 }
 
 function show_fps()

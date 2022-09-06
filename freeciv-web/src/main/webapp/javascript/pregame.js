@@ -859,12 +859,8 @@ function pregame_settings()
     });
   });
 
-  if (renderer == RENDERER_WEBGL) {
-    $(".benchmark").button();
-    $("#show_voice_commands").button();
-  } else {
-    $('[href="#pregame_settings_tabs-2"]').closest('li').hide();
-  }
+  $(".benchmark").button();
+  $("#show_voice_commands").button();
 
   $('#speech_setting').change(function() {
     if ($('#speech_setting').prop('checked')) {

@@ -1016,7 +1016,7 @@ function advance_unit_focus()
   } else {
     /* Couldn't center on a unit, then try to center on a city... */
     current_focus = []; /* Reset focus units. */
-    if (renderer == RENDERER_WEBGL) webgl_clear_unit_focus();
+    webgl_clear_unit_focus();
     update_active_units_dialog();
     $("#game_unit_orders_default").hide();
 
@@ -1420,7 +1420,7 @@ function set_unit_focus(punit)
   } else {
     current_focus[0] = punit;
     action_selection_next_in_focus(IDENTITY_NUMBER_ZERO);
-    if (renderer == RENDERER_WEBGL) update_unit_position(index_to_tile(punit['tile']));
+    update_unit_position(index_to_tile(punit['tile']));
   }
   update_active_units_dialog();
   update_unit_order_commands();
@@ -1435,11 +1435,11 @@ function set_unit_focus_and_redraw(punit)
 
   if (punit == null) {
     current_focus = [];
-    if (renderer == RENDERER_WEBGL) webgl_clear_unit_focus();
+    webgl_clear_unit_focus();
   } else {
     current_focus[0] = punit;
     action_selection_next_in_focus(IDENTITY_NUMBER_ZERO);
-    if (renderer == RENDERER_WEBGL) update_unit_position(index_to_tile(punit['tile']));
+    update_unit_position(index_to_tile(punit['tile']));
   }
 
   auto_center_on_focus_unit();
@@ -2157,7 +2157,7 @@ map_handle_key(keyboard_key, key_code, ctrl, alt, shift, the_event)
 
     case 32: // space, will clear selection and goto.
       current_focus = [];
-      if (renderer == RENDERER_WEBGL) webgl_clear_unit_focus();
+      webgl_clear_unit_focus();
       goto_active = false;
       $("#mapcanvas").css("cursor", "default");
       goto_request_map = {};
@@ -2169,36 +2169,34 @@ map_handle_key(keyboard_key, key_code, ctrl, alt, shift, the_event)
 
     case 107:
       //zoom in
-      if (renderer == RENDERER_WEBGL) {
-        let new_camera_dy = camera_dy - 60;
-        let new_camera_dx = camera_dx - 45;
-        let new_camera_dz = camera_dz - 45;
-        if (new_camera_dy < 250 || new_camera_dy > 1300) {
-          return;
-        } else {
-          camera_dx = new_camera_dx;
-          camera_dy = new_camera_dy;
-          camera_dz = new_camera_dz;
-        }
-        camera_look_at(camera_current_x, camera_current_y, camera_current_z);
+      var new_camera_dy = camera_dy - 60;
+      var new_camera_dx = camera_dx - 45;
+      var new_camera_dz = camera_dz - 45;
+      if (new_camera_dy < 250 || new_camera_dy > 1300) {
+        return;
+      } else {
+        camera_dx = new_camera_dx;
+        camera_dy = new_camera_dy;
+        camera_dz = new_camera_dz;
       }
+      camera_look_at(camera_current_x, camera_current_y, camera_current_z);
+
       break;
 
     case 109:
       //zoom out
-      if (renderer == RENDERER_WEBGL) {
-        let new_camera_dy = camera_dy + 60;
-        let new_camera_dx = camera_dx + 45;
-        let new_camera_dz = camera_dz + 45;
-        if (new_camera_dy < 250 || new_camera_dy > 1300) {
-          return;
-        } else {
-          camera_dx = new_camera_dx;
-          camera_dy = new_camera_dy;
-          camera_dz = new_camera_dz;
-        }
-        camera_look_at(camera_current_x, camera_current_y, camera_current_z);
+      var new_camera_dy = camera_dy + 60;
+      var new_camera_dx = camera_dx + 45;
+      var new_camera_dz = camera_dz + 45;
+      if (new_camera_dy < 250 || new_camera_dy > 1300) {
+        return;
+      } else {
+        camera_dx = new_camera_dx;
+        camera_dy = new_camera_dy;
+        camera_dz = new_camera_dz;
       }
+      camera_look_at(camera_current_x, camera_current_y, camera_current_z);
+
       break;
 
   }
@@ -3365,9 +3363,7 @@ function update_active_units_dialog()
     if (game_unit_panel_state == "minimized") $("#game_unit_panel").dialogExtend("minimize");
   } else {
     $("#game_unit_panel").parent().hide();
-    if (renderer == RENDERER_WEBGL) {
-      webgl_clear_unit_focus();
-    }
+    webgl_clear_unit_focus();
   }
   $("#active_unit_info").tooltip();
 }

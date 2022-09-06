@@ -75,7 +75,7 @@ function client_remove_unit(punit)
 
   if (unit_is_in_focus(punit)) {
     current_focus = [];
-    if (renderer == RENDERER_WEBGL) webgl_clear_unit_focus();
+    webgl_clear_unit_focus();
   }
 
   delete units[punit['id']];
@@ -288,11 +288,9 @@ function get_unit_anim_offset(punit)
 {
   var offset = {};
 
-  if (renderer == RENDERER_WEBGL) {
     offset['x'] = 0;
     offset['y'] = 0;
     return offset;
-  }
 
   if (punit['anim_list'] != null && punit['anim_list'].length >= 2)  {
     var anim_tuple_src = punit['anim_list'][0];
@@ -371,20 +369,8 @@ function get_unit_homecity_name(punit)
 function is_unit_visible(punit)
 {
   if (punit == null || punit['tile'] == null) return false;
-  if (renderer == RENDERER_WEBGL) return false;  // not supported by 3D version.
+  return false;  // TODO: not supported by 3D version.
 
-  var u_tile = index_to_tile(punit['tile']);
-  var r = map_to_gui_pos(u_tile['x'], u_tile['y']);
-  var unit_gui_x = r['gui_dx'];
-  var unit_gui_y = r['gui_dy'];
-
-  if (unit_gui_x < mapview['gui_x0'] || unit_gui_y < mapview['gui_y0']
-      || unit_gui_x > mapview['gui_x0'] + mapview['width']
-      || unit_gui_y > mapview['gui_y0'] + mapview['height']) {
-    return false;
-  } else {
-    return true;
-  }
 }
 
 /**************************************************************************

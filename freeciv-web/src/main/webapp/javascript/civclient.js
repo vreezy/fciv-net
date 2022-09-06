@@ -45,11 +45,6 @@ var seconds_to_phasedone_sync = 0;
 var dialog_close_trigger = "";
 var dialog_message_close_task;
 
-var RENDERER_2DCANVAS = 1;      // default HTML5 Canvas
-var RENDERER_WEBGL = 2;         // WebGL + Three.js
-var renderer = RENDERER_WEBGL;  // This variable specifies which map renderer to use, 2d Canvas or WebGL.
-
-
 /**************************************************************************
  Main starting point for FCIV.NET
 **************************************************************************/
@@ -95,11 +90,6 @@ function civclient_init()
     return;
   }
 
-
-  if ($.getUrlVar('renderer') == "webgl") {
-    renderer = RENDERER_WEBGL;
-  }
-
   init_webgl_renderer();
 
   game_init();
@@ -113,11 +103,7 @@ function civclient_init()
   statusTimerId = setInterval(update_game_status_panel, 6000);
 
   if (overviewTimerId == -1) {
-    if (renderer == RENDERER_WEBGL) {
-      OVERVIEW_REFRESH = 12000;
-    } else {
-      OVERVIEW_REFRESH = 6000;
-    }
+    OVERVIEW_REFRESH = 12000;
     overviewTimerId = setInterval(redraw_overview, OVERVIEW_REFRESH);
   }
 
@@ -420,9 +406,7 @@ function show_debug_info()
   }
   console.log("Network PING average (client): " + (sum / debug_client_speed_list.length) + " ms.  (Max: " + max +"ms.)");
 
-  if (renderer == RENDERER_WEBGL) {
-    console.log(maprenderer.info);
-  }
+  console.log(maprenderer.info);
 
 }
 

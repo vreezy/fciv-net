@@ -351,9 +351,7 @@ function handle_web_city_info_addition(packet)
     city_worklist_dialog(active_city);
   }
 
-  if (renderer == RENDERER_WEBGL) {
-    update_city_position(index_to_tile(packet['tile']));
-  }
+  update_city_position(index_to_tile(packet['tile']));
 
   /* Update the cities info tab */
   city_screen_updater.update();
@@ -376,9 +374,7 @@ function handle_city_short_info(packet)
     cities[packet['id']] = $.extend(cities[packet['id']], packet);
   }
 
-  if (renderer == RENDERER_WEBGL) {
-    update_city_position(index_to_tile(packet['tile']));
-  }
+  update_city_position(index_to_tile(packet['tile']));
 
   /* Update the cities info tab */
   city_screen_updater.update();
@@ -482,10 +478,8 @@ function handle_map_info(packet)
 
   /* TODO: calculate_overview_dimensions();*/
 
-  if (renderer == RENDERER_WEBGL) {
-    mapview_model_width = Math.floor(MAPVIEW_ASPECT_FACTOR * map['xsize']);
-    mapview_model_height = Math.floor(MAPVIEW_ASPECT_FACTOR * map['ysize']);
-  }
+  mapview_model_width = Math.floor(MAPVIEW_ASPECT_FACTOR * map['xsize']);
+  mapview_model_height = Math.floor(MAPVIEW_ASPECT_FACTOR * map['ysize']);
 
 }
 
@@ -642,11 +636,9 @@ function handle_server_shutdown(packet)
 function handle_nuke_tile_info(packet)
 {
   var ptile = index_to_tile(packet['tile']);
-  if (renderer == RENDERER_WEBGL) {
-    render_nuclear_explosion(ptile);
-  } else {
-    ptile['nuke'] = 60;
-  }
+
+  render_nuclear_explosion(ptile);
+
   play_sound('LrgExpl.ogg');
 
 }
@@ -750,9 +742,7 @@ function handle_unit_remove(packet)
   clear_tile_unit(punit);
   client_remove_unit(punit);
 
-  if (renderer == RENDERER_WEBGL) {
-    update_unit_position(index_to_tile(punit['tile']));
-  }
+  update_unit_position(index_to_tile(punit['tile']));
 
 }
 
@@ -907,10 +897,8 @@ function handle_unit_packet_common(packet_unit)
     }
   }
 
-  if (renderer == RENDERER_WEBGL) {
-    if (punit != null) update_unit_position(old_tile);
-    update_unit_position(index_to_tile(units[packet_unit['id']]['tile']));
-  }
+  if (punit != null) update_unit_position(old_tile);
+  update_unit_position(index_to_tile(units[packet_unit['id']]['tile']));
 
   /* TODO: update various dialogs and mapview. */
 }
@@ -922,18 +910,9 @@ function handle_unit_combat_info(packet)
   var attacker_hp = packet['attacker_hp'];
   var defender_hp = packet['defender_hp'];
 
-  if (renderer == RENDERER_WEBGL) {
-    if (attacker_hp == 0) animate_explosion_on_tile(attacker['tile'], 0);
-    if (defender_hp == 0) animate_explosion_on_tile(defender['tile'], 0);
-  } else {
-    if (attacker_hp == 0 && is_unit_visible(attacker)) {
-      explosion_anim_map[attacker['tile']] = 25;
-    }
-    if (defender_hp == 0 && is_unit_visible(defender)) {
-      explosion_anim_map[defender['tile']] = 25;
-    }
-  }
 
+  if (attacker_hp == 0) animate_explosion_on_tile(attacker['tile'], 0);
+  if (defender_hp == 0) animate_explosion_on_tile(defender['tile'], 0);
 
 }
 

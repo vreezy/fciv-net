@@ -62,7 +62,6 @@ function client_handle_packet(p)
  
   if (p.length > 0) {
     if (debug_active) clinet_debug_collect();
-    if (renderer == RENDERER_2DCANVAS) update_map_canvas_check();
   }
 
  } catch(err) {

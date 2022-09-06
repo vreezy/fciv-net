@@ -68,7 +68,7 @@ function set_client_page(page)
   case PAGE_GAME:
     $("#game_page").show();
 
-    if (renderer == RENDERER_WEBGL) webgl_start_renderer();
+    webgl_start_renderer();
     set_chat_direction(null);
     $("#game_text_input").blur();
 

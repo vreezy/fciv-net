@@ -69,11 +69,8 @@ function init_sprites()
     }
   } else {
     // already loaded
-    if (renderer == RENDERER_WEBGL) {
-      webgl_preload();
-    } else {
-      $.unblockUI();
-    }
+    webgl_preload();
+
   }
 
 }
@@ -87,11 +84,8 @@ function preload_check()
 
   if (loaded_images == tileset_image_count) {
     init_cache_sprites();
-    if (renderer == RENDERER_WEBGL) {
-      webgl_preload();
-    } else {
-      $.unblockUI();
-    }
+    webgl_preload();
+
   }
 }
 

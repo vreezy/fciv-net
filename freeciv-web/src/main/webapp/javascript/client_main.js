@@ -58,9 +58,7 @@ function set_client_state(newstate)
       /* remove context menu from pregame. */
       $(".context-menu-root").remove();
 
-      if (renderer == RENDERER_WEBGL) {
-        init_webgl_mapview();
-      }
+      init_webgl_mapview();
 
       if (observing || $.getUrlVar('action') == "multi" || is_longturn() || game_loaded) {
         center_on_any_city();
