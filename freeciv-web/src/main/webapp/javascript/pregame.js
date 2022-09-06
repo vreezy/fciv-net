@@ -1032,13 +1032,6 @@ function show_intro_dialog(title, message) {
                    window.location="/game/list?v=multiplayer";
                 },
                 icons : { primary: "ui-icon-person" }
-              }, {
-                text : "PBEM",
-                click : function() {
-                   init_sprites();
-                   show_pbem_dialog();
-                },
-                icons : { primary: "ui-icon-person" }
               },
               {
                   text : "About",
