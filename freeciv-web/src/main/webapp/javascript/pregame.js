@@ -977,7 +977,7 @@ function show_intro_dialog(title, message) {
   $("#dialog").dialog({
 			bgiframe: true,
 			modal: true,
-			width: is_small_screen() ? "85%" : "48%",
+			width: is_small_screen() ? "85%" : "44%",
 			beforeClose: function( event, ui ) {
 			  $("#fciv-intro").hide();
 			  // if intro dialog is closed, then check the username and connect to the server.
@@ -1181,7 +1181,6 @@ function show_new_user_account_dialog(gametype)
                 + "<li>A user account allows you to save and load games.</li>"
                 + "<li>Other players can use your username to start Play-by-email games with you.</li>"
                 + "<li>You will not receive any spam and your e-mail address will be kept safe. Your password is stored securely as a secure hash.</li>"
-                + "<li>You can <a href='#' onclick='javascript:close_pbem_account();' style='color: black;'>cancel</a> your account at any time if you want.</li>"
                 + "</ul></small></div>";
 
   // reset dialog page.
@@ -1197,18 +1196,10 @@ function show_new_user_account_dialog(gametype)
 			buttons:
 			{
                 "Cancel" : function() {
-                    if (gametype == "pbem") {
-                      show_pbem_dialog();
-                    } else {
 	                  init_common_intro_dialog();
-	                }
 				},
 				"Signup new user" : function() {
-				    if (gametype == "pbem") {
-				      create_new_freeciv_user_account_request("pbem");
-				    } else {
 				      create_new_freeciv_user_account_request("normal");
-				    }
 
 				}
 			}

@@ -26,9 +26,7 @@
 					<li><a href="/game/list?v=singleplayer">Single-player</a></li>
 					<li role="separator" class="divider"></li>
 					<li><a href="/game/list?v=multiplayer">Multiplayer</a></li>
-					
-					<li role="separator" class="divider"></li>
-					<li><a href="/game/list?v=play-by-email">Play by Email</a></li>
+				
 				</ul>
 			</li>
 			<li><a href="https://github.com/fciv-net/fciv-net">Development</a></li>

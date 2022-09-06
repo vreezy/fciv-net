@@ -32,7 +32,6 @@
 						<li>Freeciv-web singleplayer 2D</li>
 						<li>Freeciv-web singleplayer 3D WebGL</li>
 						<li>Freeciv-web multiplayer</li>
-						<li>Freeciv-web PBEM play-by-email</li>
 						<li>Freeciv desktop multiplayer: games reported by meta.freeciv.org</li>
 						<li>Freeciv-web hotseat games</li>
 					</ul>

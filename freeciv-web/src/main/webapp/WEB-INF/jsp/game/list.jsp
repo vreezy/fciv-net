@@ -5,69 +5,6 @@
 <html lang="en">
 <head>
 <%@include file="/WEB-INF/jsp/fragments/head.jsp"%>
-
-<script>
-(function ($) {
-	
-	$(function () {
-		displayPlayByEmailGames();
-	});
-	
-	function displayPlayByEmailGames () {
-		$.getJSON('/mailstatus', function(data) {
-			if (data.length === 0) {
-				$("#play-by-email-table").hide();
-				return;
-			}
-
-			$($($(".nav-tabs").children()[2]).children()[0]).html("Play-By-Email (" + data.length + ")");
-
-			data.reverse().forEach(function (game) {
-				var turn = game[0];
-				var phase = game[1];
-				var players = game[2];
-				
-				var currentPlayer = game[2][phase];
-				var lastPlayed = game[3];
-				var timeLeft = game[4];
-				
-				players = players.map(function (player) {
-					return player === currentPlayer
-						? '<b>' + player + '</b>'
-						: player;
-				}).join(', ');
-				
-				if (players.indexOf("@") >= 0) {
-					return;
-				}
-
-				if (players.length > 100) players = players.substring(0, 100) + "...";
-				
-				$("#play-by-email-table").append(
-					'<tr>' +
-						'<td>' +
-							players +
-						'</td>' +
-						'<td class="hidden-xs">' +
-							turn +
-						'</td>' +
-						'<td class="hidden-xs">' +
-							lastPlayed +
-						'</td>' +
-						'<td>' +
-							timeLeft + ' hours' +
-						'</td>' +
-					'</tr>'
-				);
-			});			
-		}).fail(function (err) {
-			$("#play-by-email-table").hide();
-		});
-	}
-	
-})($);
-
-</script>
 	
 <style>
 	.nav-tabs {
@@ -138,16 +75,12 @@
 					aria-controls="single-player" role="tab" data-toggle="tab">Single-player (${singlePlayerGames})</a></li>
 				<li role="presentation" class="${view == 'multiplayer' ? 'active' : ''}"><a href="#multi-player-tab"
 					aria-controls="multi-player" role="tab" data-toggle="tab">Multiplayer (${multiPlayerGames})</a></li>
-				<li role="presentation" class="${view == 'play-by-email' ? 'active' : ''}"><a href="#play-by-email-tab"
-					aria-controls="play-by-email" role="tab" data-toggle="tab">Play-By-Email</a></li>
 			</ul>
 			<ul class="nav nav-tabs hidden-lg hidden-md hidden-sm" role="tablist">
 				<li role="presentation" class="${view == 'singleplayer' or empty view ? 'active' : ''}"><a href="#single-player-tab"
 					aria-controls="single-player" role="tab" data-toggle="tab">Single (${singlePlayerGames})</a></li>
 				<li role="presentation" class="${view == 'multiplayer' ? 'active' : ''}"><a href="#multi-player-tab"
 					aria-controls="multi-player" role="tab" data-toggle="tab">Multi (${multiPlayerGames})</a></li>
-				<li role="presentation" class="${view == 'play-by-email' ? 'active' : ''}"><a href="#play-by-email-tab"
-					aria-controls="play-by-email" role="tab" data-toggle="tab">Play-By-Email</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -251,63 +184,6 @@
 					<c:if test="${fn:length(multiPlayerGamesList) == 0}">
 						No servers currently listed
 					</c:if>
-				</div>
-	
-				<div role="tabpanel" class="tab-pane ${view == 'play-by-email' ? 'active' : ''}" id="play-by-email-tab">
-					<div class="row">
-						<div class="col-md-12">
-							<p>
-								A Play-By-Email game is a deathmatch on a small map with up to 4 human players, playing 
-								with alternating turns, and players get an e-mail every time it is
-								their turn to play. These games are often played over a long time
-								period, each player has 7 days to complete their turn.
-							</p>
-							<p>
-								To start a new Play-By-Email game, 
-								<a href="/webclient/?action=pbem&amp;type=pbem">log in here</a></u>. To play your turn
-								in a running Play-By-Email game, click on the link in the last
-								e-mail you got from Freeciv-web. Games are expired after 7 days if
-								you don't play your turn.
-							</p>
-						</div>
-					</div>
-	
-					<div class="row top-buffer-2">
-						<div class="col-md-12">
-							<h4>Ongoing games</h4>
-							<table id="play-by-email-table" class="table">
-								<tr>
-									<th>Players</th>
-									<th class="hidden-xs">Turn</th>
-									<th class="hidden-xs">Last played</th>
-									<th>Time left</th>
-								</tr>
-							</table>
-							<p>Current player is marked in bold.</p>
-						</div>
-					</div>
-	
-					<div class="row top-buffer-2">
-						<div class="col-md-12">
-							<h4>Finished games</h4>
-							<table class="table">
-								<tr>
-									<th>Winner</th>
-									<th>Game Date</th>
-									<th>Player 1</th>
-									<th>Player 2</th>
-								</tr>
-								<c:forEach items="${playByEmailStatistics}" var="game">
-									<tr>
-										<td>${game.winner}</td>
-										<td>${game.endDate}</td>
-										<td>${game.playerOne} (W: ${game.winsByPlayerOne})</td>
-										<td>${game.playerTwo} (W: ${game.winsByPlayerTwo})</td>
-									</tr>
-								</c:forEach>
-							</table>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -181,14 +181,6 @@
 						</c:if>
 						<a href="/game/list?v=multiplayer" class="btn"><i class="fa fa-users"></i> <fmt:message key="index-game-launcher-multiplayer"/></a>
 
-						<c:if test="${default_lang}">
-							<div class="features">
-								Start a play-by-email game where you get an e-mail <br> when it is your turn to play.
-							</div>
-						</c:if>
-						<a href="/webclient/?action=pbem&type=pbem" class="btn"><i class="fa fa-envelope"></i> <fmt:message key="index-game-launcher-play-by-email"/></a>
-
-
 					</div>
 				</div>
 		</div> <!-- end game launcher -->

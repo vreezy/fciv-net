@@ -48,8 +48,6 @@ Freeciv-Web consists of these components:
   multiple Freeciv server processes and checks capacity through the Metaserver. 
   Implemented in Python.
 
-* [pbem](pbem) is play-by-email support. 
-
 Freeciv WebGL
 -------------
 Freeciv WebGL is the 3D version, which uses the Three.js 3D engine. 

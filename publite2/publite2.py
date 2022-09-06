@@ -35,7 +35,7 @@ metaport = 8080
 metapath =  "/freeciv-web/meta/metaserver"
 statuspath =  "/freeciv-web/meta/status"
 settings_file = "settings.ini"
-game_types = ["singleplayer", "multiplayer", "pbem"]
+game_types = ["singleplayer", "multiplayer"]
 
 metachecker_interval = 40
 port = 6000
@@ -55,8 +55,6 @@ class metachecker():
                                               fallback = 5))
       self.server_capacity_multi = int(settings.get("Resource usage", "server_capacity_multi",
                                               fallback = 2))
-      self.server_capacity_pbem = int(settings.get("Resource usage", "server_capacity_pbem",
-                                              fallback = 2))
 
       self.server_limit = int(settings.get("Resource usage", "server_limit",
                                            fallback = 250))
@@ -67,7 +65,6 @@ class metachecker():
       self.total = 0;
       self.single = 0;
       self.multi = 0;
-      self.pbem = 0;
       self.html_doc = "-";
       self.last_http_status = -1;
       s = PubStatus(self)
@@ -89,7 +86,6 @@ class metachecker():
               self.total = int(meta_status[1]);
               self.single = int(meta_status[2]);
               self.multi = int(meta_status[3]);
-              self.pbem = int(meta_status[4]);
 
               fork_bomb_preventer = (self.total == 0 and self.server_limit < len(self.server_list))
               if fork_bomb_preventer:
@@ -118,17 +114,6 @@ class metachecker():
                 port += 1;
                 self.total += 1;
                 self.multi += 1;
-
-              while (self.pbem < self.server_capacity_pbem
-                     and self.total <= self.server_limit
-                     and not fork_bomb_preventer):
-                time.sleep(1)
-                new_server = Civlauncher(game_types[2], game_types[2], port, metahost + ":" + str(metaport) + metapath, self.savesdir)
-                self.server_list.append(new_server);
-                new_server.start();
-                port += 1;
-                self.total += 1;
-                self.pbem += 1;
 
 
           else:

@@ -12,7 +12,7 @@ if [ ! -f ${SCRIPT_DIR}/configuration.sh ]; then
 fi
 . ./configuration.sh
 
-echo "Shutting down Freeciv-web: nginx, tomcat, publite2, freeciv-proxy, pbem."
+echo "Shutting down Freeciv-web: nginx, tomcat, publite2, freeciv-proxy."
 
 if [ "${TOMCATMANAGER}" = "Y" ]; then
     if [ -z "${TOMCATMANAGER_PASSWORD}" ]; then
@@ -39,9 +39,6 @@ killall -9 freeciv-web
 
 #4. freeciv-proxy
 ps aux | grep -ie freeciv-proxy | awk '{print $2}' | xargs kill -9 
-
-#5.1 Freeciv-PBEM
-ps aux | grep -ie pbem | awk '{print $2}' | xargs kill -9 
 
 # Clean up server list in metaserver database.
 echo "delete from servers" | mysql -u "${DB_USER}" -p"${DB_PASSWORD}" "${DB_NAME}"
