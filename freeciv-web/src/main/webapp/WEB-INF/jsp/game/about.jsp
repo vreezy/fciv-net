@@ -187,20 +187,7 @@
 							</div>
 						</c:if>
 						<a href="/webclient/?action=pbem&type=pbem" class="btn"><i class="fa fa-envelope"></i> <fmt:message key="index-game-launcher-play-by-email"/></a>
-						
 
-						<c:if test="${default_lang}">
-							<div class="features">
-								Play multiple human players <br> on the same computer
-							</div>
-						</c:if>
-						<a href="/webclient/?action=hotseat&type=singleplayer" class="btn"><i class="fa fa-user-plus"></i> <fmt:message key="index-game-launcher-hotseat" /></a>
-
-						<c:if test="${default_lang}">
-							<div class="features">
-							
-							</div>
-						</c:if>
 
 					</div>
 				</div>

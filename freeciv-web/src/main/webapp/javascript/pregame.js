@@ -977,7 +977,7 @@ function show_intro_dialog(title, message) {
   $("#dialog").dialog({
 			bgiframe: true,
 			modal: true,
-			width: is_small_screen() ? "85%" : "44%",
+			width: is_small_screen() ? "85%" : "48%",
 			beforeClose: function( event, ui ) {
 			  $("#fciv-intro").hide();
 			  // if intro dialog is closed, then check the username and connect to the server.
@@ -1003,6 +1003,7 @@ function show_intro_dialog(title, message) {
 					autostart = true;
 					validate_username_callback();
                     $("#fciv-intro").hide();
+                    init_sprites();
 				  },
 				  icons: { primary: "ui-icon-play" }
 			  },
@@ -1014,6 +1015,7 @@ function show_intro_dialog(title, message) {
                     }
 					dialog_close_trigger = "button";
 					validate_username_callback();
+					init_sprites();
 				},
 				icons : { primary: "ui-icon-gear" }
 			  },
@@ -1028,8 +1030,15 @@ function show_intro_dialog(title, message) {
                 text : "Multiplayer",
                 click : function() {
                    window.location="/game/list?v=multiplayer";
-              },
-              icons : { primary: "ui-icon-flag" }
+                },
+                icons : { primary: "ui-icon-person" }
+              }, {
+                text : "PBEM",
+                click : function() {
+                   init_sprites();
+                   show_pbem_dialog();
+                },
+                icons : { primary: "ui-icon-person" }
               },
               {
                   text : "About",
@@ -1311,7 +1320,7 @@ function create_new_freeciv_user_account_request(action_type)
          network_init();
          logged_in_with_password = true;
        }
-
+       init_sprites();
       },
    error: function (request, textStatus, errorThrown) {
      $("#dialog").parent().show();

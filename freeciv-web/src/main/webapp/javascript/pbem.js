@@ -27,7 +27,9 @@ var invited_players = [];
 **************************************************************************/
 function show_pbem_dialog() 
 {
-  var title = "Welcome to Freeciv-web";
+  $("#fciv-intro").hide();
+
+  var title = "Welcome to Play-by-Email on Fciv.net";
   var message = "";
 
   if ($.getUrlVar('invited_by') != null) {

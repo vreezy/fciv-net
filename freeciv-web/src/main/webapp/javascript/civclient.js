@@ -136,10 +136,6 @@ function civclient_init()
  init_common_intro_dialog();
  setup_window_size();
 
-  var intro = $.getUrlVar('intro');
-  if (intro == "false") {
-    $("#fciv-intro-txt").hide();
-  }
 }
 
 /**************************************************************************
@@ -153,9 +149,6 @@ function init_common_intro_dialog() {
 
   } else if ($.getUrlVar('action') == "pbem") {
     show_pbem_dialog();
-
-  } else if ($.getUrlVar('action') == "hotseat") {
-    show_hotseat_dialog();
 
   } else if (is_small_screen()) {
       show_intro_dialog("Welcome to Fciv.net",

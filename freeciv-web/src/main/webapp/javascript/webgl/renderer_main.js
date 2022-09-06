@@ -37,9 +37,6 @@ function init_webgl_renderer()
 
   console.log("Three.js " + THREE.REVISION);
 
-
-  init_sprites();
-
   var stored_graphics_quality_setting = simpleStorage.get("graphics_quality", "");
   if (stored_graphics_quality_setting != null && stored_graphics_quality_setting > 0) {
     graphics_quality = stored_graphics_quality_setting;
