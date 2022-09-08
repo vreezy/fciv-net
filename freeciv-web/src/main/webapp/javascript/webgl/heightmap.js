@@ -121,7 +121,7 @@ function create_heightmap(heightmap_quality)
           var ptile = map_pos_to_tile(coords.x, coords.y);
           var height = 0;
           if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
-            height = ptile['height'] + ((Math.random() - 0.5) / 50) - 0.05;
+            height = ptile['height'] + ((Math.random() - 0.5) / 50) - 0.01;
           } else {
             height = ptile['height'];
           }
