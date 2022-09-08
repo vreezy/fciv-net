@@ -401,7 +401,6 @@ function chat_context_get_recipients() {
     var pplayer = players[player_id];
     if (pplayer['flags'].isSet(PLRF_AI)) continue;
     if (!pplayer['is_alive']) continue;
-    if (is_longturn() && pplayer['name'].indexOf("New Available Player") != -1) continue;
 
     var nation = nations[pplayer['nation']];
     if (nation == null) continue;
@@ -672,11 +671,6 @@ function check_text_input(event,chatboxtextarea) {
 
     if (message.length >= 4 && message === message.toUpperCase()) {
       return; //disallow all uppercase messages.
-    }
-
-    if (is_longturn() && C_S_RUNNING == client_state()
-      && message != null && message.indexOf(encode_message_text("/set")) != -1) {
-      return; // disallow changing settings in a running LongTurn game.
     }
 
     if (message.length >= max_chat_message_length) {
@@ -2432,16 +2426,6 @@ function send_end_turn()
   send_request(JSON.stringify(packet));
   update_turn_change_timer();
 
-  if (is_pbem()) {
-    setTimeout(pbem_end_phase, 2000);
-  }
-  if (is_longturn()) {
-    show_dialog_message("Turn done!",
-      "Your turn in this Freeciv-web: One Turn per Day game is now over. In this game one turn is played every day. " +
-      "To play your next turn in this game, go to " + window.location.host + " and click <b>Games</b> in the menu, then <b>Multiplayer</b> " +
-      "and there you will find this Freeciv-web: One Turn per Day game in the list. You can also bookmark this page.<br>" +
-      "See you again soon!"  );
-  }
 }
 
 

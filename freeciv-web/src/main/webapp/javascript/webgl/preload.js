@@ -62,7 +62,7 @@ var model_filenames = ["AEGIS Cruiser",     "Helicopter",    "Pikemen",
 ****************************************************************************/
 function webgl_preload()
 {
-  $.blockUI({ message: "<h2>Downloading <span id='download_progress'></span></h2>" });
+  $.blockUI({ message: "<h2>Downloading 3D models <span id='download_progress'></span></h2>" });
   start_preload = new Date().getTime();
 
   var loadingManager = new THREE.LoadingManager();

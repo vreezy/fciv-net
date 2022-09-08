@@ -56,8 +56,7 @@ function is_small_screen()
 **************************************************************************/
 function init_sprites()
 {
-  $.blockUI({ message: "<h1>Freeciv-web is loading. Please wait..."
-	  + "<br><center><img src='/images/loading.gif'></center></h1>" });
+  $.blockUI({ message: "<h1>Loading graphics, please wait..."});
 
   if (loaded_images != tileset_image_count) {
     for (var i = 0; i < tileset_image_count; i++) {

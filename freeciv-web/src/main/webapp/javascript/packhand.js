@@ -207,9 +207,7 @@ function handle_chat_msg(packet)
   }
 
   if (connections[conn_id] != null) {
-    if (!is_longturn()) {
       message = "<b>" + connections[conn_id]['username'] + ":</b>" + message;
-    }
   } else if (packet['event'] == E_SCRIPT) {
     var regxp = /\n/gi;
     message = message.replace(regxp, "<br>\n");
@@ -409,6 +407,10 @@ function handle_player_info(packet)
   packet['gives_shared_vision'] = new BitVector(packet['gives_shared_vision']);
 
   players[packet['playerno']] = $.extend(players[packet['playerno']], packet);
+
+  if (C_S_PREPARING == client_state()) {
+    update_player_info_pregame();
+  }
 }
 
 /************************************************************************//**
@@ -427,7 +429,9 @@ function handle_web_player_info_addition(packet)
       update_net_income();
     }
   }
-  update_player_info_pregame();
+  if (C_S_PREPARING == client_state()) {
+    update_player_info_pregame();
+  }
 
   if (is_tech_tree_init && tech_dialog_active) update_tech_screen();
 

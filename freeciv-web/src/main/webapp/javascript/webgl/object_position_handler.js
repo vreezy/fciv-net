@@ -387,6 +387,12 @@ function update_tile_extras(ptile) {
           height -= 15;
         }
       }
+      if (tile_terrain(ptile) != null && tile_terrain(ptile)['name'].indexOf("Forest") >= 0) {
+        height += 1;
+        if (extra_resource['name'] == "Pheasant") {
+          height += 1.5;
+        }
+      }
       if (extra_resource['name'] == "Fish" || extra_resource['name'] == "Whales") {
         height = 52.4;
       }
@@ -396,7 +402,7 @@ function update_tile_extras(ptile) {
 
       var extra_geometry = new THREE.BufferGeometry();
       extra_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( extra_vertices, 3 ));
-      var extra_material = new THREE.PointsMaterial( { size: 42, sizeAttenuation: true, map: extra_texture,  alphaTest: 0.2, transparent: true, opacity: 1.0 } );
+      var extra_material = new THREE.PointsMaterial( { size: 44, sizeAttenuation: true, map: extra_texture,  alphaTest: 0.2, transparent: true, opacity: 1.0 } );
       var extra_points = new THREE.Points( extra_geometry, extra_material );
       extra_material.transparent = true;
       scene.add(extra_points);

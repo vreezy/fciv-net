@@ -284,7 +284,7 @@ function update_timeout()
     var remaining = Math.floor(seconds_to_phasedone - ((now - seconds_to_phasedone_sync) / 1000));
 
     if (remaining >= 0 && turn_change_elapsed == 0) {
-      if (is_small_screen() && !is_longturn()) {
+      if (is_small_screen()) {
         $("#turn_done_button").button("option", "label", "Turn " + remaining);
         $("#turn_done_button .ui-button-text").css("padding", "3px");
       } else {
@@ -450,10 +450,3 @@ function show_auth_dialog(packet) {
 
 }
 
-/**************************************************************************
- Is this a LongTurn game?
-**************************************************************************/
-function is_longturn()
-{
-  return game_type == "longturn";
-}

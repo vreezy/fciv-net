@@ -33,34 +33,11 @@ var ping_last = new Date().getTime();
 var pingtime_check = 240000;
 var ping_timer = null;
 
-/**************************************************************************
-  Initialize the network communication with the server manually.
-**************************************************************************/
-function network_init_manual_hack(civserverport_manual, username_manual,
-                                  savegame)
-{
-  civserverport = civserverport_manual;
-  username = username_manual;
-
-  websocket_init();
-
-  if (savegame != null) {
-    wait_for_text("You are logged in as", function () {
-      load_game_real(savegame);
-    });
-  }
-}
-
 /****************************************************************************
   Initialized the Network communication, by requesting a valid server port.
 ****************************************************************************/
 function network_init()
 {
-
-  if (!("WebSocket" in window)) {
-    swal("WebSockets not supported", "", "error");
-    return;
-  }
 
   var civclient_request_url = "/civclientlauncher";
   if ($.getUrlVar('action') != null) civclient_request_url += "?action=" + $.getUrlVar('action');
@@ -227,21 +204,6 @@ function send_message_delayed(message, delay)
 ****************************************************************************/
 function send_message(message)
 {
-  if (is_longturn() && message != null) {
-    if (message.indexOf(encodeURIComponent("/")) !== 0
-      && message.indexOf("/") !== 0
-      && message.charAt(0) !== ".") {
-      var private_mark_i = message.indexOf(encodeURIComponent(":"));
-      if (private_mark_i <= 0) {
-        message = username + " : " + message;
-      } else {
-        var first_space = message.indexOf(encodeURIComponent(" "));
-        if (first_space >= 0 && first_space < private_mark_i) {
-          message = username + " : " + message;
-        }
-      }
-    }
-  }
 
   var packet = {"pid" : packet_chat_msg_req, 
                 "message" : message};

@@ -54,24 +54,15 @@ function webgl_preload_complete()
 {
   $.unblockUI();
 
-  if (C_S_RUNNING == client_state() || C_S_OVER == client_state()) {
-    // init a running game, switching from 2D to 3D.
-    $("#canvas").remove();
+  network_init();
+
+}
+
+
+function renderer_init() {
+if (C_S_RUNNING == client_state() || C_S_OVER == client_state()) {
     webgl_start_renderer();
     init_webgl_mapview();
     init_webgl_mapctrl();
-
-    for (var tile_id in tiles) {
-      if (tile_get_known(tiles[tile_id]) == TILE_KNOWN_SEEN) {
-        center_tile_mapcanvas(tiles[tile_id]);
-        break;
-      }
-    }
-
-  }
-
-  if ($.getUrlVar('autostart') == "true") {
-    username = "autostart";
-    network_init();
   }
 }

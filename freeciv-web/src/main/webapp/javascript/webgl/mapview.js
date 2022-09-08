@@ -106,6 +106,8 @@ function webgl_start_renderer()
   }
 
   animate();
+
+  $("#pregame_page").hide();
 }
 
 

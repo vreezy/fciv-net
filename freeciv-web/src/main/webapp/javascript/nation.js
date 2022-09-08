@@ -40,7 +40,6 @@ function update_nation_screen()
   for (var player_id in players) {
     var pplayer = players[player_id];
     if (pplayer['nation'] == -1) continue;
-    if (is_longturn() && pplayer['name'].indexOf("New Available Player") != -1) continue;
     total_players++;
 
     var flag_html = "<canvas id='nation_dlg_flags_" + player_id + "' width='44' height='30' class='nation_flags'></canvas>";
@@ -113,19 +112,6 @@ function update_nation_screen()
 
   select_no_nation();
 
-  if (is_pbem()) {
-    /* TODO: PBEM games do not support diplomacy.*/
-    $('#meet_player_button').hide();
-    $('#cancel_treaty_button').hide();
-    $('#take_player_button').hide();
-    $('#toggle_ai_button').hide();
-    $('#game_scores_button').hide();
-  } else if (is_longturn()) {
-    $('#take_player_button').hide();
-    $('#toggle_ai_button').hide();
-    $('#game_scores_button').hide();
-  }
-
   if (is_small_screen) {
     $('#take_player_button').hide();
   }
@@ -173,9 +159,6 @@ function update_nation_screen()
     }
     $("#nation_table").trigger('update');
   });
-
-  if (is_longturn()) $(".nation_attitude").hide();
-  if (is_longturn()) $(".nation_team").hide();
 
   $("#nation_table").tooltip();
 

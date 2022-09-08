@@ -512,8 +512,7 @@ function meeting_template_data(giver, taker)
     }
   }
 
-  if (game_info.trading_city && !is_longturn()
-      && clause_infos[CLAUSE_CITY]['enabled']) {
+  if (game_info.trading_city && clause_infos[CLAUSE_CITY]['enabled']) {
     clauses = [];
     for (var city_id in cities) {
       var pcity = cities[city_id];

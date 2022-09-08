@@ -48,19 +48,12 @@ function set_client_state(newstate)
 
       update_metamessage_on_gamestart();
 
-      if (is_pbem()) {
-        setTimeout(function () {
-          set_human_pbem_players();
-          advance_unit_focus();
-        }, 1500);
-      }
+      renderer_init();
 
       /* remove context menu from pregame. */
       $(".context-menu-root").remove();
 
-      init_webgl_mapview();
-
-      if (observing || $.getUrlVar('action') == "multi" || is_longturn() || game_loaded) {
+      if (observing || $.getUrlVar('action') == "multi" || game_loaded) {
         center_on_any_city();
         advance_unit_focus();
       }
@@ -296,7 +289,7 @@ function update_metamessage_on_gamestart()
       $.post("/freeciv_time_played_stats?type=single3d").fail(function() {});
   }
   if ($.getUrlVar('action') == "multi" && client.conn.playing != null
-      && client.conn.playing['pid'] == players[0]['pid'] && !is_longturn()) {
+      && client.conn.playing['pid'] == players[0]['pid'] ) {
     $.post("/freeciv_time_played_stats?type=multi").fail(function() {});
   }
   if ($.getUrlVar('action') == "hotseat") {

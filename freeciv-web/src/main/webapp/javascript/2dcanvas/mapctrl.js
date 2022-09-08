@@ -29,23 +29,7 @@ var map_select_x;
 var map_select_y;
 var mouse_touch_started_on_unit = false;
 
-/****************************************************************************
-  Init 2D mapctrl
-****************************************************************************/
-function mapctrl_init_2d()
-{
-  // Register keyboard and mouse listener using JQuery.
-  $("#canvas").mouseup(mapview_mouse_click);
-  $("#canvas").mousedown(mapview_mouse_down);
-  $(window).mousemove(mouse_moved_cb);
 
-  if (is_touch_device()) {
-    $('#canvas').bind('touchstart', mapview_touch_start);
-    $('#canvas').bind('touchend', mapview_touch_end);
-    $('#canvas').bind('touchmove', mapview_touch_move);
-  }
-
-}
 
 /****************************************************************************
   Triggered when the mouse button is clicked UP on the mapview canvas.
@@ -124,20 +108,7 @@ function mapview_mouse_down(e)
   }
 }
 
-/****************************************************************************
-  This function is triggered when beginning a touch event on a touch device,
-  eg. finger down on screen.
-****************************************************************************/
-function mapview_touch_start(e)
-{
-  e.preventDefault();
 
-  touch_start_x = e.originalEvent.touches[0].pageX - $('#canvas').position().left;
-  touch_start_y = e.originalEvent.touches[0].pageY - $('#canvas').position().top;
-  var ptile = canvas_pos_to_tile(touch_start_x, touch_start_y);
-  set_mouse_touch_started_on_unit(ptile);
-
-}
 
 /****************************************************************************
   This function is triggered when ending a touch event on a touch device,
@@ -146,46 +117,6 @@ function mapview_touch_start(e)
 function mapview_touch_end(e)
 {
   action_button_pressed(touch_start_x, touch_start_y, SELECT_POPUP);
-}
-
-/****************************************************************************
-  This function is triggered on a touch move event on a touch device.
-****************************************************************************/
-function mapview_touch_move(e)
-{
-  mouse_x = e.originalEvent.touches[0].pageX - $('#canvas').position().left;
-  mouse_y = e.originalEvent.touches[0].pageY - $('#canvas').position().top;
-
-  var diff_x = (touch_start_x - mouse_x) * 2;
-  var diff_y = (touch_start_y - mouse_y) * 2;
-
-  touch_start_x = mouse_x;
-  touch_start_y = mouse_y;
-
-  if (!goto_active) {
-    check_mouse_drag_unit(canvas_pos_to_tile(mouse_x, mouse_y));
-
-    mapview['gui_x0'] += diff_x;
-    mapview['gui_y0'] += diff_y;
-  }
-
-  if (client.conn.playing == null) return;
-
-  /* Request preview goto path */
-  goto_preview_active = true;
-  if (goto_active && current_focus.length > 0) {
-    var ptile = canvas_pos_to_tile(mouse_x, mouse_y);
-    if (ptile != null) {
-      for (var i = 0; i < current_focus.length; i++) {
-        if (i >= 20) return;  // max 20 units goto a time.
-        if (goto_request_map[current_focus[i]['id'] + "," + ptile['x'] + "," + ptile['y']] == null) {
-          request_goto_path(current_focus[i]['id'], ptile['x'], ptile['y']);
-        }
-      }
-    }
-  }
-
-
 }
 
 
@@ -288,44 +219,7 @@ function map_select_units(canvas_x, canvas_y)
   update_active_units_dialog();
 }
 
-/**************************************************************************
-  Recenter the map on the canvas location, on user request.  Usually this
-  is done with a right-click.
-**************************************************************************/
-function recenter_button_pressed(canvas_x, canvas_y)
-{
-  var map_scroll_border = 8;
-  var big_map_size = 24;
-  var ptile = canvas_pos_to_tile(canvas_x, canvas_y);
-  var orig_tile = ptile;
 
-  /* Prevent the user from scrolling outside the map. */
-  if (ptile != null && ptile['y'] > (map['ysize'] - map_scroll_border)
-      && map['xsize'] > big_map_size && map['ysize'] > big_map_size) {
-    ptile = map_pos_to_tile(ptile['x'], map['ysize'] - map_scroll_border);
-  }
-  if (ptile != null && ptile['y'] < map_scroll_border
-      && map['xsize'] > big_map_size && map['ysize'] > big_map_size) {
-    ptile = map_pos_to_tile(ptile['x'], map_scroll_border);
-  }
-
-  if (can_client_change_view() && ptile != null && orig_tile != null) {
-    var sunit = find_visible_unit(orig_tile);
-    if (!client_is_observer() && sunit != null
-        && sunit['owner'] == client.conn.playing.playerno) {
-      /* the user right-clicked on own unit, show context menu instead of recenter. */
-      if (current_focus.length <= 1) set_unit_focus(sunit);
-      $("#canvas").contextMenu(true);
-      $("#canvas").contextmenu();
-    } else {
-      $("#canvas").contextMenu(false);
-      /* FIXME: Some actions here will need to check can_client_issue_orders.
-       * But all we can check is the lowest common requirement. */
-      enable_mapview_slide(ptile);
-      center_tile_mapcanvas(ptile);
-    }
-  }
-}
 
 /**************************************************************************
 ...

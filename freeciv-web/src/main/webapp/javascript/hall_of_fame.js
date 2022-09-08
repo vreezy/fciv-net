@@ -24,7 +24,7 @@ var submitted_to_hof = false;
 **************************************************************************/
 function submit_game_to_hall_of_fame()
 {
-  if (client_is_observer() || client.conn.playing == null || submitted_to_hof || is_longturn() || $.getUrlVar('action') == "multi") {
+  if (client_is_observer() || client.conn.playing == null || submitted_to_hof || $.getUrlVar('action') == "multi") {
     return;
   }
   submitted_to_hof = true;

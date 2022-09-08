@@ -55,7 +55,7 @@ function add_trees_to_landgeometry() {
         }
 
         if (terrain_name == "Jungle" && tile_get_known(ptile) != TILE_UNKNOWN) {
-          var theight = Math.floor((100 * heightmap[sx][sy]) + 5 + (-5 + 3.5 * (1 + ((ix * iy) % 4))));
+          var theight = Math.floor((100 * heightmap[sx][sy]) + 5 + (-5 + 4.5 * (1 + ((ix * iy) % 4))));
           jungle_vertices.push(  x + 5, -y - 10, theight);
           var rnd = ((iy * ix) % 5) / 10;
           jungle_colors.push(0.5 + (rnd) / 2.0, 0.5 + rnd * 1.5, 0.8);
@@ -75,7 +75,7 @@ function add_trees_to_landgeometry() {
 
     jungle_geometry = new THREE.BufferGeometry();
     jungle_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( jungle_vertices, 3 ) );
-    var jungle_material = new THREE.PointsMaterial( { size: 25, sizeAttenuation: true, map: webgl_textures["jungle_1"],  alphaTest: 0.3, transparent: true , opacity: 1.0} );
+    var jungle_material = new THREE.PointsMaterial( { size: 28, sizeAttenuation: true, map: webgl_textures["jungle_1"],  alphaTest: 0.3, transparent: true , opacity: 1.0} );
     jungle_geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( jungle_colors, 3 ) );
     jungle_material.vertexColors = true;
     jungle_points = new THREE.Points( jungle_geometry, jungle_material );

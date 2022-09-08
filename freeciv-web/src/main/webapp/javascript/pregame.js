@@ -26,7 +26,6 @@ var nation_select_id = -1;
 var metamessage_changed = false;
 var logged_in_with_password = false;
 var antialiasing_setting = true;
-var update_player_info_pregame_queued = false;
 var password_reset_count = 0;
 var google_user_token = null;
 
@@ -127,21 +126,9 @@ function update_game_info_pregame()
 }
 
 /****************************************************************************
-  Shows the pick nation dialog. This can be called multiple times, but will
-  only call update_player_info_pregame_real once in a short timespan.
-****************************************************************************/
-function update_player_info_pregame()
-{
-  if (update_player_info_pregame_queued) return;
-  setTimeout(update_player_info_pregame_real, 1000);
-  update_player_info_pregame_queued = true;
-
-}
-
-/****************************************************************************
   Shows the pick nation dialog.
 ****************************************************************************/
-function update_player_info_pregame_real()
+function update_player_info_pregame()
 {
   var id;
   if (C_S_PREPARING == client_state()) {
@@ -246,7 +233,6 @@ function update_player_info_pregame_real()
         $("#start_game_button").button( "option", "disabled", false);
     }
   }
-  update_player_info_pregame_queued = false;
 }
 
 
@@ -486,13 +472,13 @@ function pregame_settings()
 	  "<tr title='Enables music'><td>Music:</td>" +
           "<td><input type='checkbox' name='music_setting' id='music_setting'>Play Music</td></tr>" +
 	  "<tr class='not_pbem' title='Total number of players (including AI players)'><td>Number of Players (including AI):</td>" +
-	  "<td><input type='number' name='aifill' id='aifill' size='4' length='3' min='0' max='12' step='1'></td></tr>" +
+	  "<td><input type='number' name='aifill' id='aifill' size='4' length='3' min='0' max='50' step='1'></td></tr>" +
 	  "<tr class='not_pbem' title='Maximum seconds per turn'><td>Timeout (seconds per turn):</td>" +
 	  "<td><input type='number' name='timeout' id='timeout' size='4' length='3' min='30' max='3600' step='1'></td></tr>" +
           "<tr class='not_pbem' title='Creates a private game where players need to know this password in order to join.'><td>Password for private game:</td>" +
 	  "<td><input type='text' name='password' id='password' size='10' length='10'></td></tr>" +
 	  "<tr title='Map size (in thousands of tiles)'><td>Map size:</td>" +
-	  "<td><input type='number' name='mapsize' id='mapsize' size='4' length='3' min='1' max='10' step='1'></td></tr>" +
+	  "<td><input type='number' name='mapsize' id='mapsize' size='4' length='3' min='1' max='20' step='1'></td></tr>" +
 	  "<tr class='not_pbem' title='This setting sets the skill-level of the AI players'><td>AI skill level:</td>" +
 	  "<td><select name='skill_level' id='skill_level'>" +
 	      "<option value='1'>Handicapped</option>" +
@@ -686,7 +672,7 @@ function pregame_settings()
   $(id).dialog('open');
 
   $('#aifill').change(function() {
-    if (parseInt($('#aifill').val()) <= 12) {
+    if (parseInt($('#aifill').val()) <= 50) {
       send_message("/set aifill " + $('#aifill').val());
     }
   });
@@ -792,22 +778,6 @@ function pregame_settings()
   });
 
   $('#music_setting').prop('checked', audio_enabled == true);
-
-  $('#music_setting').change(function() {
-    audio_enabled = !audio_enabled;
-    if (audio_enabled) {
-      if (!audio.source.src) {
-        if (!supports_mp3()) {
-          audio.load("/music/" + music_list[Math.floor(Math.random() * music_list.length)] + ".ogg");
-        } else {
-          audio.load("/music/" + music_list[Math.floor(Math.random() * music_list.length)] + ".mp3");
-        }
-      }
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  });
 
   $('#scorelog_setting').change(function() {
     var scorelog_enabled = $('#scorelog_setting').prop('checked');  
@@ -983,7 +953,6 @@ function show_intro_dialog(title, message) {
 			  // if intro dialog is closed, then check the username and connect to the server.
 			  if (dialog_close_trigger != "button") {
 			    if (validate_username()) {
-			      network_init();
 			      if (!is_touch_device()) $("#pregame_text_input").focus();
 			      return true;
 			    } else {
@@ -1001,9 +970,8 @@ function show_intro_dialog(title, message) {
                      }
 					dialog_close_trigger = "button";
 					autostart = true;
-					validate_username_callback();
+					pregame_handle_user(true);
                     $("#fciv-intro").hide();
-                    init_sprites();
 				  },
 				  icons: { primary: "ui-icon-play" }
 			  },
@@ -1014,7 +982,7 @@ function show_intro_dialog(title, message) {
                       BigScreen.toggle();
                     }
 					dialog_close_trigger = "button";
-					validate_username_callback();
+					pregame_handle_user(false);
 					init_sprites();
 				},
 				icons : { primary: "ui-icon-gear" }
@@ -1022,6 +990,7 @@ function show_intro_dialog(title, message) {
               {
                   text : "New user",
                   click : function() {
+                  	$("#fciv-intro").hide();
                     show_new_user_account_dialog();
                 },
                 icons : { primary: "ui-icon-person" }
@@ -1056,6 +1025,7 @@ function show_intro_dialog(title, message) {
     $("#observe_button").remove();
     $("#fciv-intro-txt").text("Fciv.net is a open source empire-building strategy game inspired by the history of human civilization.");
   }
+  $("#fciv-intro-txt").css("top", ($( window ).height() - 130) + "px");
 
   $("#dialog").dialog('open');
 
@@ -1063,7 +1033,7 @@ function show_intro_dialog(title, message) {
     if (e.keyCode == 13) {
       dialog_close_trigger = "button";
       autostart = true;
-      validate_username_callback();
+      pregame_handle_user(false);
     }
   });
 
@@ -1083,9 +1053,9 @@ function show_intro_dialog(title, message) {
 }
 
 /**************************************************************************
-  Validate username callback
+  Validate username
 **************************************************************************/
-function validate_username_callback()
+function pregame_handle_user(close_pregame)
 {
   var check_username = $("#username_req").val();
   $("#fciv-intro").hide();
@@ -1096,12 +1066,15 @@ function validate_username_callback()
       if (data == "user_does_not_exist") {
 
         if (validate_username()) {
-          network_init();
           if (!is_touch_device()) $("#pregame_text_input").focus();
           $("#dialog").dialog('close');
           $("#password_req").val("");
           simpleStorage.set("password", "");
           $("#fciv-intro").hide();
+          init_sprites();
+          if (close_pregame) {
+            $("#pregame_page").hide();
+          }
         }
       } else {
         username = $("#username_req").val().trim();
@@ -1127,9 +1100,12 @@ function validate_username_callback()
                  simpleStorage.set("password", password);
                  /* Login OK! */
                  if (validate_username()) {
-                   network_init();
                    if (!is_touch_device()) $("#pregame_text_input").focus();
                    $("#dialog").dialog('close');
+                   init_sprites();
+                   if (close_pregame) {
+                     $("#pregame_page").hide();
+                   }
                  }
                  logged_in_with_password = true;
                } else {
@@ -1301,7 +1277,6 @@ function create_new_freeciv_user_account_request(action_type)
          challenge_pbem_player_dialog("New account created. Your username is: " + username + ". You can now start a new PBEM game or wait for an invitation for another player.");
        } else {
          $("#dialog").dialog('close');
-         network_init();
          logged_in_with_password = true;
        }
        init_sprites();
