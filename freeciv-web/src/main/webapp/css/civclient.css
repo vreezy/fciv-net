@@ -1088,7 +1088,7 @@ li.tech-both::before {
     min-width: 300px;
     z-index: 1000;
     max-width: 80%;
-    color: white;
-    font-size: 14px;
+    color: black;
+    font-size: 13px;
     font-weight: bold;
 }
