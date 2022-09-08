@@ -41,18 +41,16 @@ class StatusHandler(web.RequestHandler):
                "<table><tr><td>Number of Freeciv-web games run:</td><td>" + str(game_count) + "</td></tr>" +
                "<tr><td>Server limit (maximum number of running servers):</td><td>" + str(self.metachecker.server_limit) + "</td></tr>" +
                "<tr><td>Server capacity:</td><td>" + str(self.metachecker.server_capacity_single) + "," +  
-               str(self.metachecker.server_capacity_multi) + "," +  str(self.metachecker.server_capacity_pbem) + "</td></tr>" +
+               str(self.metachecker.server_capacity_multi)+ "</td></tr>" +
                "<tr><td>Number of servers running according to Publite2:</td><td>" + str(len(self.metachecker.server_list)) + "</td></tr>"
                "<tr><td>Number of servers running according to metaserver:</td><td>" + str(self.metachecker.total) + "</td></tr>" +
                "<tr><td>Available single-player pregame servers on metaserver:</td><td>" + str(self.metachecker.single) + "</td></tr>" +
                "<tr><td>Available multi-player pregame servers on metaserver:</td><td>" + str(self.metachecker.multi) + "</td></tr>" +
-               "<tr><td>Available Play-by-email pregame servers on metaserver:</td><td>" + str(self.metachecker.pbem) + "</td></tr>" +
                "<tr><td>Number of HTTP checks against metaserver: </td><td>" + str(self.metachecker.check_count) + "</td></tr>" +
                "<tr><td>Last response from metaserver: </td><td>" + str(self.metachecker.html_doc) + "</td></tr>" +
                "<tr><td>Last HTTP status from metaserver: </td><td>" + str(self.metachecker.last_http_status) + "</td></tr>" +
                "<tr><td>Number of Freeciv servers stopped by error:</td><td>" + str(error_count) + "  " +
                "(" + str("{0:.2f}".format(error_rate)) + "%)</td></tr>" +
-               "<tr><td>Pbem status:</td><td><a href='/pbemstatus'>/pbemstatus</a></td></tr>" +
                "<tr><td>Mail status (json):</td><td><a href='/mailstatus'>/mailstatus</a></td></tr>" +
                "</table>")
     self.write("<h3>Running Freeciv-web servers:</h3>");
