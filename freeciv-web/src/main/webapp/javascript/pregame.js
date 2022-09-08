@@ -983,7 +983,6 @@ function show_intro_dialog(title, message) {
                     }
 					dialog_close_trigger = "button";
 					pregame_handle_user(false);
-					init_sprites();
 				},
 				icons : { primary: "ui-icon-gear" }
 			  },
