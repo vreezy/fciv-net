@@ -1024,7 +1024,7 @@ function show_intro_dialog(title, message) {
     $("#observe_button").remove();
     $("#fciv-intro-txt").text("Fciv.net is a open source empire-building strategy game inspired by the history of human civilization.");
   }
-  $("#fciv-intro-txt").css("top", ($( window ).height() - 130) + "px");
+  $("#fciv-intro").css("top", ($( window ).height() - 130) + "px");
 
   $("#dialog").dialog('open');
 

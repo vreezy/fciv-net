@@ -1091,4 +1091,5 @@ li.tech-both::before {
     color: white;
     font-size: 14px;
     font-weight: bold;
+    background-color: rgba(1.0, 1.0, 1.0, 0.8);
 }
