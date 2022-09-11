@@ -75,7 +75,7 @@ function add_trees_to_landgeometry() {
 
     jungle_geometry = new THREE.BufferGeometry();
     jungle_geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( jungle_vertices, 3 ) );
-    var jungle_material = new THREE.PointsMaterial( { size: 28, sizeAttenuation: true, map: webgl_textures["jungle_1"],  alphaTest: 0.3, transparent: true , opacity: 1.0} );
+    var jungle_material = new THREE.PointsMaterial( { size: 31, sizeAttenuation: true, map: webgl_textures["jungle_1"],  alphaTest: 0.3, transparent: true , opacity: 1.0} );
     jungle_geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( jungle_colors, 3 ) );
     jungle_material.vertexColors = true;
     jungle_points = new THREE.Points( jungle_geometry, jungle_material );
