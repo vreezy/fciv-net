@@ -69,7 +69,6 @@ function create_unit_label_sprite(punit, ptile)
     var ctx = fcanvas.getContext("2d");
     ctx.font = 'bold 18px serif';
 
-
     if (activities != null) {
       ctx.drawImage(sprites[activities.key],
                   0, 0,
@@ -102,7 +101,7 @@ function create_unit_label_sprite(punit, ptile)
   }
 
   var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
-  sprite.scale.set(20,13,1);
+  sprite.scale.set(18,11,1);
   return sprite;
 }
 

@@ -12,17 +12,12 @@ Export from Blender to glTF 2.0 .glb binary format
 
 Follow these steps to prepare the 3D models for usage in Freeciv-web:
 
-1. Install and activate the Blender glTF 2.0 exporter 
-https://github.com/KhronosGroup/glTF-Blender-Exporter
-
-2. Export the blender file from Blender: File -> Export -> glTF 2.0 (.glb)
+1. Export the blender file from Blender: File -> Export -> glTF 2.0 (.glb)
   - Don't export normals.
   - Export to the .glb file to freeciv-web/src/main/webapp/gltf/
   - Filename must match unit name from Freeciv ruleset.
 
-3. Rebuild Freeciv-web using freeciv-web/build.sh script.
-
-When creating new additional 3D-models they must also be added to preload.js in Freeciv-web so that they are preloaded correctly.
+2. Rebuild Freeciv-web using freeciv-web/build.sh script.
 
 Be sure to limit the file size and number of verticies, since the result
 will be rendered in a web browser. Check the file size of the generated .glb file! 

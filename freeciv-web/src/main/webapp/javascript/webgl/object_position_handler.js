@@ -161,7 +161,7 @@ function update_unit_position(ptile) {
       if (scene != null && unit_label_positions[ptile['index']] != null) scene.remove(unit_label_positions[ptile['index']]);
       if (scene != null && (get_unit_activity_text(visible_unit) != null || tile_units(ptile).length > 1)) {
         activity = create_unit_label_sprite(visible_unit, ptile);
-        activity.position.set(pos['x'] + 8, height + 28, pos['y'] - 5);
+        activity.position.set(pos['x'] + 8, height + 31, pos['y'] - 5);
         scene.add(activity);
         unit_label_positions[ptile['index']] = activity;
       }
@@ -291,7 +291,7 @@ function update_city_position(ptile) {
 
     var city_label = create_city_label_sprite(pcity);
     city_label_positions[ptile['index']] = city_label;
-    city_label.position.set(pos['x'] - 8 , height + 25, pos['y'] - 25);
+    city_label.position.set(pos['x'] - 8 , height + 26, pos['y'] - 25);
 
     pcity['webgl_label_hash'] = pcity['name'] + pcity['size'] + pcity['production_value'] + "." + pcity['production_kind'] + punits.length;
     if (scene != null) scene.add(city_label);
