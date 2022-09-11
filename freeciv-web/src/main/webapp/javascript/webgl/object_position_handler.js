@@ -52,7 +52,6 @@ var selected_unit_material_counter = 0;
   Handles unit positions
 ****************************************************************************/
 function update_unit_position(ptile) {
-
   var visible_unit = find_visible_unit(ptile);
   var height = 5 + ptile['height'] * 100 + get_unit_height_offset(visible_unit);
 
@@ -77,12 +76,13 @@ function update_unit_position(ptile) {
     // add new unit to the unit_positions
     var unit_type_name = unit_type(visible_unit)['name'];
     if (unit_type_name == null) {
-      console.error(unit_type_name + " model not loaded correcly.");
       return;
     }
 
-    var new_unit = webgl_get_model(unit_type_name);
-    if (new_unit == null) return;
+    var new_unit = webgl_get_model(unit_type_name, ptile);
+    if (new_unit == null) {
+      return;
+    }
     unit_positions[ptile['index']] = new_unit;
     var pos;
     if (visible_unit['anim_list'].length > 0) {
@@ -204,8 +204,10 @@ function update_unit_position(ptile) {
       return;
     }
 
-    var new_unit = webgl_get_model(unit_type_name);
-    if (new_unit == null) return;
+    var new_unit = webgl_get_model(unit_type_name, ptile);
+    if (new_unit == null) {
+      return;
+    }
     unit_positions[ptile['index']] = new_unit;
     unit_positions[ptile['index']]['unit_type'] = unit_type_name;
 
@@ -261,8 +263,10 @@ function update_city_position(ptile) {
     // add new city
     var model_name = city_to_3d_model_name(pcity);
     pcity['webgl_model_name'] = model_name;
-    var new_city = webgl_get_model(model_name);
-    if (new_city == null) return;
+    var new_city = webgl_get_model(model_name, ptile);
+    if (new_city == null) {
+      return;
+    }
     city_positions[ptile['index']] = new_city;
 
     var pos = map_to_scene_coords(ptile['x'], ptile['y']);
@@ -274,7 +278,7 @@ function update_city_position(ptile) {
     }
 
     if (scene != null && pcity['walls'] && city_walls_positions[ptile['index']] == null) {
-      var city_walls = webgl_get_model("citywalls");
+      var city_walls = webgl_get_model("citywalls", ptile);
       if (city_walls != null) {
         city_walls.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);
         city_walls.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
@@ -301,8 +305,10 @@ function update_city_position(ptile) {
       // update city model to a different size.
       if (scene != null) scene.remove(city_positions[ptile['index']]);
       pcity['webgl_model_name'] = model_name;
-      var new_city = webgl_get_model(model_name);
-      if (new_city == null) return;
+      var new_city = webgl_get_model(model_name, ptile);
+      if (new_city == null) {
+        return;
+      }
       city_positions[ptile['index']] = new_city;
 
       var pos = map_to_scene_coords(ptile['x'], ptile['y']);
@@ -322,7 +328,7 @@ function update_city_position(ptile) {
     var pos = map_to_scene_coords(ptile['x'], ptile['y']);
 
     if (scene != null && pcity['walls'] && city_walls_positions[ptile['index']] == null) {
-      var city_walls = webgl_get_model("citywalls");
+      var city_walls = webgl_get_model("citywalls", ptile);
       if (city_walls != null) {
         city_walls.position.set(pos['x'] - 10, height, pos['y'] - 10);
         city_walls.scale.x = city_walls.scale.y = city_walls.scale.z = get_citywalls_scale(pcity);
@@ -427,8 +433,10 @@ function update_tile_extra_update_model(extra_type, extra_name, ptile)
   if (tile_extra_positions[extra_type + "." + ptile['index']] == null && tile_has_extra(ptile, extra_type)) {
     var height = 5 + ptile['height'] * 100;
 
-    var model = webgl_get_model(extra_name);
-    if (model == null) return;
+    var model = webgl_get_model(extra_name, ptile);
+    if (model == null) {
+      return;
+    }
     tile_extra_positions[extra_type + "." + ptile['index']] = model;
     var pos = map_to_scene_coords(ptile['x'], ptile['y']);
     model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10);

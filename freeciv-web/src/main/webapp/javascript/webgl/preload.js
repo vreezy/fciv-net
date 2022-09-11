@@ -26,36 +26,8 @@ var webgl_materials = {};
 
 var meshes = {};
 
-var model_filenames = ["AEGIS Cruiser",     "Helicopter",    "Pikemen",
-                       "Alpine Troops",     "Horsemen",
-                       "Archers",           "citywalls",        "Howitzer",      "Riflemen",
-                       "Armor",             "Hut",
-                       "Artillery",         "Cruise Missile",   "Ironclad",      "Settlers",
-                       "AWACS",             "Cruiser",
-                       "Barbarian Leader",  "Destroyer",        "Spy",
-                       "Battleship",        "Diplomat",         "Knights",       "Stealth Bomber",
-                       "Bomber",            "Dragoons",         "Legion",        "Submarine",
-                       "Engineers",         "Marines",          "Transport",
-                       "Cannon",            "Explorer",         "Mech. Inf.",    "Trireme",
-                       "Caravan",           "Fighter",          "Mine",          "Warriors",
-                       "Caravel",           "Musketeers",
-                       "Carrier",           "Freight",          "Nuclear",
-                       "Catapult",          "Frigate",          "Migrants",
-                       "Cavalry",           "Paratroopers",     "Workers",
-                       "Chariot",           "Galleon",          "Partisan",
-                       "Phalanx",          "Ruins",
-                       "Airbase",           "Fortress",
-                       "city_european_0",
-                       "city_european_1",
-                       "city_european_2",
-                       "city_european_3",
-                       "city_european_4",
-                       "city_modern_0",
-                       "city_modern_1",
-                       "city_modern_2",
-                       "city_modern_3",
-                       "city_modern_4"
-                      ];
+var model_filenames_initial = ["Settlers",   "Explorer",   "Workers", "city_european_0",  "city_modern_0", "Warriors", "citywalls"];
+var tiles_of_unloaded_models_map = {};
 
 /****************************************************************************
   Preload textures and models
@@ -155,9 +127,9 @@ function handle_new_texture(url, terrain_name)
 ****************************************************************************/
 function webgl_preload_models()
 {
-  total_model_count = model_filenames.length;
-  for (var i = 0; i < model_filenames.length; i++) {
-    load_model(model_filenames[i]);
+  total_model_count = model_filenames_initial.length;
+  for (var i = 0; i < model_filenames_initial.length; i++) {
+    load_model(model_filenames_initial[i]);
   }
 }
 
@@ -167,12 +139,13 @@ function webgl_preload_models()
 function load_model(filename)
 {
   var url = "/gltf/" + filename + ".glb";
-
   const loader = new THREE.GLTFLoader();
 
   loader.load( url, function(data) {
     var model = data.scene;
-    $("#download_progress").html(" 3D models " + Math.floor(30 + (0.7 * 100 * load_count / total_model_count)) + "%");
+    if (C_S_PREPARING == client_state()) {
+      $("#download_progress").html(" 3D models " + Math.floor(30 + (0.7 * 100 * load_count / total_model_count)) + "%");
+    }
 
     model.traverse((node) => {
       if (node.isMesh) {
@@ -188,17 +161,32 @@ function load_model(filename)
     load_count++;
     if (load_count == total_model_count) webgl_preload_complete();
 
+    /* Update view of tiles where model now has been downloaded. */
+    for (ptile_index in tiles_of_unloaded_models_map) {
+      var ptile = tiles[ptile_index];
+      var model_filename = tiles_of_unloaded_models_map[ptile_index];
+      if (filename == model_filename) {
+        update_unit_position(ptile);
+        update_city_position(ptile);
+        update_tile_extras(ptile);
+        delete tiles_of_unloaded_models_map[ptile_index];
+      }
+    }
+
    });
 }
 
 /****************************************************************************
  Returns a single 3D model mesh object.
 ****************************************************************************/
-function webgl_get_model(filename)
+function webgl_get_model(filename, ptile)
 {
   if (webgl_models[filename] != null) {
     return webgl_models[filename].clone();
   } else {
+    // Download model and redraw the tile when loaded.
+    tiles_of_unloaded_models_map[ptile['index']] = filename;
+    load_model(filename);
     return null;
   }
 }
