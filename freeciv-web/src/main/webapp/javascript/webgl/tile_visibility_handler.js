@@ -57,7 +57,7 @@ function update_tiles_known_vertex_colors()
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
       var sx = ix % xquality, sy = iy % yquality;
-      var mx = Math.floor((sx / 6) - 0.040), my = Math.floor((sy / 6) - 0.040);
+      var mx = Math.floor((sx / terrain_quality) - 0.040), my = Math.floor((sy / terrain_quality) - 0.040);
       var ptile = map_pos_to_tile(mx, my);
         if (ptile != null) {
           var c = get_vertex_color_from_tile(ptile, ix, iy);
@@ -91,14 +91,14 @@ function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
 
       // Unit shadow
       var units = tile_units(ptile);
-      if (units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % 6)> 3 && (vertex_y % 6) > 3) {
-        known_status_color = 0.35;
+      if (units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % terrain_quality)> 3 && (vertex_y % terrain_quality) > 3) {
+        known_status_color = 0.43;
       }
 
       // City shadow
       var pcity = tile_city(ptile);
-      if (pcity != null && (vertex_x % 6) > 1 && (vertex_y % 6) > 1) {
-        known_status_color = 0.40;
+      if (pcity != null && (vertex_x % terrain_quality) > 1 && (vertex_y % terrain_quality) > 1) {
+        known_status_color = 0.42;
       }
 
     } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {

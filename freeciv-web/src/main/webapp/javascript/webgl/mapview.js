@@ -181,14 +181,14 @@ function init_webgl_mapview() {
   scene.add(lofiMesh);
 
   // High-resolution terrain-mesh shown in mapview.
-  create_heightmap(6);
+  create_heightmap(terrain_quality);
   var terrain_material = new THREE.ShaderMaterial({
     uniforms: freeciv_uniforms,
     vertexShader: vertex_shader,
     fragmentShader: fragment_shader,
     vertexColors: true
   });
-  landGeometry = create_land_geometry(6);
+  landGeometry = create_land_geometry(terrain_quality);
   landMesh = new THREE.Mesh( landGeometry, terrain_material );
   scene.add(landMesh);
 

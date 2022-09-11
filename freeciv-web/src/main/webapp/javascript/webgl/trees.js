@@ -41,7 +41,7 @@ function add_trees_to_landgeometry() {
     for ( let ix = 0; ix < gridX1; ix += 2 ) {
       const x = ix * segment_width - width_half;
       var sx = ix % xquality, sy = iy % yquality;
-      var mx = Math.floor(sx / 6), my = Math.floor(sy / 6);
+      var mx = Math.floor(sx / terrain_quality), my = Math.floor(sy / terrain_quality);
       var ptile = map_pos_to_tile(mx, my);
 
       if (ptile != null) {
