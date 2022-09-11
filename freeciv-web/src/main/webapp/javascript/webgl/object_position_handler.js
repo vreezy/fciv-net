@@ -291,7 +291,7 @@ function update_city_position(ptile) {
 
     var city_label = create_city_label_sprite(pcity);
     city_label_positions[ptile['index']] = city_label;
-    city_label.position.set(pos['x'] - 8 , height + 26, pos['y'] - 25);
+    city_label.position.set(pos['x'] + 10 , height + 32, pos['y'] - 25);
 
     pcity['webgl_label_hash'] = pcity['name'] + pcity['size'] + pcity['production_value'] + "." + pcity['production_kind'] + punits.length;
     if (scene != null) scene.add(city_label);

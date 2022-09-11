@@ -146,10 +146,9 @@ function create_unit_health_sprite(punit)
 ****************************************************************************/
 function create_city_label_sprite(pcity)
 {
-
   var fcanvas = document.createElement("canvas");
-  fcanvas.width = 256;
-  fcanvas.height = 36;
+  fcanvas.width = 350;
+  fcanvas.height = 35;
   var ctx = fcanvas.getContext("2d");
   pcity['label_canvas'] = fcanvas;
 
@@ -217,7 +216,7 @@ function create_city_label_sprite(pcity)
       width += 32;
     }
   }
-  if (width > 256) width = 256;
+  if (width > 350) width = 350;
 
   texture = new THREE.Texture(fcanvas);
   texture.needsUpdate = true;
@@ -225,7 +224,7 @@ function create_city_label_sprite(pcity)
   texture_cache[key] = texture;
 
   var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
-  sprite.scale.set(Math.floor(width / 2) - 30, 11, 1);
+  sprite.scale.set(Math.floor(width * 0.30) + 32, 11, 1);
   return sprite;
 }
 
@@ -238,8 +237,8 @@ function update_city_label(pcity)
   var canvas = pcity['label_canvas'];
   if (canvas == null) {
     canvas = document.createElement('canvas');
-    canvas.width = 256;
-    canvas.height = 42;
+    canvas.width = 350;
+    canvas.height = 35;
     pcity['label_canvas'] = canvas;
   }
 

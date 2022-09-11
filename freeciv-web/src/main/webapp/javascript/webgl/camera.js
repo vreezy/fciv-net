@@ -21,7 +21,7 @@ var camera;
 
 var camera_dy_div_dx = 340/300;
 var camera_dx = 258;
-var camera_dy = 357;
+var camera_dy = 410;
 var camera_dz = 258;
 var camera_current_x = 0;
 var camera_current_y = 0;

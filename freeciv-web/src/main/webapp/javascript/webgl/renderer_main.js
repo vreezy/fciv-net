@@ -22,7 +22,7 @@ var QUALITY_HIGH = 3;   // best quality, add features which require high-end gra
 
 var graphics_quality = QUALITY_HIGH;
 
-var terrain_quality = 8;
+var terrain_quality = 6;
 
 var anaglyph_3d_enabled = false;
 var stats = null;
@@ -44,12 +44,6 @@ function init_webgl_renderer()
     graphics_quality = stored_graphics_quality_setting;
   } else {
     graphics_quality = QUALITY_HIGH; //default value
-  }
-
-  if (!is_small_screen() && graphics_quality == QUALITY_HIGH) {
-    terrain_quality = 8;
-  } else if (graphics_quality == QUALITY_MEDIUM) {
-    terrain_quality = 6;
   }
 
 }
