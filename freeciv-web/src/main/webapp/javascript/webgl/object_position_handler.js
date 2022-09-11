@@ -53,7 +53,7 @@ var selected_unit_material_counter = 0;
 ****************************************************************************/
 function update_unit_position(ptile) {
   var visible_unit = find_visible_unit(ptile);
-  var height = 5 + ptile['height'] * 100 + get_unit_height_offset(visible_unit);
+  var height = 5 + Math.max(ptile['height'], 0.45) * 100 + get_unit_height_offset(visible_unit);
 
   if (unit_positions[ptile['index']] != null && visible_unit == null) {
     // tile has no visible units, remove it from unit_positions.
