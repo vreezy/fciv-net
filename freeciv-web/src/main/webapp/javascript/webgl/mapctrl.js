@@ -147,7 +147,7 @@ function webglOnWheel(e) {
   var new_camera_dx;
   var new_camera_dy;
   var new_camera_dz;
-  const min_y = 90;
+  const min_y = 320;
   const max_y = 10000;
 
   var wd = e.originalEvent.deltaY;
