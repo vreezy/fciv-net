@@ -23,6 +23,11 @@
 # add_packet_tile_height adds 'height' to tile in packets.def to include heightmap info for 3D web client.
 
 declare -a PATCHLIST=(
+  "0002-generate_packets.py-Correctly-identify-cm_parameter-"
+  "0024-Create-web-packages-only-if-there-s-web-clients-pres"
+  "0052-Add-server-side-CMA-info-to-PACKET_WEB_CITY_INFO_ADD"
+  "0031-Protocol-Make-connection-count-UINT16-in-PACKET_CONN"
+  "0044-Add-server-support-for-web-client-to-request-CMA"
   "0050-fc_strrep_resize-Fix-on-NDEBUG-builds"
   "city_impr_fix2"
   "city-naming-change"
