@@ -680,7 +680,7 @@ button {
 
 #worklist_dialog_headline {
   width: 100%;
-  height: 48px;
+  height: 42px;
   font-size: 120%;
   padding-bottom: 5px;
   background-color: rgba(40,40,40,0.2);
@@ -1096,4 +1096,8 @@ li.tech-both::before {
 
 #fciv-intro-txt {
     background-color: rgba(1.0, 1.0, 1.0, 0.5);
+}
+
+.prod_choice_name {
+  font-weight: bold;
 }

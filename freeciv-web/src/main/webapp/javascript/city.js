@@ -1376,8 +1376,8 @@ function city_worklist_dialog(pcity)
   $(".button").button();
 
   var tab_h = $("#city_production_tab").height();
-  $("#city_current_worklist").height(tab_h - 130);
-  $("#worklist_production_choices").height(tab_h - 81);
+  $("#city_current_worklist").height(tab_h - 120);
+  $("#worklist_production_choices").height(tab_h - 47);
   /* TODO: remove all hacky sizing and positioning */
   /* It would have been nice to use $("#city_current_worklist").position().top
      for worklist_control padding-top, but that's 0 on first run.
