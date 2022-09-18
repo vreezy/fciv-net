@@ -17,7 +17,6 @@
 
 ***********************************************************************/
 
-var border_image_resolution = 512;
 var borders_palette = [];
 var borders_texture;
 var borders_hash = -1;
@@ -96,59 +95,36 @@ function update_borders_image()
 
 ****************************************************************************/
 function generate_borders_image() {
+  var cols = map['xsize'];
+  var rows = map['ysize'];
 
   var row;
   // The grid of points that make up the image.
-  var grid = Array(border_image_resolution);
-  for (row = 0; row < border_image_resolution ; row++) {
-    grid[row] = Array(border_image_resolution);
+  var grid = Array(rows);
+  for (row = 0; row < rows ; row++) {
+    grid[row] = Array(cols);
   }
 
-  for (var x = 0; x < border_image_resolution ; x++) {
-    for (var y = 0; y < border_image_resolution; y++) {
-      var gx = Math.floor(map.ysize * x / border_image_resolution);
-      var gy = Math.floor(map.xsize * y / border_image_resolution);
-      grid[x][y] = border_image_color(gy, gx);
+  for (var y = 0; y < rows ; y++) {
+    for (var x = 0; x < cols; x++) {
+      grid[y][x] = border_image_color(x, y);
     }
   }
 
-  var result = Array(border_image_resolution);
-  for (row = 0; row < border_image_resolution ; row++) {
-    result[row] = Array(border_image_resolution);
-  }
-
-  for (var x = 0; x < border_image_resolution ; x++) {
-    for (var y = 0; y < border_image_resolution; y++) {
-      if (x == 0 || y == 0 || x >= border_image_resolution - 1  || y >= border_image_resolution - 1) {
-        result[x][y] = grid[x][y];
-      } else {
-        var is_border = (grid[x][y] > 0
-           && (grid[x-1][y-1] != grid[x][y] || grid[x-1][y] != grid[x][y] || grid[x][y-1] != grid[x][y] || grid[x+1][y] != grid[x][y]
-            || grid[x][y+1] != grid[x][y] || grid[x+1][y+1] != grid[x][y] || grid[x-1][y+1] != grid[x][y] || grid[x+1][y-1] != grid[x][y]));
-        if (is_border) {
-          result[x][y] = grid[x][y];
-        } else {
-          result[x][y] = 0;
-        }
-      }
-    }
-  }
-
-  return result;
+  return grid;
 }
-
 
 /****************************************************************************
  Creates a hash of the map borders.
 ****************************************************************************/
 function generate_borders_image_hash() {
   var hash = 0;
+  var cols = map['xsize'];
+  var rows = map['ysize'];
 
-  for (var x = 0; x < border_image_resolution ; x++) {
-    for (var y = 0; y < border_image_resolution; y++) {
-      var gx = Math.floor(map.ysize * x / border_image_resolution);
-      var gy = Math.floor(map.xsize * y / border_image_resolution);
-      hash += border_image_color(gy, gx);
+  for (var y = 0; y < rows ; y++) {
+    for (var x = 0; x < cols; x++) {
+      hash += border_image_color(x, y);
     }
   }
 
@@ -162,6 +138,10 @@ function generate_borders_image_hash() {
 function border_image_color(map_x, map_y)
 {
   var ptile = map_pos_to_tile(map_x, map_y);
+
+  if (map_x > map['xsize'] || map_y > map['ysize']) {
+    return 0;
+  }
 
   if (ptile != null && ptile['owner'] != null && ptile['owner'] < 255) {
       return 1 + ptile['owner'];
