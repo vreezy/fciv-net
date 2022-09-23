@@ -159,14 +159,6 @@
 						</c:if>
 						<a href="/webclient/?action=new&type=singleplayer" class="btn" id="webgl_button"><i class="fa fa-cube"></i> New Game</a>
 
-
-						<c:if test="${default_lang}">
-							<div class="features">
-								Start on a scenario map, such as <br> World map, America, Italy or Japan.
-							</div>
-						</c:if>
-						<a href="/webclient/?action=load&amp;scenario=true&type=singleplayer&renderer=webgl" class="btn"><i class="fa fa-map-o"></i> <fmt:message key="index-game-launcher-scenario"/></a>
-                        <br>
 					</div>
 				</div>
 				<div class="col-md-6">
