@@ -81,10 +81,10 @@ function webgl_start_renderer()
   clock = new THREE.Clock();
 
   // Lights
-  var ambientLight = new THREE.AmbientLight( 0x606060, 3.5 );
+  var ambientLight = new THREE.AmbientLight( 0x606060, 3.3 );
   scene.add(ambientLight);
 
-  directionalLight = new THREE.DirectionalLight( 0xffffff, 4.0 );
+  directionalLight = new THREE.DirectionalLight( 0xffffff, 3.8 );
   directionalLight.position.set( 0.5, 0.75, 1.0 ).normalize();
   scene.add( directionalLight );
 

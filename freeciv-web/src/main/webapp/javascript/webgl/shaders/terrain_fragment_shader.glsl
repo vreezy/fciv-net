@@ -498,17 +498,15 @@ void main(void)
 
     // Borders
     if (!(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
-        border_e = texture2D(borders, vec2(vUv.x + (0.05 / map_x_size), vUv.y));
-        border_w = texture2D(borders, vec2(vUv.x - (0.05 / map_x_size), vUv.y));
-        border_n = texture2D(borders, vec2(vUv.x , vUv.y + (0.05 / map_x_size)));
-        border_s = texture2D(borders, vec2(vUv.x , vUv.y - (0.05 / map_x_size)));
+        border_e = texture2D(borders, vec2(vUv.x + (0.06 / map_x_size), vUv.y));
+        border_w = texture2D(borders, vec2(vUv.x - (0.06 / map_x_size), vUv.y));
+        border_n = texture2D(borders, vec2(vUv.x , vUv.y + (0.06 / map_x_size)));
+        border_s = texture2D(borders, vec2(vUv.x , vUv.y - (0.06 / map_x_size)));
         if (border_n.r != border_color.r || border_n.g != border_color.g || border_n.b != border_color.b ||
             border_s.r != border_color.r || border_s.g != border_color.g || border_n.b != border_color.b ||
             border_e.r != border_color.r || border_e.g != border_color.g || border_e.b != border_color.b ||
             border_w.r != border_color.r || border_w.g != border_color.g || border_w.b != border_color.b)  {
             c = border_color.rbg;
-        } else {
-            c = mix(c, border_color.rbg, 0.18);
         }
         
     }
