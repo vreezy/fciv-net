@@ -507,8 +507,9 @@ void main(void)
             border_e.r != border_color.r || border_e.g != border_color.g || border_e.b != border_color.b ||
             border_w.r != border_color.r || border_w.g != border_color.g || border_w.b != border_color.b)  {
             c = border_color.rbg;
+        } else {
+           c = mix(c, border_color.rbg, 0.08);
         }
-        
     }
 
     // specular component, ambient occlusion and fade out underwater terrain
