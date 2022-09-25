@@ -508,7 +508,7 @@ void main(void)
             border_w.r != border_color.r || border_w.g != border_color.g || border_w.b != border_color.b)  {
             c = border_color.rbg;
         } else {
-           c = mix(c, border_color.rbg, 0.08);
+           c = mix(c, border_color.rbg, 0.10);
         }
     }
 
