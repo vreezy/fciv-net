@@ -16,7 +16,7 @@
 
 ***********************************************************************/
 
-var chatbox_active = true;
+var chatbox_active = false;
 var message_log = new EventAggregator(update_chatbox, 125,
                                       EventAggregator.DP_ALL, 1000, 0);
 var previous_scroll = 0;

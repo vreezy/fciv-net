@@ -66,5 +66,6 @@ if (C_S_RUNNING == client_state() || C_S_OVER == client_state()) {
     webgl_start_renderer();
     init_webgl_mapview();
     init_webgl_mapctrl();
+    mapdeco_init();
   }
 }

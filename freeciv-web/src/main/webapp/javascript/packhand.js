@@ -474,14 +474,6 @@ function handle_map_info(packet)
 
   map_allocate();
 
-  /* TODO: init_client_goto();*/
-
-  mapdeco_init();
-
-  /* TODO: generate_citydlg_dimensions();*/
-
-  /* TODO: calculate_overview_dimensions();*/
-
   mapview_model_width = Math.floor(MAPVIEW_ASPECT_FACTOR * map['xsize']);
   mapview_model_height = Math.floor(MAPVIEW_ASPECT_FACTOR * map['ysize']);
 
