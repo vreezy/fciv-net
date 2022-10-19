@@ -4,7 +4,6 @@ FCIV.NET
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Build Status](https://github.com/fciv-net/fciv-net/workflows/continuous%20integration/badge.svg)](https://github.com/fciv-net/fciv-net/actions?query=workflow%3A%22continuous+integration%22)
 [![DeepScan grade](https://deepscan.io/api/teams/18818/projects/22102/branches/649871/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=18818&pid=22102&bid=649871)
-[![Discord][discord]][discord-url]
 
 [Fciv.net](https://www.fciv.net) is an open-source turn-based strategy game. It can be played in any HTML5 capable web-browser and features in-depth game-play and a wide variety of game modes and options. Your goal is to build cities, collect resources, organize your government, and build an army, with the ultimate goal of creating the best civilization. You can play online against other players (multiplayer) or play by yourself against the computer. There is both a HTML5 2D version with isometric graphics and a 3D WebGL version of Freeciv-web. 
 
@@ -200,6 +199,3 @@ Gerik Bonaert [@adaxi](https://github.com/adaxi)
 Lmoureaux [@lmoureaux](https://github.com/lmoureaux)  
 Máximo Castañeda [@lonemadmax](https://github.com/lonemadmax)  
 and the [Freeciv.org project](https://www.freeciv.org/wiki/People)!
-
-[discord]: https://img.shields.io/discord/960605237775855676
-[discord-url]: https://discord.gg/baFdjpNpTR
