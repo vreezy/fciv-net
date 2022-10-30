@@ -1128,9 +1128,6 @@ function handle_conn_ping_info(packet)
 function handle_end_phase(packet)
 {
   chatbox_clip_messages();
-  if (is_pbem()) {
-    pbem_end_phase();
-  }
   if (is_hotseat())  {
     hotseat_next_player();
   }

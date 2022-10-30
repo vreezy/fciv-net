@@ -36,10 +36,6 @@ function pregame_start_game()
 {
   if (client.conn['player_num'] == null) return;
 
-  if (is_pbem() || is_hotseat()) {
-    set_alternate_turns();
-  }
-
   var test_packet = {"pid" : packet_player_ready, "is_ready" : true,
                      "player_no": client.conn['player_num']};
   var myJSONText = JSON.stringify(test_packet);
@@ -191,12 +187,6 @@ function update_player_info_pregame()
             "hard": {name: "Hard"},
             "sep2": "---------"
        };
-
-    if (is_pbem()) {
-      pregame_context_items = {
-            "pick_nation": {name: "Pick nation"}};
-    }
-
 
       $("#pregame_player_list").contextMenu({
         selector: '.pregame_player_name',
@@ -849,10 +839,6 @@ function pregame_settings()
     window.speechSynthesis.onvoiceschanged = function(e) {
       load_voices();
     };
-  }
-
-  if (is_pbem()) {
-    $(".not_pbem").hide();
   }
 
   $("#settings_table").tooltip();

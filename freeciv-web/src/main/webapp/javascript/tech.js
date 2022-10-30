@@ -606,7 +606,9 @@ function get_tech_infobox_html(tech_id)
 **************************************************************************/
 function check_queued_tech_gained_dialog()
 {
-  if (!is_pbem() || players.length < 2) return;
+  return;
+
+  /*if (!is_pbem() || players.length < 2) return;
 
   var queued_tech = simpleStorage.get(get_pbem_game_key(), "");
 
@@ -614,7 +616,7 @@ function check_queued_tech_gained_dialog()
     $("#dialog").remove();
     show_tech_gained_dialog(queued_tech);
     simpleStorage.set(get_pbem_game_key(), null);
-  }
+  }*/
 
 }
 
@@ -626,11 +628,7 @@ function queue_tech_gained_dialog(tech_gained_id)
 {
   if (client_is_observer() || C_S_RUNNING != client_state()) return;
 
-  if (is_pbem() && pbem_phase_ended) {
-    simpleStorage.set(get_pbem_game_key(), tech_gained_id);
-  } else {
-    show_tech_gained_dialog(tech_gained_id);
-  }
+  show_tech_gained_dialog(tech_gained_id);
 
 }
 

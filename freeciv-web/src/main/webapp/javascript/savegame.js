@@ -80,11 +80,6 @@ function save_game()
 				}
 			});
 
-  if (is_pbem()) {
-    swal("Play-By-Email games can not be saved. Please use the end turn button.");
-    return;
-  }
-
   $("#save_dialog").dialog('open');
   saved_this_turn = true;
 }
@@ -94,10 +89,6 @@ function save_game()
 **************************************************************************/
 function quicksave()
 {
-  if (is_pbem()) {
-    swal("Play-By-Email games can not be saved. Please use the end turn button.");
-    return;
-  }
 
   if (saved_this_turn) {
     swal("You have already saved this turn, and you can only save once every turn each game-session.");

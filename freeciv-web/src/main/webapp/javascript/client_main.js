@@ -187,11 +187,6 @@ function show_new_game_message()
   } else if (is_hotseat()) {
     show_hotseat_new_phase();
     return;
-  } else if (is_pbem()) {
-    message = "Welcome " + username + "! It is now your turn to play. Each player will " +
-      "get an e-mail when it is their turn to play, and can only play one turn at a time. " +
-      "Click the end turn button to end your turn and let the next opponent play.";
-    setTimeout(check_queued_tech_gained_dialog, 2500);
 
   } else if (client.conn.playing != null && !game_loaded) {
     var pplayer = client.conn.playing;

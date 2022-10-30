@@ -129,13 +129,11 @@ function init_options_dialog()
     }
   );
 
-  if (!is_pbem()) {
-    var existing_timeout = game_info['timeout'];
-    if (existing_timeout == 0) $("#timeout_info").html("(0 = no timeout)");
-    $("#timeout_setting").val(existing_timeout);
-  } else {
-    $("#timeout_setting_div").hide();
-  }
+
+  var existing_timeout = game_info['timeout'];
+  if (existing_timeout == 0) $("#timeout_info").html("(0 = no timeout)");
+  $("#timeout_setting").val(existing_timeout);
+
   $('#timeout_setting').change(function() {
     var new_timeout = parseInt($('#timeout_setting').val());
     if (new_timeout >= 1 && new_timeout <= 29) {
