@@ -153,8 +153,8 @@ button {
 }
 
 #city_improvements_panel {
-  padding-left: 80px;
-  max-width: 70%;
+  padding-left: 60px;
+  max-width: 60%;
 }
 
 #city_right_panel {
@@ -448,7 +448,7 @@ button {
 }
 
 #city_stats tr {
-  line-height: 14px;
+  line-height: 11px;
 }
 
 .govbutton {

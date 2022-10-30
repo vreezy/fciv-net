@@ -204,7 +204,7 @@ function show_city_dialog(pcity)
 			bgiframe: true,
 			modal: false,
 			width:  "99.5%" ,
-                        height: is_small_screen() ? 260 : 342,
+                        height: is_small_screen() ? 250 : 332,
                         close : city_dialog_close_handler,
             position: {my: 'left bottom', at: 'left bottom', of: window},
             buttons: dialog_buttons
