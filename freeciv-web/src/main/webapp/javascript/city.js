@@ -224,7 +224,7 @@ function show_city_dialog(pcity)
 
   $("#city_tabs").tabs({ active: city_tab_index});
 
-  $(".citydlg_tabs").height(is_small_screen() ? 260 : 222);
+  $(".citydlg_tabs").height(is_small_screen() ? 250 : 212);
 
   city_worklist_dialog(pcity);
   set_default_mapview_inactive();
