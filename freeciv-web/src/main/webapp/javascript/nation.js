@@ -232,11 +232,10 @@ function select_a_nation()
   } else {
     $('#meet_player_button').button("disable");
   }
-  if (!is_hotseat()
-      && !pplayer['flags'].isSet(PLRF_AI)
+  if (!pplayer['flags'].isSet(PLRF_AI)
       && (diplstates[player_id] != null && diplstates[player_id] == DS_NO_CONTACT)) {
     $('#meet_player_button').button("disable");
-  }
+
 
     if (pplayer['flags'].isSet(PLRF_AI) || selected_myself) {
       $('#send_message_button').button("disable");
@@ -279,7 +278,7 @@ function select_a_nation()
     $("#intelligence_report_button").button("disable");
   }
 
-  if (!is_hotseat() && client_is_observer() && pplayer['flags'].isSet(PLRF_AI)
+  if (client_is_observer() && pplayer['flags'].isSet(PLRF_AI)
       && nations[pplayer['nation']]['is_playable']
                && $.getUrlVar('multi') == "true") {
     $('#take_player_button').button("enable");

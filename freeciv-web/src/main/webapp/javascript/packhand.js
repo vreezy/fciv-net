@@ -1038,9 +1038,6 @@ function handle_unit_actions(packet)
 
 function handle_diplomacy_init_meeting(packet)
 {
-  // for hotseat games, only activate diplomacy if the player is playing.
-  if (is_hotseat() && packet['initiated_from'] != client.conn.playing['playerno']) return;   
-
   diplomacy_clause_map[packet['counterpart']] = [];
   show_diplomacy_dialog(packet['counterpart']);
   show_diplomacy_clauses(packet['counterpart']);
@@ -1128,9 +1125,7 @@ function handle_conn_ping_info(packet)
 function handle_end_phase(packet)
 {
   chatbox_clip_messages();
-  if (is_hotseat())  {
-    hotseat_next_player();
-  }
+
 }
 
 /* Done. */

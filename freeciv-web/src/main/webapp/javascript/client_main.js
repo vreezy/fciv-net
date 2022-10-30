@@ -184,10 +184,6 @@ function show_new_game_message()
   if (observing || $.getUrlVar('autostart') == "true") {
     return;
 
-  } else if (is_hotseat()) {
-    show_hotseat_new_phase();
-    return;
-
   } else if (client.conn.playing != null && !game_loaded) {
     var pplayer = client.conn.playing;
     message = "Welcome, " + username + " ruler of the " + nations[pplayer['nation']]['adjective'] + " empire.";
