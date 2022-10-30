@@ -235,7 +235,7 @@ function select_a_nation()
   if (!pplayer['flags'].isSet(PLRF_AI)
       && (diplstates[player_id] != null && diplstates[player_id] == DS_NO_CONTACT)) {
     $('#meet_player_button').button("disable");
-
+  }
 
     if (pplayer['flags'].isSet(PLRF_AI) || selected_myself) {
       $('#send_message_button').button("disable");
