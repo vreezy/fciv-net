@@ -302,8 +302,6 @@ mkdir -p "${basedir}/freeciv-web/src/derived/webapp" && \
   -d "${TOMCAT_HOME}/webapps/data" || \
   handle_error 6 "Failed to synchronize freeciv project"
 
-# TODO install handlebars and build
-
 cd "${basedir}"/freeciv-web && \
   ./build.sh -B || \
   handle_error 7 "Failed to build freeciv-web server"
