@@ -302,9 +302,7 @@ mkdir -p "${basedir}/freeciv-web/src/derived/webapp" && \
   -d "${TOMCAT_HOME}/webapps/data" || \
   handle_error 6 "Failed to synchronize freeciv project"
 
-cd "${basedir}"/freeciv-web && \
-  npm install --no-bin-links || \
-  handle_error 8 "Failed to install node dependencies"
+# TODO install handlebars and build
 
 cd "${basedir}"/freeciv-web && \
   ./build.sh -B || \

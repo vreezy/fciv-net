@@ -21,6 +21,7 @@ dependencies="\
   curl \
   git \
   gnupg \
+  handlebars \
   imagemagick \
   libcurl4-openssl-dev \
   libicu-dev \
@@ -62,15 +63,6 @@ else
   INSTALLED_TOMCAT=N
 fi
 
-debian_nodejs_packages="nodejs npm handlebars node-opener"
-if [ $(lsb_release -rs) = "testing" ] && [ $(lsb_release -is) = "Debian" ] \
-   && apt-get --simulate install ${debian_nodejs_packages} &> /dev/null; then
-  dependencies="${dependencies} ${debian_nodejs_packages}"
-  INSTALLED_NODEJS=Y
-else
-  INSTALLED_NODEJS=N
-fi
-
 # Install lua-5.4, if available. Otherwise it will be built from the copy
 # included with the server.
 if apt-get --simulate install liblua5.4-dev &> /dev/null; then
@@ -90,12 +82,3 @@ fi
 
 TMPINSTDIR=$(mktemp -d)
 
-echo "==== Installing Node.js ===="
-if [ "${INSTALLED_NODEJS}" = N ]; then
-  cd "${TMPINSTDIR}"
-  curl -LOsS 'https://deb.nodesource.com/setup_14.x'
-  sudo bash setup_14.x
-  sudo ${APT_GET} install --no-install-recommends nodejs
-fi
-# Populate ~/.config with current user
-npm help > /dev/null
