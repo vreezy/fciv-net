@@ -12,7 +12,7 @@ Freeciv-proxy is started by Publite2.
 Software requirements:
 
 - Python 3.5 or later.
-- Tornado 5 - http://www.tornadoweb.org/
+- Tornado 6.1 - http://www.tornadoweb.org/
 
 Freeciv-proxy can communicate with the Freeciv C server. However, it doesn't support the delta-protocol, so the Freeciv C server must be compiled (maybe even patched) to disable the delta protocol.
 

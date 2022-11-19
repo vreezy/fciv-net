@@ -36,10 +36,6 @@ packet_type_names = {};
 
 ################# END OF PARAMETERS ####################
 
-# This program runs under python 1.5 and 2.2 and hopefully every
-# version in between. Please leave it so. In particular use the string
-# module and not the function of the string type.
-
 import re, sys
 import logging
 logger = logging.getLogger("freeciv-proxy");
@@ -1008,6 +1004,9 @@ class Packet:
         self.handle_via_packet="handle-via-packet" in arr
         if self.handle_via_packet: arr.remove("handle-via-packet")
 
+        self.handle_via_packet="handle-via-fields" in arr
+        if self.handle_via_packet: arr.remove("handle-via-fields")
+
         self.handle_per_conn="handle-per-conn" in arr
         if self.handle_per_conn: arr.remove("handle-per-conn")
 
@@ -1024,6 +1023,7 @@ class Packet:
         if self.want_force: arr.remove("force")
 
         self.cancel=[]
+        removes=[]
         remaining=[]
         for i in arr:
             mo=re.search("^cancel\((.*)\)$",i)

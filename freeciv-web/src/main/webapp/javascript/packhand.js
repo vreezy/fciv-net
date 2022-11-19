@@ -327,6 +327,8 @@ function handle_web_city_info_addition(packet)
                 + packet['id']);
     return;
   } else {
+    packet['can_build_improvement'] = new BitVector(packet['can_build_improvement']);
+    packet['can_build_unit'] = new BitVector(packet['can_build_unit']);
     /* Merge the information from web_city_info_addition into the recently
      * received city_info. */
     $.extend(cities[packet['id']], packet);
@@ -1439,7 +1441,10 @@ function handle_edit_object_created(packet)
   /* edit not supported. */
 }
 
-function handle_goto_path(packet)
+/**************************************************************************
+  Received goto path, likely because we requested one.
+**************************************************************************/
+function handle_web_goto_path(packet)
 {
   if (goto_active) {
     update_goto_path(packet);
@@ -1610,11 +1615,17 @@ function handle_ruleset_extra(packet)
   extras[packet['id']] = packet;
   extras[packet['name']] = packet;
 
-  window["EXTRA_" + packet['rule_name'].toUpperCase()] = packet['id'];
+  if (packet['rule_name'] == "Railroad") window["EXTRA_RAIL"] = packet['id'];
+  else if (packet['rule_name'] == "Oil Well") window["EXTRA_OIL_WELL"] = packet['id'];
+  else window["EXTRA_" + packet['rule_name'].toUpperCase()] = packet['id'];
+}
 
-  if (packet['name'] == "Railroad") window["EXTRA_RAIL"] = packet['id'];
-  if (packet['name'] == "Oil Well") window["EXTRA_OIL_WELL"] = packet['id'];
-  if (packet['name'] == "Minor Tribe Village") window["EXTRA_HUT"] = packet['id'];
+/************************************************************************//**
+  Packet handle_ruleset_ruleset handler.
+****************************************************************************/
+function handle_ruleset_counter(packet)
+{
+  /* TODO: implement */
 }
 
 /**************************************************************************
@@ -1750,6 +1761,12 @@ function handle_research_info(packet)
   if (is_tech_tree_init && tech_dialog_active) update_tech_screen();
   bulbs_output_updater.update();
 }
+
+function handle_unknown_research(packet)
+{
+  delete research_data[packet['id']];
+}
+
 
 function handle_worker_task(packet)
 {

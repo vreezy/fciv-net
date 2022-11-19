@@ -222,9 +222,9 @@ function map_select_units(canvas_x, canvas_y)
 
 
 /**************************************************************************
-...
+Received tile info text.
 **************************************************************************/
-function handle_info_text_message(packet)
+function handle_web_info_text_message(packet)
 {
   var message = decodeURIComponent(packet['message']);
   var lines = message.split('\n');

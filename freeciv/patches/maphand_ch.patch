@@ -1,40 +1,22 @@
-diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/client/packhand.c freeciv/client/packhand.c
---- freeciv/client/packhand.c	2021-11-03 18:58:06.928664128 +0200
-+++ freeciv/client/packhand.c	2021-11-03 19:35:11.122886201 +0200
-@@ -5412,3 +5412,12 @@
-                       int dest, int turns)
- {
- }
-+
-+/************************************************************************//**
-+  This is a packet that only the web-client needs. The regular client has no
-+  use for it.
-+  TODO: Do not generate code calling this in the C-client.
-+****************************************************************************/
-+void handle_info_text_message(const char *message)
-+{
-+}
-diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/common/networking/packets.def freeciv/common/networking/packets.def
---- freeciv/common/networking/packets.def	2021-11-03 18:58:35.480529556 +0200
-+++ freeciv/common/networking/packets.def	2021-11-03 19:03:18.931223299 +0200
-@@ -2382,3 +2382,14 @@
+diff -Nurd freeciv/common/networking/packets.def freeciv/common/networking/packets.def
+--- freeciv/common/networking/packets.def	2022-10-23 07:27:36.522696472 +0300
++++ freeciv/common/networking/packets.def	2022-10-23 07:28:49.539369332 +0300
+@@ -2422,3 +2422,12 @@
    TILE dest;
    UINT32 turns;
  end
 +
-+# TODO: Rename to contain '_WEB_' in the name.
-+PACKET_INFO_TEXT_REQ = 289; cs, dsend
++PACKET_WEB_INFO_TEXT_REQ = 289; cs, dsend, handle-via-fields
 +  TILE loc;
 +  UNIT visible_unit;
 +end
 +
-+# TODO: Rename to contain '_WEB_' in the name.
-+PACKET_INFO_TEXT_MESSAGE = 290; sc, dsend
++PACKET_WEB_INFO_TEXT_MESSAGE = 290; sc, dsend, handle-via-fields, no-handle
 +  STRING message[MAX_LEN_MSG];
 +end
-diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server/maphand.c
---- freeciv/server/maphand.c	2021-11-03 18:44:06.677153396 +0200
-+++ freeciv/server/maphand.c	2021-11-03 19:36:42.478492947 +0200
+diff -Nurd freeciv/server/maphand.c freeciv/server/maphand.c
+--- freeciv/server/maphand.c	2022-10-23 07:27:36.918700116 +0300
++++ freeciv/server/maphand.c	2022-10-23 07:27:46.622789438 +0300
 @@ -16,6 +16,7 @@
  #endif
  
@@ -51,7 +33,7 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
  #include "events.h"
  #include "game.h"
  #include "map.h"
-@@ -2537,3 +2539,322 @@
+@@ -2562,3 +2564,330 @@
  
    unbuffer_shared_vision(pto);
  }
@@ -59,7 +41,7 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +/**********************************************************************//**
 +  Return a (static) string with a tile's food/prod/trade
 +**************************************************************************/
-+static const char *get_tile_output_text(const struct tile *ptile, 
++static const char *get_tile_output_text(const struct tile *ptile,
 +                                        struct player *pplayer)
 +{
 +  static struct astring str = ASTRING_INIT;
@@ -82,12 +64,12 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +      fc_snprintf(output_text[i], sizeof(output_text[i]), "%d", x);
 +    }
 +  }
-+  
++
 +  astr_clear(&str);
 +  astr_add_line(&str, "%s/%s/%s",
 +                output_text[O_FOOD],
-+		output_text[O_SHIELD],
-+		output_text[O_TRADE]);
++                output_text[O_SHIELD],
++                output_text[O_TRADE]);
 +
 +  return astr_str(&str);
 +}
@@ -146,8 +128,9 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +  Text to popup on a middle-click in the mapview.
 +  - copied from /client/text.c
 +**************************************************************************/
-+static const char *popup_info_text(struct tile *ptile, struct player *pplayer,
-+                                   struct unit *punit)
++static const char *web_popup_info_text(struct tile *ptile,
++                                       struct player *pplayer,
++                                       struct unit *punit)
 +{
 +  const char *activity_text;
 +  struct city *pcity = tile_city(ptile);
@@ -182,6 +165,7 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +      astr_add_line(&str, "%s", extra_name_translation(pextra));
 +    }
 +  } extra_type_by_cause_iterate_end;
++
 +  if (BORDERS_DISABLED != game.info.borders && !pcity) {
 +    struct player *owner = tile_owner(ptile);
 +
@@ -220,7 +204,8 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +      astr_add_line(&str, _("Unclaimed territory"));
 +    }
 +  }
-+  if (pcity) {
++
++  if (pcity != NULL) {
 +    /* Look at city owner, not tile owner (the two should be the same, if
 +     * borders are in use). */
 +    struct player *owner = city_owner(pcity);
@@ -237,6 +222,7 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +    } else {
 +      struct player_diplstate *ds
 +        = player_diplstate_get(pplayer, owner);
++
 +      if (ds->type == DS_CEASEFIRE) {
 +        int turns = ds->turns_left;
 +
@@ -259,7 +245,7 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +
 +      if (count > 0) {
 +        astr_add(&str, PL_(" | Occupied with %d unit.",
-+                                " | Occupied with %d units.", count), count);
++                           " | Occupied with %d units.", count), count);
 +      } else {
 +        astr_add(&str, _(" | Not occupied."));
 +      }
@@ -286,14 +272,16 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +      astr_add_line(&str, _("   with %s."), astr_str(&list));
 +      astr_free(&list);
 +    }
-+
 +  }
++
 +  {
 +    const char *infratext = get_infrastructure_text(ptile->extras);
++
 +    if (*infratext != '\0') {
 +      astr_add_line(&str, _("Infrastructure: %s"), infratext);
 +    }
 +  }
++
 +  activity_text = concat_tile_activity_text(ptile);
 +  if (strlen(activity_text) > 0) {
 +    astr_add_line(&str, _("Activity: %s"), activity_text);
@@ -358,29 +346,33 @@ diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.c freeciv/server
 +  }
 +
 +  astr_break_lines(&str, LINE_BREAK);
++
 +  return astr_str(&str);
 +}
 +
 +/**********************************************************************//**
 +  Handle client request for tile information text.
 +**************************************************************************/
-+void handle_info_text_req(struct player *pplayer, int loc, int visible_unit_id)
++void handle_web_info_text_req(struct player *pplayer, int loc,
++                              int visible_unit_id)
 +{
 +  struct tile *ptile = index_to_tile(&(wld.map), loc);
 +  struct unit *punit = (visible_unit_id == 0) ? NULL : game_unit_by_number(visible_unit_id);
-+  const char *info_text = popup_info_text(ptile, pplayer, punit);
++  const char *info_text = web_popup_info_text(ptile, pplayer, punit);
 +
 +  conn_list_iterate(pplayer->connections, pconn) {
-+    dsend_packet_info_text_message(pconn, info_text);
++    dsend_packet_web_info_text_message(pconn, info_text);
 +  } conn_list_iterate_end;
 +}
-diff -Nurd -Xfreeciv/scripts/diff_ignore freeciv/server/maphand.h freeciv/server/maphand.h
---- freeciv/server/maphand.h	2021-11-03 18:44:06.677153396 +0200
-+++ freeciv/server/maphand.h	2021-11-03 19:02:57.143322123 +0200
-@@ -141,4 +141,6 @@
+diff -Nurd freeciv/server/maphand.h freeciv/server/maphand.h
+--- freeciv/server/maphand.h	2022-10-23 07:27:36.914700079 +0300
++++ freeciv/server/maphand.h	2022-10-23 07:27:46.622789438 +0300
+@@ -141,4 +141,7 @@
  void give_distorted_map(struct player *pfrom, struct player *pto,
                          int prob, bool reveal_cities);
  
-+void handle_info_text_req(struct player *pplayer, int loc, int visible_unit_id);
+-#endif  /* FC__MAPHAND_H */
++void handle_web_info_text_req(struct player *pplayer, int loc,
++                              int visible_unit_id);
 +
- #endif  /* FC__MAPHAND_H */
++#endif /* FC__MAPHAND_H */

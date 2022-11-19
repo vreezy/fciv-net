@@ -256,12 +256,6 @@ Rerun the sync-js-hand.js script.
 									<resource>
 										<directory>${basedir}/src/main/webapp/javascript</directory>
 									</resource>
-									<resource>
-										<directory>${basedir}/node_modules/handlebars/dist</directory>
-										<includes>
-											<include>handlebars.runtime.js</include>
-										</includes>
-									</resource>
 								</resources>
 							</configuration>
 						</execution>
@@ -358,6 +352,7 @@ Rerun the sync-js-hand.js script.
 									<exclude>webclient.min.js</exclude>
 									<exclude>libs/jquery.min.js</exclude>
 									<exclude>libs/gif.worker.js</exclude>
+									<exclude>libs/handlebars.runtime.js</exclude>
 									<exclude>webgl/libs/three.min.js</exclude>
 								</excludes>
 							</configuration>

@@ -1,10 +1,30 @@
 #!/bin/bash
 
-# Freeciv server version upgrade notes
-# ------------------------------------
+# Freeciv server version upgrade notes (backports)
+# ------------------------------------------------
+# osdn #????? is ticket in freeciv.org tracker:
+# https://osdn.net/projects/freeciv/ticket/?????
+#
+# 0053-Add-MAX_CITY_TILES-to-fc_types.h.patch
+#   Make MAX_CITY_TILES definition available for the network protocol
+#   osdn #45886
+# 0047-load_rulesetdir-Destroy-actionfile.patch
+#   Memory leak fix
+#   osdn #45909
+# 0051-Make-vision-site-name-allocation-dynamic.patch
+#   Do not reserve memory for every city name by the longest possible,
+#   FoW part.
+#   osdn #45844
+# 0048-Fix-loading-research-free_bulbs-from-a-savegame.patch
+#   Fix savegame loading breakage
+#   osdn #45952
+# 0024-Mark-server-to-web-client-packets-no-handle.patch
+#   Ease maintenance of regular clients when web-packets change
+#   osdn #45955
 
 # Not in the upstream Freeciv server
 # ----------------------------------
+# meson_webperimental installs webperimental ruleset
 # freeciv_segfauls_fix is a workaround some segfaults in the Freeciv server. Freeciv bug #23884.
 # message_escape is a patch for protecting against script injection in the message texts.
 # tutorial_ruleset changes the ruleset of the tutorial to one supported by Freeciv-web.
@@ -16,21 +36,17 @@
 #     when the name is url encoded in json protocol.
 #     MAX_LEN_CITYNAME was increased in patch #7305 (SVN r33048)
 #     Giving one of the longer removed city names to a new city still causes problems.
-# webperimental_install make "make install" install webperimental.
 # webgl_vision_cheat_temporary is a temporary solution to reveal terrain types to the WebGL client.
+# longturn implements a very basic longturn mode for Freeciv-web.
 # load_command_confirmation adds a log message which confirms that loading is complete, so that Freeciv-web can issue additional commands.
 # endgame-mapimg is used to generate a mapimg at endgame for hall of fame.
-# add_packet_tile_height adds 'height' to tile in packets.def to include heightmap info for 3D web client.
-# techtools_build_fix is a quickfix to solve a build error.
 
 declare -a PATCHLIST=(
-  "0002-generate_packets.py-Correctly-identify-cm_parameter-"
-  "0024-Create-web-packages-only-if-there-s-web-clients-pres"
-  "0052-Add-server-side-CMA-info-to-PACKET_WEB_CITY_INFO_ADD"
-  "0031-Protocol-Make-connection-count-UINT16-in-PACKET_CONN"
-  "0044-Add-server-support-for-web-client-to-request-CMA"
-  "0050-fc_strrep_resize-Fix-on-NDEBUG-builds"
-  "city_impr_fix2"
+  "backports/0053-Add-MAX_CITY_TILES-to-fc_types.h"
+  "backports/0047-load_rulesetdir-Destroy-actionfile"
+  "backports/0051-Make-vision-site-name-allocation-dynamic"
+  "backports/0048-Fix-loading-research-free_bulbs-from-a-savegame"
+  "backports/0024-Mark-server-to-web-client-packets-no-handle"
   "city-naming-change"
   "metachange"
   "text_fixes"
@@ -42,19 +58,16 @@ declare -a PATCHLIST=(
   "maphand_ch"
   "ai_traits_crash"
   "server_password"
-  "barbarian-names"
   "message_escape"
   "freeciv_segfauls_fix"
   "scorelog_filenames"
   "disable_global_warming"
   "win_chance"
   "navajo-remove-long-city-names"
-  "webperimental_install"
   "load_command_confirmation"
   "webgl_vision_cheat_temporary"
   "endgame-mapimg"
   "add_packet_tile_height"
-  "techtools_build_fix"
 )
 
 apply_patch() {
@@ -68,20 +81,20 @@ apply_patch() {
 
 # APPLY_UNTIL feature is used when rebasing the patches, and the working directory
 # is needed to get to correct patch level easily.
-if test "x$1" != "x" ; then
+if test "$1" != "" ; then
   APPLY_UNTIL="$1"
   au_found=false
 
   for patch in "${PATCHLIST[@]}"
   do
-    if test "x$patch" = "x$APPLY_UNTIL" ; then
-        au_found=true
-        APPLY_UNTIL="${APPLY_UNTIL}.patch"
-    elif test "x${patch}.patch" = "x$APPLY_UNTIL" ; then
-        au_found=true
+    if test "$patch" = "$APPLY_UNTIL" ; then
+      au_found=true
+      APPLY_UNTIL="${APPLY_UNTIL}.patch"
+    elif test "${patch}.patch" = "$APPLY_UNTIL" ; then
+      au_found=true
     fi
   done
-  if test "x$au_found" != "xtrue" ; then
+  if test "$au_found" != "true" ; then
     echo "There's no such patch as \"$APPLY_UNTIL\"" >&2
     exit 1
   fi
@@ -107,7 +120,7 @@ chmod a+x freeciv/fc_version
 
 for patch in "${PATCHLIST[@]}"
 do
-  if test "x${patch}.patch" = "x$APPLY_UNTIL" ; then
+  if test "${patch}.patch" = "$APPLY_UNTIL" ; then
     echo "$patch not applied as requested to stop"
     break
   fi
