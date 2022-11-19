@@ -21,6 +21,7 @@
 # load_command_confirmation adds a log message which confirms that loading is complete, so that Freeciv-web can issue additional commands.
 # endgame-mapimg is used to generate a mapimg at endgame for hall of fame.
 # add_packet_tile_height adds 'height' to tile in packets.def to include heightmap info for 3D web client.
+# techtools_build_fix is a quickfix to solve a build error.
 
 declare -a PATCHLIST=(
   "0002-generate_packets.py-Correctly-identify-cm_parameter-"
@@ -53,6 +54,7 @@ declare -a PATCHLIST=(
   "webgl_vision_cheat_temporary"
   "endgame-mapimg"
   "add_packet_tile_height"
+  "techtools_build_fix"
 )
 
 apply_patch() {
