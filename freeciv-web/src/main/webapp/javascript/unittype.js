@@ -238,7 +238,7 @@ function get_utypes_from_tech(tech_id)
 
   for (var unit_type_id in unit_types) {
     var punit_type = unit_types[unit_type_id];
-    if (punit_type['build_reqs'][0]['value'] == tech_id) {
+    if (punit_type['build_reqs'].length > 0 && punit_type['build_reqs'][0]['value'] == tech_id) {
       result.push(punit_type);
     }
   }
