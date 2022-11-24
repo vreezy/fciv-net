@@ -240,3 +240,11 @@ function fractionalize(s) {
 
   return s;
 }
+
+/**************************************************************************
+...
+**************************************************************************/
+function forceLower(strnput)
+{
+  strnput.value=strnput.value.toLowerCase();
+}

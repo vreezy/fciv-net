@@ -1464,3 +1464,12 @@ function forgot_pbem_password()
 
 }
 
+/**************************************************************************
+ Determines if the email is valid
+**************************************************************************/
+function validateEmail(email) {
+    var checkemail = email;
+    if (checkemail != null) checkemail = checkemail.replace("+", "");  // + is allowed.
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(checkemail);
+}
