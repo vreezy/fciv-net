@@ -1827,3 +1827,8 @@ function handle_team_name_info(packet)
 {
   /* TODO: implement */
 }
+
+function handle_city_update_counter(packet)
+{
+  /* TODO */
+}
