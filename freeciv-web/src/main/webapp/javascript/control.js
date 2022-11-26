@@ -2153,6 +2153,7 @@ map_handle_key(keyboard_key, key_code, ctrl, alt, shift, the_event)
       current_focus = [];
       webgl_clear_unit_focus();
       goto_active = false;
+      controls.enabled = true;
       $("#mapcanvas").css("cursor", "default");
       goto_request_map = {};
       goto_turns_request_map = {};
@@ -2360,6 +2361,7 @@ function activate_goto_last(last_order, last_action)
 {
   goto_active = true;
   $("#mapcanvas").css("cursor", "crosshair");
+  controls.enabled = false;
 
   /* Set what the unit should do on arrival. */
   goto_last_order = last_order;
@@ -2398,6 +2400,7 @@ function activate_goto_last(last_order, last_action)
 function deactivate_goto(will_advance_unit_focus)
 {
   goto_active = false;
+  controls.enabled = true;
   $("#mapcanvas").css("cursor", "default");
   goto_request_map = {};
   goto_turns_request_map = {};

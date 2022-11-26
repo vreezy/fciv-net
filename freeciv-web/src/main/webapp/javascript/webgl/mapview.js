@@ -21,10 +21,11 @@ var container, stats;
 var scene, maprenderer;
 var anaglyph_effect;
 
-var plane, cube;
 var mouse, raycaster;
 var directionalLight;
 var clock;
+
+var controls;
 
 var tiletype_terrains = ["coast","ocean","arctic","desert","grassland","hills","mountains","plains","swamp","tundra", "farmland", "irrigation"];
 
@@ -99,6 +100,11 @@ function webgl_start_renderer()
   maprenderer.setPixelRatio(window.devicePixelRatio);
   maprenderer.setSize(new_mapview_width, new_mapview_height);
   container.appendChild(maprenderer.domElement);
+
+  controls = new THREE.OrbitControls( camera, maprenderer.domElement );
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+  controls.maxPolarAngle = Math.PI / 2;
 
   if (anaglyph_3d_enabled) {
     anaglyph_effect = new THREE.AnaglyphEffect( maprenderer );
@@ -319,6 +325,8 @@ function animate() {
   } else {
     maprenderer.render(scene, camera);
   }
+
+  controls.update();
 
   if (goto_active) check_request_goto_path();
   if (stats != null) stats.end();

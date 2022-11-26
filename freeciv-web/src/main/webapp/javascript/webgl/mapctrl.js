@@ -152,53 +152,24 @@ function webglOnWheel(e) {
 
   var wd = e.originalEvent.deltaY;
 
-  const dx_adj = 6;
-  var dy_adj = dx_adj * camera_dy_div_dx;
-  const dz_adj = dx_adj;
+   if (wd < 0) {
+     // zoom in
+     new_camera_dy = camera_dy - 60;
+     new_camera_dx = camera_dx - 45;
+     new_camera_dz = camera_dz - 45;
+   } else {
+     // zoom out
+     new_camera_dy = camera_dy + 60;
+     new_camera_dx = camera_dx + 45;
+     new_camera_dz = camera_dz + 45;
+   }
 
-  // Holding alt-key means to adjust camera angle:
-  if (e.altKey) {
-    var new_camera_angle = camera_dy_div_dx;
-    if (wd < 0) {
-      // more bird's eye:
-      new_camera_angle += 0.01;
-    } else {
-      // more worm's eye:
-      new_camera_angle -= 0.01;
-    }
-    // regulate min/max angle:
-    if (new_camera_angle > 3 || new_camera_angle < 0.5) {
-      return;
-    }
-
-    camera_dy_div_dx = new_camera_angle;
-    new_camera_dy = new_camera_angle * camera_dx;
-    if (new_camera_dy < min_y || new_camera_dy > max_y) {
-      return;
-    }
-    else camera_dy = new_camera_dy;
-  }
-  // Not holding alt-key means to adjust zoom:
-  else {
-    if (wd < 0) {
-      // zoom in
-      new_camera_dy = camera_dy - dy_adj;
-      new_camera_dx = camera_dx - dx_adj;
-      new_camera_dz = camera_dz - dz_adj;
-    } else {
-      // zoom out
-      new_camera_dy = camera_dy + dy_adj;
-      new_camera_dx = camera_dx + dx_adj;
-      new_camera_dz = camera_dz + dz_adj;
-    }
-
-    if (new_camera_dy < min_y || new_camera_dy > max_y) {
-      return;
-    } else {
-      camera_dx = new_camera_dx;
-      camera_dy = new_camera_dy;
-      camera_dz = new_camera_dz;
-    }
+  if (new_camera_dy < min_y || new_camera_dy > max_y) {
+    return;
+  } else {
+    camera_dx = new_camera_dx;
+    camera_dy = new_camera_dy;
+    camera_dz = new_camera_dz;
   }
 
   camera_look_at(camera_current_x, camera_current_y, camera_current_z);

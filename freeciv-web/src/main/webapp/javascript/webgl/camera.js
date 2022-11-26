@@ -19,7 +19,6 @@
 
 var camera;
 
-var camera_dy_div_dx = 340/300;
 var camera_dx = 258;
 var camera_dy = 410;
 var camera_dz = 258;
@@ -42,7 +41,7 @@ function camera_look_at(x, y, z)
     camera.lookAt( new THREE.Vector3(x, 0, z));
   }
 
-  if (directionalLight != null) directionalLight.position.set( x + camera_dx, y + camera_dy, z + camera_dz ).normalize();
+  controls.target = new THREE.Vector3(x + 50, 50, z + 50);
 
 }
 
