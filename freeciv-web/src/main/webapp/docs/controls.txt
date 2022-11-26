@@ -116,7 +116,7 @@ Remove forest
 
   Shift-Return: Turn done
 
-  Shift + move mouse: rotate map.
+  Move mouse to rotate map.
 
 <h2>3D only:</h2><table class="ctrls_tbl"><tr><td><span class="hotkey">Mouse Wheel Up/Down</span></td><td>          Zoom Out/In</td></tr>
 <tr><td><span class="hotkey">Two Finger Scroll</span></td><td>          Zoom Out/In</td></tr>

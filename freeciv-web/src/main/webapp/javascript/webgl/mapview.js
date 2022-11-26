@@ -320,13 +320,13 @@ function animate() {
     selected_unit_material_counter++;
   }
 
+  controls.update();
+
   if (anaglyph_3d_enabled) {
     anaglyph_effect.render(scene,camera);
   } else {
     maprenderer.render(scene, camera);
   }
-
-  controls.update();
 
   if (goto_active) check_request_goto_path();
   if (stats != null) stats.end();
