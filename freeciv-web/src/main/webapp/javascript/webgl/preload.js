@@ -103,6 +103,22 @@ function webgl_preload()
             }
     })(imgurl)
   );
+
+
+  imgurl = '/textures/sky.jpg';
+  textureLoader.load(imgurl, (function (url) {
+          return function (image) {
+                webgl_textures["skybox"] = new THREE.Texture();
+                webgl_textures["skybox"].image = image;
+                webgl_textures["skybox"].wrapS = THREE.RepeatWrapping;
+                webgl_textures["skybox"].wrapT = THREE.RepeatWrapping;
+                webgl_textures["skybox"].magFilter = THREE.LinearFilter;
+                webgl_textures["skybox"].minFilter = THREE.LinearFilter;
+                webgl_textures["skybox"].needsUpdate = true;
+            }
+    })(imgurl)
+  );
+
 }
 
 /****************************************************************************

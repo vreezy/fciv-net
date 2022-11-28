@@ -142,6 +142,8 @@
 
 
 			this.onBeforeRender = function ( renderer, scene, camera ) {
+                scene.originalbackground = scene.background; //modified FCIV.
+                scene.background = null;
 
 				updateTextureMatrix( camera );
 				updateFlow();
@@ -152,6 +154,10 @@
 				refractor.onBeforeRender( renderer, scene, camera );
 				scope.visible = true;
 
+			};
+
+			this.onAfterRender = function ( renderer, scene, camera ) {
+                scene.background = scene.originalbackground; //modified FCIV.
 			};
 
 		}

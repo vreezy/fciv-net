@@ -104,12 +104,16 @@ function webgl_start_renderer()
   controls = new THREE.OrbitControls( camera, maprenderer.domElement );
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
-  controls.maxPolarAngle = Math.PI / 2;
+  controls.maxPolarAngle = 0.9 * Math.PI / 2;
 
   if (anaglyph_3d_enabled) {
     anaglyph_effect = new THREE.AnaglyphEffect( maprenderer );
     anaglyph_effect.setSize( new_mapview_width, new_mapview_height );
   }
+
+  const sky = new THREE.WebGLCubeRenderTarget(webgl_textures["skybox"].image.height);
+  sky.fromEquirectangularTexture(maprenderer, webgl_textures["skybox"]);
+  scene.background = sky.texture;
 
   animate();
 
