@@ -5,7 +5,7 @@ FCIV.NET
 [![Build Status](https://github.com/fciv-net/fciv-net/workflows/continuous%20integration/badge.svg)](https://github.com/fciv-net/fciv-net/actions?query=workflow%3A%22continuous+integration%22)
 [![DeepScan grade](https://deepscan.io/api/teams/18818/projects/22102/branches/649871/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=18818&pid=22102&bid=649871)
 
-[Fciv.net](https://www.fciv.net) is an open-source turn-based strategy game. It can be played in any HTML5 capable web-browser and features in-depth game-play and a wide variety of game modes and options. Your goal is to build cities, collect resources, organize your government, and build an army, with the ultimate goal of creating the best civilization. You can play online against other players (multiplayer) or play by yourself against the computer. There is both a HTML5 2D version with isometric graphics and a 3D WebGL version of Freeciv-web. 
+[Fciv.net](https://www.fciv.net) is an open-source turn-based strategy game. It can be played in a web-browser which supports HTML5 and WebGL 2. The game features in-depth game-play and a wide variety of game modes and options. Your goal is to build cities, collect resources, organize your government, and build an army, with the ultimate goal of creating the best civilization. You can play online against other players (multiplayer) or play by yourself against the computer.
 
 FCIV.NET is a fork of [Freeciv-web](https://github.com/freeciv/freeciv-web) based on [Freeciv.org](https://freeciv.org)
 
