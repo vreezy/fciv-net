@@ -1107,5 +1107,10 @@ li.tech-both::before {
   padding-left: 100px;
   padding-top: 20px;
   border-spacing: 30px;
-  font-size: 130%;
+  font-size: 140%;
+}
+
+.cma_checkbox {
+  width: 20px;
+  height: 20px;
 }
