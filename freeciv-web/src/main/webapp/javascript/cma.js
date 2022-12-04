@@ -17,9 +17,10 @@
 
 ***********************************************************************/
 
-// Governor Clipboard for copy/paste:
+// CMA for FCIV.NET
+
 var _cma_val_sliders = [1,0,0,0,0,0];
-var _cma_min_sliders = [1,0,0,0,0,0];
+var _cma_min_sliders = [0,0,0,0,0,0];
 var _cma_happy_slider = 0;
 var _cma_celebrate = false;
 var _cma_allow_disorder = false;
