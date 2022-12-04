@@ -4,6 +4,7 @@
     <li><a href="#city_tabs-2" onclick="javascript:city_tab_index=1;">Production</a></li>
     <li><a href="#city_tabs-3" onclick="javascript:city_tab_index=2;">Traderoutes</a></li>
     <li class="extra_tabs_big" onclick="javascript:city_tab_index=3;"><a href="#city_tabs-4">Settings</a></li>
+    <li><a href="#city_tabs-5" onclick="javascript:city_tab_index=4;">Governor</a></li>
   </ul>
 
   <div id="city_tabs-1">
@@ -100,5 +101,64 @@
 
     </div>
   </div>
- 
+
+    <div id="city_tabs-5">
+        <div id="city_governor_tab" class="citydlg_tabs">
+            <form name="cma_vals" id="cma_form" >
+                <table border="0">
+                    <tbody>
+                    <tr>
+
+                        <td>
+                            <span style="">
+                              <input id="cma_food" type="checkbox" name="cma_food" value="" onclick="button_pushed_toggle_cma();" />
+                              <img style="" class="lowered_gov" src="/images/wheat.png">
+                              <b>Food </b>
+                            </span>
+                        </td>
+                        <td>
+                            <span style="">
+                              <input id="cma_shield" type="checkbox" name="cma_shield" value="" onclick="button_pushed_toggle_cma();" />
+                              <img style="" class="lowered_gov" src="/images/shield14x18.png">
+                              <b>Shield </b>
+                            </span>
+                        </td>
+                        <td>
+                            <span style="">
+                              <input id="cma_trade" type="checkbox" name="cma_trade" value="" onclick="button_pushed_toggle_cma();" />
+                              <img style="" class="lowered_gov" src="/images/trade.png">
+                              <b>Trade </b>
+                            </span>
+                        </td>
+                        <td>
+                            <span style="">
+                              <input id="cma_gold" type="checkbox" name="cma_gold" value="" onclick="button_pushed_toggle_cma();" />
+                              <img style="" class="lowered_gov" src="/images/gold.png">
+                              <b>Gold </b>
+                           </span>
+                        </td>
+                        <td>
+                            <span style="">
+                              <input id="cma_luxury" type="checkbox" name="cma_luxury" value="" onclick="button_pushed_toggle_cma();" />
+                              <img style="" class="lowered_gov" src="/images/lux.png">
+                              <b>Luxury </b>
+                            </span>
+                        </td>
+                        <td>
+                           <span style="">
+                              <input id="cma_science" type="checkbox" name="cma_science" value="" onclick="button_pushed_toggle_cma();" />
+                              <img style="" class="lowered_gov" src="/images/sci.png">
+                              <b>Science </b>
+                           </span>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+
+
+        </div>
+    </div>
+
 </div>  

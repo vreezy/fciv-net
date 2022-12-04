@@ -1101,3 +1101,11 @@ li.tech-both::before {
 .prod_choice_name {
   font-weight: bold;
 }
+
+#cma_form {
+  float: left;
+  padding-left: 100px;
+  padding-top: 20px;
+  border-spacing: 30px;
+  font-size: 130%;
+}

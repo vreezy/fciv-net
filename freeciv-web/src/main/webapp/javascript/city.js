@@ -420,7 +420,10 @@ function show_city_dialog(pcity)
    $("#city_dialog").height(260);
    $(".ui-dialog-buttonpane").css("font-size", "10px");
    $(".ui-dialog").css("padding", "0px");
+   $("#cma_form").css("padding-left", "80px");
   }
+
+  show_city_governor_tab();
 
 }
 
