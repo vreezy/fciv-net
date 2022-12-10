@@ -148,6 +148,7 @@ function init_webgl_mapview() {
     water.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), 50);
     water.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), Math.floor(mapview_model_width / 2) - 500);
     water.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), -mapview_model_height / 2);
+    water.renderOrder = -1; // Render water first, this will sove transparency issues in city labels.
     scene.add( water );
 
   /* heightmap image */

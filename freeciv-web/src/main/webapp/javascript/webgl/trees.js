@@ -71,6 +71,7 @@ function add_trees_to_landgeometry() {
     forest_geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( forest_colors, 3 ) );
     forest_material.vertexColors = true;
     tree_points = new THREE.Points( forest_geometry, forest_material );
+    tree_points.renderOrder = -2;
     scene.add(tree_points);
 
     jungle_geometry = new THREE.BufferGeometry();
@@ -79,6 +80,7 @@ function add_trees_to_landgeometry() {
     jungle_geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( jungle_colors, 3 ) );
     jungle_material.vertexColors = true;
     jungle_points = new THREE.Points( jungle_geometry, jungle_material );
+    jungle_points.renderOrder = -2;
     scene.add(jungle_points);
 
   } else {
