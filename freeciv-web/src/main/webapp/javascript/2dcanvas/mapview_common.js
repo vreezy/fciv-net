@@ -43,20 +43,6 @@ function mapdeco_init()
   keyboard_input=true;
 }
 
-/**************************************************************************
-  Centers the mapview around (map_x, map_y).
-**************************************************************************/
-function center_tile_mapcanvas_2d(ptile)
-{
-  var r = map_to_gui_pos(ptile['x'], ptile['y']);
-  var gui_x = r['gui_dx'];
-  var gui_y = r['gui_dy'];
-
-  gui_x -= (mapview['width'] - tileset_tile_width) >> 1 ;
-  gui_y -= (mapview['height'] - tileset_tile_height) >> 1;
-
-  set_mapview_origin(gui_x, gui_y);
-}
 
 /**************************************************************************
   Centers the mapview around tile with given id.

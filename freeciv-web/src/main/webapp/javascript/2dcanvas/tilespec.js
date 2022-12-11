@@ -238,39 +238,6 @@ function check_sprite_type(sprite_type)
 }
 
 
-/**************************************************************************
- ...
-**************************************************************************/
-function fill_unit_sprite_array(punit, stacked, backdrop)
-{
-  var unit_offset = get_unit_anim_offset(punit);
-  var result = [ get_unit_nation_flag_sprite(punit),
-           {"key" : tileset_unit_type_graphic_tag(unit_type(punit)),
-            "offset_x": unit_offset['x'] + unit_offset_x,
-	    "offset_y" : unit_offset['y'] - unit_offset_y} ];
-  var activities = get_unit_activity_sprite(punit);
-  if (activities != null) {
-    activities['offset_x'] = activities['offset_x'] + unit_offset['x'];
-    activities['offset_y'] = activities['offset_y'] + unit_offset['y'];
-    result.push(activities);
-  }
-
-  if (should_ask_server_for_actions(punit)) {
-    result.push({
-      "key"      : "unit.action_decision_want",
-      "offset_x" : unit_activity_offset_x + unit_offset['x'],
-      "offset_y" : -unit_activity_offset_y + unit_offset['y'],
-    });
-  }
-
-  result.push(get_unit_hp_sprite(punit));
-  if (stacked) result.push(get_unit_stack_sprite());
-  if (punit['veteran'] > 0) result.push(get_unit_veteran_sprite(punit));
-
-  return result;
-
-
-}
 
 
 /**************************************************************************
@@ -422,31 +389,6 @@ function get_city_invalid_worked_sprite() {
 function fill_goto_line_sprite_array(ptile)
 {
   return {"key" : "goto_line", "goto_dir" : ptile['goto_dir']};
-}
-
-/**********************************************************************
-...
-***********************************************************************/
-function get_border_line_sprites(ptile)
-{
-  var result = [];
-
-  for (var i = 0; i < num_cardinal_tileset_dirs; i++) {
-    var dir = cardinal_tileset_dirs[i];
-    var checktile = mapstep(ptile, dir);
-
-    if (checktile != null && checktile['owner'] != null
-        && ptile['owner'] != null
-        && ptile['owner'] != checktile['owner']
-        && ptile['owner'] != 255 /* 255 is a special constant indicating that the tile is not owned by anyone. */
-        && players[ptile['owner']] != null) {
-      var pnation = nations[players[ptile['owner']]['nation']];
-      result.push({"key" : "border", "dir" : dir,
-                   "color": pnation['color']});
-    }
-  }
-
-  return result;
 }
 
 
@@ -665,44 +607,6 @@ function get_city_sprite(pcity)
 
 
 /****************************************************************************
-  Add sprites for fog (and some forms of darkness).
-****************************************************************************/
-function fill_fog_sprite_array(ptile, pedge, pcorner)
-{
-
-  var i, tileno = 0;
-
-  if (pcorner == null) return [];
-
-  for (i = 3; i >= 0; i--) {
-    var unknown = 0, fogged = 1, known = 2;
-    var value = -1;
-
-    if (pcorner['tile'][i] == null) {
-	  value = unknown;
-    } else {
-	  switch (tile_get_known(pcorner['tile'][i])) {
-	    case TILE_KNOWN_SEEN:
-	      value = known;
-	      break;
-	    case TILE_KNOWN_UNSEEN:
-	      value = fogged;
-	      break;
-	    case TILE_UNKNOWN:
-	      value = unknown;
-	      break;
-      }
-    }
-    tileno = tileno * 3 + value;
-  }
-
-  if (tileno >= 80) return [];
-
-  return [{"key" : fullfog[tileno]}];
-
-}
-
-/****************************************************************************
  ...
 ****************************************************************************/
 function get_select_sprite()
@@ -746,45 +650,6 @@ function get_tile_specials_sprite(ptile)
   return null;
 }
 
-/****************************************************************************
- ...
-****************************************************************************/
-function get_tile_river_sprite(ptile)
-{
-  if (ptile == null) {
-    return null;
-  }
-
-  if (tile_has_extra(ptile, EXTRA_RIVER)) {
-    var river_str = "";
-    for (var i = 0; i < num_cardinal_tileset_dirs; i++) {
-      var dir = cardinal_tileset_dirs[i];
-      var checktile = mapstep(ptile, dir);
-      if (checktile
-          && (tile_has_extra(checktile, EXTRA_RIVER) || is_ocean_tile(checktile))) {
-        river_str = river_str + dir_get_tileset_name(dir) + "1";
-      } else {
-        river_str = river_str + dir_get_tileset_name(dir) + "0";
-      }
-
-    }
-    return {"key" : "road.river_s_" + river_str};
-  }
-
-  var pterrain = tile_terrain(ptile);
-  if (pterrain['graphic_str'] == "coast") {
-    for (var i = 0; i < num_cardinal_tileset_dirs; i++) {
-      var dir = cardinal_tileset_dirs[i];
-      var checktile = mapstep(ptile, dir);
-      if (checktile != null && tile_has_extra(checktile, EXTRA_RIVER)) {
-        return {"key" : "road.river_outlet_" + dir_get_tileset_name(dir)};
-      }
-    }
-  }
-
-  return null;
-
-}
 
 /****************************************************************************
  ...

@@ -339,3 +339,53 @@ function set_default_mapview_active()
 
 }
 
+
+/**************************************************************************
+Received tile info text.
+**************************************************************************/
+function handle_web_info_text_message(packet)
+{
+  var message = decodeURIComponent(packet['message']);
+  var lines = message.split('\n');
+
+  /* When a line starts with the key, the regex value is used to break it
+   * in four elements:
+   * - text before the player's name
+   * - player's name
+   * - text after the player's name and before the status insertion point
+   * - text after the status insertion point
+  **/
+  var matcher = {
+    'Terri': /^(Territory of )([^(]*)(\s+\([^,]*)(.*)/,
+    'City:': /^(City:[^|]*\|\s+)([^(]*)(\s+\([^,]*)(.*)/,
+    'Unit:': /^(Unit:[^|]*\|\s+)([^(]*)(\s+\([^,]*)(.*)/
+  };
+
+  for (var i = 0; i < lines.length; i++) {
+    var re = matcher[lines[i].substr(0, 5)];
+    if (re !== undefined) {
+      var pplayer = null;
+      var split_txt = lines[i].match(re);
+      if (split_txt != null && split_txt.length > 4) {
+        pplayer = player_by_full_username(split_txt[2]);
+      }
+      if (pplayer != null &&
+          (client.conn.playing == null || pplayer != client.conn.playing)) {
+        lines[i] = split_txt[1]
+                 + "<a href='#' onclick='javascript:nation_table_select_player("
+                 + pplayer['playerno']
+                 + ");' style='color: black;'>"
+                 + split_txt[2]
+                 + "</a>"
+                 + split_txt[3]
+                 + ", "
+                 + get_player_connection_status(pplayer)
+                 + split_txt[4];
+      }
+    }
+  }
+  message = lines.join("<br>\n");
+
+  show_dialog_message("Tile Information", message);
+
+}
