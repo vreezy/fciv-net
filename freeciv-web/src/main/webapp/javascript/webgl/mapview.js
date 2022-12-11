@@ -208,8 +208,6 @@ function init_webgl_mapview() {
 
   add_all_objects_to_scene();
 
-  $.unblockUI();
-
   benchmark_start = new Date().getTime();
 
 }

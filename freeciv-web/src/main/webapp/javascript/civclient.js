@@ -85,11 +85,6 @@ function civclient_init()
   //initialize a seeded random number generator
   fc_seedrandom = new Math.seedrandom('freeciv-web');
 
-  if (window.requestAnimationFrame == null) {
-    swal("Please upgrade your browser.");
-    return;
-  }
-
   init_webgl_renderer();
 
   game_init();
@@ -135,6 +130,8 @@ function civclient_init()
 
  init_common_intro_dialog();
  setup_window_size();
+
+ $("#mapcanvas").hide();
 
 }
 

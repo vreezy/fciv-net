@@ -1157,10 +1157,16 @@ function handle_begin_turn(packet)
   }
 
   if (is_tech_tree_init && tech_dialog_active) update_tech_screen();
+
+ if (game_info['turn'] > 1) {
+   $('#mapcanvas').fadeIn('slow');
+ }
+
 }
 
 function handle_end_turn(packet)
 {
+  $('#mapcanvas').fadeOut('slow');
   reset_unit_anim_list();
   if (!observing) {
     $("#turn_done_button").button( "option", "disabled", true);
