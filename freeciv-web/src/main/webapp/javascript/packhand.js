@@ -1165,7 +1165,7 @@ function handle_begin_turn(packet)
 
 function handle_end_turn(packet)
 {
-  $('#mapcanvas').fadeOut('slow');
+  $('#mapcanvas').fadeOut();
   reset_unit_anim_list();
   if (!observing) {
     $("#turn_done_button").button( "option", "disabled", true);

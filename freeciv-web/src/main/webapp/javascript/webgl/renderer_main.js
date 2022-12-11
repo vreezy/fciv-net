@@ -68,6 +68,6 @@ function renderer_init() {
     init_webgl_mapctrl();
     mapdeco_init();
     $.unblockUI();
-    setTimeout("$('#mapcanvas').fadeIn(3000);", 500);
+    setTimeout("$('#mapcanvas').fadeIn(2500);", 300);
   }
 }
