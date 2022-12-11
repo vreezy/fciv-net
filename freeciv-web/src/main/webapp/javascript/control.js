@@ -328,6 +328,12 @@ function mouse_moved_cb(e)
       && (new Date().getTime() - map_select_check_started) > 200)  {
     map_select_active = true;
   }
+
+  if (camera != null && camera.position.x > 0) {
+    camera_dx = camera.position.x - controls.target.x + 50;
+    camera_dy = camera.position.y - controls.target.y + 50;
+    camera_dz = camera.position.z - controls.target.z + 50;
+  }
 }
 
 /****************************************************************************
