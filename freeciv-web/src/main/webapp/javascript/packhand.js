@@ -612,8 +612,7 @@ function handle_endgame_report(packet)
 
   update_client_state(C_S_OVER);
 
-  /* TODO: implement rest*/
-
+  $('#mapcanvas').fadeIn('slow');
 }
 
 function update_client_state(value)
