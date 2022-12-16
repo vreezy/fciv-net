@@ -54,34 +54,18 @@ function init_map_tiletype_image()
 ****************************************************************************/
 function generate_map_tiletype_grid() {
 
-  map_tiletype_resolution = 4096;
+  var cols = map['xsize'];
+  var rows = map['ysize'];
 
   var row;
-  // The grid of points that make up the image.
-  var grid = Array(map_tiletype_resolution);
-  for (row = 0; row < map_tiletype_resolution ; row++) {
-    grid[row] = Array(map_tiletype_resolution);
+  var grid = Array(rows);
+  for (row = 0; row < rows ; row++) {
+    grid[row] = Array(cols);
   }
 
-  for (var x = 0; x < map_tiletype_resolution ; x++) {
-    for (var y = 0; y < map_tiletype_resolution; y++) {
-      var gx = Math.floor(map.ysize * x / map_tiletype_resolution);
-      var gy = Math.floor(map.xsize * y / map_tiletype_resolution);
-      grid[x][y] = map_tiletype_tile_color(gy, gx);
-    }
-  }
-
-  // randomize tile edges
-  var num_iterations = 3;
-  var change_probability = 0.6;
-
-  for (var i = 0; i < num_iterations; i++) {
-    for (var x = 0; x < map_tiletype_resolution - 2; x++) {
-      for (var y = 0; y < map_tiletype_resolution - 2; y++) {
-        if (Math.random() >= change_probability) {
-           grid[x][y] = grid[x + 2][y + 2];
-        }
-      }
+  for (var y = 0; y < rows ; y++) {
+    for (var x = 0; x < cols; x++) {
+      grid[y][x] = map_tiletype_tile_color(x, y);
     }
   }
 

@@ -161,6 +161,11 @@ vec4 border_w;
 vec4 border_n;
 vec4 border_s;
 
+
+float rand(vec2 co){
+    return fract(sin(dot(co, vec2(12.98, 78.233))) * 43758.5453);
+}
+
 void main(void)
 {
 
@@ -169,7 +174,7 @@ void main(void)
         return;
     }
 
-    vec4 terrain_type = texture2D(maptiles, vec2(vUv.x, vUv.y));
+    vec4 terrain_type = texture2D(maptiles, vec2(vUv.x + ((rand(vec2(round(vUv.x * 10000.0) / 10000.0 , round(vUv.y * 10000.0) / 10000.0)) - 0.5) / (8.0 * map_x_size)), vUv.y + ((rand(vec2(round(vUv.x * 10000.0) / 10000.0, round(vUv.y * 10000.0) / 10000.0) - 0.5)) / (8.0 * map_y_size))));
     vec4 border_color = texture2D(borders, vec2(vUv.x, vUv.y));
     vec4 road_type = texture2D(roadsmap, vec2(vUv.x, vUv.y));
 
@@ -525,3 +530,4 @@ void main(void)
     gl_FragColor.rgb = mix(c * shade_factor, ambiant, (vPosition_camera.z - 550.) * 0.0001875);
 
 }
+

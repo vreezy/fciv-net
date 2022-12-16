@@ -124,6 +124,7 @@ function tile_init(tile)
   tile['spec_sprite'] = null;
   tile['goto_dir'] = null;
   tile['nuke'] = 0;
+  tile['height'] = 0;
   return tile;
 }
 
@@ -486,6 +487,19 @@ function map_tile_height_adjust(ptile)
       ptile['height'] = 0.4;
     }
 
+    if (is_ocean_tile(ptile) && is_land_tile_near(ptile)) {
+      ptile['height'] = 0.45;
+    }
+    if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && !tile_has_extra(ptile, EXTRA_RIVER)) {
+      ptile['height'] = 0.55;
+    }
+
+    if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && tile_has_extra(ptile, EXTRA_RIVER)) {
+      ptile['height'] = ptile['height'] * 1.005;
+    }
+    if (is_ocean_tile(ptile) && is_land_tile_near(ptile) && is_river_tile_near(ptile)) {
+      ptile['height'] = ptile['height'] * 1.04;
+    }
 
   }
 }

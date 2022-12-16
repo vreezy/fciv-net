@@ -186,7 +186,8 @@ function init_webgl_mapview() {
   // Low-resolution terrain mesh used for raycasting to find mouse postition.
   create_heightmap(2);
   var lofiMaterial = new THREE.MeshStandardMaterial({"color" : 0x00ff00});
-  lofiGeometry = create_land_geometry(2);
+  lofiGeometry = new THREE.BufferGeometry();
+  create_land_geometry(lofiGeometry, 2);
   lofiMesh = new THREE.Mesh( lofiGeometry, lofiMaterial );
   lofiMesh.layers.set(6);
   scene.add(lofiMesh);
@@ -199,12 +200,13 @@ function init_webgl_mapview() {
     fragmentShader: fragment_shader,
     vertexColors: true
   });
-  landGeometry = create_land_geometry(terrain_quality);
+  landGeometry = new THREE.BufferGeometry();
+  create_land_geometry(landGeometry, terrain_quality);
   landMesh = new THREE.Mesh( landGeometry, terrain_material );
   scene.add(landMesh);
 
-  update_tiles_known_vertex_colors();
-  setInterval(update_tiles_known_vertex_colors, 100);
+  update_map_terrain_geometry();
+  setInterval(update_map_terrain_geometry, 90);
 
   add_all_objects_to_scene();
 
@@ -216,13 +218,10 @@ function init_webgl_mapview() {
   Create the land terrain geometry
   (note that this changes global variables).
 ****************************************************************************/
-function create_land_geometry(mesh_quality)
+function create_land_geometry(geometry, mesh_quality)
 {
   xquality = map.xsize * mesh_quality + 1;
   yquality = map.ysize * mesh_quality + 1;
-
-  /* LandGeometry is a plane representing the landscape of the map. */
-  var geometry = new THREE.BufferGeometry();
 
   width_half = mapview_model_width / 2;
   height_half = mapview_model_height / 2;
@@ -274,9 +273,6 @@ function create_land_geometry(mesh_quality)
   geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
   geometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
 
-  geometry.rotateX( - Math.PI / 2 );
-  geometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
-
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
       const x = ix * segment_width - width_half;
@@ -303,6 +299,32 @@ function create_land_geometry(mesh_quality)
 
   return geometry;
 }
+
+/****************************************************************************
+  Update the map terrain geometry!
+****************************************************************************/
+function update_map_terrain_geometry()
+{
+  if (!vertex_colors_dirty) {
+    return;
+  }
+
+  create_heightmap(2);
+  create_land_geometry(lofiGeometry, 2);
+  create_heightmap(terrain_quality);
+  create_land_geometry(landGeometry, terrain_quality);
+
+  lofiGeometry.rotateX( - Math.PI / 2 );
+  lofiGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+  landGeometry.rotateX( - Math.PI / 2 );
+  landGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+
+  update_tiles_known_vertex_colors();
+  update_tiletypes_image();
+  vertex_colors_dirty = false;
+
+}
+
 /****************************************************************************
   Main animation method
 ****************************************************************************/

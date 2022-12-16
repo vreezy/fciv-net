@@ -71,21 +71,32 @@ function create_heightmap(heightmap_quality)
     heightmap[hx] = new Array(heightmap_resolution_y);
   }
 
-  // Make coastline more distinct, to make it easier to distinguish ocean from land.
   for (var x = 0; x < map.xsize ; x++) {
     for (var y = 0; y < map.ysize; y++) {
       var ptile = map_pos_to_tile(x, y);
-      if (is_ocean_tile(ptile) && is_land_tile_near(ptile)) {
-        ptile['height'] = 0.45;
-      }
-      if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && !tile_has_extra(ptile, EXTRA_RIVER)) {
-        ptile['height'] = 0.55;
-      }
-      if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && tile_has_extra(ptile, EXTRA_RIVER)) {
-        ptile['height'] = ptile['height'] * 1.005;
-      }
-      if (is_ocean_tile(ptile) && is_land_tile_near(ptile) && is_river_tile_near(ptile)) {
-        ptile['height'] = ptile['height'] * 1.04;
+      if (tile_get_known(ptile) == TILE_UNKNOWN) {
+        var neighbours = [
+          { "x": x - 1 , "y": y - 1},
+          { "x": x - 1, "y": y },
+          { "x": x - 1,  "y": y + 1 },
+          { "x": x,  "y": y - 1},
+          { "x": x , "y": y + 1},
+          { "x": x + 1, "y": y - 1 },
+          { "x": x + 1,  "y": y },
+          { "x": x + 1,  "y": y + 1},
+          ];
+
+        for (var i = 0; i < 8; i++) {
+          var coords = neighbours[i];
+          if (coords.x < 0 || coords.x >= map.xsize || coords.y < 0 || coords.y >= map.ysize) {
+            continue;
+          }
+          var ntile = map_pos_to_tile(coords.x, coords.y);
+          if (tile_get_known(ntile) != TILE_UNKNOWN) {
+            ptile['height'] = ntile['height'];
+          }
+        }
+
       }
     }
   }
@@ -110,9 +121,7 @@ function create_heightmap(heightmap_quality)
         var sum = 0;
         for (var i = 0; i < 4; i++) {
           var coords = neighbours[i];
-          if (coords.x < 0 || coords.x >= map.xsize ||
-              coords.y < 0 || coords.y >= map.ysize) {
-            /* Outside of map, don't use in the sum */
+          if (coords.x < 0 || coords.x >= map.xsize || coords.y < 0 || coords.y >= map.ysize) {
             continue;
           }
           var dx = gx - coords.x;
@@ -121,12 +130,13 @@ function create_heightmap(heightmap_quality)
           var ptile = map_pos_to_tile(coords.x, coords.y);
           var height = 0;
           if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
-            height = ptile['height'] + ((Math.random() - 0.5) / 50) - 0.01;
+            var rnd = ((x * y) % 10) / 10;
+            height = ptile['height'] + ((rnd - 0.5) / 50) - 0.01;
           } else {
             height = ptile['height'];
           }
           sum += height / distance / distance;
-          norm += 1. / distance / distance;
+          norm += 1 / distance / distance;
         }
 
         heightmap[x][y] = (sum / norm);

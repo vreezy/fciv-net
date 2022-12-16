@@ -25,7 +25,16 @@ var trees_need_update = true;
 **************************************************************************/
 function webgl_update_tile_known(old_tile, new_tile)
 {
-  if (new_tile == null || old_tile == null || tile_get_known(new_tile) == tile_get_known(old_tile) || landGeometry == null) return;
+  if (new_tile == null || old_tile == null || landGeometry == null) return;
+
+  if (tile_terrain(new_tile) != tile_terrain(old_tile)) {
+    vertex_colors_dirty = true;
+  }
+
+  if (tile_get_known(new_tile) == tile_get_known(old_tile)) {
+    return;
+  }
+
   vertex_colors_dirty = true;
 
   if (tile_terrain(new_tile).name != tile_terrain(old_tile).name && tile_terrain(old_tile).name == "Forest" || tile_terrain(old_tile).name == "Jungle" || tile_terrain(new_tile).name == "Forest" || tile_terrain(new_tile).name == "Jungle") {
@@ -50,7 +59,6 @@ function webgl_update_farmland_irrigation_vertex_colors(ptile)
 **************************************************************************/
 function update_tiles_known_vertex_colors()
 {
-  if (!vertex_colors_dirty) return;
 
   const colors = [];
 
@@ -72,7 +80,6 @@ function update_tiles_known_vertex_colors()
   landGeometry.setAttribute( 'vertColor', new THREE.Float32BufferAttribute( colors, 3) );
 
   landGeometry.colorsNeedUpdate = true;
-  vertex_colors_dirty = false;
 
   add_trees_to_landgeometry();
 

@@ -30,8 +30,6 @@
 #     when the name is url encoded in json protocol.
 #     MAX_LEN_CITYNAME was increased in patch #7305 (SVN r33048)
 #     Giving one of the longer removed city names to a new city still causes problems.
-# webgl_vision_cheat_temporary is a temporary solution to reveal terrain types to the WebGL client.
-# longturn implements a very basic longturn mode for Freeciv-web.
 # load_command_confirmation adds a log message which confirms that loading is complete, so that Freeciv-web can issue additional commands.
 # endgame-mapimg is used to generate a mapimg at endgame for hall of fame.
 
@@ -57,7 +55,6 @@ declare -a PATCHLIST=(
   "win_chance"
   "navajo-remove-long-city-names"
   "load_command_confirmation"
-  "webgl_vision_cheat_temporary"
   "endgame-mapimg"
   "add_packet_tile_height"
 )

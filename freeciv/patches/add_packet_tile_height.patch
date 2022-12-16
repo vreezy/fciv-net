@@ -51,14 +51,6 @@ index 42efd92..a5330a5 100644
  
        /* Labels never change, so they are not subject to fog of war */
        if (ptile->label != NULL) {
-@@ -608,6 +610,7 @@ void send_tile_info(struct conn_list *dest, struct tile *ptile,
-       info.place_turn = 0;
- 
-       info.extras = ptile->extras; // WebGL client needs to know which tiles are rivers on game start.
-+      info.height = (height_map != NULL) ? hmap(ptile) : 0;
- 
-       info.label[0] = '\0';
- 
 diff --git a/server/generator/mapgen.c b/server/generator/mapgen.c
 index 86ab016..b4ded03 100644
 --- a/server/generator/mapgen.c
