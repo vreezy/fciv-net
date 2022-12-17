@@ -106,11 +106,9 @@
 									<td class="hidden-xs">${game.message}</td>
 									<td class="hidden-xs">${game.players}</td>
 									<td class="hidden-xs">${game.turn}</td>
-									<td><a class="label label-success label-lg"
-										href="/webclient/?action=observe&amp;civserverport=${game.port}&amp;civserverhost=${game.host}&amp;type=${game.type}" title="Observe">
-											2D</a> <a class="label label-success label-lg"
+									<td> <a class="label label-success label-lg"
 										href="/webclient/?renderer=webgl&amp;action=observe&amp;civserverport=${game.port}&amp;civserverhost=${game.host}&amp;type=${game.type}" title="Observe">
-											3D</a> <a class="label label-primary label-lg"
+											Observe</a> <a class="label label-primary label-lg"
 										href="/game/details?host=${game.host}&amp;port=${game.port}">
 											Info</a>
 									</td>

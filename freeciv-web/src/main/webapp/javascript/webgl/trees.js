@@ -38,11 +38,15 @@ function add_trees_to_landgeometry() {
 
   for ( let iy = 0; iy < gridY1; iy += 2 ) {
     const y = iy * segment_height - height_half;
-    for ( let ix = 0; ix < gridX1; ix += 2 ) {
+    for ( let ix = 0; ix < gridX1; ix += 1 ) {
       const x = ix * segment_width - width_half;
       var sx = ix % xquality, sy = iy % yquality;
       var mx = Math.floor(sx / terrain_quality), my = Math.floor(sy / terrain_quality);
       var ptile = map_pos_to_tile(mx, my);
+
+      if (heightmap[sx][sy] < 0.532) {
+        continue; // no trees on rivers
+      }
 
       if (ptile != null) {
         var terrain_name = tile_terrain(ptile).name;

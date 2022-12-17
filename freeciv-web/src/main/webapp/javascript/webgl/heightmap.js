@@ -30,13 +30,22 @@ function get_unit_height_offset(punit)
   if (ptile == null) return 0;
 
   if (tile_has_extra(ptile, EXTRA_RIVER)) {
-    return 5;
+    return 1;
   }
+
+  if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile)) {
+    return -3;
+  }
+
+  if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
+    return -3;
+  }
+
 
   var pcity = tile_city(ptile);
   if (pcity != null) return 4;
 
-  return 0;
+  return -2;
 
 }
 
@@ -74,6 +83,14 @@ function create_heightmap(heightmap_quality)
   for (var x = 0; x < map.xsize ; x++) {
     for (var y = 0; y < map.ysize; y++) {
       var ptile = map_pos_to_tile(x, y);
+      // Make coastline more distinct, to make it easier to distinguish ocean from land.
+      if (is_ocean_tile(ptile) && is_land_tile_near(ptile)) {
+        ptile['height'] = 0.45;
+      }
+      if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && !tile_has_extra(ptile, EXTRA_RIVER)) {
+        ptile['height'] = 0.55;
+      }
+
       if (tile_get_known(ptile) == TILE_UNKNOWN) {
         var neighbours = [
           { "x": x - 1 , "y": y - 1},
