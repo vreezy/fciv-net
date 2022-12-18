@@ -37,7 +37,10 @@ function show_city_worked_tiles()
       var d = map_distance_vector(ctile, ptile);
       var idx = get_city_dxy_to_index(d[0], d[1], active_city);
       var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-      var height = 5 + ptile['height'] * 100 + 10;
+      var height = 5 + ptile['height'] * 100;
+      if (ctile['index'] == ptile['index']) {
+        height += 15;
+      }
 
       var food_output = active_city['food_output'].substring(idx, idx + 1);
       var shield_output = active_city['shield_output'].substring(idx, idx + 1);
@@ -52,7 +55,7 @@ function show_city_worked_tiles()
       if (city_worked_positions[ptile['index']] == null) {
         var mesh = create_city_worked_sprite(food_output, shield_output, trade_output);
         city_worked_positions[ptile['index']] = mesh;
-        mesh.position.set(pos['x'] + 20, height + 18, pos['y'] + 10);
+        mesh.position.set(pos['x'] + 2, height + 10, pos['y'] - 4);
         if (scene != null) {
           scene.add(mesh);
         }

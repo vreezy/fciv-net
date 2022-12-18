@@ -47,8 +47,17 @@ function webgl_render_goto_line(start_tile, goto_packet_dir)
 
       var currpos = map_to_scene_coords(ptile['x'], ptile['y']);
       var nextpos = map_to_scene_coords(nexttile['x'], nexttile['y']);
-      var height = 5 + ptile['height'] * 70;
+      var height = 5 + ptile['height'] * 100;
       if (ptile['x'] == 0 || ptile['x'] >= map['xsize'] - 1 || nexttile['x'] == 0 || nexttile['x'] >= map['xsize'] - 1) continue;
+
+      var current_height = ptile['height'];
+      var next_height = nexttile['height'];
+      if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
+        current_height += 0.1;
+      }
+      if (tile_terrain(nexttile)['name'] == "Hills" || tile_terrain(nexttile)['name'] == "Mountains") {
+        next_height += 0.1;
+      }
 
       var gotoLineGeometry = new THREE.BufferGeometry();
       const vertices = [];
@@ -56,16 +65,16 @@ function webgl_render_goto_line(start_tile, goto_packet_dir)
       if (dir == 1 || dir == 6) delta = 2;
 
       vertices.push(0, 0, 0);
-      vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 50 - delta, nextpos['y'] - currpos['y']);
+      vertices.push(nextpos['x'] - currpos['x'], (next_height - current_height) * 50 - delta, nextpos['y'] - currpos['y']);
       vertices.push(0, delta, goto_width);
-      vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 50 + delta, nextpos['y'] - currpos['y'] + goto_width);
+      vertices.push(nextpos['x'] - currpos['x'], (next_height - current_height) * 50 + delta, nextpos['y'] - currpos['y'] + goto_width);
       vertices.push(0, 0, 0);
-      vertices.push(nextpos['x'] - currpos['x'], (nexttile['height'] - ptile['height']) * 50 - delta, nextpos['y'] - currpos['y']);
+      vertices.push(nextpos['x'] - currpos['x'], (next_height - current_height) * 50 - delta, nextpos['y'] - currpos['y']);
       gotoLineGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
       var gotoline = new THREE.Mesh(gotoLineGeometry, material);
 
       gotoline.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), currpos['x']);
-      gotoline.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 30);
+      gotoline.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 5);
       gotoline.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), currpos['y']);
       scene.add(gotoline);
       goto_lines.push(gotoline);
