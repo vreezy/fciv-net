@@ -239,9 +239,6 @@ function show_endgame_dialog()
 			modal: true,
 			width: is_small_screen() ? "90%" : "50%",
 			buttons: {
-                "Game replay" : function() {
-                  show_replay();
-                },
 				"Show Scores" : function() {
 					$("#dialog").dialog('close');
 					view_game_scores();

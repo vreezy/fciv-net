@@ -90,7 +90,6 @@ function civclient_init()
   game_init();
   $('#tabs').tabs({ heightStyle: "fill" });
   control_init();
-  init_replay();
 
   timeoutTimerId = setInterval(update_timeout, 1000);
 

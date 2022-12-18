@@ -8,11 +8,6 @@
 
 <div class="main_menu_buttons">
 
-
-
-
-
-
 <table>
 
 
@@ -68,11 +63,6 @@
 
 <div class="main_menu_buttons">
 <table>
-<tr>
-  <td>
-    <button id="replay_button" type="button" class="button setting_button" onClick="show_replay();">Show game replay</button>
-  </td>
-</tr>
 <tr>
   <td>
     <button id="fps_button" type="button" class="button setting_button" onClick="show_fps();">Show fps</button>

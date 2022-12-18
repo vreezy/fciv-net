@@ -504,9 +504,6 @@ function handle_start_phase(packet)
 
   saved_this_turn = false;
 
-  add_replay_frame();
-
-
 }
 
 /**************************************************************************
