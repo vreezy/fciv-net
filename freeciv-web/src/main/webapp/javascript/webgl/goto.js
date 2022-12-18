@@ -73,9 +73,9 @@ function webgl_render_goto_line(start_tile, goto_packet_dir)
       gotoLineGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
       var gotoline = new THREE.Mesh(gotoLineGeometry, material);
 
-      gotoline.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), currpos['x']);
-      gotoline.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 5);
-      gotoline.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), currpos['y']);
+      gotoline.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), currpos['x'] - 4);
+      gotoline.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height + 3);
+      gotoline.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), currpos['y'] - 1);
       scene.add(gotoline);
       goto_lines.push(gotoline);
     }
