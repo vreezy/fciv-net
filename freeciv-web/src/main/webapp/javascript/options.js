@@ -71,6 +71,7 @@ var highlight_our_names = "yellow";
 
 /* This option is currently set by the client - not by the user. */
 var update_city_text_in_refresh_tile = TRUE;
+var minimap_color = 1;   // draw minimap in primary,secondary, or tertiary colors
 
 var draw_city_outlines = TRUE;
 var draw_city_output = FALSE;

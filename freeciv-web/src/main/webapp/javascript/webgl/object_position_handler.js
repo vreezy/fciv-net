@@ -436,6 +436,9 @@ function update_tile_extra_update_model(extra_type, extra_name, ptile)
 {
   if (tile_extra_positions[extra_type + "." + ptile['index']] == null && tile_has_extra(ptile, extra_type)) {
     var height = 5 + ptile['height'] * 100;
+    if (extra_name == "Hut") {
+      height -= 5;
+    }
 
     var model = webgl_get_model(extra_name, ptile);
     if (model == null) {

@@ -292,7 +292,14 @@ function generate_palette() {
   palette_terrain_offset = palette.length;
   for (var terrain_id in terrains) {
     var terrain = terrains[terrain_id];
-    palette.push([terrain['color_red'], terrain['color_green'], terrain['color_blue']]);
+    if (terrain['name'] == 'Ocean') {
+      palette.push([70, 146, 227]);
+    } else if (terrain['name'] == 'Deep Ocean') {
+      palette.push([55, 125, 255]);
+    } else {
+      palette.push([terrain['color_red'], terrain['color_green'], terrain['color_blue']]);
+    }
+
   }
 
   palette_color_offset = palette.length;

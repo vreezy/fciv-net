@@ -34,7 +34,7 @@ function get_unit_height_offset(punit)
   }
 
   if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile)) {
-    return -3;
+    return -4;
   }
 
   if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
@@ -57,6 +57,10 @@ function get_city_height_offset(pcity)
   if (pcity == null) return 0;
   var ptile = index_to_tile(pcity['tile']);
   if (ptile == null) return 0;
+
+  if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile)) {
+    return -2;
+  }
 
   if (tile_terrain(ptile) != null) {
       if (tile_terrain(ptile)['name'] == "Hills") return -6;
