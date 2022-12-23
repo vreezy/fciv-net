@@ -18,6 +18,8 @@
 ***********************************************************************/
 
 var timeOfLastPinchZoom = new Date().getTime();
+var map_select_check = false;
+var map_select_active = false;
 
 /****************************************************************************
  Init WebGL mapctrl.

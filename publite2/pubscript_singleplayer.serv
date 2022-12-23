@@ -13,9 +13,9 @@ set pingtimeout 160
 set maxconnectionsperhost 256
 set threaded_save enabled
 set scorelog enabled
-set size 5
+set size 6
 set landm 50
-set aifill 10
+set aifill 12
 
 set wetness 25
 set topology=
