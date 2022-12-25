@@ -38,7 +38,7 @@ function get_unit_height_offset(punit)
   }
 
   if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
-    return -3;
+    return -4;
   }
 
 

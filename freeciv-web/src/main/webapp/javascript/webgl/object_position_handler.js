@@ -97,7 +97,7 @@ function update_unit_position(ptile) {
     new_unit.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 2);
     new_unit.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 4);
     var rnd_rotation = Math.floor(Math.random() * 8);
-    new_unit.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (convert_unit_rotation(rnd_rotation) * Math.PI * 2 / 8));
+    new_unit.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (convert_unit_rotation(rnd_rotation, unit_type(visible_unit)['name'])));
     new_unit.updateMatrix();
 
     if (scene != null) {
@@ -215,7 +215,7 @@ function update_unit_position(ptile) {
     new_unit.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 4);
     new_unit.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 2);
     new_unit.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 4);
-    new_unit.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (convert_unit_rotation(visible_unit['facing']) * Math.PI * 2 / 8));
+    new_unit.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (convert_unit_rotation(visible_unit['facing'], unit_type(visible_unit)['name']) ));
     new_unit.updateMatrix();
 
     if (scene != null) {

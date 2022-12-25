@@ -84,16 +84,26 @@ function webgl_canvas_pos_to_map_pos(x, y) {
 }
 
 /****************************************************************************
-  Converts from unit['facing'] to number of rotations of 1/8 parts of full circle rotations (2PI).
+  Converts from unit['facing'] to number of rotations of 1/8 parts of full circle rotations (2PI),
+  then to radians;
 ****************************************************************************/
-function convert_unit_rotation(facing_dir)
+function convert_unit_rotation(facing_dir, unit_type_name)
 {
-  if (facing_dir == 0) return -3;
-  if (facing_dir == 1) return -4;
-  if (facing_dir == 2) return -5;
-  if (facing_dir == 4) return -6;
-  if (facing_dir == 7) return -7;
-  if (facing_dir == 6) return 0;
-  if (facing_dir == 5) return -1;
-  if (facing_dir == 3) return -2;
+  var rotation_rad = 0;
+
+  if (facing_dir == 0) rotation_rad = -3;
+  if (facing_dir == 1) rotation_rad = -4;
+  if (facing_dir == 2) rotation_rad = -5;
+  if (facing_dir == 4) rotation_rad = -6;
+  if (facing_dir == 7) rotation_rad = -7;
+  if (facing_dir == 6) rotation_rad = 0;
+  if (facing_dir == 5) rotation_rad = -1;
+  if (facing_dir == 3) rotation_rad = -2;
+
+  if (unit_type_name == "Horsemen" || unit_type_name == "Knights") {
+    return rotation_rad * Math.PI * 2 / 8 + Math.PI;
+  }
+
+  return rotation_rad * Math.PI * 2 / 8
+
 }

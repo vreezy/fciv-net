@@ -142,7 +142,6 @@
 
 
 			this.onBeforeRender = function ( renderer, scene, camera ) {
-                scene.originalbackground = scene.background; //modified FCIV.
                 scene.background = null;
 
 				updateTextureMatrix( camera );
@@ -157,7 +156,11 @@
 			};
 
 			this.onAfterRender = function ( renderer, scene, camera ) {
-                scene.background = scene.originalbackground; //modified FCIV.
+			    if (do_render_skybox()) {
+                  scene.background = scene.originalbackground; //modified FCIV.
+                } else {
+                  scene.background = null;
+                }
 			};
 
 		}

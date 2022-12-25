@@ -113,7 +113,10 @@ function webgl_start_renderer()
 
   const sky = new THREE.WebGLCubeRenderTarget(webgl_textures["skybox"].image.height);
   sky.fromEquirectangularTexture(maprenderer, webgl_textures["skybox"]);
-  scene.background = sky.texture;
+  if (do_render_skybox()) {
+    scene.background = sky.texture;
+  }
+  scene.originalbackground = sky.texture;
 
   animate();
 
@@ -359,4 +362,14 @@ function animate() {
 
 
   requestAnimationFrame(animate);
+}
+
+/****************************************************************************
+  Is the camera looking down, then don't render the skybox since it's not visible.
+****************************************************************************/
+function do_render_skybox() {
+  var vector = new THREE.Vector3();
+  camera.getWorldDirection(vector);
+  return -0.44 < Math.sin(vector.y);
+
 }

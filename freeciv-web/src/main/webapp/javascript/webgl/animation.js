@@ -49,11 +49,11 @@ function update_animated_objects()
     var delta_y = (pos_end['y'] - pos_start['y'])  / ANIM_STEPS;
     var delta_z = ((tile_end['height'] - tile_start['height']) * 100) / ANIM_STEPS;
 
-    mesh.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), -1 * (convert_unit_rotation(punit['facing']) * Math.PI * 2 / 8));
+    mesh.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), -1 * (convert_unit_rotation(punit['facing'], unit_type(punit)['name'])));
     mesh.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), delta_x);
     mesh.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), delta_z);
     mesh.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), delta_y);
-    mesh.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (convert_unit_rotation(punit['facing']) * Math.PI * 2 / 8));
+    mesh.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (convert_unit_rotation(punit['facing'], unit_type(punit)['name'])));
     mesh.updateMatrix();
 
     if (flag != null) {
