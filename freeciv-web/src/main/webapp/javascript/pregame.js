@@ -493,8 +493,6 @@ function pregame_settings()
           "<td><input type='checkbox' name='scorelog_setting' id='scorelog_setting' checked>Enable score graphs</td></tr>" +
       "<tr id='killstack_area'><td id='killstack_label'></td>" +
           "<td><input type='checkbox' id='killstack_setting'>Enable killstack</td></tr>" +
-      "<tr id='selct_multiple_units_area'><td id='select_multiple_units_label'></td>" +
-          "<td><input type='checkbox' id='select_multiple_units_setting'>Right-click selects units</td></tr>" +
 	  "<tr title='Method used to generate map'><td>Map generator:</td>" +
 	  "<td><select name='generator' id='generator'>" +
           "<option value='RANDOM'>Fully random height</option>" +
@@ -612,10 +610,6 @@ function pregame_settings()
     $("#generator").val(server_settings['generator']['support_names'][
                         server_settings['generator']['val']]);
   }
-
-  $("#select_multiple_units_setting").prop("checked", map_select_setting_enabled);
-  $("#select_multiple_units_area").prop("title", "Select multiple units with right-click and drag");
-  $("#select_multiple_units_label").prop("innerHTML", "Select multiple units with right-click and drag");
 
   $("#3d_antialiasing_label").prop("innerHTML", "Antialiasing:");
 
@@ -784,14 +778,6 @@ function pregame_settings()
     } else {
       send_message("/set killstack disabled");
     }
-  });
-
-  $('#select_multiple_units_setting').change(function() {
-      if ($('#select_multiple_units_setting').prop('checked')) {
-        map_select_setting_enabled = true;
-      } else {
-        map_select_setting_enabled = false;
-      }
   });
 
 

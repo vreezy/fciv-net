@@ -172,7 +172,12 @@ function load_model(filename)
       }
     });
 
-    model.scale.x = model.scale.y = model.scale.z = 12;
+  var modelscale = 12;
+  if (filename == 'Horsemen' || filename == 'Knights') {
+    modelscale = 10;
+  }
+
+    model.scale.x = model.scale.y = model.scale.z = modelscale;
     webgl_models[filename] = model;
     load_count++;
     if (load_count == total_model_count) webgl_preload_complete();
