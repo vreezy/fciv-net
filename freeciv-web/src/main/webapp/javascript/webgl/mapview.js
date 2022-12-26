@@ -276,28 +276,6 @@ function create_land_geometry(geometry, mesh_quality)
   geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
   geometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
 
-  for ( let iy = 0; iy < gridY1; iy ++ ) {
-    for ( let ix = 0; ix < gridX1; ix ++ ) {
-      const x = ix * segment_width - width_half;
-      var sx = ix % xquality, sy = iy % yquality;
-      var mx = Math.floor(sx / 4), my = Math.floor(sy / 4);
-      var ptile = map_pos_to_tile(mx, my);
-        if (ptile == null) {
-          colors.push(0,0,0);
-        } else if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
-          colors.push(1,0,0);
-        } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {
-          colors.push(0.40,0,0);
-        } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
-          colors.push(0,0,0);
-        } else {
-          colors.push(0,0,0);
-        }
-    }
-  }
-
-  geometry.setAttribute( 'vertColor', new THREE.Float32BufferAttribute( colors, 3) );
-
   geometry.computeVertexNormals();
 
   return geometry;
@@ -312,18 +290,23 @@ function update_map_terrain_geometry()
     return;
   }
 
-  create_heightmap(2);
-  create_land_geometry(lofiGeometry, 2);
-  create_heightmap(terrain_quality);
-  create_land_geometry(landGeometry, terrain_quality);
+  var hash = generate_heightmap_hash();
+  if (hash != heightmap_hash) {
+    create_heightmap(2);
+    create_land_geometry(lofiGeometry, 2);
+    create_heightmap(terrain_quality);
+    create_land_geometry(landGeometry, terrain_quality);
 
-  lofiGeometry.rotateX( - Math.PI / 2 );
-  lofiGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
-  landGeometry.rotateX( - Math.PI / 2 );
-  landGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+    lofiGeometry.rotateX( - Math.PI / 2 );
+    lofiGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+    landGeometry.rotateX( - Math.PI / 2 );
+    landGeometry.translate(Math.floor(mapview_model_width / 2) - 500, 0, Math.floor(mapview_model_height / 2));
+    heightmap_hash = hash;
+  }
 
   update_tiles_known_vertex_colors();
   update_tiletypes_image();
+  add_trees_to_landgeometry();
   vertex_colors_dirty = false;
 
 }

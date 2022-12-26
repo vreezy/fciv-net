@@ -19,6 +19,7 @@
 
 
 var heightmap = null;
+var heightmap_hash = -1;
 
 /****************************************************************************
   Returns height offset for units. This will make units higher above cities.
@@ -165,5 +166,21 @@ function create_heightmap(heightmap_quality)
     }
   }
 
+}
+
+
+/****************************************************************************
+ Creates a hash of the map heightmap.
+****************************************************************************/
+function generate_heightmap_hash() {
+  var hash = 0;
+
+  for (var x = 0; x < map.xsize ; x++) {
+    for (var y = 0; y < map.ysize; y++) {
+      var ptile = map_pos_to_tile(x, y);
+      hash += ptile['height']
+    }
+  }
+  return hash;
 }
 

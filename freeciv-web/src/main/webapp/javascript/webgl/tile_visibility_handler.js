@@ -67,12 +67,12 @@ function update_tiles_known_vertex_colors()
       var sx = ix % xquality, sy = iy % yquality;
       var mx = Math.floor((sx / terrain_quality) - 0.040), my = Math.floor((sy / terrain_quality) - 0.040);
       var ptile = map_pos_to_tile(mx, my);
-        if (ptile != null) {
-          var c = get_vertex_color_from_tile(ptile, ix, iy);
-          colors.push(c[0], c[1], c[2]);
-        } else {
-          colors.push(0,0,0);
-        }
+      if (ptile != null) {
+        var c = get_vertex_color_from_tile(ptile, ix, iy);
+        colors.push(c[0], c[1], c[2]);
+      } else {
+        colors.push(0,0,0);
+      }
 
     }
   }
@@ -80,8 +80,6 @@ function update_tiles_known_vertex_colors()
   landGeometry.setAttribute( 'vertColor', new THREE.Float32BufferAttribute( colors, 3) );
 
   landGeometry.colorsNeedUpdate = true;
-
-  add_trees_to_landgeometry();
 
 }
 
