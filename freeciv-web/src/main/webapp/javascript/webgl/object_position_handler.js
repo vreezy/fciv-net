@@ -397,7 +397,7 @@ function update_tile_extras(ptile) {
       if (tile_terrain(ptile) != null && tile_terrain(ptile)['name'].indexOf("Forest") >= 0) {
         height += 1;
         if (extra_resource['name'] == "Pheasant") {
-          height += 1.5;
+          height += 0.5;
         }
       }
       if (extra_resource['name'] == "Fish" || extra_resource['name'] == "Whales") {
