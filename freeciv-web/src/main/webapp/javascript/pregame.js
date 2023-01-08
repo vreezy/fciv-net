@@ -45,19 +45,6 @@ function pregame_start_game()
 }
 
 /****************************************************************************
-  Set some parameters needed for alternate turns game type.
-****************************************************************************/
-function set_alternate_turns()
-{
-  send_message("/set phasemode player");
-  send_message("/set minp 2");
-  send_message("/set ec_chat=enabled");
-  send_message("/set ec_info=enabled");
-  send_message("/set ec_max_size=20000");
-  send_message("/set ec_turns=32768");
-}
-
-/****************************************************************************
   ...
 ****************************************************************************/
 function observe()
@@ -450,8 +437,13 @@ function pregame_settings()
       "     <li><a href='#pregame_settings_tabs-1'>Game</a></li>" +
       "     <li><a href='#pregame_settings_tabs-2'>3D WebGL</a></li>" +
       "     <li><a href='#pregame_settings_tabs-3'>Other</a></li>" +
-      "   </ul>"
-      + "<div id='pregame_settings_tabs-1'><table id='settings_table'> "
+      "   </ul>" +
+      "<div id='pregame_settings_tabs-1'><br><table id='settings_table'> " +
+      "<tr title='Hexagonal or square map tiles.'><td>Map tiles topology (Isometric vs Hexagonal):</td>" +
+      	  "<td><select name='topology' id='topology'>" +
+                "<option value='0'>Isometric</option>" +
+                "<option value='1'>Hexagonal</option>" +
+          "</select></td></tr>"
       + "<tr title='Ruleset version'><td>Ruleset:</td>"
       + "<td><select name='ruleset' id='ruleset'>"
       + "<option value='classic'>Classic</option>"
@@ -459,16 +451,16 @@ function pregame_settings()
       + "</select><a id='ruleset_description'></a></td></tr>"
       + "<tr title='Set metaserver info line'><td>Game title:</td>" +
 	  "<td><input type='text' name='metamessage' id='metamessage' size='28' maxlength='42'></td></tr>" +
-	  "<tr title='Enables music'><td>Music:</td>" +
-          "<td><input type='checkbox' name='music_setting' id='music_setting'>Play Music</td></tr>" +
 	  "<tr class='not_pbem' title='Total number of players (including AI players)'><td>Number of Players (including AI):</td>" +
 	  "<td><input type='number' name='aifill' id='aifill' size='4' length='3' min='0' max='50' step='1'></td></tr>" +
 	  "<tr class='not_pbem' title='Maximum seconds per turn'><td>Timeout (seconds per turn):</td>" +
 	  "<td><input type='number' name='timeout' id='timeout' size='4' length='3' min='30' max='3600' step='1'></td></tr>" +
           "<tr class='not_pbem' title='Creates a private game where players need to know this password in order to join.'><td>Password for private game:</td>" +
 	  "<td><input type='text' name='password' id='password' size='10' length='10'></td></tr>" +
-	  "<tr title='Map size (in thousands of tiles)'><td>Map size:</td>" +
-	  "<td><input type='number' name='mapsize' id='mapsize' size='5' length='3' min='1' max='20' step='1'></td></tr>" +
+	  "<tr title='Map size X'><td>Map X size (width):</td>" +
+	  "<td><input type='number' name='xsize' id='xsize' size='5' length='3' min='1' max='256' step='1'></td></tr>" +
+	  "<tr title='Map size Y'><td>Map Y size (height):</td>" +
+	  "<td><input type='number' name='ysize' id='ysize' size='5' length='3' min='1' max='256' step='1'></td></tr>" +
 	  "<tr class='not_pbem' title='This setting sets the skill-level of the AI players'><td>AI skill level:</td>" +
 	  "<td><select name='skill_level' id='skill_level'>" +
 	      "<option value='1'>Handicapped</option>" +
@@ -588,9 +580,14 @@ function pregame_settings()
     $("#endturn").val(server_settings['endturn']['val']);
   }
 
-  if (server_settings['size'] != null
-      && server_settings['size']['val'] != null) {
-    $("#mapsize").val(server_settings['size']['val']);
+  if (server_settings['xsize'] != null
+      && server_settings['xsize']['val'] != null) {
+    $("#xsize").val(server_settings['xsize']['val']);
+  }
+
+  if (server_settings['ysize'] != null
+      && server_settings['ysize']['val'] != null) {
+    $("#ysize").val(server_settings['ysize']['val']);
   }
 
   if (server_settings['killstack'] != null
@@ -609,6 +606,15 @@ function pregame_settings()
      * alternatives etc is kept up to date. */
     $("#generator").val(server_settings['generator']['support_names'][
                         server_settings['generator']['val']]);
+  }
+
+  if (server_settings['topology'] != null
+        && server_settings['topology']['val'] != null) {
+    if (server_settings['topology']['val'] == 2) {
+      $("#topology").val(1); //hex
+    } else {
+      $("#topology").val(server_settings['topology']['val']);
+    }
   }
 
   $("#3d_antialiasing_label").prop("innerHTML", "Antialiasing:");
@@ -677,11 +683,12 @@ function pregame_settings()
     canvas_text_font =  $('#mapview_font').val();
   });
 
-  $('#mapsize').change(function() {
-    var mapsize = parseFloat($('#mapsize').val());
-    if (mapsize <= 10 ) {
-      send_message("/set size " + $('#mapsize').val());
-    }
+  $('#xsize').change(function() {
+      send_message("/set xsize " + $('#xsize').val());
+  });
+
+  $('#ysize').change(function() {
+      send_message("/set ysize " + $('#ysize').val());
   });
 
   $('#timeout').change(function() {
@@ -710,6 +717,14 @@ function pregame_settings()
 
   $('#generator').change(function() {
     send_message("/set generator " + $('#generator').val());
+  });
+
+  $('#topology').change(function() {
+    if ($('#topology').val() == 0) {
+      send_message("/set topology="); // Not HEX, so it's ISO (but not really iso).
+    } else {
+      send_message("/set topology " + server_settings['topology']['support_names'][$('#topology').val()]);
+    }
   });
 
   /* Make the long ruleset description available in the pregame. The
@@ -760,8 +775,6 @@ function pregame_settings()
       send_message("/cheating");
     }
   });
-
-  $('#music_setting').prop('checked', audio_enabled == true);
 
   $('#scorelog_setting').change(function() {
     var scorelog_enabled = $('#scorelog_setting').prop('checked');  

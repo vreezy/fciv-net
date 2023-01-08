@@ -57,6 +57,7 @@ declare -a PATCHLIST=(
   "load_command_confirmation"
   "endgame-mapimg"
   "add_packet_tile_height"
+  "freeciv-web-hex"
 )
 
 apply_patch() {

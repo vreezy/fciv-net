@@ -36,9 +36,6 @@ var normal_tile_height = 48;
 var small_tile_width   = 15;
 var small_tile_height  = 20;
 
-var is_hex = 0;
-var is_isometric = 1;
-
 
 // Do not blend hills and mountains together.
 var is_mountainous = 0;

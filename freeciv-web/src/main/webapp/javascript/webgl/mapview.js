@@ -175,7 +175,7 @@ function init_webgl_mapview() {
     borders: { type: "t", value: update_borders_image() },
     map_x_size: { type: "f", value: map['xsize'] },
     map_y_size: { type: "f", value: map['ysize'] },
-    is_low_res : maprenderer.capabilities.maxTextures <= 16,
+    is_hex: { type: "bool", value: is_hex() },
     roadsmap: { type: "t", value: update_roads_image()},
     roadsprites: {type: "t", value: webgl_textures["roads"]},
     railroadsprites: {type: "t", value: webgl_textures["railroads"]}
@@ -196,6 +196,9 @@ function init_webgl_mapview() {
   scene.add(lofiMesh);
 
   // High-resolution terrain-mesh shown in mapview.
+  if (is_hex()) {
+    terrain_quality = 12;
+  }
   create_heightmap(terrain_quality);
   var terrain_material = new THREE.ShaderMaterial({
     uniforms: freeciv_uniforms,

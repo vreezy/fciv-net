@@ -46,7 +46,7 @@ uniform sampler2D irrigation;
 
 uniform float map_x_size;
 uniform float map_y_size;
-uniform bool is_low_res;
+uniform bool is_hex;
 
 varying vec2 vUv;
 varying vec3 vPosition;
@@ -162,6 +162,9 @@ vec4 border_n;
 vec4 border_s;
 
 
+float map_hex_dist(vec2 p);
+vec4 map_hex_coords(vec2 uv);
+
 void main(void)
 {
 
@@ -170,8 +173,14 @@ void main(void)
         return;
     }
 
-    float rnd = fract(sin(dot(vec2(round(vUv.x * 10000.0) / 10000.0 , round(vUv.y * 10000.0) / 10000.0) , vec2(12.98, 78.233))) * 43758.5453);
-    vec4 terrain_type = texture2D(maptiles, vec2(vUv.x + (rnd - 0.5) / (8.0 * map_x_size), vUv.y + (rnd - 0.5) / (8.0 * map_y_size)));
+    vec4 hc = is_hex ? map_hex_coords(vUv * map_x_size) : vec4(0);
+    vec3 col = vec3(0);
+    float s = smoothstep(0.0005, 0.015, hc.y);
+    col += s;
+
+    float rnd = is_hex ? 0.0 : fract(sin(dot(vec2(round(vUv.x * 10000.0) / 10000.0 , round(vUv.y * 10000.0) / 10000.0) , vec2(12.98, 78.233))) * 43758.5453);
+    vec4 terrain_type = is_hex ? texture2D(maptiles, vec2(hc.z / map_x_size, hc.w / map_y_size))
+                                 : texture2D(maptiles, vec2(vUv.x + (rnd - 0.5) / (8.0 * map_x_size), vUv.y + (rnd - 0.5) / (8.0 * map_y_size)));
     vec4 border_color = texture2D(borders, vec2(vUv.x, vUv.y));
     vec4 road_type = texture2D(roadsmap, vec2(vUv.x, vUv.y));
 
@@ -218,7 +227,7 @@ void main(void)
         if (vPosition.y < beach_blend_high ) {
             texture_coord = vec2(dx , dy );
             terrain_color = texture2D(coast, texture_coord);
-            if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
+            if (!is_hex && (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018)) {
                 terrain_color.rgb = terrain_color.rgb * 1.45;  // render tile grid.
             }
 
@@ -230,7 +239,7 @@ void main(void)
         if (vPosition.y < beach_blend_high ) {
             texture_coord = vec2(dx , dy);
             terrain_color = texture2D(ocean, texture_coord);
-            if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
+            if (!is_hex && (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018)) {
                 terrain_color.rgb = terrain_color.rgb * 1.7;  // render tile grid.
             }
         } else {
@@ -327,7 +336,7 @@ void main(void)
     }
 
 
-    if (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018) {
+    if (!is_hex && (fract((vPosition.x + 502.0) / 35.71) < 0.018 || fract((vPosition.z + 2.0) / 35.71) < 0.018)) {
         c = c - 0.085;  // render tile grid.
     }
 
@@ -499,7 +508,7 @@ void main(void)
 
 
     // Borders
-    if (!(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
+    if (!is_hex && !(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
         border_e = texture2D(borders, vec2(vUv.x + (0.06 / map_x_size), vUv.y));
         border_w = texture2D(borders, vec2(vUv.x - (0.06 / map_x_size), vUv.y));
         border_n = texture2D(borders, vec2(vUv.x , vUv.y + (0.06 / map_x_size)));
@@ -524,7 +533,34 @@ void main(void)
     // Fog of war, and unknown tiles, are stored as a vertex color in vColor.r.
     c = c * vColor.r;
 
+    if (is_hex) {
+        c *= s;
+    }
+
     gl_FragColor.rgb = mix(c * shade_factor, ambiant, (vPosition_camera.z - 550.) * 0.0001875);
 
 }
 
+float map_hex_dist(vec2 p) {
+    float c = dot(abs(p), normalize(vec2(1,1.73)));
+    return max(c, p.x);
+}
+
+vec4 map_hex_coords(vec2 uv) {
+    vec2 r = vec2(1, 1.73);
+    vec2 h = r * 0.5;
+
+    vec2 a = mod(uv, r) - h;
+    vec2 b = mod(uv - h, r) - h;
+
+    vec2 gv;
+    if (length(a) < length(b)) {
+        gv = a;
+    } else {
+        gv = b;
+    }
+    float x = atan(gv.x, gv.y);
+    float y = 0.5 - map_hex_dist(gv);
+    vec2 id = uv - gv;
+    return vec4(x, y, id.x, id.y);
+}
