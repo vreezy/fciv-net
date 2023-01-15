@@ -25,6 +25,8 @@ var goto_lines = [];
 function webgl_render_goto_line(start_tile, goto_packet_dir)
 {
   clear_goto_tiles();
+  if (is_hex()) return;
+
   var ptile = start_tile;
 
   var material = new THREE.MeshBasicMaterial( { color: 0x55c0ff, side:THREE.DoubleSide, transparent: false } );

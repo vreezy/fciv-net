@@ -128,7 +128,7 @@ function create_heightmap(heightmap_quality)
       for (var y = 0; y < heightmap_resolution_y; y++) {
         var sx = x / heightmap_quality;
         var sy = y / heightmap_quality;
-        var hvec = map_hex_coords(new THREE.Vector2(sx, sy));
+        var hvec = map_hex_coords(new THREE.Vector2(sx - 0.05, sy + 0.1));
         var gx = Math.floor(hvec.x);
         var gy = Math.floor(hvec.y);
 

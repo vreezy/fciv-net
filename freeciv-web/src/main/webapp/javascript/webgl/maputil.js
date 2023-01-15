@@ -25,7 +25,7 @@ function map_to_scene_coords(x, y)
 {
   var result = {};
   if (is_hex()) {
-    var hvec = map_hex_coords(new THREE.Vector2(x, y));
+    var hvec = map_to_hex2(new THREE.Vector2(x, y));
     var gx = hvec.x;
     var gy = hvec.y;
     result['x'] = Math.floor(-470 + gx * mapview_model_width / map['xsize']);
@@ -44,8 +44,8 @@ function scene_to_map_coords(x, y)
 {
   var result = {};
   if (is_hex()) {
-    var hvec = map_hex_coords(new THREE.Vector2(x, y));
-    var gx = hvec.x;
+    var hvec = map_to_hex2(new THREE.Vector2(x, y));
+    var gx = hvec.x + 0.5;
     var gy = hvec.y;
     result['x'] = Math.floor((gx + 500) * map['xsize'] / mapview_model_width);
     result['y'] = Math.floor((gy) * map['ysize'] / mapview_model_height);

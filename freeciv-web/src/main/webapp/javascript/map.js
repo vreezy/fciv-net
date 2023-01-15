@@ -62,6 +62,9 @@ var T_FIRST = 0;
 var DIR_DX = [ -1, 0, 1, -1, 1, -1, 0, 1 ];
 var DIR_DY = [ -1, -1, -1, 0, 0, 1, 1, 1 ];
 
+var DIR_HEX_DX = [ -1, 0, 1, -1, 1, -1, 0, 1 ];
+var DIR_HEX_DY = [ -1, -1, -1, 0, 0, 1, 1, 1 ];
+
 
 /****************************************************************************
   ...
@@ -337,7 +340,12 @@ function mapstep(ptile, dir)
     return null;
   }
 
-  return map_pos_to_tile(DIR_DX[dir] + ptile['x'], DIR_DY[dir] + ptile['y']);
+  if (is_hex()) {
+    return map_pos_to_tile(DIR_HEX_DX[dir] + ptile['x'], DIR_HEX_DY[dir] + ptile['y']);
+  } else {
+    return map_pos_to_tile(DIR_DX[dir] + ptile['x'], DIR_DY[dir] + ptile['y']);
+  }
+
 }
 
 /****************************************************************************

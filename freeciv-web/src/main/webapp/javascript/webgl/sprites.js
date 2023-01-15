@@ -420,3 +420,30 @@ function create_city_disorder_sprite()
   sprite.scale.set(70,70,1);
   return sprite;
 }
+
+
+/****************************************************************************
+ Create a tile label sprite
+****************************************************************************/
+function create_tile_label_sprite(label_text)
+{
+  var fcanvas = document.createElement("canvas");
+  fcanvas.width = 350;
+  fcanvas.height = 35;
+  var ctx = fcanvas.getContext("2d");
+
+
+  // Name and size
+  ctx.font = webgl_mapview_font;
+  var txt_measure = ctx.measureText(label_text);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillText(label_text, 2, 13*2);
+
+  texture = new THREE.Texture(fcanvas);
+  texture.needsUpdate = true;
+
+  var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
+  sprite.scale.set(Math.floor(txt_measure.width) + 5, 11, 1);
+  return sprite;
+}

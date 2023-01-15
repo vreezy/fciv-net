@@ -47,3 +47,12 @@ function map_hex_coords(uv) {
   return new THREE.Vector2(uv.x - gv.x, uv.y - gv.y);
 
 }
+
+
+/****************************************************************************
+  uv is THREE.Vector2
+****************************************************************************/
+function map_to_hex2(uv) {
+  return new THREE.Vector2(uv.x + ((uv.y % 2) / 2) - 0.5, uv.y);
+
+}
