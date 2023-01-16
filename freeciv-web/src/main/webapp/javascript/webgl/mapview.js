@@ -195,10 +195,15 @@ function init_webgl_mapview() {
   lofiMesh.layers.set(6);
   scene.add(lofiMesh);
 
-  // High-resolution terrain-mesh shown in mapview.
   if (is_hex()) {
-    terrain_quality = 12;
+    if (graphics_quality == QUALITY_HIGH) {
+      terrain_quality = 10;
+    } else {
+      terrain_quality = 8;
+    }
+
   }
+  // High-resolution terrain-mesh shown in mapview.
   create_heightmap(terrain_quality);
   var terrain_material = new THREE.ShaderMaterial({
     uniforms: freeciv_uniforms,
