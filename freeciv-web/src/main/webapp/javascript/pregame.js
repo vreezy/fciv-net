@@ -439,7 +439,7 @@ function pregame_settings()
       "     <li><a href='#pregame_settings_tabs-3'>Other</a></li>" +
       "   </ul>" +
       "<div id='pregame_settings_tabs-1'><br><table id='settings_table'> " +
-      "<tr title='Hexagonal or square map tiles.'><td>Map tiles topology (Isometric vs Hexagonal):</td>" +
+      "<tr title='Hexagonal or square map tiles.'><td>Map topology (Isometric vs Hexagonal):</td>" +
       	  "<td><select name='topology' id='topology'>" +
                 "<option value='0'>Isometric</option>" +
                 "<option value='1'>Hexagonal</option>" +
