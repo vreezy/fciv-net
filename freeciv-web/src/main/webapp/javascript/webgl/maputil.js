@@ -26,8 +26,8 @@ function map_to_scene_coords(x, y)
   var result = {};
   if (is_hex()) {
     var hvec = map_to_hex2(new THREE.Vector2(x, y));
-    var gx = hvec.x;
-    var gy = hvec.y;
+    var gx = hvec.x - 0.1;
+    var gy = hvec.y - 0.1;
     result['x'] = Math.floor(-470 + gx * mapview_model_width / map['xsize']);
     result['y'] = Math.floor(30 + gy * mapview_model_height / map['ysize']);
   } else {

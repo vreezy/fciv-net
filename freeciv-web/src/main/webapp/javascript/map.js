@@ -32,6 +32,15 @@ var DIR8_SOUTHEAST = 7;
 var DIR8_LAST = 8;
 var DIR8_COUNT = DIR8_LAST;
 
+var DIR6_NORTHEAST = 1;
+var DIR6_EAST = 2;
+var DIR6_NORTHWEST = 3;
+var DIR6_SOUTHEAST = 4;
+var DIR6_WEST = 5;
+var DIR6_SOUTHWEST = 6;
+var DIR6_LAST = 6;
+var DIR6_COUNT = DIR6_LAST;
+
 var WRAP_X = 1;
 var WRAP_Y = 2;
 
@@ -62,8 +71,8 @@ var T_FIRST = 0;
 var DIR_DX = [ -1, 0, 1, -1, 1, -1, 0, 1 ];
 var DIR_DY = [ -1, -1, -1, 0, 0, 1, 1, 1 ];
 
-var DIR_HEX_DX = [ -1, 0, 1, -1, 1, -1, 0, 1 ];
-var DIR_HEX_DY = [ -1, -1, -1, 0, 0, 1, 1, 1 ];
+var DIR_HEX_DX = [ 0,  1, 1, 0, 1, -1,  0,  0 ];
+var DIR_HEX_DY = [ 0,   -1, 0, -1,  1,  0,  1,  0 ];
 
 
 /****************************************************************************
@@ -341,7 +350,8 @@ function mapstep(ptile, dir)
   }
 
   if (is_hex()) {
-    return map_pos_to_tile(DIR_HEX_DX[dir] + ptile['x'], DIR_HEX_DY[dir] + ptile['y']);
+    var odd_offset  = (DIR_HEX_DY[dir] == -1 || DIR_HEX_DY[dir] == 1) ? ((ptile['y'] + 1) % 2) : 0;
+    return map_pos_to_tile(DIR_HEX_DX[dir] + ptile['x'] - odd_offset, DIR_HEX_DY[dir] + ptile['y']);
   } else {
     return map_pos_to_tile(DIR_DX[dir] + ptile['x'], DIR_DY[dir] + ptile['y']);
   }
