@@ -47,6 +47,6 @@ if you are not using vagrant or the install script:
 * freeciv-web/src/main/webapp/WEB-INF/config.properties  (you can use config/web.properties.tmpl as a template)
 
 
-Copyright (C) 2007-2016 Andreas Røsdal. 
+Copyright (C) 2007-2023 Andreas Røsdal. 
 Released under the GNU AFFERO GENERAL PUBLIC LICENSE.
 
