@@ -1,5 +1,5 @@
 /**********************************************************************
-    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
+    Freeciv-web - the web version of Freeciv. http://www.fciv.net/
     Copyright (C) 2009-2015  The Freeciv-web project
 
     This program is free software: you can redistribute it and/or modify
@@ -21,9 +21,12 @@ var governments = {};
 var requested_gov = -1;
 
 var REPORT_WONDERS_OF_THE_WORLD = 0;
-var REPORT_TOP_CITIES = 1;
-var REPORT_DEMOGRAPHIC = 2;
-var REPORT_ACHIEVEMENTS = 3;
+var REPORT_WONDERS_OF_THE_WORLD_LONG = 1;
+var REPORT_TOP_CITIES = 2;
+var REPORT_DEMOGRAPHIC = 3;
+var REPORT_ACHIEVEMENTS = 4;
+
+
 
 
 /**************************************************************************
@@ -196,7 +199,7 @@ function government_max_rate(govt_id)
 }
 
 /**************************************************************************
-  Returns true iff the player can get the specified governement.
+  Returns true iff the player can get the specified government.
 
   Uses the JavaScript implementation of the requirement system. Is
   therefore limited to the requirement types and ranges the JavaScript

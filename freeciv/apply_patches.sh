@@ -5,17 +5,6 @@
 # osdn #????? is ticket in freeciv.org tracker:
 # https://osdn.net/projects/freeciv/ticket/?????
 #
-# 0053-Add-MAX_CITY_TILES-to-fc_types.h.patch
-#   Make MAX_CITY_TILES definition available for the network protocol
-#   osdn #45886
-# 0051-Make-vision-site-name-allocation-dynamic.patch
-#   Do not reserve memory for every city name by the longest possible,
-#   FoW part.
-#   osdn #45844
-# 0024-Mark-server-to-web-client-packets-no-handle.patch
-#   Ease maintenance of regular clients when web-packets change
-#   osdn #45955
-
 # Not in the upstream Freeciv server
 # ----------------------------------
 # meson_webperimental installs webperimental ruleset
@@ -25,18 +14,11 @@
 #      - This should be replaced by modification of the tutorial scenario that allows it to
 #        work with multiple rulesets (Requires patch #7362 / SVN r33159)
 # win_chance includes 'Chance to win' in Freeciv-web map tile popup.
-# disable_global_warming is Freeciv bug #24418
-# navajo-remove-long-city-names is a quick-fix to remove city names which would be longer than MAX_LEN_NAME
-#     when the name is url encoded in json protocol.
-#     MAX_LEN_CITYNAME was increased in patch #7305 (SVN r33048)
-#     Giving one of the longer removed city names to a new city still causes problems.
 # load_command_confirmation adds a log message which confirms that loading is complete, so that Freeciv-web can issue additional commands.
 # endgame-mapimg is used to generate a mapimg at endgame for hall of fame.
 
 declare -a PATCHLIST=(
-  "backports/0053-Add-MAX_CITY_TILES-to-fc_types.h"
-  "backports/0051-Make-vision-site-name-allocation-dynamic"
-  "backports/0024-Mark-server-to-web-client-packets-no-handle"
+  "backports/0060-Add-REPORT_WONDERS_OF_THE_WORLD_LONG-type"
   "city-naming-change"
   "metachange"
   "text_fixes"
@@ -46,14 +28,11 @@ declare -a PATCHLIST=(
   "tutorial_ruleset"
   "savegame"
   "maphand_ch"
-  "ai_traits_crash"
   "server_password"
   "message_escape"
   "freeciv_segfauls_fix"
   "scorelog_filenames"
-  "disable_global_warming"
   "win_chance"
-  "navajo-remove-long-city-names"
   "load_command_confirmation"
   "endgame-mapimg"
   "add_packet_tile_height"

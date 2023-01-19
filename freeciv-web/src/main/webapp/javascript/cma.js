@@ -47,12 +47,21 @@ function show_city_governor_tab()
     return false;
   }
 
-  $("#cma_food").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][0] == 6);
-  $("#cma_shield").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][1] == 6);
-  $("#cma_trade").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][2] == 6);
-  $("#cma_gold").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][3] == 6);
-  $("#cma_luxury").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][4] == 6);
-  $("#cma_science").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][5] == 6);
+  if (typeof active_city['cm_parameter'] !== 'undefined') {
+    $("#cma_food").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][0] == 6);
+    $("#cma_shield").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][1] == 6);
+    $("#cma_trade").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][2] == 6);
+    $("#cma_gold").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][3] == 6);
+    $("#cma_luxury").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][4] == 6);
+    $("#cma_science").prop('checked', active_city['cma_enabled'] && active_city['cm_parameter']['factor'][5] == 6);
+  } else {
+    $("#cma_food").prop('checked', false);
+    $("#cma_shield").prop('checked', false);
+    $("#cma_trade").prop('checked', false);
+    $("#cma_gold").prop('checked', false);
+    $("#cma_luxury").prop('checked', false);
+    $("#cma_science").prop('checked', false);
+  }
 
 }
 

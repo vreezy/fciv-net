@@ -1,5 +1,5 @@
 /**********************************************************************
-    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
+    Freeciv-web - the web version of Freeciv. http://www.fciv.net/
     Copyright (C) 2009-2015  The Freeciv-web project
 
     This program is free software: you can redistribute it and/or modify
@@ -272,7 +272,7 @@ function handle_city_info(packet)
     pcity = packet;
     cities[packet['id']] = packet;
     if (C_S_RUNNING == client_state() && !observing && benchmark_start == 0
-        && client.conn.playing != null && packet['owner'] == client.conn.playing.playerno) {
+        && !client_is_observer() && packet['owner'] == client.conn.playing.playerno) {
       show_city_dialog_by_id(packet['id']);
     }
   } else {
@@ -313,6 +313,38 @@ function handle_city_info(packet)
    * The processing of this packet will continue once it arrives. */
 }
 
+
+/***************************************************************************
+  Generic handling of follow up packets of city_info.
+***************************************************************************/
+function city_info_follow_up(packet, pname)
+{
+  if (cities[packet['id']] == null) {
+    /* The city should have been sent before the additional info. */
+    console.log(pname + " for unknown city "
+                + packet['id']);
+    return;
+  }
+
+  $.extend(cities[packet['id']], packet);
+}
+
+/***************************************************************************
+  This is a follow up packet to city_info packet.
+***************************************************************************/
+function handle_city_nationalities(packet)
+{
+  city_info_follow_up(packet, "packet_city_nationalities");
+}
+
+/***************************************************************************
+  This is a follow up packet to city_info packet.
+***************************************************************************/
+function handle_city_rally_point(packet)
+{
+  city_info_follow_up(packet, "packet_city_rally_point");
+}
+
 /***************************************************************************
   The web_city_info_addition packet is a follow up packet to
   city_info packet. It gives some information the C clients calculates on
@@ -339,11 +371,11 @@ function handle_web_city_info_addition(packet)
 
   /* Continue with the city_info processing. */
 
-  if (active_city != null) {
+  if (active_city != null && !client_is_observer()) {
     show_city_dialog(active_city);
   }
 
-  if (packet['diplomat_investigate']) {
+  if (packet['diplomat_investigate'] && !client_is_observer()) {
     show_city_dialog(cities[packet['id']]);
   }
 

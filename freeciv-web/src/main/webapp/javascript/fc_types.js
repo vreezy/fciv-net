@@ -1,5 +1,5 @@
 /**********************************************************************
-    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
+    Freeciv-web - the web version of Freeciv. http://www.fciv.net/
     Copyright (C) 2009-2015  The Freeciv-web project
 
     This program is free software: you can redistribute it and/or modify
@@ -36,22 +36,23 @@ var FC_INFINITY = (1000 * 1000 * 1000);
 
 var ACTIVITY_IDLE = 0;
 var ACTIVITY_POLLUTION = 1;
-var ACTIVITY_MINE = 3;
-var ACTIVITY_IRRIGATE = 4;
-var ACTIVITY_FORTIFIED = 5;
-var ACTIVITY_SENTRY = 7;
-var ACTIVITY_PILLAGE = 9;
-var ACTIVITY_GOTO = 10;
-var ACTIVITY_EXPLORE = 11;
-var ACTIVITY_TRANSFORM = 12;
-var ACTIVITY_FORTIFYING = 15;
-var ACTIVITY_FALLOUT = 16;
-var ACTIVITY_BASE = 18;			/* building base */
-var ACTIVITY_GEN_ROAD = 19;
-var ACTIVITY_CONVERT = 20;
-var ACTIVITY_CULTIVATE = 21;
-var ACTIVITY_PLANT = 22;
-var ACTIVITY_LAST = 23;   /* leave this one last */
+var ACTIVITY_MINE = 2;
+var ACTIVITY_IRRIGATE = 3;
+var ACTIVITY_FORTIFIED = 4;
+var ACTIVITY_SENTRY = 5;
+var ACTIVITY_PILLAGE = 6;
+var ACTIVITY_GOTO = 7;
+var ACTIVITY_EXPLORE = 8;
+var ACTIVITY_TRANSFORM = 9;
+var ACTIVITY_FORTIFYING = 10;
+var ACTIVITY_FALLOUT = 11;
+var ACTIVITY_BASE = 12;        /* Building base */
+var ACTIVITY_GEN_ROAD = 13;
+var ACTIVITY_CONVERT = 14;
+var ACTIVITY_CULTIVATE = 15;
+var ACTIVITY_PLANT = 16;
+var ACTIVITY_CLEAN = 17;
+var ACTIVITY_LAST = 18;        /* Leave this one last */
 
 /* enum action_result */
 var ACTRES_ESTABLISH_EMBASSY = 0;
@@ -260,11 +261,12 @@ var ACTION_SPY_ESCAPE = 107;
 var ACTION_UNIT_MOVE = 108;
 var ACTION_UNIT_MOVE2 = 109;
 var ACTION_UNIT_MOVE3 = 110;
-var ACTION_USER_ACTION1 = 111;
-var ACTION_USER_ACTION2 = 112;
-var ACTION_USER_ACTION3 = 113;
-var ACTION_USER_ACTION4 = 114;
-var ACTION_COUNT = 115;
+var ACTION_CLEAN = 111;
+var ACTION_USER_ACTION1 = 112;
+var ACTION_USER_ACTION2 = 113;
+var ACTION_USER_ACTION3 = 114;
+var ACTION_USER_ACTION4 = 115;
+var ACTION_COUNT = 116;
 
 /* The action_decision enum */
 /* Doesn't need the player to decide what action to take. */

@@ -1,5 +1,5 @@
 /**********************************************************************
-    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
+    Freeciv-web - the web version of Freeciv. http://www.fciv.net/
     Copyright (C) 2009-2015  The Freeciv-web project
 
     This program is free software: you can redistribute it and/or modify
@@ -376,8 +376,7 @@ function toggle_ai_clicked()
 function get_score_text(player)
 {
 
-  if (player['score'] > 0 || client_is_observer()
-      || (client.conn.playing != null && player['playerno'] == client.conn.playing['playerno'])) {
+  if (player['score'] >= 0) {
     return player['score'];
   } else {
     return "?";

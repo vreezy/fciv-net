@@ -1,5 +1,5 @@
 /**********************************************************************
-    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
+    Freeciv-web - the web version of Freeciv. http://www.fciv.net/
     Copyright (C) 2009-2015  The Freeciv-web project
 
     This program is free software: you can redistribute it and/or modify
@@ -180,7 +180,8 @@ function get_scorelog_name(tag) {
   "gold" : "Gold",
   "unitsbuilt" : "Units built",
   "unitskilled" : "Units killed",
-  "unitslost" : "Units lost" 
+  "unitslost" : "Units lost",
+  "unitsused" : "Units used"
   };
   return names[tag];
 }

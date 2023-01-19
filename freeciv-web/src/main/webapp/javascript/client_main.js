@@ -1,5 +1,5 @@
 /**********************************************************************
-    Freeciv-web - the web version of Freeciv. http://play.freeciv.org/
+    Freeciv-web - the web version of Freeciv. http://www.fciv.net/
     Copyright (C) 2009-2015  The Freeciv-web project
 
     This program is free software: you can redistribute it and/or modify
@@ -153,7 +153,7 @@ function can_client_change_view()
 **************************************************************************/
 function can_client_control()
 {
-  return (null != client.conn.playing && !client_is_observer());
+  return !client_is_observer();
 }
 
 /**************************************************************************
@@ -169,7 +169,7 @@ function can_client_issue_orders()
 **************************************************************************/
 function client_is_observer()
 {
-  return client.conn['observer'] || observing;
+  return client.conn.playing == null || client.conn['observer'] || observing;
 }
 
 /**************************************************************************

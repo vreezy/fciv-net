@@ -28,7 +28,7 @@ fi
   mkdir -p build
 
   ( cd build
-    meson ../freeciv -Dfreeciv-web=true -Dclients=[] -Dfcmp=[] \
+    meson setup ../freeciv -Dfreeciv-web=true -Dclients=[] -Dfcmp=[] \
           -Djson-protocol=true -Dnls=false -Daudio=false -Druledit=false \
           -Ddefault_library=static -Dprefix=${HOME}/freeciv \
           -Doptimization=3
