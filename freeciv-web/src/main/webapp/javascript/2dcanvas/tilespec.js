@@ -117,12 +117,20 @@ function tileset_ruleset_entity_tag_str_or_alt(entity, kind_name)
     return null;
   }
 
+  if (tileset_has_tag(entity['graphic_str'] + "_Idle")) {
+    return entity['graphic_str'] + "_Idle";
+  }
+
   if (tileset_has_tag(entity['graphic_str'])) {
     return entity['graphic_str'];
   }
 
   if (tileset_has_tag(entity['graphic_alt'])) {
     return entity['graphic_alt'];
+  }
+
+  if (tileset_has_tag(entity['graphic_alt'] + "_Idle")) {
+    return entity['graphic_alt'] + "_Idle";
   }
 
   console.log("No graphic for " + kind_name + " " + entity['name']);
@@ -143,7 +151,25 @@ function tileset_extra_graphic_tag(extra)
 **************************************************************************/
 function tileset_unit_type_graphic_tag(utype)
 {
-  return tileset_ruleset_entity_tag_str_or_alt(utype, "unit type");
+  if (tileset_has_tag(utype['graphic_str'] + "_Idle")) {
+    return utype['graphic_str'] + "_Idle";
+  }
+
+  if (tileset_has_tag(utype['graphic_alt'] + "_Idle")) {
+    return utype['graphic_alt'] + "_Idle";
+  }
+
+  console.log("No graphic for unit " + utype['name']);
+  return null;
+}
+
+/**************************************************************************
+  Returns the tag name of the graphic for the unit.
+**************************************************************************/
+function tileset_unit_graphic_tag(punit)
+{
+  /* Currently always uses the default "_Idle" sprite */
+  return tileset_unit_type_graphic_tag(unit_type(punit));
 }
 
 /**************************************************************************
@@ -440,8 +466,8 @@ function get_unit_stack_sprite(punit)
 function get_unit_hp_sprite(punit)
 {
   var hp = punit['hp'];
-  var unit_type = unit_types[punit['type']];
-  var max_hp = unit_type['hp'];
+  var utype = unit_type(punit);
+  var max_hp = utype['hp'];
   var healthpercent = 10 * Math.floor((10 * hp) / max_hp);
   var unit_offset = get_unit_anim_offset(punit);
 
@@ -470,7 +496,14 @@ function get_unit_activity_sprite(punit)
   var act_tgt  = punit['activity_tgt'];
 
   switch (activity) {
+    /* TODO: Use target specific sprites. */
+    case ACTIVITY_CLEAN:
     case ACTIVITY_POLLUTION:
+     return {"key" : "unit.pollution",
+          "offset_x" : unit_activity_offset_x,
+          "offset_y" : - unit_activity_offset_y};
+
+    case ACTIVITY_FALLOUT:
       return {"key" : "unit.fallout",
           "offset_x" : unit_activity_offset_x,
           "offset_y" : - unit_activity_offset_y};

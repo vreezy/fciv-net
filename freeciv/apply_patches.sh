@@ -19,12 +19,13 @@
 
 declare -a PATCHLIST=(
   "backports/0060-Add-REPORT_WONDERS_OF_THE_WORLD_LONG-type"
+  "backports/0032-Add-city-tile-output-to-city-web-addition-packet"
+  "backports/0038-Move-combat-stats-part-of-popup_info_text-to-clientu"
   "city-naming-change"
   "metachange"
   "text_fixes"
   "freeciv-svn-webclient-changes"
   "goto_fcweb"
-  "misc_devversion_sync"
   "tutorial_ruleset"
   "savegame"
   "maphand_ch"

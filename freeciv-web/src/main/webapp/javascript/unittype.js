@@ -297,3 +297,19 @@ function utype_real_base_move_rate(punit_type)
 
   return move_bonus + move_rate;
 }
+
+/**************************************************************************
+...
+**************************************************************************/
+function get_units_from_tech(tech_id)
+{
+  var result = [];
+
+  for (var unit_type_id in unit_types) {
+    var punit_type = unit_types[unit_type_id];
+    if (punit_type['tech_requirement'] == tech_id) {
+      result.push(punit_type);
+    }
+  }
+  return result;
+}

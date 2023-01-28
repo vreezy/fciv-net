@@ -453,7 +453,9 @@ function get_city_production_type_sprite(pcity)
 **************************************************************************/
 function get_city_production_type(pcity)
 {
-  if (pcity == null) return null; 
+  if (pcity == null) {
+    return null;
+  }
   if (pcity['production_kind'] == VUT_UTYPE) {
     var punit_type = unit_types[pcity['production_value']];
     return punit_type;
@@ -958,7 +960,7 @@ function dxy_to_center_index(dx, dy, r)
 
 /**************************************************************************
   Converts from coordinate offset from city center (dx, dy),
-  to index in the city_info['food_output'] packet.
+  to index.
 **************************************************************************/
 function get_city_dxy_to_index(dx, dy, pcity)
 {

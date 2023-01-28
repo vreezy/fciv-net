@@ -18,7 +18,7 @@
 ***********************************************************************/
 
 var texture_cache = {};
-var webgl_mapview_font = "27px arial, sans serif"; // with canvas text support
+var webgl_mapview_font = "27px arial, sans serif";
 
 
 
@@ -35,8 +35,9 @@ function get_unit_activity_text(punit)
   }
 
   switch (activity) {
+    case ACTIVITY_CLEAN:
     case ACTIVITY_POLLUTION:
-      return "F";
+      return "c";
 
     case ACTIVITY_MINE:
       return "m";
@@ -45,7 +46,7 @@ function get_unit_activity_text(punit)
       return "M";
 
     case ACTIVITY_IRRIGATE:
-      return " i ";
+      return "i";
 
     case ACTIVITY_CULTIVATE:
       return "I";
@@ -82,7 +83,7 @@ function get_unit_activity_text(punit)
   }
 
   if (unit_has_goto(punit)) {
-      return "G";
+    return "G";
   }
 
   switch (punit['ssa_controller']) {
