@@ -72,7 +72,7 @@ function add_trees_to_landgeometry() {
         }
 
         if (terrain_name == "Jungle" && tile_get_known(ptile) != TILE_UNKNOWN) {
-          var theight = Math.floor((100 * heightmap[sx][sy]) + 5 + (-5 + 4.5 * (1 + ((ix * iy) % 4))));
+          var theight = Math.floor((100 * heightmap[sx][sy]) + 5 + (-5 + 4.0 * (1 + ((ix * iy) % 2))));
           jungle_vertices.push(  x + 5, -y - 10, theight);
           var rnd = ((iy * ix) % 5) / 10;
           jungle_colors.push(0.5 + (rnd) / 2.0, 0.5 + rnd * 1.5, 0.8);
