@@ -32,16 +32,17 @@ var requirements = {};
  *  - World contains Alliance contains Player (a requirement we ourselves
  *    have is also within Alliance range). */
 var REQ_RANGE_LOCAL = 0;
-var REQ_RANGE_CADJACENT = 1;
-var REQ_RANGE_ADJACENT = 2;
-var REQ_RANGE_CITY = 3;
-var REQ_RANGE_TRADEROUTE = 4;
-var REQ_RANGE_CONTINENT = 5;
-var REQ_RANGE_PLAYER = 6;
-var REQ_RANGE_TEAM = 7;
-var REQ_RANGE_ALLIANCE = 8;
-var REQ_RANGE_WORLD = 9;
-var REQ_RANGE_COUNT = 10;   /* keep this last */
+var REQ_RANGE_TILE = 1;
+var REQ_RANGE_CADJACENT = 2;
+var REQ_RANGE_ADJACENT = 3;
+var REQ_RANGE_CITY = 4;
+var REQ_RANGE_TRADEROUTE = 5;
+var REQ_RANGE_CONTINENT = 6;
+var REQ_RANGE_PLAYER = 7;
+var REQ_RANGE_TEAM = 8;
+var REQ_RANGE_ALLIANCE = 9;
+var REQ_RANGE_WORLD = 10;
+var REQ_RANGE_COUNT = 11;   /* Keep this last */
 
 
 /****************************************************************************
@@ -207,6 +208,7 @@ function is_tech_in_range(target_player, range, tech)
     console.log("Unimplemented tech requirement range " + range);
     return TRI_MAYBE;
   case REQ_RANGE_LOCAL:
+  case REQ_RANGE_TILE:
   case REQ_RANGE_CADJACENT:
   case REQ_RANGE_ADJACENT:
   case REQ_RANGE_CITY:
