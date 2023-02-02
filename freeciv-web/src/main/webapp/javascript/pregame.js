@@ -1142,12 +1142,6 @@ function show_new_user_account_dialog(gametype)
                 + "<li>You will not receive any spam and your e-mail address will be kept safe. Your password is stored securely as a secure hash.</li>"
                 + "</ul></small></div>";
 
-  $.ajax({
-      async: false,
-      url: "https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" ,
-      dataType: "script"
-  });
-
   // reset dialog page.
   $("#dialog").remove();
   $("<div id='dialog'></div>").appendTo("div#game_page");

@@ -63,6 +63,9 @@ var fcwDebug=<%= fcwDebug %>;
 <link rel="manifest" href="/static/manifest.json">
 
 <script>var captcha_site_key = '<%= captchaKey %>';</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+    async defer>
+</script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-35GD0T4L9J"></script>
