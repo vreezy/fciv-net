@@ -8,7 +8,6 @@
 # Not in the upstream Freeciv server
 # ----------------------------------
 # meson_webperimental installs webperimental ruleset
-# freeciv_segfauls_fix is a workaround some segfaults in the Freeciv server. Freeciv bug #23884.
 # message_escape is a patch for protecting against script injection in the message texts.
 # tutorial_ruleset changes the ruleset of the tutorial to one supported by Freeciv-web.
 #      - This should be replaced by modification of the tutorial scenario that allows it to
@@ -22,6 +21,7 @@ declare -a PATCHLIST=(
   "backports/0032-Add-city-tile-output-to-city-web-addition-packet"
   "backports/0038-Move-combat-stats-part-of-popup_info_text-to-clientu"
   "backports/0035-packets_json.c-Fix-tautological-unsigned-enum-zero-c"
+  "backports/0024-Fix-cases-where-AI-didn-t-consider-that-building-mig"
   "city-naming-change"
   "metachange"
   "text_fixes"
@@ -32,7 +32,6 @@ declare -a PATCHLIST=(
   "maphand_ch"
   "server_password"
   "message_escape"
-  "freeciv_segfauls_fix"
   "scorelog_filenames"
   "win_chance"
   "load_command_confirmation"
