@@ -53,6 +53,6 @@ function map_hex_coords(uv) {
   uv is THREE.Vector2
 ****************************************************************************/
 function map_to_hex2(uv) {
-  return new THREE.Vector2((uv.x + (uv.y % 2) * 0.5) * 1.77 * 0.5, uv.y * 1.535 * 0.5);
+  return new THREE.Vector2((uv.x + (uv.y % 2) * 0.5) , uv.y);
 
 }
