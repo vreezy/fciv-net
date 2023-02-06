@@ -29,7 +29,7 @@ function map_to_scene_coords(x, y)
     var gx = hvec.x - 0.1;
     var gy = hvec.y - 0.1;
     result['x'] = Math.floor(-470 + gx * 20);
-    result['y'] = Math.floor(30 + gy * 23.5);
+    result['y'] = Math.floor(30 + gy * 23.0);
   } else {
     result['x'] = Math.floor(-470 + x * mapview_model_width / map['xsize']);
     result['y'] = Math.floor(30 + y * mapview_model_height / map['ysize']);
