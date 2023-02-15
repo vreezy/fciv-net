@@ -1408,6 +1408,11 @@ function handle_ruleset_terrain_flag(packet)
   /* TODO: implement */
 }
 
+function handle_ruleset_impr_flag(packet)
+{
+  /* TODO: implement */
+}
+
 /**************************************************************************
   Receive scenario information about the current game.
 

@@ -17,12 +17,9 @@
 # endgame-mapimg is used to generate a mapimg at endgame for hall of fame.
 
 declare -a PATCHLIST=(
-  "backports/0060-Add-REPORT_WONDERS_OF_THE_WORLD_LONG-type"
-  "backports/0032-Add-city-tile-output-to-city-web-addition-packet"
   "backports/0038-Move-combat-stats-part-of-popup_info_text-to-clientu"
   "backports/0035-packets_json.c-Fix-tautological-unsigned-enum-zero-c"
   "backports/0024-Fix-cases-where-AI-didn-t-consider-that-building-mig"
-  "city-naming-change"
   "metachange"
   "text_fixes"
   "freeciv-svn-webclient-changes"
