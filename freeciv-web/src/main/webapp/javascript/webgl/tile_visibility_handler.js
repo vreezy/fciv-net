@@ -64,31 +64,14 @@ function update_tiles_known_vertex_colors()
 
   for ( let iy = 0; iy < gridY1; iy ++ ) {
     for ( let ix = 0; ix < gridX1; ix ++ ) {
-      if (is_hex()) {
-        var sx = ix % xquality, sy = iy % yquality;
-        var mx = (sx / terrain_quality), my = (sy / terrain_quality) ;
-        var hvec = map_hex_coords(new THREE.Vector2(mx, my));
-        var gx = Math.floor(hvec.x);
-        var gy = Math.floor(hvec.y);
-        var ptile = map_pos_to_tile(gx, gy);
-        if (ptile != null) {
-          var c = get_vertex_color_from_tile(ptile, ix, iy);
-          colors.push(c[0], c[1], c[2]);
-        } else {
-          colors.push(0,0,0);
-        }
-
+      var sx = ix % xquality, sy = iy % yquality;
+      var mx = Math.floor((sx / terrain_quality) - 0.040), my = Math.floor((sy / terrain_quality) - 0.040);
+      var ptile = map_pos_to_tile(mx, my);
+      if (ptile != null) {
+        var c = get_vertex_color_from_tile(ptile, ix, iy);
+        colors.push(c[0], c[1], c[2]);
       } else {
-
-        var sx = ix % xquality, sy = iy % yquality;
-        var mx = Math.floor((sx / terrain_quality) - 0.040), my = Math.floor((sy / terrain_quality) - 0.040);
-        var ptile = map_pos_to_tile(mx, my);
-        if (ptile != null) {
-          var c = get_vertex_color_from_tile(ptile, ix, iy);
-          colors.push(c[0], c[1], c[2]);
-        } else {
-          colors.push(0,0,0);
-        }
+        colors.push(0,0,0);
       }
     }
   }
@@ -112,13 +95,13 @@ function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
 
       // Unit shadow
       var units = tile_units(ptile);
-      if (!is_hex() && units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % terrain_quality)> 3 && (vertex_y % terrain_quality) > 3) {
+      if (units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % terrain_quality)> 3 && (vertex_y % terrain_quality) > 3) {
         known_status_color = 0.43;
       }
 
       // City shadow
       var pcity = tile_city(ptile);
-      if (!is_hex() && pcity != null && (vertex_x % terrain_quality) > 1 && (vertex_y % terrain_quality) > 1) {
+      if (pcity != null && (vertex_x % terrain_quality) > 1 && (vertex_y % terrain_quality) > 1) {
         known_status_color = 0.42;
       }
 
@@ -128,7 +111,7 @@ function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
       known_status_color = 0;
     }
 
-    if (!is_hex() && active_city != null && ptile != null && (tile_get_known(ptile) == TILE_KNOWN_SEEN || tile_get_known(ptile) == TILE_KNOWN_UNSEEN)) {
+    if (active_city != null && ptile != null && (tile_get_known(ptile) == TILE_KNOWN_SEEN || tile_get_known(ptile) == TILE_KNOWN_UNSEEN)) {
       // Hightlight active city
       var ctile = city_tile(active_city);
       if (ptile['index'] == ctile['index']) {

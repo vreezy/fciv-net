@@ -123,72 +123,43 @@ function create_heightmap(heightmap_quality)
     }
   }
 
-  if (is_hex()) {
-    for (var x = 0; x < heightmap_resolution_x; x++) {
-      for (var y = 0; y < heightmap_resolution_y; y++) {
-        var sx = x / heightmap_quality;
-        var sy = y / heightmap_quality;
-        var hvec = map_hex_coords(new THREE.Vector2(sx - 0.05, sy + 0.1));
-        var gx = Math.floor(hvec.x);
-        var gy = Math.floor(hvec.y);
-
+  for (var x = 0; x < heightmap_resolution_x; x++) {
+    for (var y = 0; y < heightmap_resolution_y; y++) {
+      var gx = x / heightmap_quality - 0.5;
+      var gy = y / heightmap_quality - 0.5;
+       if (Math.round(gx) == gx && Math.round(gy) == gy) {
         var ptile = map_pos_to_tile(gx, gy);
-        if (ptile != null) {
-          heightmap[x][y] = ptile['height'];
-        } else {
-          heightmap[x][y] = 0.55;
-        }
-      }
-    }
+        heightmap[x][y] = ptile['height'];
+      } else {
+        var neighbours = [
+          { "x": Math.floor(gx), "y": Math.floor(gy) },
+          { "x": Math.floor(gx), "y": Math.ceil(gy) },
+          { "x": Math.ceil(gx),  "y": Math.floor(gy) },
+          { "x": Math.ceil(gx),  "y": Math.ceil(gy) }];
 
-    for (var x = 1; x < heightmap_resolution_x - 1; x++) {
-      for (var y = 1; y < heightmap_resolution_y - 1; y++) {
-          heightmap[x][y] = (heightmap[x][y] + heightmap[x-1][y-1] + heightmap[x-1][y+1] + heightmap[x+1][y] + heightmap[x + 1][y + 1] ) / 5;
-      }
-    }
-
-
-  } else {
-    for (var x = 0; x < heightmap_resolution_x; x++) {
-      for (var y = 0; y < heightmap_resolution_y; y++) {
-        var gx = x / heightmap_quality - 0.5;
-        var gy = y / heightmap_quality - 0.5;
-
-        if (Math.round(gx) == gx && Math.round(gy) == gy) {
-          var ptile = map_pos_to_tile(gx, gy);
-          heightmap[x][y] = ptile['height'];
-        } else {
-
-          var neighbours = [
-            { "x": Math.floor(gx), "y": Math.floor(gy) },
-            { "x": Math.floor(gx), "y": Math.ceil(gy) },
-            { "x": Math.ceil(gx),  "y": Math.floor(gy) },
-            { "x": Math.ceil(gx),  "y": Math.ceil(gy) }];
-
-          var norm = 0;
-          var sum = 0;
-          for (var i = 0; i < 4; i++) {
-            var coords = neighbours[i];
-            if (coords.x < 0 || coords.x >= map.xsize || coords.y < 0 || coords.y >= map.ysize) {
-              continue;
-            }
-            var dx = gx - coords.x;
-            var dy = gy - coords.y;
-            var distance = Math.sqrt(dx*dx + dy*dy);
-            var ptile = map_pos_to_tile(coords.x, coords.y);
-            var height = 0;
-            if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
-              var rnd = ((x * y) % 10) / 10;
-              height = ptile['height'] + ((rnd - 0.5) / 50) - 0.01;
-            } else {
-              height = ptile['height'];
-            }
-            sum += height / distance / distance;
-            norm += 1 / distance / distance;
+        var norm = 0;
+        var sum = 0;
+        for (var i = 0; i < 4; i++) {
+          var coords = neighbours[i];
+          if (coords.x < 0 || coords.x >= map.xsize || coords.y < 0 || coords.y >= map.ysize) {
+            continue;
           }
-
-          heightmap[x][y] = (sum / norm);
+          var dx = gx - coords.x;
+          var dy = gy - coords.y;
+          var distance = Math.sqrt(dx*dx + dy*dy);
+          var ptile = map_pos_to_tile(coords.x, coords.y);
+          var height = 0;
+          if (tile_terrain(ptile)['name'] == "Hills" || tile_terrain(ptile)['name'] == "Mountains") {
+            var rnd = ((x * y) % 10) / 10;
+            height = ptile['height'] + ((rnd - 0.5) / 50) - 0.01;
+          } else {
+            height = ptile['height'];
+          }
+          sum += height / distance / distance;
+          norm += 1 / distance / distance;
         }
+
+        heightmap[x][y] = (sum / norm);
       }
     }
   }

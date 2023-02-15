@@ -36,15 +36,8 @@ function add_trees_to_landgeometry() {
   const forest_colors = [];
   const jungle_colors = [];
 
-  var x_inc;
-  var y_inc;
-  if (is_hex()) {
-    x_inc = 3;
-    y_inc = 3;
-  } else {
-    x_inc = 2;
-    y_inc = 1;
-  }
+  var x_inc = 2;
+  var y_inc = 1;
 
   for ( let iy = 0; iy < gridY1; iy += x_inc ) {
     const y = iy * segment_height - height_half;
