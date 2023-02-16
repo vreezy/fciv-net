@@ -44,6 +44,8 @@ var fcwDebug=<%= fcwDebug %>;
 
 <script src="https://apis.google.com/js/platform.js"></script>
 
+<script type="text/javascript" src="/javascript/libs/stacktrace.min.js"></script>
+
 <script type="text/javascript" src="/javascript/libs/handlebars.runtime.js?ts=${initParam.buildTimeStamp}"></script>
 
 <script type="text/javascript" src="/javascript/webgl/libs/three.min.js?ts=${initParam.buildTimeStamp}"></script>

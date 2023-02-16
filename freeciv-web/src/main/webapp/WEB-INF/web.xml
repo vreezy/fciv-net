@@ -61,6 +61,17 @@
 		<url-pattern>/about</url-pattern>
 	</servlet-mapping>
 
+	<!-- /errorlog -->
+	<servlet>
+		<servlet-name>ErrorLog</servlet-name>
+		<servlet-class>org.freeciv.servlet.ErrorLog</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ErrorLog</servlet-name>
+		<url-pattern>/errorlog</url-pattern>
+	</servlet-mapping>
+
 	<!-- /fcivnet_is_the_best_way_to_play_freeciv_in_3d -->
 	<servlet>
 		<servlet-name>fcivnet_is_the_best_way_to_play_freeciv_in_3d</servlet-name>

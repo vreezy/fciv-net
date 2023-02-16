@@ -353,6 +353,7 @@ Rerun the sync-js-hand.js script.
 									<exclude>libs/jquery.min.js</exclude>
 									<exclude>libs/gif.worker.js</exclude>
 									<exclude>libs/handlebars.runtime.js</exclude>
+									<exclude>libs/stacktrace.min.js</exclude>
 									<exclude>webgl/libs/three.min.js</exclude>
 								</excludes>
 							</configuration>

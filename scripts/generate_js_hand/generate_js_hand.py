@@ -52,7 +52,6 @@ f.write("""
 function client_handle_packet(p)
 {
  if (p == null) return;
- try {
   for (var i = 0; i < p.length; i++) {
     if (p[i] == null) continue;
     var packet_type = p[i]['pid'];
@@ -63,10 +62,6 @@ function client_handle_packet(p)
   if (p.length > 0) {
     if (debug_active) clinet_debug_collect();
   }
-
- } catch(err) {
-   console.error(err); 
- }
 
 }
 """);
