@@ -291,7 +291,7 @@ function update_city_position(ptile) {
 
     var city_label = create_city_label_sprite(pcity);
     city_label_positions[ptile['index']] = city_label;
-    city_label.position.set(pos['x'] + 10 , height + 28, pos['y'] - 25);
+    city_label.position.set(pos['x'] + 10 , height + 27, pos['y'] - 25);
 
     pcity['webgl_label_hash'] = pcity['name'] + pcity['size'] + pcity['production_value'] + "." + pcity['production_kind'] + punits.length;
     if (scene != null) scene.add(city_label);
@@ -367,7 +367,7 @@ function update_tile_extras(ptile) {
 
   if (ptile == null || tile_get_known(ptile) == TILE_UNKNOWN) return;
 
-  var height = 5 + ptile['height'] * 100;
+  var height = 4 + ptile['height'] * 100;
 
   webgl_update_farmland_irrigation_vertex_colors(ptile);
 
@@ -386,18 +386,18 @@ function update_tile_extras(ptile) {
       var terrain_name = tile_terrain(ptile).name;
 
       if (tile_has_extra(ptile, EXTRA_RIVER)) {
-        height += 7;
+        height += 5;
       }
       if (extra_resource['name'] == "Gold" || extra_resource['name'] == "Iron") {
         height -= 5;
-        if (tile_has_extra(ptile, EXTRA_RIVER) && tile_terrain(ptile)['name'] == "Mountains") {
+        if ((is_ocean_tile_near(ptile) || tile_has_extra(ptile, EXTRA_RIVER)) && tile_terrain(ptile)['name'] == "Mountains") {
           height -= 18;
         }
       }
       if (tile_terrain(ptile) != null && tile_terrain(ptile)['name'].indexOf("Forest") >= 0) {
         height += 1;
         if (extra_resource['name'] == "Pheasant") {
-          height += 0.5;
+          height += 0.3;
         }
       }
       if (extra_resource['name'] == "Fish" || extra_resource['name'] == "Whales") {

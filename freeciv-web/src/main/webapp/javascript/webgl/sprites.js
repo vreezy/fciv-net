@@ -180,15 +180,13 @@ function create_city_label_sprite(pcity)
   }
 
   // Name and size
-  var city_text = pcity.name.toUpperCase() + "  " + pcity.size;
+  var city_text = pcity.name.toUpperCase() + " " + pcity.size;
   ctx.font = webgl_mapview_font;
   var txt_measure = ctx.measureText(city_text);
   // Background
   var background_color = nations[owner.nation].color;
   if (background_color != null) {
-     if (graphics_quality >= QUALITY_HIGH) {
-       background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.49)");
-     }
+     background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.58)");
      ctx.fillStyle = background_color;
   }
   ctx.fillRect(width, 0, txt_measure.width + 11 /* padding */, 32);
@@ -197,9 +195,9 @@ function create_city_label_sprite(pcity)
   var nation_colors = nations[owner['nation']].color.replace("rgb(", "").replace(")", "").split(",");
   if (parseInt(nation_colors[0]) + parseInt(nation_colors[1]) + parseInt(nation_colors[2]) < 300) dark_bg = true;
   if (dark_bg) {
-    ctx.fillStyle = '#EFEFEF';
+    ctx.fillStyle = '#FFFFFF';
   } else {
-    ctx.fillStyle = '#050505';
+    ctx.fillStyle = '#000000';
   }
   ctx.fillText(city_text, width + 4 /* padding */, 13*2);
 
@@ -216,7 +214,7 @@ function create_city_label_sprite(pcity)
       width += 32;
     }
   }
-  if (width > 350) width = 350;
+  if (width > 380) width = 380;
 
   texture = new THREE.Texture(fcanvas);
   texture.needsUpdate = true;
@@ -224,7 +222,7 @@ function create_city_label_sprite(pcity)
   texture_cache[key] = texture;
 
   var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
-  sprite.scale.set(Math.floor(width * 0.30) + 32, 11, 1);
+  sprite.scale.set(Math.floor(width * 0.30) + 22, 11, 1);
   return sprite;
 }
 
@@ -273,15 +271,13 @@ function update_city_label(pcity)
   }
 
   // Name and size
-  var city_text = pcity.name.toUpperCase() + "  " + pcity.size;
+  var city_text = pcity.name.toUpperCase() + " " + pcity.size;
   ctx.font = webgl_mapview_font;
   var txt_measure = ctx.measureText(city_text);
   // Background
   var background_color = nations[owner.nation].color;
   if (background_color != null) {
-     if (graphics_quality >= QUALITY_HIGH) {
-       background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.52)");
-     }
+     background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.58)");
      ctx.fillStyle = background_color;
   }
   ctx.fillRect(width, 0, txt_measure.width + 11 /* padding */, 32);
@@ -290,9 +286,9 @@ function update_city_label(pcity)
   var nation_colors = nations[owner['nation']].color.replace("rgb(", "").replace(")", "").split(",");
   if (parseInt(nation_colors[0]) + parseInt(nation_colors[1]) + parseInt(nation_colors[2]) < 300) dark_bg = true;
   if (dark_bg) {
-    ctx.fillStyle = '#EFEFEF';
+    ctx.fillStyle = '#FFFFFF';
   } else {
-    ctx.fillStyle = '#050505';
+    ctx.fillStyle = '#000000';
   }
   ctx.fillText(city_text, width + 4 /* padding */, 13*2);
 
@@ -301,8 +297,7 @@ function update_city_label(pcity)
   // Production
   var prod_type = get_city_production_type(pcity);
   if (prod_type != null) {
-    var tag = tileset_ruleset_entity_tag_str_or_alt(prod_type,
-                                                    "unit or building");
+    var tag = tileset_ruleset_entity_tag_str_or_alt(prod_type, "unit or building");
     if (tag != null) {
       ctx.fillStyle = background_color;
       ctx.fillRect(width, 0, 36, 32);

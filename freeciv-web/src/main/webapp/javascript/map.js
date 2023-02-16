@@ -488,7 +488,7 @@ function map_tile_height_adjust(ptile)
     }
 
     if (tile_has_extra(ptile, EXTRA_RIVER)) {
-      ptile['height'] = 0.494;
+      ptile['height'] = 0.488;
     } else if (tile_terrain(ptile)['name'] == "Hills") {
       ptile['height'] =  ptile['height'] * 1.10;
     } else if (tile_terrain(ptile)['name'] == "Mountains") {
@@ -508,7 +508,7 @@ function map_tile_height_adjust(ptile)
     }
 
     if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile) && tile_has_extra(ptile, EXTRA_RIVER)) {
-      ptile['height'] = ptile['height'] * 1.005;
+      ptile['height'] = ptile['height'] * 1.007;
     }
     if (is_ocean_tile(ptile) && is_land_tile_near(ptile) && is_river_tile_near(ptile)) {
       ptile['height'] = ptile['height'] * 1.04;

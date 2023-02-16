@@ -44,11 +44,13 @@ function add_trees_to_landgeometry() {
     for ( let ix = 0; ix < gridX1; ix += y_inc ) {
       const x = ix * segment_width - width_half;
       var sx = ix % xquality, sy = iy % yquality;
-      var mx = sx / terrain_quality, my = sy / terrain_quality;
-      var hvec = map_hex_coords(new THREE.Vector2(mx, my));
-      var gx = Math.floor(hvec.x);
-      var gy = Math.floor(hvec.y);
-      var ptile = map_pos_to_tile(gx, gy);
+      var mx = Math.floor(sx / terrain_quality), my = Math.floor(sy / terrain_quality);
+      var ptile = map_pos_to_tile(mx, my);
+
+     var rnd = ((iy * ix) % 10) / 10;
+     if (rnd < 0.3) {
+       continue;
+     }
 
       if (heightmap[sx][sy] < 0.532) {
         continue; // no trees on rivers
