@@ -61,6 +61,7 @@ var chat_send_to = -1;
 var CHAT_ICON_EVERYBODY = String.fromCharCode(62075);
 var CHAT_ICON_ALLIES = String.fromCharCode(61746);
 var end_turn_info_message_shown = false;
+var mouse_touch_started_on_unit = false;
 
 /* The ID of the unit that currently is in the action selection process.
  *
