@@ -33,6 +33,10 @@
 
 		    <li><a href="https://fciv.net/wiki/">Wiki</a></li>
 
+		    <li><a href="/hall_of_fame">Hall of Fame</a></li>
+
+		    <li><a href="/about">About</a></li>
+
             <li><a href="https://www.twitter.com/fcivnet">@Fcivnet</a></li>
 		
 </ul>
@@ -40,7 +44,7 @@
 			<input type="hidden" name="sites" value="www.freeciv.org,forum.freeciv.org,freeciv.wikia.com,www.fciv.net">
 			<div class="form-group">
 				<div class="input-group">
-					<input type="text" class="form-control" name="q" placeholder="Search Freeciv...">
+					<input type="text" class="form-control" name="q" placeholder="Search Fciv...">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
 					</span>

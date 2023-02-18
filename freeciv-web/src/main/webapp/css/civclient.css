@@ -6,14 +6,14 @@ body
   width: 100%;
 }
 
-button { 
+/*button {
   margin: .2em .2em .2em 0; 
   cursor: pointer; 
   padding: .2em .6em .3em .6em; 
   line-height: 1.4em; 
   width:auto; 
   overflow:visible; 
-}
+}*/
 
 .ui-tabs .ui-tabs-panel {
   border-width:0;
@@ -717,7 +717,6 @@ button {
   padding-top: 0px;
   font-size: 11px;
   margin-top: -5px;
-  height: 15px;
   overflow: hidden;
 }
 
@@ -1090,7 +1089,7 @@ li.tech-both::before {
     z-index: 1000;
     max-width: 80%;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 
 }

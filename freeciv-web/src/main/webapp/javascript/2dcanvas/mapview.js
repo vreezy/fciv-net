@@ -53,6 +53,10 @@ function init_sprites()
 {
   $.blockUI({ message: "<h1>Loading graphics, please wait..."});
 
+  $(".container").remove();
+  $("body").css("padding-top", "0px");
+  $("body").css("padding-bottom", "0px");
+
   if (loaded_images != tileset_image_count) {
     for (var i = 0; i < tileset_image_count; i++) {
       var tileset_image = new Image();

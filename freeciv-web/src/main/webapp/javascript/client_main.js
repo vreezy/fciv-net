@@ -57,7 +57,7 @@ function set_client_state(newstate)
         center_on_any_city();
         advance_unit_focus();
       }
-      $("#fciv-intro").hide();
+      $("#fciv-intro").remove();
 
       break;
     case C_S_OVER:

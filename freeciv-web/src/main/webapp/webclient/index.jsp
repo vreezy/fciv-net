@@ -27,7 +27,11 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-<title>Fciv.net 3D - play Freeciv in 3D online for free; open source strategy game!</title>
+<title>FCIV.NET - Freeciv the best free strategy game!</title>
+
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">
+
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/webclient.min.css?ts=${initParam.buildTimeStamp}" />
 <meta name="description" content="Fciv.net - play Freeciv in 3D online for free; open source strategy game">
@@ -41,6 +45,7 @@ var ts="${initParam.buildTimeStamp}";
 var fcwDebug=<%= fcwDebug %>;
 </script>
 <script type="text/javascript" src="/javascript/libs/jquery.min.js?ts=${initParam.buildTimeStamp}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="https://apis.google.com/js/platform.js"></script>
 
@@ -79,9 +84,79 @@ var fcwDebug=<%= fcwDebug %>;
   gtag('config', 'G-35GD0T4L9J');
 </script>
 
+<style>
+	/*
+		 _____                   _                        _
+		|  ___| __ ___  ___  ___(_)_   __   __      _____| |__
+		| |_ | '__/ _ \/ _ \/ __| \ \ / /___\ \ /\ / / _ \ '_ \
+		|  _|| | |  __/  __/ (__| |\ V /_____\ V  V /  __/ |_) |
+		|_|  |_|  \___|\___|\___|_| \_/       \_/\_/ \___|_.__/
+
+		The following styles apply to the whole frontend HTML.
+
+	 */
+	body {
+		padding-top: 60px;
+		padding-bottom: 20px;
+	}
+
+	/*
+	 * Delimits an area where to put content.
+	 */
+	.panel-freeciv {
+		background-color: rgba(243, 236, 209, 0.5);
+		border-bottom: 1px solid #D3B86F;
+		border-radius: 3px;
+		margin-top: 1%;
+		padding: 1%;
+	}
+	.panel-freeciv h1, .panel-freeciv h2, .panel-freeciv h3,
+	.panel-freeciv h4, .panel-freeciv h5, .panel-freeciv h6 {
+		margin-top: 0px;
+	}
+
+	/*
+	 * Sometimes we need some additional space between rows.
+	 */
+	.top-buffer-3 { margin-top: 3%; }
+	.top-buffer-2 { margin-top: 2%; }
+	.top-buffer-1 { margin-top: 1%; }
+	/*
+	 * The bootstrap theme we use adds some transparency, this ensure it is removed.
+	 */
+	.navbar-inverse {
+		background-image: none;
+	}
+	/*
+	 * Ensure that the logo fits within the navbar.
+	 */
+	.navbar-brand {
+		float: left;
+		height: 50px;
+		padding: 4px 15px;
+		font-size: 18px;
+		line-height: 20px;
+	}
+	.ongoing-games-number {
+		margin-left: 5px;
+		background:#BE602D;
+	}
+	.nav {
+		font-size: 16px;
+	}
+    .container {
+      width: 1350px;
+    }
+
+</style>
+
 </head>
 
 <body>
+    <div class="container">
+        <%@include file="/WEB-INF/jsp/fragments/header.jsp"%>
+    </div>
+
     <jsp:include page="pregame.jsp" flush="false"/>
     <jsp:include page="game.jsp" flush="false"/>
 

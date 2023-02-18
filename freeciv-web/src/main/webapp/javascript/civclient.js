@@ -169,9 +169,9 @@ function init_common_intro_dialog() {
       show_intro_dialog("Welcome to Fciv.net", msg);
 
   } else {
-    show_intro_dialog("Welcome to Fciv.net 3D",
-      "You are about to join this game server, where you can " +
-      "play a singleplayer game against the Freeciv AI. You can " +
+    show_intro_dialog("Welcome to Fciv.net",
+      "You can now play a game of Freeciv, where you can " +
+      "play a singleplayer game against the Freeciv AI or multiplayer. You can " +
       "start the game directly by entering any name, or customize the game settings. " +
       "Creating a user account is optional, but savegame support requires that you create a user account.");
       $(".pwd_reset").click(forgot_pbem_password);

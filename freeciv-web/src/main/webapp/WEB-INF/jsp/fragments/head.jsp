@@ -121,4 +121,7 @@
 	.nav {
 		font-size: 16px;
 	}
+	.container {
+	  width: 1350px;
+	}
 </style>

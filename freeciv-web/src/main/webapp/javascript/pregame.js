@@ -962,13 +962,6 @@ function show_intro_dialog(title, message) {
                    window.location="/game/list?v=multiplayer";
                 },
                 icons : { primary: "ui-icon-person" }
-              },
-              {
-                  text : "About",
-                  click : function() {
-                     window.location="/about";
-                },
-                icons : { primary: "ui-icon-info" }
               }
 			]
 
