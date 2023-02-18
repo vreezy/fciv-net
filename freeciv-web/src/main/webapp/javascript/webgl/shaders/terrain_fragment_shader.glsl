@@ -339,7 +339,7 @@ void main(void)
             c = mix(terrain_color.rgb, Cbeach.rgb, (1.0 - blend_amount));
         } else if (terrain_type.g == is_river_modifier) {
             vec4 Cbeach = texture2D(coast, texture_coord);
-            c = Cbeach.rgb * 1.4;
+            c = Cbeach.rgb * 2.4;
         } else if (vPosition.y < beach_blend_low) {
             blend_amount = (beach_blend_low - vPosition.y) / 2.0;
             vec4 Cbeach = texture2D(coast, texture_coord) * 3.5;
