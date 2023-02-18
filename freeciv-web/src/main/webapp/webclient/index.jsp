@@ -143,8 +143,10 @@ var fcwDebug=<%= fcwDebug %>;
 	.nav {
 		font-size: 16px;
 	}
-    .container {
-      width: 1350px;
+    @media (min-width: 1024px) {
+	  .container {
+	    width: 1350px;
+	  }
     }
 
 </style>

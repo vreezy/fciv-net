@@ -51,7 +51,6 @@ class StatusHandler(web.RequestHandler):
                "<tr><td>Last HTTP status from metaserver: </td><td>" + str(self.metachecker.last_http_status) + "</td></tr>" +
                "<tr><td>Number of Freeciv servers stopped by error:</td><td>" + str(error_count) + "  " +
                "(" + str("{0:.2f}".format(error_rate)) + "%)</td></tr>" +
-               "<tr><td>Mail status (json):</td><td><a href='/mailstatus'>/mailstatus</a></td></tr>" +
                "</table>")
     self.write("<h3>Running Freeciv-web servers:</h3>");
     self.write("<table><tr><td>Server Port</td><td>Type</td><td>Started time</td><td>Restarts</td><td>Errors</td></tr>");
