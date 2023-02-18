@@ -30,7 +30,6 @@ try {
 <title>FCIV.NET - Freeciv the best free strategy game!</title>
 
 <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/webclient.min.css?ts=${initParam.buildTimeStamp}" />

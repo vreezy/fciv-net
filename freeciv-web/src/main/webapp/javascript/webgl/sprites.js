@@ -185,20 +185,11 @@ function create_city_label_sprite(pcity)
   var txt_measure = ctx.measureText(city_text);
   // Background
   var background_color = nations[owner.nation].color;
-  if (background_color != null) {
-     background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.58)");
-     ctx.fillStyle = background_color;
-  }
+  ctx.fillStyle = "rgba(0,0,0,0.4)";
   ctx.fillRect(width, 0, txt_measure.width + 11 /* padding */, 32);
   // Text
-  var dark_bg = false;
-  var nation_colors = nations[owner['nation']].color.replace("rgb(", "").replace(")", "").split(",");
-  if (parseInt(nation_colors[0]) + parseInt(nation_colors[1]) + parseInt(nation_colors[2]) < 300) dark_bg = true;
-  if (dark_bg) {
-    ctx.fillStyle = '#FFFFFF';
-  } else {
-    ctx.fillStyle = '#000000';
-  }
+  ctx.fillStyle = '#FFFFFF';
+
   ctx.fillText(city_text, width + 4 /* padding */, 13*2);
 
   width += txt_measure.width + 11 /* padding */;
@@ -276,20 +267,10 @@ function update_city_label(pcity)
   var txt_measure = ctx.measureText(city_text);
   // Background
   var background_color = nations[owner.nation].color;
-  if (background_color != null) {
-     background_color = background_color.replace("rgb(", "rgba(").replace(")", ",0.58)");
-     ctx.fillStyle = background_color;
-  }
+  ctx.fillStyle = "rgba(0,0,0,0.4)";
   ctx.fillRect(width, 0, txt_measure.width + 11 /* padding */, 32);
   // Text
-  var dark_bg = false;
-  var nation_colors = nations[owner['nation']].color.replace("rgb(", "").replace(")", "").split(",");
-  if (parseInt(nation_colors[0]) + parseInt(nation_colors[1]) + parseInt(nation_colors[2]) < 300) dark_bg = true;
-  if (dark_bg) {
-    ctx.fillStyle = '#FFFFFF';
-  } else {
-    ctx.fillStyle = '#000000';
-  }
+  ctx.fillStyle = '#FFFFFF';
   ctx.fillText(city_text, width + 4 /* padding */, 13*2);
 
   width += txt_measure.width + 11 /* padding */;
