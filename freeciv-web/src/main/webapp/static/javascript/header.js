@@ -8,7 +8,9 @@ $(document).ready(function () {
 		
 		function loadStatistics() {
 			$.getJSON('/game/statistics', function(data) {
-				document.getElementById('ongoing-games').innerHTML = data.ongoing;
+			    if (data.ongoing > 0) {
+				    document.getElementById('ongoing-games').innerHTML = data.ongoing;
+				}
 				var singleplayer = document.getElementById('statistics-singleplayer');
 				if (singleplayer) {
 					singleplayer.innerHTML = data.finished.singlePlayer; //
