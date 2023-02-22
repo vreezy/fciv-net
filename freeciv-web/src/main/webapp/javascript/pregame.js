@@ -1227,12 +1227,9 @@ function create_new_freeciv_user_account_request(action_type)
    success: function(data, textStatus, request){
        simpleStorage.set("username", username);
        simpleStorage.set("password", password);
-       if (action_type == "pbem") {
-         challenge_pbem_player_dialog("New account created. Your username is: " + username + ". You can now start a new PBEM game or wait for an invitation for another player.");
-       } else {
-         $("#dialog").dialog('close');
-         logged_in_with_password = true;
-       }
+
+       $("#dialog").dialog('close');
+       logged_in_with_password = true;
        init_sprites();
       },
    error: function (request, textStatus, errorThrown) {

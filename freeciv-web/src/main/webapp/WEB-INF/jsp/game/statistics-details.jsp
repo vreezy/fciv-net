@@ -49,8 +49,8 @@
 			  xkey: 'date',
 			  pointSize: 0,
 			  lineWidth: 1,
-			  ykeys: ['webSinglePlayer', 'webMultiPlayer', 'webPlayByEmail', 'desktopMultiplayer','webHotseat', 'webSinglePlayer3D'],
-			  labels: ['Freeciv-web 2D singleplayer', 'Freeciv-web multiplayer', 'Freeciv-web PBEM', 'Freeciv desktop multiplayer', 'Freeciv-web hotseat', 'Freeciv-web 3D WebGL singleplayer']
+			  ykeys: ['webSinglePlayer', 'webMultiPlayer', 'desktopMultiplayer', 'webSinglePlayer3D'],
+			  labels: ['Freeciv-web 2D singleplayer', 'Freeciv-web multiplayer',  'Freeciv desktop multiplayer', 'Freeciv-web 3D WebGL singleplayer']
 			});
             } catch(err) {
               console.log("Problem showing score log graph: " + err);

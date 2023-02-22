@@ -49,8 +49,6 @@ public class FreecivStatsServlet extends HttpServlet {
 		gameTypes.put("single2d", 0);
 		gameTypes.put("single3d", 5);
 		gameTypes.put("multi", 1);
-		gameTypes.put("pbem", 2);
-		gameTypes.put("hotseat", 4);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

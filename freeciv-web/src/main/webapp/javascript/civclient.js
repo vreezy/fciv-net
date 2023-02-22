@@ -31,7 +31,7 @@ var username = null;
 
 var fc_seedrandom = null;
 
-// singleplayer, multiplayer, longturn, pbem
+// singleplayer, multiplayer, longturn
 var game_type = "";
 
 var music_list = [ ];
@@ -142,9 +142,6 @@ function init_common_intro_dialog() {
     show_intro_dialog("Welcome to Fciv.net",
       "You have joined the game as an observer. Please enter your name:");
     $("#turn_done_button").button( "option", "disabled", true);
-
-  } else if ($.getUrlVar('action') == "pbem") {
-    show_pbem_dialog();
 
   } else if (is_small_screen()) {
       show_intro_dialog("Welcome to Fciv.net",

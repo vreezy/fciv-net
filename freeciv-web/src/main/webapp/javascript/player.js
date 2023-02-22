@@ -275,9 +275,7 @@ function get_invalid_username_reason(username)
     return "too long";
   }
   username = username.toLowerCase();
-  if (username == "pbem") {
-    return "not available";
-  } else if (username.search(/^[a-z][a-z0-9]*$/g) != 0) {
+  if (username.search(/^[a-z][a-z0-9]*$/g) != 0) {
     return "invalid: only English letters and numbers are allowed, and must start with a letter";
   } else if (!check_text_with_banlist_exact(username)) {
     return "banned";

@@ -63,12 +63,8 @@ public class CivclientLauncher extends HttpServlet {
 			case "load":
 			case "observe":
 			case "multi":
-			case "hotseat":
 			case "earthload":
 				gameType = "singleplayer";
-				break;
-			case "pbem":
-				gameType = "pbem";
 				break;
 			default:
 				response.setHeader("result", "invalid port validation");
