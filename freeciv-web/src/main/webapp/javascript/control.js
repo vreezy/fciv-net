@@ -79,8 +79,6 @@ function control_init()
 {
   urgent_focus_queue = [];
 
-  init_webgl_mapctrl();
-
   $(document).keydown(global_keyboard_listener);
   $(window).resize(mapview_window_resized);
   $(window).bind('orientationchange resize', orientation_changed);
@@ -297,6 +295,12 @@ function blur_input_on_touchdevice()
 ****************************************************************************/
 function mouse_moved_cb(e)
 {
+  if (camera != null && camera.position.x > 0) {
+    camera_dx = camera.position.x - controls.target.x + 50;
+    camera_dy = camera.position.y - controls.target.y + 50;
+    camera_dz = camera.position.z - controls.target.z + 50;
+  }
+
   if (mapview_slide != null && mapview_slide['active']) return;
 
   mouse_x = 0;
@@ -330,11 +334,6 @@ function mouse_moved_cb(e)
     map_select_active = true;
   }
 
-  if (camera != null && camera.position.x > 0) {
-    camera_dx = camera.position.x - controls.target.x + 50;
-    camera_dy = camera.position.y - controls.target.y + 50;
-    camera_dz = camera.position.z - controls.target.z + 50;
-  }
 }
 
 /****************************************************************************

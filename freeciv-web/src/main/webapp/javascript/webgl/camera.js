@@ -77,6 +77,10 @@ function enable_mapview_slide_3d(ptile)
 {
   var pos_dest = map_to_scene_coords(ptile['x'], ptile['y']);
 
+  camera_dx = camera.position.x - controls.target.x + 50;
+  camera_dy = camera.position.y - controls.target.y + 50;
+  camera_dz = camera.position.z - controls.target.z + 50;
+
   mapview_slide['dx'] = camera_current_x - pos_dest['x'];
   mapview_slide['dy'] = camera_current_z - pos_dest['y'];
   mapview_slide['i'] = mapview_slide['max'];
