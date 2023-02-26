@@ -270,34 +270,7 @@
 			
 		    </div>
 
-			<div class="col-md-6 container" id="best-of-play-by-email">
-				<div class="panel-freeciv">
-				    <a href="/hall_of_fame"><h2>Hall Of Fame</h2></a>
-				    See the <a href="/hall_of_fame">Hall Of Fame</a>, where the best scores of single-player games are listed!<br>
-				    <br>
-					<h3><fmt:message key="index-best-of-play-by-email"/></h3>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Rank</th>
-								<th>Player</th>
-								<th>Wins</th>
-							</tr>
-						</thead>
-						<tbody id="play-by-email-list">
-							<!-- 
-								loaded dynamically
-							-->
-						</tbody>
-					</table>
 
-
-			</div>
-		</div> <!-- end multiplayer/best play by email -->
-
-
-
-		
 		<c:if test="${default_lang}">
 			<div class="row">
 				<div class="col-md-12">
