@@ -3,7 +3,7 @@ cmdlevel ctrl first
 set topology WRAPX
 set nationset all
 set compresstype xz
-set maxplayers 32
+set maxplayers 100
 set allowtake H1Ah1adOo
 set autotoggle enabled
 set netwait 20
