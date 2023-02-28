@@ -88,13 +88,14 @@ public class RecentServerStatistics extends HttpServlet {
 				result.append(rs.getInt(1));
 				count++;
 			}
-			if (count != 4) {
-				throw new Exception("Expected 4 rows of data. Obtained " + i);
+			if (count != 3) {
+				throw new Exception("Expected 3 rows of data. Obtained " + i);
 			}
 
 			response.getOutputStream().print(result.toString());
 
 		} catch (Exception err) {
+			System.err.println(err);
 			response.setContentType(CONTENT_TYPE);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getOutputStream().print(INTERNAL_SERVER_ERROR);

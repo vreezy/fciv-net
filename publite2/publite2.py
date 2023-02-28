@@ -82,7 +82,7 @@ class metachecker():
           if (r1.status == 200):
             self.html_doc = r1.read()
             meta_status = self.html_doc.decode('ascii').split(";");
-            if (len(meta_status) == 5):
+            if (len(meta_status) == 4):
               self.total = int(meta_status[1]);
               self.single = int(meta_status[2]);
               self.multi = int(meta_status[3]);
