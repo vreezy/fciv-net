@@ -31,16 +31,16 @@ function init_chatbox()
 
   chatbox_active = true;
 
-  $("#game_chatbox_panel").attr("title", "Messages");
+  $("#game_chatbox_panel").attr("title", "");
   $("#game_chatbox_panel").dialog({
 			bgiframe: true,
 			modal: false,
-			width: "27%",
-			height: (is_small_screen() ? 100 : 200),
+			width: "38%",
+			height: (is_small_screen() ? 90 : 160),
 			resizable: true,
-			dialogClass: 'chatbox_dialog no-close',
+			dialogClass: 'chatbox_dialog no-close noTitleBar',
 			closeOnEscape: false,
-			position: {my: 'left bottom', at: 'left bottom', of: window, within: $("#game_page")},
+			position: {my: 'center bottom', at: 'center bottom', of: window, within: $("#game_page")},
 			close: function(event, ui) { chatbox_active = false;}
 		}).dialogExtend({
                      "minimizable" : true,
@@ -55,7 +55,7 @@ function init_chatbox()
                        "restore" : "ui-icon-bullet"
                      }});
   $("#game_chatbox_panel").dialog('open');
-  $(".chatbox_dialog").css("top", "52px");
+  $(".chatbox_dialog").css("top", ($("#game_page").height() - $("#game_chatbox_panel").height() - 34) + "px");
 
 
   if (is_small_screen()) {

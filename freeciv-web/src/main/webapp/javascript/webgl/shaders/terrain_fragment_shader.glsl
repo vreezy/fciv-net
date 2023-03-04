@@ -51,7 +51,7 @@ varying vec2 vUv;
 varying vec3 vPosition;
 varying vec3 vPosition_camera;
 
-
+uniform bool borders_visible;
 
 float terrain_inaccessible = 0.0;
 float terrain_lake = 10.0;
@@ -170,7 +170,7 @@ void main(void)
 
     float rnd = fract(sin(dot(vec2(round(vUv.x * 10000.0) / 10000.0 , round(vUv.y * 10000.0) / 10000.0) , vec2(12.98, 78.233))) * 43758.5453);
     vec4 terrain_type = texture2D(maptiles, vec2(vUv.x + (rnd - 0.5) / (8.0 * map_x_size), vUv.y + (rnd - 0.5) / (8.0 * map_y_size)));
-    vec4 border_color = texture2D(borders, vec2(vUv.x, vUv.y));
+    vec4 border_color = borders_visible ? texture2D(borders, vec2(vUv.x, vUv.y)) : vec4(0, 0, 0, 0);
     vec4 road_type = texture2D(roadsmap, vec2(vUv.x, vUv.y));
 
     vec3 c;
@@ -497,7 +497,7 @@ void main(void)
 
 
     // Borders
-    if (!(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
+    if (borders_visible && !(border_color.r > 0.546875 && border_color.r < 0.5625 && border_color.b == 0.0 && border_color.g == 0.0)) {
         border_e = texture2D(borders, vec2(vUv.x + (0.06 / map_x_size), vUv.y));
         border_w = texture2D(borders, vec2(vUv.x - (0.06 / map_x_size), vUv.y));
         border_n = texture2D(borders, vec2(vUv.x , vUv.y + (0.06 / map_x_size)));
@@ -513,8 +513,8 @@ void main(void)
     }
 
     // specular component, ambient occlusion and fade out underwater terrain
-    float x = 1.0 - clamp((vPosition.y - 30.) / 15., 0., 1.);
-    vec4 Cb = texture2D(coast, vec2(dx  , dy));
+    float x = 1.0 - clamp((vPosition.y - 38.) / 15., 0., 1.);
+    vec4 Cb = texture2D(coast, vec2(dx  , dy)) * 0.5;
     c = mix(c, Cb.rgb, x);
 
     float shade_factor = 0.28 + 1.4 * max(0., dot(vNormal, normalize(light)));
@@ -522,6 +522,6 @@ void main(void)
     // Fog of war, and unknown tiles, are stored as a vertex color in vColor.r.
     c = c * vColor.r;
 
-    gl_FragColor.rgb = mix(c * shade_factor, ambiant, (vPosition_camera.z - 550.) * 0.0001875);
+    gl_FragColor.rgb = mix(c * shade_factor, ambiant, (vPosition_camera.z - 550.) * 0.0000187);
 
 }

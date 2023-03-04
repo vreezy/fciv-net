@@ -71,7 +71,7 @@ function webgl_start_renderer()
   }
 
   container = document.getElementById('mapcanvas');
-  camera = new THREE.PerspectiveCamera( 45, new_mapview_width / new_mapview_height, 1, 5000 );
+  camera = new THREE.PerspectiveCamera( 45, new_mapview_width / new_mapview_height, 1, 12000 );
   scene = new THREE.Scene();
 
   raycaster = new THREE.Raycaster();
@@ -177,7 +177,8 @@ function init_webgl_mapview() {
     map_y_size: { type: "f", value: map['ysize'] },
     roadsmap: { type: "t", value: update_roads_image()},
     roadsprites: {type: "t", value: webgl_textures["roads"]},
-    railroadsprites: {type: "t", value: webgl_textures["railroads"]}
+    railroadsprites: {type: "t", value: webgl_textures["railroads"]},
+    borders_visible: {type: "bool", value: server_settings['borders']['is_visible']}
   };
 
   for (var i = 0; i < tiletype_terrains.length ; i++) {

@@ -22,9 +22,6 @@
     <%-- Game status panel --%>
     <div id="game_status_panel_bottom"></div>
 
-    <%-- Orders icons. --%>
-    <jsp:include page="orders.jsp" flush="false"/>
-
 
     <%-- Overview mini-map --%>
     <div id="game_overview_panel">

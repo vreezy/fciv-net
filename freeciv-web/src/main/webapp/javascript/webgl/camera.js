@@ -25,6 +25,7 @@ var camera_dz = 258;
 var camera_current_x = 0;
 var camera_current_y = 0;
 var camera_current_z = 0;
+var slide_init = false;
 
 
 /****************************************************************************
@@ -51,8 +52,14 @@ function camera_look_at(x, y, z)
 function center_tile_mapcanvas_3d(ptile)
 {
   if (ptile != null) {
-    var pos = map_to_scene_coords(ptile['x'], ptile['y']);
-    camera_look_at(pos['x'] - 50, 0, pos['y'] - 50);       // -50 to get the center tile more in the center of the screen.
+    if (slide_init) {
+      enable_mapview_slide_3d(ptile);
+    } else {
+      var pos = map_to_scene_coords(ptile['x'], ptile['y']);
+      camera_look_at(pos['x'] - 50, 0, pos['y'] - 50);       // -50 to get the center tile more in the center of the screen.
+      slide_init = true;
+    }
+
   }
 
 }

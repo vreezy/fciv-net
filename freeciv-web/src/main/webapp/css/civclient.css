@@ -1114,3 +1114,7 @@ li.tech-both::before {
   width: 20px;
   height: 20px;
 }
+
+.noTitleBar .ui-dialog-titlebar {
+  height: 10px;
+}
