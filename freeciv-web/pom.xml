@@ -129,7 +129,7 @@
 		<dependency>
 			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus</artifactId>
-			<version>3.3.1</version>
+			<version>3.3.2</version>
 		</dependency>
 
 	</dependencies>
