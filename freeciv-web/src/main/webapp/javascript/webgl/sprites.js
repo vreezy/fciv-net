@@ -147,7 +147,7 @@ function create_unit_health_sprite(punit)
 function create_city_label_sprite(pcity)
 {
   var fcanvas = document.createElement("canvas");
-  fcanvas.width = 350;
+  fcanvas.width = 390;
   fcanvas.height = 35;
   var ctx = fcanvas.getContext("2d");
   pcity['label_canvas'] = fcanvas;
@@ -226,7 +226,7 @@ function update_city_label(pcity)
   var canvas = pcity['label_canvas'];
   if (canvas == null) {
     canvas = document.createElement('canvas');
-    canvas.width = 350;
+    canvas.width = 390;
     canvas.height = 35;
     pcity['label_canvas'] = canvas;
   }

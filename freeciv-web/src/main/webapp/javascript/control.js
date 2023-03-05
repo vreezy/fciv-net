@@ -1063,7 +1063,7 @@ function update_unit_order_commands()
     pcity = tile_city(ptile);
 
     if (utype_can_do_action(ptype, ACTION_FOUND_CITY)
-        && pcity == null) {
+        && pcity == null && punit['movesleft'] > 0) {
       unit_actions["build"] = {name: "Build city (B)"};
     } else if (utype_can_do_action(ptype, ACTION_JOIN_CITY)
                && pcity != null) {

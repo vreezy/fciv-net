@@ -177,9 +177,6 @@ function show_city_dialog(pcity)
        "Next city (N)" : function() {
          next_city();
        },
-       "Buy (B)" : function() {
-         request_city_buy();
-       },
        "Rename" : function() {
          rename_city();
        }
@@ -189,12 +186,13 @@ function show_city_dialog(pcity)
          {
           "Next" : function() {
             next_city();
-          },
-          "Buy" : function() {
-            request_city_buy();
           }
         });
    }
+
+  if (pcity['buy_cost'] > 0) {
+    dialog_buttons = $.extend(dialog_buttons, {"Buy (B)": request_city_buy});
+  }
 
    dialog_buttons = $.extend(dialog_buttons, {"Close (W)": close_city_dialog});
 
