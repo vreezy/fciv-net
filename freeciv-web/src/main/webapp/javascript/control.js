@@ -1255,7 +1255,7 @@ function update_unit_order_commands()
 **************************************************************************/
 function init_game_unit_panel()
 {
-  if (observing) return;
+  if (observing || is_small_screen()) return;
   unitpanel_active = true;
 
   $("#game_unit_panel").attr("title", "Units");
