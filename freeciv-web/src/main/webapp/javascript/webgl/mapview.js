@@ -121,9 +121,9 @@ function webgl_start_renderer()
   animate();
 
   if (is_small_screen()) {
-    camera_dx = 258 * 1.4;
-    camera_dy = 410 * 1.4;
-    camera_dz = 258 * 1.4;
+    camera_dx = 258 * 1.3;
+    camera_dy = 410 * 1.3;
+    camera_dz = 258 * 1.3;
   }
 
   $("#pregame_page").hide();
