@@ -104,8 +104,10 @@ function webgl_preload()
     })(imgurl)
   );
 
+  var hours = new Date().getHours();
+  var is_day = hours > 6 && hours < 20;
 
-  imgurl = '/textures/sky.jpg';
+  imgurl = is_day ? '/textures/sky.jpg' : '/textures/sky_night.png';
   textureLoader.load(imgurl, (function (url) {
           return function (image) {
                 webgl_textures["skybox"] = new THREE.Texture();
