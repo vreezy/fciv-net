@@ -181,6 +181,14 @@ function load_model(filename)
 
     model.scale.x = model.scale.y = model.scale.z = modelscale;
     webgl_models[filename] = model;
+
+    model.traverse(function(node) {
+      if (node.isMesh) {
+        node.castShadow = true;
+      }
+    });
+
+
     load_count++;
     if (load_count == total_model_count) webgl_preload_complete();
 

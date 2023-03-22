@@ -85,9 +85,20 @@ function webgl_start_renderer()
   var ambientLight = new THREE.AmbientLight( 0x606060, 3.3 );
   scene.add(ambientLight);
 
-  directionalLight = new THREE.DirectionalLight( 0xffffff, 3.8 );
+  directionalLight = new THREE.SpotLight( 0xffffff, 1, 0, Math.PI / 5, 0.001 );
+
+  directionalLight.target.position.set( 0, 0, 0 );
   directionalLight.position.set( 0.5, 0.75, 1.0 ).normalize();
   scene.add( directionalLight );
+
+  directionalLight.castShadow = true;
+  directionalLight.shadow.camera.near = 100;
+  directionalLight.shadow.camera.far = 4500;
+  directionalLight.shadow.bias = 0.0001;
+
+  directionalLight.shadow.mapSize.x = 4096;
+  directionalLight.shadow.mapSize.y = 4096;
+
 
   var enable_antialiasing = graphics_quality >= QUALITY_MEDIUM;
   var stored_antialiasing_setting = simpleStorage.get("antialiasing_setting", "");
@@ -96,6 +107,10 @@ function webgl_start_renderer()
   }
 
   maprenderer = new THREE.WebGLRenderer( { antialias: enable_antialiasing} );
+  if (graphics_quality == QUALITY_HIGH) {
+    maprenderer.shadowMap.enabled = true;
+    maprenderer.shadowMap.type = THREE.PCFShadowMap;
+  }
 
   maprenderer.setPixelRatio(window.devicePixelRatio);
   maprenderer.setSize(new_mapview_width, new_mapview_height);
@@ -212,7 +227,16 @@ function init_webgl_mapview() {
   landGeometry = new THREE.BufferGeometry();
   create_land_geometry(landGeometry, terrain_quality);
   landMesh = new THREE.Mesh( landGeometry, terrain_material );
+  landMesh.receiveShadow = false;
+  landMesh.castShadow = false;
   scene.add(landMesh);
+
+  if (graphics_quality == QUALITY_HIGH) {
+    shadowmesh = new THREE.Mesh( landGeometry, new THREE.ShadowMaterial());
+    shadowmesh.receiveShadow = true;
+    shadowmesh.castShadow = false;
+    scene.add(shadowmesh);
+  }
 
   update_map_terrain_geometry();
   setInterval(update_map_terrain_geometry, 90);

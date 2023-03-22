@@ -40,6 +40,12 @@ function camera_look_at(x, y, z)
   if (camera != null) {
     camera.position.set( x + camera_dx, y + camera_dy, z + camera_dz);
     camera.lookAt( new THREE.Vector3(x, 0, z));
+
+
+    var pos = map_to_scene_coords(Math.floor(map['xsize'] / 2), Math.floor(map['ysize'] / 2) );
+    directionalLight.position.set( pos['x'] + 200, 1500, z + pos['y']);
+    directionalLight.shadow.camera.position.copy(directionalLight.position);
+    directionalLight.shadow.camera.lookAt(new THREE.Vector3(pos['x'] - 200, 0, pos['y'] - 200));
   }
 
   controls.target = new THREE.Vector3(x + 50, 50, z + 50);

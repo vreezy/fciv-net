@@ -93,18 +93,6 @@ function get_vertex_color_from_tile(ptile, vertex_x, vertex_y)
     if (tile_get_known(ptile) == TILE_KNOWN_SEEN) {
       known_status_color = 1.06;
 
-      // Unit shadow
-      var units = tile_units(ptile);
-      if (units != null && units.length > 0 && units[0]['anim_list'].length == 0 && (vertex_x % terrain_quality)> 3 && (vertex_y % terrain_quality) > 3) {
-        known_status_color = 0.43;
-      }
-
-      // City shadow
-      var pcity = tile_city(ptile);
-      if (pcity != null && (vertex_x % terrain_quality) > 1 && (vertex_y % terrain_quality) > 1) {
-        known_status_color = 0.42;
-      }
-
     } else if (tile_get_known(ptile) == TILE_KNOWN_UNSEEN) {
       known_status_color = 0.54;
     } else if (tile_get_known(ptile) == TILE_UNKNOWN) {
