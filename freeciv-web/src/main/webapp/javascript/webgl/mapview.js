@@ -82,7 +82,7 @@ function webgl_start_renderer()
   clock = new THREE.Clock();
 
   // Lights
-  var ambientLight = new THREE.AmbientLight( 0x606060, 3.3 );
+  var ambientLight = new THREE.AmbientLight( 0x606060, 3.7 );
   scene.add(ambientLight);
 
   directionalLight = new THREE.SpotLight( 0xffffff, 2, 0, Math.PI / 5, 0.001 );
@@ -173,6 +173,7 @@ function init_webgl_mapview() {
     water.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), Math.floor(mapview_model_width / 2) - 500);
     water.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), -mapview_model_height / 2);
     water.renderOrder = -1; // Render water first, this will sove transparency issues in city labels.
+    water.castShadow = false;
     scene.add( water );
 
   /* heightmap image */
@@ -232,7 +233,9 @@ function init_webgl_mapview() {
   scene.add(landMesh);
 
   if (graphics_quality == QUALITY_HIGH) {
-    shadowmesh = new THREE.Mesh( landGeometry, new THREE.ShadowMaterial());
+    var shadowMaterial = new THREE.ShadowMaterial();
+    shadowMaterial.opacity = 0.7;
+    shadowmesh = new THREE.Mesh( landGeometry, shadowMaterial);
     shadowmesh.receiveShadow = true;
     shadowmesh.castShadow = false;
     scene.add(shadowmesh);

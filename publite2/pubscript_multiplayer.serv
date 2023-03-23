@@ -14,8 +14,8 @@ set maxconnectionsperhost 256
 set threaded_save enabled
 set scorelog enabled
 set mapsize xysize
-set xsize 50
-set ysize 50
+set xsize 64
+set ysize 64
 
 set landm 50
 set minp 2

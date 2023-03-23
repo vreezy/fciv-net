@@ -46,7 +46,7 @@ function create_flag_sprite(key)
   }
 
   var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
-  sprite.scale.set(11,11,1);
+  sprite.scale.set(10,10,1);
   return sprite;
 }
 
@@ -101,7 +101,7 @@ function create_unit_label_sprite(punit, ptile)
   }
 
   var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
-  sprite.scale.set(18,11,1);
+  sprite.scale.set(16,10,1);
   return sprite;
 }
 
@@ -136,7 +136,7 @@ function create_unit_health_sprite(punit)
   }
 
   var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
-  sprite.scale.set(14,3,1);
+  sprite.scale.set(12,3,1);
   return sprite;
 }
 
@@ -201,8 +201,8 @@ function create_city_label_sprite(pcity)
     if (tag != null) {
       ctx.fillStyle = background_color;
       ctx.fillRect(width, 0, 36, 32);
-      ctx.drawImage(sprites[tag], width, 0, 31, 18*2);
-      width += 32;
+      ctx.drawImage(sprites[tag], width, 0, 34, 18*2);
+      width += 35;
     }
   }
   if (width > 380) width = 380;
@@ -282,8 +282,8 @@ function update_city_label(pcity)
     if (tag != null) {
       ctx.fillStyle = background_color;
       ctx.fillRect(width, 0, 36, 32);
-      ctx.drawImage(sprites[tag], width, 0, 31, 18*2);
-      width += 32;
+      ctx.drawImage(sprites[tag], width, 0, 34, 18*2);
+      width += 35;
     }
   }
 
