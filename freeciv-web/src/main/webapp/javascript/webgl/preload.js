@@ -178,6 +178,9 @@ function load_model(filename)
   if (filename == 'Horsemen' || filename == 'Knights') {
     modelscale = 10;
   }
+  if (filename == 'Trireme') {
+    modelscale = 5;
+  }
 
     model.scale.x = model.scale.y = model.scale.z = modelscale;
     webgl_models[filename] = model;
