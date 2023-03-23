@@ -85,7 +85,7 @@ function webgl_start_renderer()
   var ambientLight = new THREE.AmbientLight( 0x606060, 3.3 );
   scene.add(ambientLight);
 
-  directionalLight = new THREE.SpotLight( 0xffffff, 1, 0, Math.PI / 5, 0.001 );
+  directionalLight = new THREE.SpotLight( 0xffffff, 2, 0, Math.PI / 5, 0.001 );
 
   directionalLight.target.position.set( 0, 0, 0 );
   directionalLight.position.set( 0.5, 0.75, 1.0 ).normalize();
