@@ -304,12 +304,13 @@ function update_city_position(ptile) {
     var model_name = city_to_3d_model_name(pcity);
     if (pcity['webgl_model_name'] != model_name) {
       // update city model to a different size.
-      if (scene != null) scene.remove(city_positions[ptile['index']]);
-      pcity['webgl_model_name'] = model_name;
+
       var new_city = webgl_get_model(model_name, ptile);
       if (new_city == null) {
         return;
       }
+      if (scene != null) scene.remove(city_positions[ptile['index']]);
+      pcity['webgl_model_name'] = model_name;
       city_positions[ptile['index']] = new_city;
 
       var pos = map_to_scene_coords(ptile['x'], ptile['y']);
