@@ -26,7 +26,7 @@ function errorlog_callback(stackframes)
     var stringifiedStack = stackframes.map(function(sf) {
         return sf.toString();
     }).join('\n');
-    $.post("/errorlog?stacktrace=" + stringifiedStack).fail(function() {});
+    $.post("/errorlog?stacktrace=" + utf8_to_b64(stringifiedStack)).fail(function() {});
     console.log(stringifiedStack);
 
 }
@@ -42,5 +42,9 @@ function errback(err)
 
 window.onerror = function(msg, file, line, col, error) {
     StackTrace.fromError(error).then(errorlog_callback).catch(errback);
-    $.post("/errorlog?stacktrace=" + msg).fail(function() {});
+    $.post("/errorlog?stacktrace=" + utf8_to_b64(msg)).fail(function() {});
 };
+
+function utf8_to_b64(str) {
+  return window.btoa(unescape(encodeURIComponent(str)));
+}
