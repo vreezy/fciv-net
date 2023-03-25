@@ -22,7 +22,7 @@ var scene, maprenderer;
 var anaglyph_effect;
 
 var mouse, raycaster;
-var directionalLight;
+var spotlight;
 var clock;
 
 var controls;
@@ -85,20 +85,22 @@ function webgl_start_renderer()
   var ambientLight = new THREE.AmbientLight( 0x606060, 3.7 );
   scene.add(ambientLight);
 
-  directionalLight = new THREE.SpotLight( 0xffffff, 2, 0, Math.PI / 5, 0.001 );
+  spotlight = new THREE.SpotLight( 0xffffff, 2.5, 0, Math.PI / 3, 0.0001 );
+  scene.add( spotlight );
 
-  directionalLight.target.position.set( 0, 0, 0 );
-  directionalLight.position.set( 0.5, 0.75, 1.0 ).normalize();
-  scene.add( directionalLight );
+  spotlight.castShadow = true;
+  spotlight.shadow.camera.near = 100;
+  spotlight.shadow.camera.far = 4500;
+  spotlight.shadow.bias = 0.0001;
 
-  directionalLight.castShadow = true;
-  directionalLight.shadow.camera.near = 100;
-  directionalLight.shadow.camera.far = 4500;
-  directionalLight.shadow.bias = 0.0001;
+  spotlight.shadow.mapSize.x = 4096;
+  spotlight.shadow.mapSize.y = 4096;
 
-  directionalLight.shadow.mapSize.x = 4096;
-  directionalLight.shadow.mapSize.y = 4096;
-
+  var pos = map_to_scene_coords(Math.floor(map['xsize'] / 2), Math.floor(map['ysize'] / 2) );
+  spotlight.position.set( pos['x'] + 20, 2000, pos['y'] + 100);
+  spotlight.target.position.set(pos['x'] + 200, 0, pos['y'] + 200);
+  spotlight.shadow.camera.position.copy(spotlight.position);
+  spotlight.shadow.camera.lookAt(new THREE.Vector3(pos['x'] + 200, 0, pos['y'] + 400));
 
   var enable_antialiasing = graphics_quality >= QUALITY_MEDIUM;
   var stored_antialiasing_setting = simpleStorage.get("antialiasing_setting", "");
