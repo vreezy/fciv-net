@@ -519,6 +519,31 @@ function get_production_progress(pcity)
 }
 
 /**************************************************************************
+ Returns city production progress, eg. 0.5
+**************************************************************************/
+function get_production_progress_num(pcity)
+{
+  if (pcity == null) return 0;
+
+  if (pcity['production_kind'] == VUT_UTYPE) {
+    var punit_type = unit_types[pcity['production_value']];
+    return pcity['shield_stock'] /
+           universal_build_shield_cost(pcity, punit_type);
+  }
+
+  if (pcity['production_kind'] == VUT_IMPROVEMENT) {
+    var improvement = improvements[pcity['production_value']];
+    if (improvement['name'] == "Coinage") {
+      return 0;
+    }
+    return  pcity['shield_stock']  /
+            + universal_build_shield_cost(pcity, improvement);
+  }
+
+  return 0;
+}
+
+/**************************************************************************
 ...
 **************************************************************************/
 function generate_production_list()
