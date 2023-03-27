@@ -181,6 +181,9 @@ function load_model(filename)
   if (filename == 'Trireme') {
     modelscale = 5;
   }
+  if (filename == 'Chariot') {
+    modelscale = 6;
+  }
 
     model.scale.x = model.scale.y = model.scale.z = modelscale;
     webgl_models[filename] = model;
