@@ -239,10 +239,6 @@ function show_endgame_dialog()
 			modal: true,
 			width: is_small_screen() ? "90%" : "50%",
 			buttons: {
-				"Show Scores" : function() {
-					$("#dialog").dialog('close');
-					view_game_scores();
-				},
 				Ok: function() {
 					$("#dialog").dialog('close');
 					$("#game_text_input").blur();
