@@ -47,7 +47,9 @@ function camera_look_at(x, y, z)
     spotlight.shadow.camera.lookAt(new THREE.Vector3(x + camera_dx  - 100, 0, z + camera_dz - 100));
   }
 
-  controls.target = new THREE.Vector3(x + 50, 50, z + 50);
+  if (controls != null) {
+    controls.target = new THREE.Vector3(x + 50, 50, z + 50);
+  }
 
 }
 
