@@ -92,16 +92,16 @@ function update_game_status_panel() {
     if (!is_small_screen()) status_html += "<b>" + nations[pplayer['nation']]['adjective'] + "</b> &nbsp;&nbsp; <i class='fa fa-child' aria-hidden='true' title='Population'></i>: ";
     if (!is_small_screen()) status_html += "<b>" + civ_population(client.conn.playing.playerno) + "</b>  &nbsp;&nbsp;";
     if (!is_small_screen()) status_html += "<i class='fa fa-clock-o' aria-hidden='true' title='Year (turn)'></i>: <b>" + get_year_string() + "</b> &nbsp;&nbsp;";
-    status_html += "<i class='fa fa-money' aria-hidden='true' title='Gold (net income)'></i>: ";
+    status_html += "<img src='/images/coinage.png'> ";
     if (pplayer['expected_income'] >= 0) {
       status_html += "<b title='Gold (net income)'>";
     } else {
       status_html += "<b class='negative_net_income' title='Gold (net income)'>";
     }
     status_html += pplayer['gold'] + " (" + net_income + ")</b>  &nbsp;&nbsp;";
-    status_html += "<span style='cursor:pointer;' onclick='javascript:show_tax_rates_dialog();'><i class='fa fa-btc' aria-hidden='true' title='Tax rate'></i>: <b>" + tax + "</b>% ";
-    status_html += "<i class='fa fa-music' aria-hidden='true' title='Luxury rate'></i>: <b>" + lux + "</b>% ";
-    status_html += "<i class='fa fa-flask' aria-hidden='true' title='Science rate'></i>: <b>" + sci + "</b>%</span> ";
+    status_html += "<span style='cursor:pointer;' onclick='javascript:show_tax_rates_dialog();'><img src='/images/gold.png' title='Tax rate'>: <b>" + tax + "</b>% ";
+    status_html += "<img src='/images/quavers.png' title='Luxury rate'>: <b>" + lux + "</b>% ";
+    status_html += "<img src='/images/science.png' title='Science rate'>: <b>" + sci + "</b>%</span> ";
   } else if (server_settings != null && server_settings['metamessage'] != null) {
     status_html += server_settings['metamessage']['val']
                    + " Observing - ";

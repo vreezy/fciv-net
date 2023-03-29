@@ -207,13 +207,17 @@ function create_city_label_sprite(pcity)
   }
   if (width > 380) width = 380;
 
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = background_color;
+  ctx.strokeRect(0, 0, width, fcanvas.height - 3);
+
   texture = new THREE.Texture(fcanvas);
   texture.needsUpdate = true;
   var key = 'city_' + pcity['id'];
   texture_cache[key] = texture;
 
   var sprite = new THREE.Sprite( new THREE.SpriteMaterial( { map: texture}));
-  sprite.scale.set(Math.floor(width * 0.30) + 22, 11, 1);
+  sprite.scale.set(width * 0.60, 11, 1);
   return sprite;
 }
 
@@ -294,6 +298,10 @@ function update_city_label(pcity)
       }
     }
   }
+
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = background_color;
+  ctx.strokeRect(0, 0, width, canvas.height - 3);
 
   var texture = texture_cache['city_' + pcity['id']];
   texture.needsUpdate = true;
