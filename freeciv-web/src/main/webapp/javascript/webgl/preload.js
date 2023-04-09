@@ -182,7 +182,7 @@ function load_model(filename)
     modelscale = 5;
   }
   if (filename == 'Caravel') {
-    modelscale = 6;
+    modelscale = 7;
   }
   if (filename == 'Chariot') {
     modelscale = 6;
