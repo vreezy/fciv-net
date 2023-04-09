@@ -181,6 +181,9 @@ function load_model(filename)
   if (filename == 'Trireme') {
     modelscale = 5;
   }
+  if (filename == 'Caravel') {
+    modelscale = 6;
+  }
   if (filename == 'Chariot') {
     modelscale = 6;
   }

@@ -29,6 +29,11 @@ function get_unit_height_offset(punit)
   if (punit == null) return 0;
   var ptile = index_to_tile(punit['tile']);
   if (ptile == null) return 0;
+  var ptype = unit_type(punit);
+
+  if (ptype['name'] == "Caravel") {
+    return 7;
+  }
 
   if (tile_has_extra(ptile, EXTRA_RIVER)) {
     return 1;
