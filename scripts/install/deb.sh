@@ -42,6 +42,9 @@ dependencies="\
   python3-minimal \
   python3-pip \
   python3-setuptools \
+  python3-tornado \
+  python3-mysql.connector \
+  python3-pillow \
   python3-dev \
   python3-wheel \
   sed \
@@ -49,6 +52,8 @@ dependencies="\
   unzip \
   zlib1g-dev \
 "
+
+# TODO: Add back python wikipedia package.
 
 INSTALLED_TOMCAT=N
 INSTALLED_NODEJS=N
