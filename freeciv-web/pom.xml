@@ -351,11 +351,12 @@ Rerun the sync-js-hand.js script.
 								<excludes>
 									<exclude>webclient.js</exclude>
 									<exclude>webclient.min.js</exclude>
+									<exclude>libs/es-module-shims.js</exclude>
 									<exclude>libs/jquery.min.js</exclude>
 									<exclude>libs/gif.worker.js</exclude>
 									<exclude>libs/handlebars.runtime.js</exclude>
 									<exclude>libs/stacktrace.min.js</exclude>
-									<exclude>webgl/libs/three.min.js</exclude>
+									<exclude>webgl/libs/*js</exclude>
 								</excludes>
 							</configuration>
 							<goals>

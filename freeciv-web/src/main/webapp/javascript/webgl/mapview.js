@@ -113,13 +113,13 @@ function webgl_start_renderer()
   maprenderer.setSize(new_mapview_width, new_mapview_height);
   container.appendChild(maprenderer.domElement);
 
-  controls = new THREE.OrbitControls( camera, maprenderer.domElement );
+  controls = new OrbitControls( camera, maprenderer.domElement );
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   controls.maxPolarAngle = 0.9 * Math.PI / 2;
 
   if (anaglyph_3d_enabled) {
-    anaglyph_effect = new THREE.AnaglyphEffect( maprenderer );
+    anaglyph_effect = new AnaglyphEffect( maprenderer );
     anaglyph_effect.setSize( new_mapview_width, new_mapview_height );
   }
 
@@ -152,7 +152,7 @@ function init_webgl_mapview() {
   var textureLoader = new THREE.TextureLoader();
   var waterGeometry = new THREE.PlaneGeometry( mapview_model_width + 50, mapview_model_height + 50 );
 
-  water = new THREE.Water(waterGeometry, {
+  water = new Water(waterGeometry, {
       color: '#55c0ff',
       scale: 10,
       flowDirection: new THREE.Vector2( 0.1, -0.1),

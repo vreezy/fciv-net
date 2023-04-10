@@ -52,7 +52,34 @@ var fcwDebug=<%= fcwDebug %>;
 
 <script type="text/javascript" src="/javascript/libs/handlebars.runtime.js?ts=${initParam.buildTimeStamp}"></script>
 
-<script type="text/javascript" src="/javascript/webgl/libs/three.min.js?ts=${initParam.buildTimeStamp}"></script>
+<script async src="/javascript/libs/es-module-shims.js"></script>
+
+<script type="importmap">
+        {
+                "imports": {
+                        "three": "/javascript/webgl/libs/three.module.min.js"
+                }
+        }
+</script>
+
+<script type="module">
+  import * as THREE from 'three';
+  window.THREE = THREE;
+
+  import { AnaglyphEffect } from '/javascript/webgl/libs/AnaglyphEffect.js';
+  window.AnaglyphEffect = AnaglyphEffect;
+
+  import { GLTFLoader } from '/javascript/webgl/libs/GLTFLoader.js';
+  window.GLTFLoader = GLTFLoader;
+
+  import { OrbitControls } from '/javascript/webgl/libs/OrbitControls.js';
+  window.OrbitControls = OrbitControls;
+
+  import { Water } from '/javascript/webgl/libs/Water2.js';
+  window.Water = Water;
+
+</script>
+
 
 <script type="text/javascript" src="/javascript/webclient.min.js?ts=${initParam.buildTimeStamp}"></script>
 

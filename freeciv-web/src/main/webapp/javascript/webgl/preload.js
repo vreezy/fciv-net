@@ -157,7 +157,7 @@ function webgl_preload_models()
 function load_model(filename)
 {
   var url = "/gltf/" + filename + ".glb";
-  const loader = new THREE.GLTFLoader();
+  const loader = new GLTFLoader();
 
   loader.load( url, function(data) {
     var model = data.scene;
