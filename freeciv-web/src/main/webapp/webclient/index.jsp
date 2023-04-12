@@ -52,7 +52,7 @@ var fcwDebug=<%= fcwDebug %>;
 
 <script type="text/javascript" src="/javascript/libs/handlebars.runtime.js?ts=${initParam.buildTimeStamp}"></script>
 
-<script async src="/javascript/libs/es-module-shims.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
 
 <script type="importmap">
         {
