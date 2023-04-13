@@ -72,6 +72,17 @@
 		<url-pattern>/errorlog</url-pattern>
 	</servlet-mapping>
 
+	<!-- /errorlist -->
+	<servlet>
+		<servlet-name>ErrorList</servlet-name>
+		<servlet-class>org.freeciv.servlet.ErrorList</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ErrorList</servlet-name>
+		<url-pattern>/errorlist</url-pattern>
+	</servlet-mapping>
+
 	<!-- /fcivnet_is_the_best_way_to_play_freeciv_in_3d -->
 	<servlet>
 		<servlet-name>fcivnet_is_the_best_way_to_play_freeciv_in_3d</servlet-name>
