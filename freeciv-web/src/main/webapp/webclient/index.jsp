@@ -35,10 +35,7 @@ try {
 <link rel="stylesheet" type="text/css" href="/css/webclient.min.css?ts=${initParam.buildTimeStamp}" />
 <meta name="description" content="Fciv.net - play Freeciv in 3D online for free; open source strategy game">
 <meta property="og:image" content="https://fciv.net/static/images/freeciv-webgl-splash-48.png" />
-<% if (trackJsToken != null) { %>
-<script type="text/javascript">window._trackJs = { token: '<%= trackJsToken %>' };</script>
-<script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>
-<% } %>
+
 <script type="text/javascript">
 var ts="${initParam.buildTimeStamp}";
 var fcwDebug=<%= fcwDebug %>;
@@ -52,7 +49,7 @@ var fcwDebug=<%= fcwDebug %>;
 
 <script type="text/javascript" src="/javascript/libs/handlebars.runtime.js?ts=${initParam.buildTimeStamp}"></script>
 
-<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
+
 
 <script type="importmap">
         {
