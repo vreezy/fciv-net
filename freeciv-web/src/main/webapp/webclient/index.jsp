@@ -39,6 +39,10 @@ try {
 <script type="text/javascript">
 var ts="${initParam.buildTimeStamp}";
 var fcwDebug=<%= fcwDebug %>;
+if (!('noModule' in HTMLScriptElement.prototype)) {
+  alert("Please upgrade browser. Your browser doesn't support ES Modules.");	
+}
+
 </script>
 <script type="text/javascript" src="/javascript/libs/jquery.min.js?ts=${initParam.buildTimeStamp}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
