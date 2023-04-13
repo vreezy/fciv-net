@@ -49,7 +49,7 @@ public class ErrorList extends HttpServlet {
             response.getOutputStream().print("<html><head><link href=\"/static/css/bootstrap.min.css\" rel=\"stylesheet\"></head><body>");
             response.getOutputStream().print("<h2> Error list:</h2>");
             response.getOutputStream().print("<table>");
-            while (!rs.next()) {
+            while (rs.next()) {
                 response.getOutputStream().print("<tr>");
 
                 int id = rs.getInt("id");
@@ -64,6 +64,8 @@ public class ErrorList extends HttpServlet {
             response.getOutputStream().print("</body></html>");
 
         } catch (Exception err) {
+            System.err.println(err);
+            err.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getOutputStream().print(INTERNAL_SERVER_ERROR);
         } finally {
