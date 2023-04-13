@@ -57,7 +57,7 @@ public class ErrorList extends HttpServlet {
                     String stacktrace = new String(Base64.getDecoder().decode(rs.getString("stacktrace").getBytes("UTF-8")), StandardCharsets.UTF_8);
                     String timestamp = rs.getString("timestamp");
 
-                    response.getOutputStream().print("<td>" + id + "</td><td>" + stacktrace + "</td><td>" + timestamp + "</td>");
+                    response.getOutputStream().print("<td style='padding:3px;'>" + id + "</td><td style='padding:3px;'>" + stacktrace + "</td><td style='padding:3px;'>" + timestamp + "</td>");
                     response.getOutputStream().print("</tr>");
                 } catch (Exception err) {
                     err.printStackTrace();
