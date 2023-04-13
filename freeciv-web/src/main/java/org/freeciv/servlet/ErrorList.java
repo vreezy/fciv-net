@@ -47,20 +47,25 @@ public class ErrorList extends HttpServlet {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
             response.getOutputStream().print("<html><head><link href=\"/static/css/bootstrap.min.css\" rel=\"stylesheet\"></head><body>");
-            response.getOutputStream().print("<h2> Error list:</h2>");
+            response.getOutputStream().print("<div class='container'><h2> Error list:</h2>");
             response.getOutputStream().print("<table>");
             while (rs.next()) {
-                response.getOutputStream().print("<tr>");
+                try {
+                    response.getOutputStream().print("<tr>");
 
-                int id = rs.getInt("id");
-                String stacktrace = new String(Base64.getDecoder().decode(rs.getString("stacktrace").getBytes("UTF-8")), StandardCharsets.UTF_8);
-                String timestamp = rs.getString("timestamp");
+                    int id = rs.getInt("id");
+                    String stacktrace = new String(Base64.getDecoder().decode(rs.getString("stacktrace").getBytes("UTF-8")), StandardCharsets.UTF_8);
+                    String timestamp = rs.getString("timestamp");
 
-                response.getOutputStream().print("<td>" + id + "</td><td>" + stacktrace  + "</td><td>" + timestamp + "</td>");
-                response.getOutputStream().print("</tr>");
+                    response.getOutputStream().print("<td>" + id + "</td><td>" + stacktrace + "</td><td>" + timestamp + "</td>");
+                    response.getOutputStream().print("</tr>");
+                } catch (Exception err) {
+                    err.printStackTrace();
+
+                }
 
             }
-            response.getOutputStream().print("</table>");
+            response.getOutputStream().print("</table></div>");
             response.getOutputStream().print("</body></html>");
 
         } catch (Exception err) {
