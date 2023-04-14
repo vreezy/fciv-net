@@ -49,6 +49,7 @@ public class ErrorList extends HttpServlet {
             response.getOutputStream().print("<html><head><link href=\"/static/css/bootstrap.min.css\" rel=\"stylesheet\"></head><body>");
             response.getOutputStream().print("<div class='container'><h2> Error list:</h2>");
             response.getOutputStream().print("<table>");
+            int count = 0;
             while (rs.next()) {
                 try {
                     response.getOutputStream().print("<tr>");
@@ -59,6 +60,11 @@ public class ErrorList extends HttpServlet {
 
                     response.getOutputStream().print("<td style='padding:3px;'>" + id + "</td><td style='padding:3px;'>" + stacktrace + "</td><td style='padding:3px;'>" + timestamp + "</td>");
                     response.getOutputStream().print("</tr>");
+
+                    if (count  % 2 == 0) {
+                        response.getOutputStream().print("<tr style=\"border-bottom:1px solid black\"> <td colspan=\"100%\"></td></tr>");
+                    }
+                    count++;
                 } catch (Exception err) {
                     err.printStackTrace();
 
