@@ -288,55 +288,11 @@ function get_unit_anim_offset(punit)
 {
   var offset = {};
 
-    offset['x'] = 0;
-    offset['y'] = 0;
-    return offset;
+  offset['x'] = 0;
+  offset['y'] = 0;
 
-  if (punit['anim_list'] != null && punit['anim_list'].length >= 2)  {
-    var anim_tuple_src = punit['anim_list'][0];
-    var anim_tuple_dst = punit['anim_list'][1];
-    var src_tile = index_to_tile(anim_tuple_src['tile']);
-    var dst_tile = index_to_tile(anim_tuple_dst['tile']);
-    var u_tile = index_to_tile(punit['tile']);
-
-    anim_tuple_dst['i'] = anim_tuple_dst['i'] - 1;
-
-    var i = Math.floor((anim_tuple_dst['i'] + 2 ) / 3);
-
-    var r = map_to_gui_pos( src_tile['x'], src_tile['y']);
-    var src_gx = r['gui_dx'];
-    var src_gy = r['gui_dy'];
-
-    var s = map_to_gui_pos(dst_tile['x'], dst_tile['y']);
-    var dst_gx = s['gui_dx'];
-    var dst_gy = s['gui_dy'];
-
-    var t = map_to_gui_pos(u_tile['x'], u_tile['y']);
-    var punit_gx = t['gui_dx'];
-    var punit_gy = t['gui_dy'];
-
-    var gui_dx = Math.floor((dst_gx - src_gx) * (i / ANIM_STEPS)) + (punit_gx - dst_gx);
-    var gui_dy = Math.floor((dst_gy - src_gy) * (i / ANIM_STEPS)) + (punit_gy - dst_gy);
-
-
-    if (i == 0) {
-      punit['anim_list'].splice(0, 1);
-      if (punit['anim_list'].length == 1) {
-        punit['anim_list'].splice(0, 1);
-      }
-    }
-
-
-    offset['x'] = - gui_dx ;
-    offset['y'] = - gui_dy;
-
-
-  } else {
-    offset['x'] = 0;
-    offset['y'] = 0;
-    anim_units_count -= 1;
-  }
   return offset;
+
 }
 
 /**************************************************************************

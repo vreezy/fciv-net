@@ -26,6 +26,8 @@ function errorlog_callback(stackframes)
     var stringifiedStack = stackframes.map(function(sf) {
         return sf.toString();
     }).join('\n');
+    if (stringifiedStack != null && stringifiedStack.indexOf("Failed to resolve module specifier") > 0) return;
+
     $.post("/errorlog?stacktrace=" + utf8_to_b64(stringifiedStack + " " + window.navigator.userAgent)).fail(function() {});
     console.log(stringifiedStack);
 
@@ -42,6 +44,7 @@ function errback(err)
 
 window.onerror = function(msg, file, line, col, error) {
     StackTrace.fromError(error).then(errorlog_callback).catch(errback);
+    if (msg != null && msg.indexOf("Failed to resolve module specifier") > 0) return;
     $.post("/errorlog?stacktrace=" + utf8_to_b64(msg + " " + window.navigator.userAgent)).fail(function() {});
 };
 
