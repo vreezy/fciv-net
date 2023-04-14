@@ -1252,7 +1252,7 @@ function show_customize_nation_dialog(player_id) {
   $("#dialog").remove();
   $("<div id='dialog'></div>").appendTo("div#game_page");
 
-  var message = "<br>New nation name: <input id='new_nation_adjective' type='text' size='30' value='" + pnation['adjective'] + "'><br><br>"
+  var message = "<br>"
        + "Upload new flag: <input type='file' id='newFlagFileInput'><br><br>"
        + "For best results scale the image to 29 x 20 pixels before uploading. <br><br>"
        + "(Note: the customized nation and flag will only be active during the current game session and will not be visible to other players.)";
@@ -1283,9 +1283,6 @@ function show_customize_nation_dialog(player_id) {
 **************************************************************************/
 function handle_customized_nation(player_id)
 {
-  var new_nation_name = $("#new_nation_adjective").val();
-  nations[chosen_nation]['adjective'] = new_nation_name;
-
   var fileInput = document.getElementById('newFlagFileInput');
   var file = fileInput.files[0];
 

@@ -27,7 +27,7 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-<title>FCIV.NET - Freeciv the best free strategy game!</title>
+<title>FCIV.NET - Freeciv 3D the best free strategy game!</title>
 
 <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
