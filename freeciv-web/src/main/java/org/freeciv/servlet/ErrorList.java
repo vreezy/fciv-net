@@ -42,7 +42,7 @@ public class ErrorList extends HttpServlet {
             DataSource ds = (DataSource) env.lookup(Constants.JNDI_DDBBCON_MYSQL);
             conn = ds.getConnection();
 
-            String query = "SELECT * from errorlog";
+            String query = "SELECT * FROM errorlog ORDER BY id DESC";
 
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();

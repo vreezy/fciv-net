@@ -54,7 +54,6 @@ if (!('noModule' in HTMLScriptElement.prototype)) {
 <script type="text/javascript" src="/javascript/libs/handlebars.runtime.js?ts=${initParam.buildTimeStamp}"></script>
 
 
-
 <script type="importmap">
         {
                 "imports": {

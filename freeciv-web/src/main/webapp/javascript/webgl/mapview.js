@@ -70,6 +70,8 @@ function webgl_start_renderer()
     return;
   }
 
+  console.log("Three.js " + THREE.REVISION);
+
   container = document.getElementById('mapcanvas');
   camera = new THREE.PerspectiveCamera( 45, new_mapview_width / new_mapview_height, 1, 12000 );
   scene = new THREE.Scene();
