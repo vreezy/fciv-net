@@ -45,21 +45,6 @@ function webgl_preload()
 
   var textureLoader = new THREE.ImageLoader( loadingManager );
 
-  /* Preload tree sprite. */
-  var tree_sprite = new THREE.Texture();
-  webgl_textures["tree_1"] = tree_sprite;
-  textureLoader.load( '/textures/tree_1.png', function ( image ) {
-      tree_sprite.image = image;
-      tree_sprite.needsUpdate = true;
-  } );
-
-  var jungle_sprite = new THREE.Texture();
-  webgl_textures["jungle_1"] = jungle_sprite;
-  textureLoader.load( '/textures/jungle_1.png', function ( image ) {
-      jungle_sprite.image = image;
-      jungle_sprite.needsUpdate = true;
-  } );
-
   var disorder_sprite = new THREE.Texture();
   webgl_textures["city_disorder"] = disorder_sprite;
   textureLoader.load( '/textures/city_civil_disorder.png', function ( image ) {
