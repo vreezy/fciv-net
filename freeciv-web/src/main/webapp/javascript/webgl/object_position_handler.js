@@ -493,6 +493,7 @@ function update_tile_forest(ptile)
       model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (12 - Math.floor(Math.random() * 25)));
       model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
       model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (12 - Math.floor(Math.random() * 25)));
+      model.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (2 * Math.PI * Math.random()));
       tile_forest_positions[ptile['index']].push(model);
       if (scene != null) scene.add(model);
     }
@@ -529,6 +530,7 @@ function update_tile_jungle(ptile)
       model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (12 - Math.floor(Math.random() * 25)));
       model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
       model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (12 - Math.floor(Math.random() * 25)));
+      model.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (2 * Math.PI * Math.random()));
       tile_forest_positions[ptile['index']].push(model);
       if (scene != null) scene.add(model);
     }
@@ -560,6 +562,7 @@ function update_tile_cactus(ptile)
     model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (15 - Math.floor(Math.random() * 30)));
     model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
     model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (15 - Math.floor(Math.random() * 30)));
+    model.rotateOnAxis(new THREE.Vector3(0,1,0).normalize(), (2 * Math.PI * Math.random()));
     tile_forest_positions[ptile['index']].push(model);
     if (scene != null) scene.add(model);
 

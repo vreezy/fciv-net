@@ -175,7 +175,7 @@ function load_model(filename)
   }
 
   if (filename == "Tree1" || filename == "Tree2" || filename == "Tree3" ) {
-    modelscale = 27;
+    modelscale = 29;
   }
   if (filename == "Palm1" || filename == "Palm2") {
     modelscale = 31;
