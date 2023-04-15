@@ -56,6 +56,25 @@ function get_unit_height_offset(punit)
 }
 
 /****************************************************************************
+...
+****************************************************************************/
+function get_forest_offset(ptile)
+{
+    if (!is_ocean_tile(ptile) && is_ocean_tile_near(ptile)) {
+      if (tile_terrain(ptile)['name'] == "Hills") {
+        return  -10;
+      } else if (tile_terrain(ptile)['name'] == "Mountains") {
+        return -14;
+      } else {
+        return  -8;
+      }
+    }
+
+    return -6;
+
+}
+
+/****************************************************************************
   Returns height offset for cities.
 ****************************************************************************/
 function get_city_height_offset(pcity)

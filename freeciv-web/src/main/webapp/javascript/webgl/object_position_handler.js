@@ -472,27 +472,26 @@ function update_tile_forest(ptile)
   var terrain_name = tile_terrain(ptile).name;
 
   if (scene != null && tile_forest_positions[ptile['index']] == null && terrain_name == "Forest" && tile_get_known(ptile) != TILE_UNKNOWN) {
-    var height = 5 + ptile['height'] * 100;
+    var height = 5 + ptile['height'] * 100 + get_forest_offset(ptile);
     tile_forest_positions[ptile['index']] = [];
-    for (var i = 0; i < 7; i++) {
-      var modelname;
-      var rnd = Math.floor(Math.random() * 5);
-      if (rnd == 0) {
-        modelname = "Tree1";
-      } else if (rnd == 1) {
-        modelname = "Tree2";
-      } else if (rnd == 2) {
-        modelname = "Tree3";
-      } else if (rnd == 3) {
-        modelname = "Pine1";
-      } else if (rnd == 4) {
-        modelname = "Pine2";
-      }
-
+    var modelname;
+    var rnd = Math.floor(Math.random() * 5);
+    if (rnd == 0) {
+      modelname = "Tree1";
+    } else if (rnd == 1) {
+      modelname = "Tree2";
+    } else if (rnd == 2) {
+      modelname = "Tree3";
+    } else if (rnd == 3) {
+      modelname = "Pine1";
+    } else if (rnd == 4) {
+      modelname = "Pine2";
+    }
+    for (var i = 0; i < 8; i++) {
       var model = webgl_get_model(modelname, ptile);
       var pos = map_to_scene_coords(ptile['x'], ptile['y']);
       model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (12 - Math.floor(Math.random() * 25)));
-      model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 4);
+      model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
       model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (12 - Math.floor(Math.random() * 25)));
       tile_forest_positions[ptile['index']].push(model);
       if (scene != null) scene.add(model);
@@ -515,21 +514,20 @@ function update_tile_jungle(ptile)
   var terrain_name = tile_terrain(ptile).name;
 
   if (scene != null && tile_forest_positions[ptile['index']] == null && terrain_name == "Jungle" && tile_get_known(ptile) != TILE_UNKNOWN) {
-    var height = 5 + ptile['height'] * 100;
+    var height = 5 + ptile['height'] * 100 + get_forest_offset(ptile);
     tile_forest_positions[ptile['index']] = [];
-    for (var i = 0; i < 4; i++) {
-      var modelname;
-      var rnd = Math.floor(Math.random() * 2);
-      if (rnd == 0) {
-        modelname = "Palm1";
-      } else if (rnd == 1) {
-        modelname = "Palm2";
-      }
-
+    var modelname;
+    var rnd = Math.floor(Math.random() * 2);
+    if (rnd == 0) {
+      modelname = "Palm1";
+    } else if (rnd == 1) {
+      modelname = "Palm2";
+    }
+    for (var i = 0; i < 5; i++) {
       var model = webgl_get_model(modelname, ptile);
       var pos = map_to_scene_coords(ptile['x'], ptile['y']);
       model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (12 - Math.floor(Math.random() * 25)));
-      model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 4);
+      model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
       model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (12 - Math.floor(Math.random() * 25)));
       tile_forest_positions[ptile['index']].push(model);
       if (scene != null) scene.add(model);
@@ -554,13 +552,13 @@ function update_tile_cactus(ptile)
   if (rnd != 1) return;
 
   if (scene != null && tile_forest_positions[ptile['index']] == null && terrain_name == "Desert" && tile_get_known(ptile) != TILE_UNKNOWN) {
-    var height = 5 + ptile['height'] * 100;
+    var height = 5 + ptile['height'] * 100 + get_forest_offset(ptile);
     tile_forest_positions[ptile['index']] = [];
     var modelname = "Cactus1";
     var model = webgl_get_model(modelname, ptile);
     var pos = map_to_scene_coords(ptile['x'], ptile['y']);
     model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (15 - Math.floor(Math.random() * 30)));
-    model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 4);
+    model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height);
     model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (15 - Math.floor(Math.random() * 30)));
     tile_forest_positions[ptile['index']].push(model);
     if (scene != null) scene.add(model);
