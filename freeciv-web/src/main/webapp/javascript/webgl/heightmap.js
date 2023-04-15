@@ -66,7 +66,7 @@ function get_forest_offset(ptile)
       } else if (tile_terrain(ptile)['name'] == "Mountains") {
         return -14;
       } else {
-        return  -8;
+        return  -7;
       }
     }
 
