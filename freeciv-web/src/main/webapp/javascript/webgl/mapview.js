@@ -117,6 +117,7 @@ function webgl_start_renderer()
 
   controls = new OrbitControls( camera, maprenderer.domElement );
   controls.enableDamping = true;
+  controls.enablePan = false;
   controls.dampingFactor = 0.05;
   controls.maxPolarAngle = 0.9 * Math.PI / 2;
 
@@ -127,10 +128,7 @@ function webgl_start_renderer()
 
   const sky = new THREE.WebGLCubeRenderTarget(webgl_textures["skybox"].image.height);
   sky.fromEquirectangularTexture(maprenderer, webgl_textures["skybox"]);
-  if (do_render_skybox()) {
-    scene.background = sky.texture;
-  }
-  scene.originalbackground = sky.texture;
+  scene.background = sky.texture;
 
   animate();
 
@@ -152,7 +150,7 @@ function init_webgl_mapview() {
   selected_unit_material = new THREE.MeshBasicMaterial( { color: 0xf6f7bf, transparent: true, opacity: 0.5} );
 
   var textureLoader = new THREE.TextureLoader();
-  var waterGeometry = new THREE.PlaneGeometry( mapview_model_width + 50, mapview_model_height + 50 );
+  var waterGeometry = new THREE.PlaneGeometry( mapview_model_width, mapview_model_height);
 
   water = new Water(waterGeometry, {
       color: '#55c0ff',
@@ -167,13 +165,14 @@ function init_webgl_mapview() {
 
     } );
 
-    water.rotation.x = - Math.PI * 0.5;
-    water.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), 50);
-    water.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), Math.floor(mapview_model_width / 2) - 500);
-    water.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), -mapview_model_height / 2);
-    water.renderOrder = -1; // Render water first, this will sove transparency issues in city labels.
-    water.castShadow = false;
-    scene.add( water );
+  water.rotation.x = - Math.PI * 0.5;
+  water.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), 50);
+  water.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), Math.floor(mapview_model_width / 2) - 500);
+  water.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), -mapview_model_height / 2);
+  water.renderOrder = -1; // Render water first, this will sove transparency issues in city labels.
+  water.castShadow = false;
+  scene.add( water );
+
 
   /* heightmap image */
   init_borders_image();
@@ -247,16 +246,6 @@ function init_webgl_mapview() {
 
   benchmark_start = new Date().getTime();
 
-  /*for (var x = 0; x < map.xsize ; x++) {
-    for (var y = 0; y < map.ysize; y++) {
-      var ptile = map_pos_to_tile(x, y);
-      var pos = map_to_scene_coords(ptile['x'], ptile['y'] );
-      var label = create_tile_label_sprite(x + ' ' + y);
-      var height = 0.65 * 100;
-      label.position.set(pos['x'], height + 10, pos['y'] );
-      scene.add(label);
-    }
-  }*/
 
 }
 
@@ -364,7 +353,6 @@ function animate() {
 
   update_animated_objects();
 
-
   if (selected_unit_indicator != null && selected_unit_material != null) {
     selected_unit_material.color.multiplyScalar (0.994);
     if (selected_unit_material_counter > 80) {
@@ -388,14 +376,4 @@ function animate() {
 
 
   requestAnimationFrame(animate);
-}
-
-/****************************************************************************
-  Is the camera looking down, then don't render the skybox since it's not visible.
-****************************************************************************/
-function do_render_skybox() {
-  var vector = new THREE.Vector3();
-  camera.getWorldDirection(vector);
-  return -0.44 < Math.sin(vector.y);
-
 }

@@ -183,7 +183,6 @@ class Water extends Mesh {
 		//
 
 		this.onBeforeRender = function ( renderer, scene, camera ) {
-            scene.background = null;
 
 			updateTextureMatrix( camera );
 			updateFlow();
@@ -199,14 +198,6 @@ class Water extends Mesh {
 			scope.visible = true;
 
 		};
-
-        this.onAfterRender = function ( renderer, scene, camera ) {
-			    if (do_render_skybox()) {
-                  scene.background = scene.originalbackground; //modified FCIV.
-                } else {
-                  scene.background = null;
-                }
-        };
 
 	}
 

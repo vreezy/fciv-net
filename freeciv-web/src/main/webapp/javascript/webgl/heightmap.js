@@ -104,6 +104,7 @@ function create_heightmap(heightmap_quality)
       }
 
       if (tile_get_known(ptile) == TILE_UNKNOWN) {
+        ptile['height'] = 0.51;
         var neighbours = [
           { "x": x - 1 , "y": y - 1},
           { "x": x - 1, "y": y },
@@ -117,7 +118,7 @@ function create_heightmap(heightmap_quality)
 
         for (var i = 0; i < 8; i++) {
           var coords = neighbours[i];
-          if (coords.x < 0 || coords.x >= map.xsize || coords.y < 0 || coords.y >= map.ysize) {
+          if (coords.x < 0 || coords.x >= map.xsize || coords.y < 0 || coords.y >= map.ysize || ptile['height'] > 0.51) {
             continue;
           }
           var ntile = map_pos_to_tile(coords.x, coords.y);

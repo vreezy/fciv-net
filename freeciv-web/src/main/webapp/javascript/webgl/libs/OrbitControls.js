@@ -603,7 +603,6 @@ class OrbitControls extends EventDispatcher {
 		}
 
 		function handleKeyDown( event ) {
-		   return false; // modified FCIV.
 
 			let needsUpdate = false;
 
@@ -918,7 +917,7 @@ class OrbitControls extends EventDispatcher {
 					break;
 
 				case 2:
-                    mouseAction = -1; //modified FCIV
+
 					mouseAction = scope.mouseButtons.RIGHT;
 					break;
 
