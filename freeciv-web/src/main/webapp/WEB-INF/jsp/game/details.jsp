@@ -6,8 +6,8 @@
 <head>
 	<%@include file="/WEB-INF/jsp/fragments/head.jsp"%>
     <link rel="stylesheet" href="/css/morris.css" />
-    <script src="/javascript/libs/raphael-min.js"></script>
-	<script type="text/javascript" src="/javascript/libs/morris.min.js" ></script>
+    <script src="/static/javascript/raphael-min.js"></script>
+	<script type="text/javascript" src="/static/javascript/morris.min.js" ></script>
 	<style>
 		.table th {
 			text-align: center;

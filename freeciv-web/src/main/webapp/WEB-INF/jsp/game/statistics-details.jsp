@@ -8,8 +8,8 @@
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="/css/morris.css" />
-<script src="/javascript/libs/raphael-min.js"></script>
-<script src="/javascript/libs/morris.min.js"></script>
+<script src="/static/javascript/raphael-min.js"></script>
+<script src="/static/javascript/morris.min.js"></script>
 <style>
 	.chart {
 		background-color: #fcf1e0;

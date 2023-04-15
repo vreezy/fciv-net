@@ -10,8 +10,7 @@
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="/css/morris.css" />
-<script src="/javascript/libs/raphael-min.js"></script>
-<script src="/javascript/libs/morris.min.js"></script>
+
 <style>
 	table, th, td {
         padding: 4px;
