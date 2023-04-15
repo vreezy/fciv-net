@@ -26,7 +26,8 @@ var webgl_materials = {};
 
 var meshes = {};
 
-var model_filenames_initial = ["Settlers",   "Explorer",   "Workers", "city_european_0",  "city_modern_0", "Warriors", "citywalls"];
+var model_filenames_initial = ["Settlers",   "Explorer",   "Workers", "city_european_0",  "city_modern_0", "Warriors", "citywalls",
+                               "Cactus1", "Palm1", "Palm2", "Pine1", "Pine2", "Tree1", "Tree2", "Tree3"];
 var tiles_of_unloaded_models_map = {};
 
 /****************************************************************************
@@ -186,6 +187,19 @@ function load_model(filename)
   }
   if (filename == 'Chariot') {
     modelscale = 6;
+  }
+
+  if (filename == "Tree1" || filename == "Tree2" || filename == "Tree3" ) {
+    modelscale = 25;
+  }
+  if (filename == "Palm1" || filename == "Palm2") {
+    modelscale = 30;
+  }
+  if (filename == "Cactus1") {
+    modelscale = 45;
+  }
+  if (filename == "Pine1" || filename == "Pine2") {
+    modelscale = 32;
   }
 
     model.scale.x = model.scale.y = model.scale.z = modelscale;

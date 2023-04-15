@@ -44,6 +44,9 @@ var tile_extra_positions = {};
 // key is tile id, value is three.js point object.
 var extra_visibilities = {};
 
+// key is tile is, value is list of three.js tree models.
+var tile_forest_positions = {};
+
 var selected_unit_indicator = null;
 var selected_unit_material = null;
 var selected_unit_material_counter = 0;
@@ -378,6 +381,9 @@ function update_tile_extras(ptile) {
   update_tile_extra_update_model(EXTRA_RUINS, "Ruins", ptile);
   update_tile_extra_update_model(EXTRA_AIRBASE, "Airbase", ptile);
   update_tile_extra_update_model(EXTRA_FORTRESS, "Fortress", ptile);
+  update_tile_forest(ptile);
+  update_tile_jungle(ptile);
+  update_tile_cactus(ptile);
 
   // Render tile specials (extras), as 2D sprites from the 2D version.
   const extra_id = tile_resource(ptile);
@@ -455,6 +461,110 @@ function update_tile_extra_update_model(extra_type, extra_name, ptile)
 
   } else if (scene != null && tile_extra_positions[extra_type + "." + ptile['index']] != null && !tile_has_extra(ptile, extra_type)) {
     scene.remove(tile_extra_positions[extra_type + "." + ptile['index']]);
+  }
+}
+
+/****************************************************************************
+  Adds forest
+****************************************************************************/
+function update_tile_forest(ptile)
+{
+  var terrain_name = tile_terrain(ptile).name;
+
+  if (scene != null && tile_forest_positions[ptile['index']] == null && terrain_name == "Forest" && tile_get_known(ptile) != TILE_UNKNOWN) {
+    var height = 5 + ptile['height'] * 100;
+    tile_forest_positions[ptile['index']] = [];
+    for (var i = 0; i < 7; i++) {
+      var modelname;
+      var rnd = Math.floor(Math.random() * 5);
+      if (rnd == 0) {
+        modelname = "Tree1";
+      } else if (rnd == 1) {
+        modelname = "Tree2";
+      } else if (rnd == 2) {
+        modelname = "Tree3";
+      } else if (rnd == 3) {
+        modelname = "Pine1";
+      } else if (rnd == 4) {
+        modelname = "Pine2";
+      }
+
+      var model = webgl_get_model(modelname, ptile);
+      var pos = map_to_scene_coords(ptile['x'], ptile['y']);
+      model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (12 - Math.floor(Math.random() * 25)));
+      model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 4);
+      model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (12 - Math.floor(Math.random() * 25)));
+      tile_forest_positions[ptile['index']].push(model);
+      if (scene != null) scene.add(model);
+    }
+
+  } else if (scene != null && tile_forest_positions[ptile['index']] != null && terrain_name != "Forest" && terrain_name != "Jungle" && tile_get_known(ptile) != TILE_UNKNOWN) {
+    for (var i = 0; i < tile_forest_positions[ptile['index']].length; i++) {
+      scene.remove(tile_forest_positions[ptile['index']][i]);
+    }
+    tile_forest_positions[ptile['index']] = null;
+  }
+
+}
+
+/****************************************************************************
+  Adds jungle
+****************************************************************************/
+function update_tile_jungle(ptile)
+{
+  var terrain_name = tile_terrain(ptile).name;
+
+  if (scene != null && tile_forest_positions[ptile['index']] == null && terrain_name == "Jungle" && tile_get_known(ptile) != TILE_UNKNOWN) {
+    var height = 5 + ptile['height'] * 100;
+    tile_forest_positions[ptile['index']] = [];
+    for (var i = 0; i < 4; i++) {
+      var modelname;
+      var rnd = Math.floor(Math.random() * 2);
+      if (rnd == 0) {
+        modelname = "Palm1";
+      } else if (rnd == 1) {
+        modelname = "Palm2";
+      }
+
+      var model = webgl_get_model(modelname, ptile);
+      var pos = map_to_scene_coords(ptile['x'], ptile['y']);
+      model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (12 - Math.floor(Math.random() * 25)));
+      model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 4);
+      model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (12 - Math.floor(Math.random() * 25)));
+      tile_forest_positions[ptile['index']].push(model);
+      if (scene != null) scene.add(model);
+    }
+
+  } else if (scene != null && tile_forest_positions[ptile['index']] != null && terrain_name != "Jungle" && terrain_name != "Forest" && tile_get_known(ptile) != TILE_UNKNOWN) {
+    for (var i = 0; i < tile_forest_positions[ptile['index']].length; i++) {
+      scene.remove(tile_forest_positions[ptile['index']][i]);
+    }
+    tile_forest_positions[ptile['index']] = null;
+  }
+}
+
+/****************************************************************************
+  Adds cactus
+****************************************************************************/
+function update_tile_cactus(ptile)
+{
+  var terrain_name = tile_terrain(ptile).name;
+
+  var rnd = Math.floor(Math.random() * 12);
+  if (rnd != 1) return;
+
+  if (scene != null && tile_forest_positions[ptile['index']] == null && terrain_name == "Desert" && tile_get_known(ptile) != TILE_UNKNOWN) {
+    var height = 5 + ptile['height'] * 100;
+    tile_forest_positions[ptile['index']] = [];
+    var modelname = "Cactus1";
+    var model = webgl_get_model(modelname, ptile);
+    var pos = map_to_scene_coords(ptile['x'], ptile['y']);
+    model.translateOnAxis(new THREE.Vector3(1,0,0).normalize(), pos['x'] - 10 + (15 - Math.floor(Math.random() * 30)));
+    model.translateOnAxis(new THREE.Vector3(0,1,0).normalize(), height - 4);
+    model.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), pos['y'] - 10 + (15 - Math.floor(Math.random() * 30)));
+    tile_forest_positions[ptile['index']].push(model);
+    if (scene != null) scene.add(model);
+
   }
 }
 

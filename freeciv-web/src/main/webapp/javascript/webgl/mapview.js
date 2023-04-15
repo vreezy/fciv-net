@@ -338,7 +338,6 @@ function update_map_terrain_geometry()
 
   update_tiles_known_vertex_colors();
   update_tiletypes_image();
-  add_trees_to_landgeometry();
   vertex_colors_dirty = false;
 
 }
