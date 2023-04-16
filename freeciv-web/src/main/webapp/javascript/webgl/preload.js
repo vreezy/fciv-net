@@ -184,7 +184,7 @@ function load_model(filename)
     modelscale = 47;
   }
   if (filename == "Pine1" || filename == "Pine2") {
-    modelscale = 39;
+    modelscale = 40;
   }
 
     model.scale.x = model.scale.y = model.scale.z = modelscale;

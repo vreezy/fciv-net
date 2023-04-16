@@ -54,7 +54,7 @@ var fcwDebug=<%= fcwDebug %>;
 <script type="importmap">
         {
                 "imports": {
-                        "three": "/javascript/webgl/libs/three.module.min.js"
+                        "three": "/javascript/webgl/libs/three.module.min.js?ts=${initParam.buildTimeStamp}"
                 }
         }
 </script>
@@ -63,16 +63,16 @@ var fcwDebug=<%= fcwDebug %>;
   import * as THREE from 'three';
   window.THREE = THREE;
 
-  import { AnaglyphEffect } from '/javascript/webgl/libs/AnaglyphEffect.js';
+  import { AnaglyphEffect } from '/javascript/webgl/libs/AnaglyphEffect.js?ts=${initParam.buildTimeStamp}';
   window.AnaglyphEffect = AnaglyphEffect;
 
-  import { GLTFLoader } from '/javascript/webgl/libs/GLTFLoader.js';
+  import { GLTFLoader } from '/javascript/webgl/libs/GLTFLoader.js?ts=${initParam.buildTimeStamp}';
   window.GLTFLoader = GLTFLoader;
 
-  import { OrbitControls } from '/javascript/webgl/libs/OrbitControls.js';
+  import { OrbitControls } from '/javascript/webgl/libs/OrbitControls.js?ts=${initParam.buildTimeStamp}';
   window.OrbitControls = OrbitControls;
 
-  import { Water } from '/javascript/webgl/libs/Water2.js';
+  import { Water } from '/javascript/webgl/libs/Water2.js?ts=${initParam.buildTimeStamp}';
   window.Water = Water;
 
 </script>
